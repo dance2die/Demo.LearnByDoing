@@ -8,7 +8,7 @@ namespace Demo.LearnByDoing.Permutation
     {
         static void Main(string[] args)
         {
-            var input = "abc";
+            var input = "abcd";
             //Permutation(input);
 
             //Console.WriteLine("++++++++++");
@@ -27,23 +27,24 @@ namespace Demo.LearnByDoing.Permutation
 
         private static IEnumerable<string> GetPermutations(string str, string prefix)
         {
-            Console.WriteLine("str:prefix => {0}:{1} ", str, prefix);
+            var indent = new string('\t', prefix.Length);
+            Console.WriteLine("{0}prefix:str => '{1}':'{2}'", indent, prefix, str);
 
             if (str.Length == 0)
             {
-                Console.WriteLine("\tstr.Length == 0: prefix: '{0}'", prefix);
+                Console.WriteLine("{0}==========>   str.Length == 0: prefix: '{1}'", indent, prefix);
                 yield return prefix;
             }
 
             for (int i = 0; i < str.Length; i++)
             {
                 string remainder = str.Substring(0, i) + str.Substring(i + 1);
-                //Console.WriteLine("'{0}' => remainder: {1}", i, remainder);
-                //Console.WriteLine("\tprefix:str.Substring(0, i) => str.Substring(i + 1) {0}:{1}{2}", prefix, str.Substring(0, i), str.Substring(i + 1));
+                Console.WriteLine("{0}'{1}' => prefix:str:remainder: '{2}':'{3}':'{4}'", indent, i, prefix, str, remainder);
 
-                foreach (var permutation in GetPermutations(remainder, prefix + str[i]).ToList())
+                var nextPrefix = prefix + str[i];
+                Console.WriteLine("{0}next prefix: prefix + str[{1}] '{2}' + '{3}' = '{4}'", indent, i, prefix, str[i], nextPrefix);
+                foreach (var permutation in GetPermutations(remainder, nextPrefix).ToList())
                 {
-                    //Console.WriteLine("\tpermutation: {0}", permutation);
                     yield return permutation;
                 }
             }
