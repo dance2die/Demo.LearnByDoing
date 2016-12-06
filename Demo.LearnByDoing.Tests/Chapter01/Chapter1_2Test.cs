@@ -21,6 +21,7 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         [InlineData("abc", "bca", true)]
         [InlineData("12345", "54321", true)]
         [InlineData("cca", "ccc", false)]
+        [InlineData("a", "ab", false)]
         [InlineData("hello world!", "!world hell", false)]
         public void CompareIfOneTextIsAPermutationOfTheOther(string text1, string text2, bool expected)
         {
@@ -34,6 +35,8 @@ namespace Demo.LearnByDoing.Tests.Chapter01
     {
         public bool AreStringsPermutational(string text1, string text2)
         {
+            if (text1.Length != text2.Length) return false;
+
             string sortedText1 = SortAlphabetically(text1);
             string sortedText2 = SortAlphabetically(text2);
 
