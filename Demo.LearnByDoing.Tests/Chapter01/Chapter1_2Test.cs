@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Demo.LearnByDoing.Tests.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -17,17 +19,41 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         }
 
         [Theory]
-        [InlineData("1", "1", true)]
-        [InlineData("abc", "bca", true)]
-        [InlineData("12345", "54321", true)]
-        [InlineData("cca", "ccc", false)]
-        [InlineData("a", "ab", false)]
-        [InlineData("hello world!", "!world hell", false)]
+        [ClassData(typeof(Chapter1_2Data))]
         public void CompareIfOneTextIsAPermutationOfTheOther(string text1, string text2, bool expected)
         {
             bool actual = _sut.AreStringsPermutational(text1, text2);
 
             Assert.Equal(expected, actual);
+        }
+    }
+
+    /// <summary>
+    /// Data for testing permutations
+    /// </summary>
+    /// <remarks>
+    /// http://stackoverflow.com/a/22093968/4035
+    /// </remarks>
+    public class Chapter1_2Data : IEnumerable<object[]>
+    {
+        private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[] { "1", "1", true },
+            new object[] {"abc", "bca", true },
+            new object[] {"12345", "54321", true },
+            new object[] {"cca", "ccc", false },
+            new object[] {"a", "ab", false },
+            new object[] { "hello world!", "!world hell", false },
+        };
+
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            return _data.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 
