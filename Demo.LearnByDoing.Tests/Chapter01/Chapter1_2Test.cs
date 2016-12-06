@@ -44,6 +44,8 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         {
             if (text1.Length != text2.Length) return false;
 
+            // Use "Join" to get a list of common elements between two lists.
+            // If two texts have the same characters, then the join count and the text will be the same.
             var items = from first in text1.ToCharArray().ToList()
                 join second in text2.ToCharArray().ToList()
                 on first equals second
