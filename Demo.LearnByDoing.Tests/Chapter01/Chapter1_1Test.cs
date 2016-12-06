@@ -4,6 +4,10 @@ using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter01
 {
+    /// <summary>
+    /// 1.1 Implement an algorithm to determine if a string has all unique characters.
+    /// What if you cannot use additional data structures?
+    /// </summary>
     public class Chapter1_1Test : BaseTest
     {
         private readonly Chapter1_1 _sut = new Chapter1_1();
