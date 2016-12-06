@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.LearnByDoing.Permutati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.LearnByDoing.Chapter01", "Demo.LearnByDoing.Chapter01\Demo.LearnByDoing.Chapter01.csproj", "{C1481F52-ABC2-4B62-848B-767E1F732AF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.LearnByDoing.Tests", "Demo.LearnByDoing.Tests\Demo.LearnByDoing.Tests.csproj", "{CE9A7533-5942-40B6-9D69-C0EBEEBC5F23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C1481F52-ABC2-4B62-848B-767E1F732AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1481F52-ABC2-4B62-848B-767E1F732AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1481F52-ABC2-4B62-848B-767E1F732AF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE9A7533-5942-40B6-9D69-C0EBEEBC5F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE9A7533-5942-40B6-9D69-C0EBEEBC5F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE9A7533-5942-40B6-9D69-C0EBEEBC5F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE9A7533-5942-40B6-9D69-C0EBEEBC5F23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,10 +10,19 @@ namespace Demo.LearnByDoing.Chapter01
     {
         public static void Main(string[] args)
         {
-            Answer1_1();
+            //Answer1_1();
+            Answer1_2();
 
             Console.WriteLine("Press ENTER to continue...");
             Console.Read();
+        }
+
+        /// <summary>
+        /// 1.2 Given two strings, write a method to decide if one is a permutation of the other.
+        /// </summary>
+        private static void Answer1_2()
+        {
+            
         }
 
         /// <summary>
