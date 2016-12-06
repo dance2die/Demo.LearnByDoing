@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="Chapter01\Chapter1_1.cs" />
     <Compile Include="Chapter01\Chapter1_1Test.cs" />
+    <Compile Include="Chapter01\Chapter1_2.cs" />
+    <Compile Include="Chapter01\Chapter1_2Data.cs" />
     <Compile Include="Chapter01\Chapter1_2Test.cs" />
     <Compile Include="Core\BaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
