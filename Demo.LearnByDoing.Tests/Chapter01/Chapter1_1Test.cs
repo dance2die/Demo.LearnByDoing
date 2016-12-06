@@ -6,7 +6,7 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 {
     public class Chapter1_1Test : BaseTest
     {
-        private readonly Chapter11 _sut = new Chapter11();
+        private readonly Chapter1_1 _sut = new Chapter1_1();
 
         public Chapter1_1Test(ITestOutputHelper output) : base(output)
         {

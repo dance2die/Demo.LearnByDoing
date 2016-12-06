@@ -2,7 +2,7 @@
 
 namespace Demo.LearnByDoing.Tests.Chapter01
 {
-    public class Chapter11
+    public class Chapter1_1
     {
         public bool HasUniqueCharacters(string text)
         {

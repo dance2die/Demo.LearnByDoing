@@ -56,8 +56,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chapter01\Chapter11.cs" />
+    <Compile Include="Chapter01\Chapter1_1.cs" />
     <Compile Include="Chapter01\Chapter1_1Test.cs" />
+    <Compile Include="Chapter01\Chapter1_2Test.cs" />
     <Compile Include="Core\BaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
