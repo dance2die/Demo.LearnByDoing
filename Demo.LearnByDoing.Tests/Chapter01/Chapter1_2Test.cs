@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Demo.LearnByDoing.Tests.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -29,9 +30,9 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
         [Theory]
         [ClassData(typeof(Chapter1_2Data))]
-        public void CompareIfOneTextIsAPermutationOfTheOtherUsingHashSet(string text1, string text2, bool expected)
+        public void CompareIfOneTextIsAPermutationOfTheOtherUsingLinq(string text1, string text2, bool expected)
         {
-            bool actual = _sut.AreStringsPermutationalUsingHashSet(text1, text2);
+            bool actual = _sut.AreStringsPermutationalUsingLinq(text1, text2);
 
             Assert.Equal(expected, actual);
         }
@@ -39,11 +40,16 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
     public class Chapter1_2
     {
-        public bool AreStringsPermutationalUsingHashSet(string text1, string text2)
+        public bool AreStringsPermutationalUsingLinq(string text1, string text2)
         {
             if (text1.Length != text2.Length) return false;
 
-            return false;
+            var items = from first in text1.ToCharArray().ToList()
+                join second in text2.ToCharArray().ToList()
+                on first equals second
+                select first;
+
+            return items.Count() == text1.Length;
         }
 
         public bool AreStringsPermutational(string text1, string text2)
