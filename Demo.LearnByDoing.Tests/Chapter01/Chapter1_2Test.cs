@@ -26,6 +26,43 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [ClassData(typeof(Chapter1_2Data))]
+        public void CompareIfOneTextIsAPermutationOfTheOtherUsingHashSet(string text1, string text2, bool expected)
+        {
+            bool actual = _sut.AreStringsPermutationalUsingHashSet(text1, text2);
+
+            Assert.Equal(expected, actual);
+        }
+    }
+
+    public class Chapter1_2
+    {
+        public bool AreStringsPermutationalUsingHashSet(string text1, string text2)
+        {
+            if (text1.Length != text2.Length) return false;
+
+            return false;
+        }
+
+        public bool AreStringsPermutational(string text1, string text2)
+        {
+            if (text1.Length != text2.Length) return false;
+
+            string sortedText1 = SortAlphabetically(text1);
+            string sortedText2 = SortAlphabetically(text2);
+
+            return sortedText1 == sortedText2;
+        }
+
+        private string SortAlphabetically(string text)
+        {
+            var charArray = text.ToCharArray();
+            Array.Sort(charArray);
+
+            return new string(charArray);
+        }
     }
 
     /// <summary>
@@ -54,27 +91,6 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-    }
-
-    public class Chapter1_2
-    {
-        public bool AreStringsPermutational(string text1, string text2)
-        {
-            if (text1.Length != text2.Length) return false;
-
-            string sortedText1 = SortAlphabetically(text1);
-            string sortedText2 = SortAlphabetically(text2);
-
-            return sortedText1 == sortedText2;
-        }
-
-        private string SortAlphabetically(string text)
-        {
-            var charArray = text.ToCharArray();
-            Array.Sort(charArray);
-
-            return new string(charArray);
         }
     }
 }
