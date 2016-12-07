@@ -64,6 +64,7 @@
     <Compile Include="Chapter01\Chapter1_3.cs" />
     <Compile Include="Chapter01\Chapter1_3Data.cs" />
     <Compile Include="Chapter01\Chapter1_3Test.cs" />
+    <Compile Include="Chapter01\Chapter1_4Test.cs" />
     <Compile Include="Core\BaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
