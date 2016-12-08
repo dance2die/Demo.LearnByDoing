@@ -2,10 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Tests.Core;
-using Microsoft.SqlServer.Server;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -48,10 +45,59 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        // Taco Cat or Atco Cta
+        [InlineData("Tact Coa", true)]
+        [InlineData("aab", true)]
+        [InlineData("aabbcc", true)]
+        // Racecar
+        [InlineData("raccear", true)]
+        // Kayak
+        [InlineData("yakka", true)]
+        [InlineData("ybbakka", true)]
+        [InlineData("abcab", true)]
+        [InlineData("abbbc", false)]
+        [InlineData("ab", false)]
+        [InlineData("abc", false)]
+        [InlineData("abcd", false)]
+        [InlineData("abcde", false)]
+        public void CheckIfTextCanBeAPalindrome(string text, bool expected)
+        {
+            bool actual = _sut.GetPalindromes(text).Count() > 1;
+
+            Assert.Equal(expected, actual);
+        }
+
+        //[Theory]
+        //// Taco Cat or Atco Cta
+        //[InlineData("Tact Coa", true)]
+        //[InlineData("aab", true)]
+        //[InlineData("aabbcc", true)]
+        //// Racecar
+        //[InlineData("raccear", true)]
+        //// Kayak
+        //[InlineData("yakka", true)]
+        //[InlineData("ybbakka", true)]
+        //[InlineData("abcab", true)]
+        //[InlineData("abbbc", false)]
+        //[InlineData("ab", false)]
+        //[InlineData("abc", false)]
+        //[InlineData("abcd", false)]
+        //[InlineData("abcde", false)]
+        //public void TestForPalindromenessOfText(string text, bool expected)
+        //{
+        //    bool actual = _sut.
+        //}
     }
 
     public class Chapter1_4
     {
+        public IEnumerable<string> GetPalindromes(string text)
+        {
+            yield break;
+        }
+
         public bool IsPalindrome(string text)
         {
             // By definition, if one letter is a palindrome
