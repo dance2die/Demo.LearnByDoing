@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.LearnByDoing.Tests.Core;
+using Microsoft.SqlServer.Server;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter01
@@ -27,10 +29,41 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         public Chapter1_4Test(ITestOutputHelper output) : base(output)
         {
         }
+
+        [Theory]
+        [InlineData("Tact Coa", false)]
+        [InlineData("taco cat", true)]
+        [InlineData("atco cta", true)]
+        [InlineData("race car", true)]
+        [InlineData("civic", true)]
+        [InlineData("aabbcc bbaa", true)]
+        [InlineData("aa", true)]
+        [InlineData("a", true)]
+        [InlineData("ab", false)]
+        [InlineData("abc", false)]
+        [InlineData("abcd", false)]
+        public void IsPalindrome(string text, bool expected)
+        {
+            bool actual = _sut.IsPalindrome(text);
+
+            Assert.Equal(expected, actual);
+        }
     }
 
     public class Chapter1_4
     {
+        public bool IsPalindrome(string text)
+        {
+            // By definition, if one letter is a palindrome
+            if (text.Length == 1) return true;
+
+            Func<char, bool> isNotSpace = c => c != ' ';
+
+            string reverseWithoutSpace = new string(text.Where(isNotSpace).Reverse().ToArray()).ToLower();
+            string textWithoutSpace = new string(text.Where(isNotSpace).ToArray()).ToLower();
+
+            return textWithoutSpace == reverseWithoutSpace;
+        }
     }
 
     public class Chapter1_4Data : IEnumerable<object[]>
