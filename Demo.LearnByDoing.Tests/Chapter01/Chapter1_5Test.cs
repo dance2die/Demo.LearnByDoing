@@ -48,6 +48,7 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         [InlineData("plee", "pale", false)]
         [InlineData("pales", "pale", true)]
         [InlineData("pale", "pales", true)]
+        [InlineData("spale", "pale", true)]
         [InlineData("pale", "bale", true)]
         [InlineData("bale", "pale", true)]
         [InlineData("pale", "palee", true)]
@@ -66,24 +67,65 @@ namespace Demo.LearnByDoing.Tests.Chapter01
     {
         public bool IsOneEditAway(string text1, string text2)
         {
-            var c1 = text1.ToCharArray().ToList();
-            var c2 = text2.ToCharArray().ToList();
+            List<char> c1, c2;
 
-            int differenceCount = 0;
-
-            int length = Math.Min(c1.Count, c2.Count);
-            for (int i = 0; i < length; i++)
+            if (text1.Length <= text2.Length)
             {
-                if (c1[i] != c2[i])
-                    differenceCount++;
-
-                if (differenceCount > 1)
-                    return false;
+                c1 = text1.ToCharArray().ToList();
+                c2 = text2.ToCharArray().ToList();
+            }
+            else
+            {
+                c1 = text2.ToCharArray().ToList();
+                c2 = text1.ToCharArray().ToList();
             }
 
-            differenceCount += Math.Max(c1.Count, c2.Count) - length;
+            List<char> temp1 = new List<char>(c1);
+            string c2Text = new string(c2.ToArray());
 
-            return differenceCount <= 1;
+            for (int i = 0; i < c1.Count; i++)
+            {
+
+                if (c1[i] != c2[i])
+                {
+                    //*** Insert check
+                    temp1.Insert(i, c2[i]);
+                    if (c2Text == new string(temp1.ToArray()))
+                        return true;
+
+                    // reset the list.
+                    temp1 = new List<char>(c1);
+
+                    //*** Remove check
+                    temp1.RemoveAt(i);
+                    if (c2Text == new string(temp1.ToArray()))
+                        return true;
+
+                    // reset the list.
+                    temp1 = new List<char>(c1);
+
+                    //*** Replace check
+                    temp1[i] = c2[i];
+                    if (c2Text == new string(temp1.ToArray()))
+                        return true;
+                }
+            }
+
+            // Insert the rest of c2 to temp1 and compare.
+            if (c2.Count - c1.Count == 1)
+            {
+                // reset the list.
+                temp1 = new List<char>(c1);
+
+                //** insert the rest
+                temp1.Insert(c1.Count, c2[c1.Count]);
+
+                if (c2Text == new string(temp1.ToArray()))
+                    return true;
+            }
+
+
+            return false;
         }
     }
 
