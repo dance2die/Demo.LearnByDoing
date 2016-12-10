@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Demo.LearnByDoing.Tests.Core;
@@ -39,15 +40,23 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         /// <param name="text2"></param>
         /// <param name="expected"></param>
         [Theory]
-        [InlineData("pale", "ple", 1)]
-        [InlineData("pale", "plee", 2)]
-        [InlineData("pales", "pale", 1)]
-        [InlineData("pale", "bale", 1)]
-        [InlineData("pale", "palee", 1)]
-        [InlineData("pale", "baleee", 3)]
-        public void TestCharacterDifferenceCount(string text1, string text2, int expected)
+        [InlineData("pale", "ple", true)]
+        [InlineData("abcd", "abc", true)]
+        [InlineData("abd", "abcd", true)]
+        [InlineData("ple", "pale", true)]
+        [InlineData("pale", "plee", false)]
+        [InlineData("plee", "pale", false)]
+        [InlineData("pales", "pale", true)]
+        [InlineData("pale", "pales", true)]
+        [InlineData("pale", "bale", true)]
+        [InlineData("bale", "pale", true)]
+        [InlineData("pale", "palee", true)]
+        [InlineData("palee", "pale", true)]
+        [InlineData("pale", "baleee", false)]
+        [InlineData("baleee", "pale", false)]
+        public void TestCharacterDifferenceCount(string text1, string text2, bool expected)
         {
-            int actual = _sut.GetCharacterDifferenceCount(text1, text2);
+            bool actual = _sut.IsOneEditAway(text1, text2);
 
             Assert.Equal(expected, actual);
         }
@@ -55,14 +64,26 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
     public class Chapter1_5
     {
-        public int GetCharacterDifferenceCount(string text1, string text2)
+        public bool IsOneEditAway(string text1, string text2)
         {
-            HashSet<char> set1 = new HashSet<char>(text1.ToCharArray());
-            HashSet<char> set2 = new HashSet<char>(text2.ToCharArray());
+            var c1 = text1.ToCharArray().ToList();
+            var c2 = text2.ToCharArray().ToList();
 
-            IEnumerable<char> intersection = set1.Intersect(set2);
+            int differenceCount = 0;
 
-            return text1.Length - intersection.Count();
+            int length = Math.Min(c1.Count, c2.Count);
+            for (int i = 0; i < length; i++)
+            {
+                if (c1[i] != c2[i])
+                    differenceCount++;
+
+                if (differenceCount > 1)
+                    return false;
+            }
+
+            differenceCount += Math.Max(c1.Count, c2.Count) - length;
+
+            return differenceCount <= 1;
         }
     }
 
