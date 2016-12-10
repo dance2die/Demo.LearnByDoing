@@ -40,21 +40,7 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         /// <param name="text2"></param>
         /// <param name="expected"></param>
         [Theory]
-        [InlineData("pale", "ple", true)]
-        [InlineData("abcd", "abc", true)]
-        [InlineData("abd", "abcd", true)]
-        [InlineData("ple", "pale", true)]
-        [InlineData("pale", "plee", false)]
-        [InlineData("plee", "pale", false)]
-        [InlineData("pales", "pale", true)]
-        [InlineData("pale", "pales", true)]
-        [InlineData("spale", "pale", true)]
-        [InlineData("pale", "bale", true)]
-        [InlineData("bale", "pale", true)]
-        [InlineData("pale", "palee", true)]
-        [InlineData("palee", "pale", true)]
-        [InlineData("pale", "baleee", false)]
-        [InlineData("baleee", "pale", false)]
+        [ClassData(typeof(Chapter1_5Data))]
         public void TestCharacterDifferenceCount(string text1, string text2, bool expected)
         {
             bool actual = _sut.IsOneEditAway(text1, text2);
@@ -133,7 +119,21 @@ namespace Demo.LearnByDoing.Tests.Chapter01
     {
         private readonly List<object[]> _data = new List<object[]>
         {
-            
+            new object[]{"pale", "ple", true},
+            new object[]{"abcd", "abc", true},
+            new object[]{"abd", "abcd", true},
+            new object[]{"ple", "pale", true},
+            new object[]{"pale", "plee", false},
+            new object[]{"plee", "pale", false},
+            new object[]{"pales", "pale", true},
+            new object[]{"pale", "pales", true},
+            new object[]{"spale", "pale", true},
+            new object[]{"pale", "bale", true},
+            new object[]{"bale", "pale", true},
+            new object[]{"pale", "palee", true},
+            new object[]{"palee", "pale", true},
+            new object[]{"pale", "baleee", false},
+            new object[] { "baleee", "pale", false},
         };
 
         public IEnumerator<object[]> GetEnumerator()
