@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Demo.LearnByDoing.Tests.Core;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter01
@@ -19,6 +20,13 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         public Chapter1_6Test(ITestOutputHelper output) : base(output)
         {
         }
+
+        [Theory]
+        [ClassData(typeof(Chapter1_6Data))]
+        public void TestCompression(string text, string expected)
+        {
+            
+        }
     }
 
     public class Chapter1_6
@@ -29,7 +37,11 @@ namespace Demo.LearnByDoing.Tests.Chapter01
     {
         private readonly List<object[]> _data = new List<object[]>
         {
-            
+            new object[] { "aabcccccaaa", "a2b1c53" },
+            new object[] { "aaabcccccaaa", "a3b1c53" },
+            new object[] { "aaabcaaa", "a3b1c13" },
+            new object[] { "aabbcc", "a2b2c2" },
+            new object[] { "abcd", "abcd" },
         };
 
         public IEnumerator<object[]> GetEnumerator()
