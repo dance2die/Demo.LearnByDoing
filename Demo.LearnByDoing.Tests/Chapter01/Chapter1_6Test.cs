@@ -10,7 +10,7 @@ namespace Demo.LearnByDoing.Tests.Chapter01
     /// <summary>
     /// String Comparison:
     /// Implement a method to perform basic string compression using the counts of repeated characters.
-    /// For example, the string aabcccccaaa would become a2b1c53.
+    /// For example, the string aabcccccaaa would become a2b1c5a3.
     /// If "compressed" string would not become smaller than the original string, your method should return the original string.
     /// You can assume the string has only uppercase and lowercase letters (1-z).
     /// </summary>
@@ -56,6 +56,8 @@ namespace Demo.LearnByDoing.Tests.Chapter01
             char prevChar = text[0];
             int compressedIndex = 0;
             int charCount = 1;
+            // we are adding two strings into array, current character and the number of occurrences.
+            const int indexOffset = 2;
 
             // Skip the first character.
             foreach (char currChar in text.Skip(1))
@@ -66,20 +68,21 @@ namespace Demo.LearnByDoing.Tests.Chapter01
                 }
                 else
                 {
-                    compressed[compressedIndex++] = prevChar.ToString();
-                    if (charCount > 1)
-                    {
-                        compressed[compressedIndex++] = charCount.ToString();
-                    }
+                    if (compressedIndex + indexOffset > text.Length) return text;
+
+                    compressed[compressedIndex] = prevChar.ToString();
+                    compressed[compressedIndex + 1] = charCount.ToString();
 
                     prevChar = currChar;
-
                     charCount = 1;
+
+                    compressedIndex += indexOffset;
                 }
             }
 
-            compressed[compressedIndex++] = prevChar.ToString();
-            compressed[compressedIndex] = charCount.ToString();
+            // Set the last character's data
+            compressed[compressedIndex] = prevChar.ToString();
+            compressed[compressedIndex + 1] = charCount.ToString();
 
             return string.Join("", compressed);
         }
@@ -89,9 +92,9 @@ namespace Demo.LearnByDoing.Tests.Chapter01
     {
         private readonly List<object[]> _data = new List<object[]>
         {
-            new object[] { "aabcccccaaa", "a2b1c53" },
-            new object[] { "aaabcccccaaa", "a3b1c53" },
-            new object[] { "aaabcaaa", "a3b1c13" },
+            new object[] { "aabcccccaaa", "a2b1c5a3" },
+            new object[] { "aaabcccccaaa", "a3b1c5a3" },
+            new object[] { "aaabcaaa", "a3b1c1a3" },
             new object[] { "aabbcc", "a2b2c2" },
             new object[] { "abcd", "abcd" },
             new object[] { "a", "a" },
