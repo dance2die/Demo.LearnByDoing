@@ -62,7 +62,7 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
             for (int depthIndex = 0; depthIndex < depth; depthIndex++)
             {
-                for (int index = 0, reverseIndex = n - 1; index < n - 1; index++, reverseIndex--)
+                for (int index = 0, reverseIndex = n - 1; index < n - 1 - (depthIndex * 2); index++, reverseIndex--)
                 {
                     // top to right layer
                     var tempRightLayer = a[index + depthIndex, n - offset];
