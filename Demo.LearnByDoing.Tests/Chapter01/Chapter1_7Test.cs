@@ -54,7 +54,7 @@ namespace Demo.LearnByDoing.Tests.Chapter01
             };
 
             // offset when we process each layer.
-            const int offset = 1;
+            int offset = 1;
 
             var half = a.GetLength(0) / 2;
             var depth = half % 2 == 0 ? half : half + 1;
@@ -62,13 +62,11 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
             for (int depthIndex = 0; depthIndex < depth; depthIndex++)
             {
-                for (int index = 0, reverseIndex = n - 1; index < n; index++, reverseIndex--)
+                for (int index = 0, reverseIndex = n - 1; index < n - 1; index++, reverseIndex--)
                 {
-                    //var reverseIndex = (n - deapthIndex) % (index + 1);
-
                     // top to right layer
-                    var tempRightLayer = a[index + depthIndex, n - 1];
-                    a[index + depthIndex, n - 1] = a[depthIndex, index + depthIndex];
+                    var tempRightLayer = a[index + depthIndex, n - offset];
+                    a[index + depthIndex, n - offset] = a[depthIndex, index + depthIndex];
 
                     // right to bottom layer
                     var tempBottomLayer = a[n - 1 - depthIndex, reverseIndex - depthIndex];
@@ -81,15 +79,32 @@ namespace Demo.LearnByDoing.Tests.Chapter01
                     // left to top layer
                     a[depthIndex, index + depthIndex] = tempLeftLayer;
                 }
+
+                offset++;
             }
 
             var equal =
                 expected.Rank == a.Rank
                 && Enumerable.Range(0, expected.Rank)
                     .All(dimension => expected.GetLength(dimension) == a.GetLength(dimension))
-                && expected.Cast<double>().SequenceEqual(a.Cast<double>());
+                && expected.Cast<int>().SequenceEqual(a.Cast<int>());
 
             Assert.True(equal);
+        }
+
+        private void PrintArray(int[,] a)
+        {
+            var rows = "";
+            for (int i = 0; i < a.GetLength(0); i++)
+            {
+                for (int j = 0; j < a.GetLength(1); j++)
+                {
+                    rows += " " + a[i, j];
+                }
+                rows += Environment.NewLine;
+            }
+
+            _output.WriteLine(rows);
         }
     }
 
