@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Demo.LearnByDoing.Tests.Core;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter01
@@ -19,6 +22,75 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         public Chapter1_7Test(ITestOutputHelper output) : base(output)
         {
         }
+
+        [Fact]
+        //[ClassData(typeof(Chapter1_7Data))]
+        //public void TestRightRotation(int[,] input, int[,] expected)
+        public void TestRightRotation()
+        {
+            // 4x4 Matrix
+            var a = new[,]
+            {
+                //{0, 0}, {0, 1}, {0, 2}, {0, 3},
+                //{1, 0}, {1, 1}, {1, 2}, {1, 3},
+                //{2, 0}, {2, 1}, {2, 2}, {2, 3},
+                //{3, 0}, {3, 1}, {3, 2}, {3, 3},
+
+                {0,1,2,3},
+                {4,5,6,7},
+                {8,9,10,11},
+                {12,13,14,15}
+            };
+            var expected = new[,]
+            {
+                //{3, 0}, {2, 0}, {1, 0}, {0, 0},
+                //{3, 1}, {2, 1}, {1, 1}, {0, 1},
+                //{3, 2}, {2, 2}, {1, 2}, {0, 2},
+                //{3, 3}, {2, 3}, {1, 3}, {0, 3},
+                {12,8,4,0},
+                {13,9,5,1},
+                {14,10,6,2},
+                {15,11,7,3}
+            };
+
+            // offset when we process each layer.
+            const int offset = 1;
+
+            var half = a.GetLength(0) / 2;
+            var depth = half % 2 == 0 ? half : half + 1;
+            var n = a.GetLength(1);
+
+            for (int depthIndex = 0; depthIndex < depth; depthIndex++)
+            {
+                for (int index = 0, reverseIndex = n - 1; index < n; index++, reverseIndex--)
+                {
+                    //var reverseIndex = (n - deapthIndex) % (index + 1);
+
+                    // top to right layer
+                    var tempRightLayer = a[index + depthIndex, n - 1];
+                    a[index + depthIndex, n - 1] = a[depthIndex, index + depthIndex];
+
+                    // right to bottom layer
+                    var tempBottomLayer = a[n - 1 - depthIndex, reverseIndex - depthIndex];
+                    a[n - 1 - depthIndex, reverseIndex - depthIndex] = tempRightLayer;
+
+                    // bottom to left layer
+                    var tempLeftLayer = a[reverseIndex - depthIndex, depthIndex];
+                    a[reverseIndex - depthIndex, depthIndex] = tempBottomLayer;
+
+                    // left to top layer
+                    a[depthIndex, index + depthIndex] = tempLeftLayer;
+                }
+            }
+
+            var equal =
+                expected.Rank == a.Rank
+                && Enumerable.Range(0, expected.Rank)
+                    .All(dimension => expected.GetLength(dimension) == a.GetLength(dimension))
+                && expected.Cast<double>().SequenceEqual(a.Cast<double>());
+
+            Assert.True(equal);
+        }
     }
 
     public class Chapter1_7
@@ -29,7 +101,23 @@ namespace Demo.LearnByDoing.Tests.Chapter01
     {
         private readonly List<object[]> _data = new List<object[]>
         {
-            
+            new object[]
+            {
+                new [,]
+                {
+                    {0,0}, {0,1}, {0,2}, {0,3},
+                    {1,0}, {1,1}, {1,2}, {1,3},
+                    {2,0}, {2,1}, {2,2}, {2,3},
+                    {3,0}, {3,1}, {3,2}, {3,3},
+                },
+                new [,]
+                {
+                    {3,0}, {2,0}, {1,0}, {0,0},
+                    {3,1}, {2,1}, {1,1}, {0,1},
+                    {3,2}, {2,2}, {1,2}, {0,2},
+                    {3,3}, {2,3}, {1,3}, {0,3},
+                }
+            }
         };
 
         public IEnumerator<object[]> GetEnumerator()
