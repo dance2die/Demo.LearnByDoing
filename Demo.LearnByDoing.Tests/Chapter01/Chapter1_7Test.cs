@@ -17,8 +17,6 @@ namespace Demo.LearnByDoing.Tests.Chapter01
     /// </summary>
     public class Chapter1_7Test : BaseTest
     {
-        private readonly Chapter1_7 _sut = new Chapter1_7();
-
         public Chapter1_7Test(ITestOutputHelper output) : base(output)
         {
         }
@@ -105,44 +103,6 @@ namespace Demo.LearnByDoing.Tests.Chapter01
             }
 
             _output.WriteLine(rows);
-        }
-    }
-
-    public class Chapter1_7
-    {
-    }
-
-    public class Chapter1_7Data : IEnumerable<object[]>
-    {
-        private readonly List<object[]> _data = new List<object[]>
-        {
-            new object[]
-            {
-                new [,]
-                {
-                    {0,0}, {0,1}, {0,2}, {0,3},
-                    {1,0}, {1,1}, {1,2}, {1,3},
-                    {2,0}, {2,1}, {2,2}, {2,3},
-                    {3,0}, {3,1}, {3,2}, {3,3},
-                },
-                new [,]
-                {
-                    {3,0}, {2,0}, {1,0}, {0,0},
-                    {3,1}, {2,1}, {1,1}, {0,1},
-                    {3,2}, {2,2}, {1,2}, {0,2},
-                    {3,3}, {2,3}, {1,3}, {0,3},
-                }
-            }
-        };
-
-        public IEnumerator<object[]> GetEnumerator()
-        {
-            return _data.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }
