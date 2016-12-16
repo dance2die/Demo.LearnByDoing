@@ -21,7 +21,7 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         {
         }
 
-        [Theory]
+        [Fact]
         //[ClassData(typeof(Chapter1_8Data))]
         //public void TestGettingZeroPositions(int[,] matrix, int matrix1)
         public void TestGettingZeroPositionCoordinates()
@@ -35,7 +35,18 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
             var actual = _sut.GetZeroPositions(matrix).ToList();
 
-            
+            if (expected.Count != actual.Count)
+                Assert.True(false, "length not the same");
+
+            for (int i = 0; i < expected.Count; i++)
+            {
+                if (expected[i].Item1 != actual[i].Item1 || expected[i].Item2 != actual[i].Item2)
+                {
+                    Assert.True(false, "item not the same!");
+                }
+            }
+
+            Assert.True(true, "Test passes!");
         }
     }
 
