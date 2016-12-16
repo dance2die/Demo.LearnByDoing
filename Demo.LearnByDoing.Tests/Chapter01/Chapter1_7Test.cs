@@ -81,13 +81,13 @@ namespace Demo.LearnByDoing.Tests.Chapter01
                 offset++;
             }
 
-            var equal =
-                expected.Rank == a.Rank
-                && Enumerable.Range(0, expected.Rank)
-                    .All(dimension => expected.GetLength(dimension) == a.GetLength(dimension))
-                && expected.Cast<int>().SequenceEqual(a.Cast<int>());
+            //var equal =
+            //    expected.Rank == a.Rank
+            //    && Enumerable.Range(0, expected.Rank)
+            //        .All(dimension => expected.GetLength(dimension) == a.GetLength(dimension))
+            //    && expected.Cast<int>().SequenceEqual(a.Cast<int>());
 
-            Assert.True(equal);
+            Assert.True(AreTwoMultidimensionalArraysSame(expected, a));
         }
 
         private void PrintArray(int[,] a)
