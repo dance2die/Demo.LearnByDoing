@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Demo.LearnByDoing.Tests.Core;
@@ -97,109 +96,6 @@ namespace Demo.LearnByDoing.Tests.Chapter01
             {
                 matrix[rowIndex, columnIndex] = 0;
             }
-        }
-
-        // doesn't look fast enough of algorithm...
-        //[Fact]
-        public void TestGettingCoordinatestoZeroOut()
-        {
-            var matrix = new[,]
-            {
-                { 1, 2, 3, 0, 5 },
-                { 1, 2, 3, 4, 5 },
-                { 1, 2, 0, 4, 5 },
-                { 1, 2, 3, 4, 5 },
-                { 0, 2, 3, 4, 5 }
-            };
-
-            //var expected = new[,]
-            //{
-            //    { 0, 0, 0, 0, 0 },
-            //    { 0, 2, 0, 0, 5 },
-            //    { 0, 0, 0, 0, 0 },
-            //    { 0, 2, 0, 0, 5 },
-            //    { 0, 0, 0, 0, 0 }
-            //};
-
-            HashSet<Tuple<int, int>> expected = new HashSet<Tuple<int, int>>
-            {
-                new Tuple<int, int>(0, 0),
-                new Tuple<int, int>(0, 1),
-                new Tuple<int, int>(0, 2),
-                new Tuple<int, int>(0, 4),
-                new Tuple<int, int>(1, 3),
-                new Tuple<int, int>(2, 3),
-                new Tuple<int, int>(3, 3),
-                new Tuple<int, int>(4, 3),
-
-                new Tuple<int, int>(1, 2),
-                new Tuple<int, int>(3, 2),
-                new Tuple<int, int>(4, 2),
-                new Tuple<int, int>(2, 0),
-                new Tuple<int, int>(2, 1),
-                new Tuple<int, int>(2, 3),
-                new Tuple<int, int>(2, 4),
-
-                new Tuple<int, int>(1, 0),
-                new Tuple<int, int>(3, 0),
-                new Tuple<int, int>(4, 1),
-                new Tuple<int, int>(4, 3),
-                new Tuple<int, int>(4, 4),
-            };
-
-            HashSet<Tuple<int, int>> actual = _sut.GetCoordinatesToZeroOut(matrix);
-
-            if (expected.Count != actual.Count)
-                Assert.True(false, "Count is not the same!");
-
-            if (expected.Intersect(actual).Count() != expected.Count)
-                Assert.True(false, "Wrong result!");
-
-            Assert.True(true, "Passes!");
-        }
-    }
-
-    public class Chapter1_8
-    {
-        public HashSet<Tuple<int, int>> GetCoordinatesToZeroOut(int[,] matrix)
-        {
-            var zeroPositions = GetZeroPositions(matrix);
-
-            return null;
-        }
-
-        public IEnumerable<Tuple<int, int>> GetZeroPositions(int[,] matrix)
-        {
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix.GetLength(1); j++)
-                {
-                    if (matrix[i, j] == 0)
-                        yield return new Tuple<int, int>(i, j);
-                }
-            }
-        }
-    }
-
-    public class Chapter1_8Data : IEnumerable<object[]>
-    {
-        private readonly List<object[]> _data = new List<object[]>
-        {
-            new object[]
-            {
-                new[,] { { 0, 1, 2 }, { 3, 4, 5 } },
-                1
-            }
-        };
-
-        public IEnumerator<object[]> GetEnumerator()
-        {
-            return _data.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }
