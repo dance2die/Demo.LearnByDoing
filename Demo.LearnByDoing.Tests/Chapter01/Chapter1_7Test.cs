@@ -89,20 +89,5 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
             Assert.True(AreTwoMultidimensionalArraysSame(expected, a));
         }
-
-        private void PrintArray(int[,] a)
-        {
-            var rows = "";
-            for (int i = 0; i < a.GetLength(0); i++)
-            {
-                for (int j = 0; j < a.GetLength(1); j++)
-                {
-                    rows += " " + a[i, j];
-                }
-                rows += Environment.NewLine;
-            }
-
-            _output.WriteLine(rows);
-        }
     }
 }

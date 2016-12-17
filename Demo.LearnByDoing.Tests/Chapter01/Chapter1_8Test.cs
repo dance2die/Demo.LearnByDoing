@@ -48,10 +48,126 @@ namespace Demo.LearnByDoing.Tests.Chapter01
 
             Assert.True(true, "Test passes!");
         }
+
+
+        [Fact]
+        public void TestZeroingOutZeroCells()
+        {
+            var matrix = new[,]
+            {
+                { 1, 2, 3, 0, 5 },
+                { 1, 2, 3, 4, 5 },
+                { 1, 2, 0, 4, 5 },
+                { 1, 2, 3, 4, 5 },
+                { 0, 2, 3, 4, 5 }
+            };
+
+            var expected = new[,]
+            {
+                { 0, 0, 0, 0, 0 },
+                { 0, 2, 0, 0, 5 },
+                { 0, 0, 0, 0, 0 },
+                { 0, 2, 0, 0, 5 },
+                { 0, 0, 0, 0, 0 }
+            };
+
+            var zeroPositions = _sut.GetZeroPositions(matrix);
+
+            int[,] copy = matrix.Clone() as int[,];
+            foreach (Tuple<int, int> zeroPosition in zeroPositions)
+            {
+                ZeroRow(copy, zeroPosition.Item1);
+                ZeroColumn(copy, zeroPosition.Item2);
+            }
+
+            Assert.True(AreTwoMultidimensionalArraysSame(expected, copy));
+        }
+
+        private void ZeroRow(int[,] matrix, int rowIndex)
+        {
+            for (int columnIndex = 0; columnIndex < matrix.GetLength(1); columnIndex++)
+            {
+                matrix[rowIndex, columnIndex] = 0;
+            }
+        }
+
+        private void ZeroColumn(int[,] matrix, int columnIndex)
+        {
+            for (int rowIndex = 0; rowIndex < matrix.GetLength(1); rowIndex++)
+            {
+                matrix[rowIndex, columnIndex] = 0;
+            }
+        }
+
+        // doesn't look fast enough of algorithm...
+        //[Fact]
+        public void TestGettingCoordinatestoZeroOut()
+        {
+            var matrix = new[,]
+            {
+                { 1, 2, 3, 0, 5 },
+                { 1, 2, 3, 4, 5 },
+                { 1, 2, 0, 4, 5 },
+                { 1, 2, 3, 4, 5 },
+                { 0, 2, 3, 4, 5 }
+            };
+
+            //var expected = new[,]
+            //{
+            //    { 0, 0, 0, 0, 0 },
+            //    { 0, 2, 0, 0, 5 },
+            //    { 0, 0, 0, 0, 0 },
+            //    { 0, 2, 0, 0, 5 },
+            //    { 0, 0, 0, 0, 0 }
+            //};
+
+            HashSet<Tuple<int, int>> expected = new HashSet<Tuple<int, int>>
+            {
+                new Tuple<int, int>(0, 0),
+                new Tuple<int, int>(0, 1),
+                new Tuple<int, int>(0, 2),
+                new Tuple<int, int>(0, 4),
+                new Tuple<int, int>(1, 3),
+                new Tuple<int, int>(2, 3),
+                new Tuple<int, int>(3, 3),
+                new Tuple<int, int>(4, 3),
+
+                new Tuple<int, int>(1, 2),
+                new Tuple<int, int>(3, 2),
+                new Tuple<int, int>(4, 2),
+                new Tuple<int, int>(2, 0),
+                new Tuple<int, int>(2, 1),
+                new Tuple<int, int>(2, 3),
+                new Tuple<int, int>(2, 4),
+
+                new Tuple<int, int>(1, 0),
+                new Tuple<int, int>(3, 0),
+                new Tuple<int, int>(4, 1),
+                new Tuple<int, int>(4, 3),
+                new Tuple<int, int>(4, 4),
+            };
+
+            HashSet<Tuple<int, int>> actual = _sut.GetCoordinatesToZeroOut(matrix);
+
+            if (expected.Count != actual.Count)
+                Assert.True(false, "Count is not the same!");
+
+            if (expected.Intersect(actual).Count() != expected.Count)
+                Assert.True(false, "Wrong result!");
+
+            Assert.True(true, "Passes!");
+        }
     }
 
     public class Chapter1_8
     {
+        public HashSet<Tuple<int, int>> GetCoordinatesToZeroOut(int[,] matrix)
+        {
+            var zeroPositions = GetZeroPositions(matrix);
+
+            return null;
+        }
+
         public IEnumerable<Tuple<int, int>> GetZeroPositions(int[,] matrix)
         {
             for (int i = 0; i < matrix.GetLength(0); i++)
