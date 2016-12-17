@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Demo.LearnByDoing.Tests.Core;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter01
@@ -23,10 +24,29 @@ namespace Demo.LearnByDoing.Tests.Chapter01
         public Chapter1_9Test(ITestOutputHelper output) : base(output)
         {
         }
+
+        [Theory]
+        [ClassData(typeof(Chapter1_9Data))]
+        public void TestIfSubstringIsRotation(string s1, string s2, bool expected)
+        {
+            bool actual = _sut.IsRotationSubstring(s1, s2);
+
+            Assert.Equal(expected, actual);
+        }
     }
 
     public class Chapter1_9
     {
+        public bool IsRotationSubstring(string s1, string s2)
+        {
+            if (string.IsNullOrWhiteSpace(s1) || string.IsNullOrWhiteSpace(s2)) return false;
+
+            var s2Concatenated = s2 + s2;
+            int startIndex = s2Concatenated.IndexOf(s1);
+            if (startIndex < 0) return false;
+
+            return s2Concatenated.Substring(startIndex, s1.Length) == s1;
+        }
     }
 
     public class Chapter1_9Data : IEnumerable<object[]>
