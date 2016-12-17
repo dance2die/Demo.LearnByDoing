@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Demo.LearnByDoing.Tests.Core;
 using Xunit;
@@ -42,7 +43,7 @@ namespace Demo.LearnByDoing.Tests.Chapter01
             if (string.IsNullOrWhiteSpace(s1) || string.IsNullOrWhiteSpace(s2)) return false;
 
             var s2Concatenated = s2 + s2;
-            int startIndex = s2Concatenated.IndexOf(s1);
+            int startIndex = s2Concatenated.IndexOf(s1, StringComparison.Ordinal);
             if (startIndex < 0) return false;
 
             return s2Concatenated.Substring(startIndex, s1.Length) == s1;
