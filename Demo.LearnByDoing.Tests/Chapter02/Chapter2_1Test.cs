@@ -55,8 +55,6 @@ namespace Demo.LearnByDoing.Tests.Chapter02
                 // Poiner 2
                 for (int j = i + 1; j < input.Count; j++)
                 {
-                    //if (input.ElementAt(i) == input.ElementAt(j))
-                    //    input.Remove(input.ElementAt(j));
                     var currentValue = input.ElementAt(i);
                     var firstNode = input.Find(currentValue);
                     var lastNode = input.FindLast(currentValue);
