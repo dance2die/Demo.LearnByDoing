@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Demo.LearnByDoing.Tests.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -24,12 +25,29 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         [ClassData(typeof(Chapter2_1Data))]
         public void TestRemovingDuplicatesFromUnsortedLinkedList(LinkedList<int> input, LinkedList<int> expected)
         {
-            _output.WriteLine(input.ToString());
+            LinkedList<int> actual = _sut.RemoveDuplicates(input);
+
+            Assert.True(expected.SequenceEqual(actual));
         }
     }
 
     public class Chapter2_1
     {
+        /// <summary>
+        /// First try: Remove duplicates using a temporary buffer.
+        /// </summary>
+        public LinkedList<int> RemoveDuplicates(LinkedList<int> input)
+        {
+            LinkedList<int> result = new LinkedList<int>();
+
+            foreach (var value in input)
+            {
+                if (!result.Contains(value))
+                    result.AddLast(value);
+            }
+
+            return result;;
+        }
     }
 
     public class Chapter2_1Data : IEnumerable<object[]>
