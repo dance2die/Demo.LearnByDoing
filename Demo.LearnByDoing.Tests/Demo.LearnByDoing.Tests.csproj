@@ -76,6 +76,8 @@
     <Compile Include="Chapter01\Chapter1_8.cs" />
     <Compile Include="Chapter01\Chapter1_8Test.cs" />
     <Compile Include="Chapter01\Chapter1_9Test.cs" />
+    <Compile Include="Chapter02\Chapter2_1.cs" />
+    <Compile Include="Chapter02\Chapter2_1Data.cs" />
     <Compile Include="Chapter02\Chapter2_1Test.cs" />
     <Compile Include="Core\BaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
