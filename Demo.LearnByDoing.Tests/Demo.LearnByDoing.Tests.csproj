@@ -79,8 +79,12 @@
     <Compile Include="Chapter02\Chapter2_1.cs" />
     <Compile Include="Chapter02\Chapter2_1Data.cs" />
     <Compile Include="Chapter02\Chapter2_1Test.cs" />
+    <Compile Include="Chapter02\Chapter2_2.cs" />
+    <Compile Include="Chapter02\Chapter2_2Data.cs" />
+    <Compile Include="Chapter02\Chapter2_2Data2.cs" />
     <Compile Include="Chapter02\Chapter2_2Test.cs" />
     <Compile Include="Chapter02\LinkedListWithInit.cs" />
+    <Compile Include="Chapter02\Node.cs" />
     <Compile Include="Core\BaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
