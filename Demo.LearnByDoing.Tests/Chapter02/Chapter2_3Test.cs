@@ -19,7 +19,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
     /// Result: nothing is returned, but the new linked list looks like 
     ///         a -> b -> d -> e -> f 
     /// </summary>
-    public class Chapter2_3Test : BaseTest
+    public class Chapter2_3Test : Chapter2TestBase
     {
         private readonly Chapter2_3 _sut = new Chapter2_3();
 
@@ -37,6 +37,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         }
 
         [Theory]
+        [ClassData(typeof(Chapter2_3Data_Middle))]
         public void TestGettingMiddleNodesOnly(Node<string> input, Node<string> expected)
         {
 
@@ -88,6 +89,17 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
             return head;
         }
+    }
+
+    public class Chapter2_3Data_Middle : Chapter2_3Data
+    {
+        public override List<object[]> Data { get; set; } = new List<object[]>
+        {
+            new object[] { GetInputNode("a", "b", "c", "d", "e", "f"), 6 },
+            new object[] { GetInputNode("a", "b", "c", "d", "e"), 5 },
+            new object[] { GetInputNode("a", "b", "c", "d"), 4 },
+            new object[] { GetInputNode("a", "b", "c"), 3 },
+        };
     }
 
     public class Chapter2_3Data_Length : Chapter2_3Data

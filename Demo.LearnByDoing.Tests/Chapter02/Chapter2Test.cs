@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Demo.LearnByDoing.Tests.Core;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -10,7 +9,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
     /// Return Kth to Last:
     /// Implement an algorithm to find the kth to last element of a singly linked list.
     /// </summary>
-    public class Chapter2_2Test : BaseTest
+    public class Chapter2_2Test : Chapter2TestBase
     {
         private readonly Chapter2_2 _sut = new Chapter2_2();
 
@@ -36,21 +35,6 @@ namespace Demo.LearnByDoing.Tests.Chapter02
             Node<int> actual = _sut.GetKthToLastElementsOfNode(input, k);
 
             Assert.True(AreNodesEqual(expected, actual));
-        }
-
-        private bool AreNodesEqual(Node<int> expected, Node<int> actual)
-        {
-            while (expected != null && actual != null)
-            {
-                if (expected.Data != actual.Data) return false;
-
-                expected = expected.Next;
-                actual = actual.Next;
-
-                if ((expected != null && actual == null) || (expected == null && actual != null)) return false;
-            }
-
-            return true;
         }
     }
 }

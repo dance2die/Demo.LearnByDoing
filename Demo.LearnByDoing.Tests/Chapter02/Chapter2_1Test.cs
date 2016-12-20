@@ -12,7 +12,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
     /// FOLLOW UP
     /// How would you solve this problem if a temporary buffer is not allowed?
     /// </summary>
-    public class Chapter2_1Test : BaseTest
+    public class Chapter2_1Test : Chapter2TestBase
     {
         private readonly Chapter2_1 _sut = new Chapter2_1();
 
