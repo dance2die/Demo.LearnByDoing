@@ -1,4 +1,8 @@
-﻿using Demo.LearnByDoing.Tests.Core;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Demo.LearnByDoing.Tests.Core;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter02
@@ -22,9 +26,67 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         public Chapter2_3Test(ITestOutputHelper output) : base(output)
         {
         }
+
+        [Theory]
+        [ClassData(typeof(Chapter2_3Data_Length))]
+        public void TestGettingSinglyLinkedListLength(Node<string> input, int expected)
+        {
+            int actual = _sut.GetNodeCount(input);
+
+            Assert.Equal(expected, actual);
+        }
     }
 
     public class Chapter2_3
     {
+        public int GetNodeCount(Node<string> input)
+        {
+            if (input == null) return 0;
+
+            int count = 0;
+            while (input != null)
+            {
+                input = input.Next;
+
+                count++;
+            }
+
+            return count;
+        }
+    }
+
+    public class Chapter2_3Data_Length : IEnumerable<object[]>
+    {
+        private readonly List<object[]> _data = new List<object[]>
+        {
+            new object[] { GetInputNode("a", "b", "c", "d", "e", "f"), 6 },
+            new object[] { GetInputNode("a", "b", "c", "d", "e"), 5 },
+            new object[] { GetInputNode("a", "b", "c", "d"), 4 },
+            new object[] { GetInputNode("a", "b", "c"), 3 },
+        };
+
+        private static Node<string> GetInputNode(params string[] nodeData)
+        {
+            Node<string> head = new Node<string>(nodeData[0]);
+            Node<string> result = head;
+
+            for (int i = 1; i < nodeData.Length; i++)
+            {
+                result.Next = new Node<string>(nodeData[i]);
+                result = result.Next;
+            }
+
+            return head;
+        }
+
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            return _data.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }
