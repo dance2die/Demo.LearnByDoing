@@ -84,6 +84,8 @@
     <Compile Include="Chapter02\Chapter2_2Data2.cs" />
     <Compile Include="Chapter02\Chapter2Test.cs" />
     <Compile Include="Chapter02\Chapter2TestBase.cs" />
+    <Compile Include="Chapter02\Chapter2_3.cs" />
+    <Compile Include="Chapter02\Chapter2_3Data.cs" />
     <Compile Include="Chapter02\Chapter2_3Test.cs" />
     <Compile Include="Chapter02\LinkedListWithInit.cs" />
     <Compile Include="Chapter02\Node.cs" />
