@@ -40,14 +40,37 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         [ClassData(typeof(Chapter2_3Data_Middle))]
         public void TestGettingMiddleNodesOnly(Node<string> input, Node<string> expected)
         {
-            //Node<string> actual = _sut.GetMiddleNodes(input);
+            Node<string> actual = _sut.GetMiddleNodes(input);
 
-            //Assert.True(AreNodesEqual(expected, actual));
+            Assert.True(AreNodesEqual(expected, actual));
         }
     }
 
     public class Chapter2_3
     {
+        public Node<string> GetMiddleNodes(Node<string> input)
+        {
+            const int minimumLength = 3;
+
+            int nodeCount = GetNodeCount(input);
+            if (nodeCount < minimumLength) throw new ArgumentOutOfRangeException(nameof(input), "Input should have at least 3 nodes!");
+
+            // skip the first node and start from the 2nd node.
+            input = input.Next;
+            Node<string> tempNode = new Node<string>(input.Data);
+            Node<string> head = tempNode;
+
+            for (int i = 0; i < nodeCount - minimumLength; i++)
+            {
+                input = input.Next;
+                tempNode.Next = new Node<string>(input.Data);
+
+                tempNode = tempNode.Next;
+            }
+
+            return head;
+        }
+
         public int GetNodeCount(Node<string> input)
         {
             if (input == null) return 0;
