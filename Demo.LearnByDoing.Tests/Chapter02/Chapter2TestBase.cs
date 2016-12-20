@@ -1,4 +1,5 @@
-﻿using Demo.LearnByDoing.Tests.Core;
+﻿using System;
+using Demo.LearnByDoing.Tests.Core;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter02
@@ -9,11 +10,12 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         {
         }
 
-        protected bool AreNodesEqual(Node<int> expected, Node<int> actual)
+        protected bool AreNodesEqual<T>(Node<T> expected, Node<T> actual)
         {
             while (expected != null && actual != null)
             {
-                if (expected.Data != actual.Data) return false;
+                //if (expected.Data != actual.Data) return false;
+                if (!expected.Data.Equals(actual.Data)) return false;
 
                 expected = expected.Next;
                 actual = actual.Next;

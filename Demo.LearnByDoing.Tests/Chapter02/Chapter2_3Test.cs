@@ -40,7 +40,9 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         [ClassData(typeof(Chapter2_3Data_Middle))]
         public void TestGettingMiddleNodesOnly(Node<string> input, Node<string> expected)
         {
+            //Node<string> actual = _sut.GetMiddleNodes(input);
 
+            //Assert.True(AreNodesEqual(expected, actual));
         }
     }
 
@@ -95,10 +97,10 @@ namespace Demo.LearnByDoing.Tests.Chapter02
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
-            new object[] { GetInputNode("a", "b", "c", "d", "e", "f"), 6 },
-            new object[] { GetInputNode("a", "b", "c", "d", "e"), 5 },
-            new object[] { GetInputNode("a", "b", "c", "d"), 4 },
-            new object[] { GetInputNode("a", "b", "c"), 3 },
+            new object[] { GetInputNode("a", "b", "c", "d", "e", "f"), GetInputNode("b", "c", "d", "e") },
+            new object[] { GetInputNode("a", "b", "c", "d", "e"), GetInputNode("b", "c", "d") },
+            new object[] { GetInputNode("a", "b", "c", "d"), GetInputNode("b", "c") },
+            new object[] { GetInputNode("a", "b", "c"), GetInputNode("b") },
         };
     }
 
