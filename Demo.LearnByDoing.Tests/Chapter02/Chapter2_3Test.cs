@@ -35,6 +35,12 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        public void TestGettingMiddleNodesOnly(Node<string> input, Node<string> expected)
+        {
+
+        }
     }
 
     public class Chapter2_3
@@ -55,17 +61,21 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         }
     }
 
-    public class Chapter2_3Data_Length : IEnumerable<object[]>
+    public abstract class Chapter2_3Data : IEnumerable<object[]>
     {
-        private readonly List<object[]> _data = new List<object[]>
-        {
-            new object[] { GetInputNode("a", "b", "c", "d", "e", "f"), 6 },
-            new object[] { GetInputNode("a", "b", "c", "d", "e"), 5 },
-            new object[] { GetInputNode("a", "b", "c", "d"), 4 },
-            new object[] { GetInputNode("a", "b", "c"), 3 },
-        };
+        public abstract List<object[]> Data { get; set; }
 
-        private static Node<string> GetInputNode(params string[] nodeData)
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            return Data.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        protected static Node<string> GetInputNode(params string[] nodeData)
         {
             Node<string> head = new Node<string>(nodeData[0]);
             Node<string> result = head;
@@ -78,15 +88,16 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
             return head;
         }
+    }
 
-        public IEnumerator<object[]> GetEnumerator()
+    public class Chapter2_3Data_Length : Chapter2_3Data
+    {
+        public override List<object[]> Data { get; set; } = new List<object[]>
         {
-            return _data.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+            new object[] { GetInputNode("a", "b", "c", "d", "e", "f"), 6 },
+            new object[] { GetInputNode("a", "b", "c", "d", "e"), 5 },
+            new object[] { GetInputNode("a", "b", "c", "d"), 4 },
+            new object[] { GetInputNode("a", "b", "c"), 3 },
+        };
     }
 }
