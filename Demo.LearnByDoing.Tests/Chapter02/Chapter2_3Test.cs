@@ -57,24 +57,39 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
     public class Chapter2_3
     {
+        const int MINIMUM_LENGTH = 3;
+
         public Node<string> RemoveMiddelValue(string middleValue, Node<string> input)
         {
-            return null;
+            int nodeCount = GetNodeCount(input);
+
+            Node<string> head = input;
+            
+            for (int i = 0; i <= nodeCount - MINIMUM_LENGTH; i++)
+            {
+                if (input.Next.Data == middleValue)
+                {
+                    input.Next = input.Next.Next;
+                    break;
+                }
+
+                input = input.Next;
+            }
+
+            return head;
         }
 
         public Node<string> GetMiddleNodes(Node<string> input)
         {
-            const int minimumLength = 3;
-
             int nodeCount = GetNodeCount(input);
-            if (nodeCount < minimumLength) throw new ArgumentOutOfRangeException(nameof(input), "Input should have at least 3 nodes!");
+            if (nodeCount < MINIMUM_LENGTH) throw new ArgumentOutOfRangeException(nameof(input), "Input should have at least 3 nodes!");
 
             // skip the first node and start from the 2nd node.
             input = input.Next;
             Node<string> tempNode = new Node<string>(input.Data);
             Node<string> head = tempNode;
 
-            for (int i = 0; i < nodeCount - minimumLength; i++)
+            for (int i = 0; i < nodeCount - MINIMUM_LENGTH; i++)
             {
                 input = input.Next;
                 tempNode.Next = new Node<string>(input.Data);
