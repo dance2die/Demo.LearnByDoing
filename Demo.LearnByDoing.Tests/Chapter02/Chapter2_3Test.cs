@@ -44,10 +44,24 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
             Assert.True(AreNodesEqual(expected, actual));
         }
+
+        [Theory]
+        [ClassData(typeof(Chapter2_3Data_RemoveMiddle))]
+        public void TestRemovingMiddleNode(string middleValue, Node<string> input, Node<string> expected)
+        {
+            Node<string> actual = _sut.RemoveMiddelValue(middleValue, input);
+
+            Assert.True(AreNodesEqual(expected, actual));
+        }
     }
 
     public class Chapter2_3
     {
+        public Node<string> RemoveMiddelValue(string middleValue, Node<string> input)
+        {
+            return null;
+        }
+
         public Node<string> GetMiddleNodes(Node<string> input)
         {
             const int minimumLength = 3;
@@ -114,6 +128,17 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
             return head;
         }
+    }
+
+    public class Chapter2_3Data_RemoveMiddle : Chapter2_3Data
+    {
+        public override List<object[]> Data { get; set; } = new List<object[]>
+        {
+            new object[] { "b", GetInputNode("a", "b", "c", "d", "e", "f"), GetInputNode("a", "c", "d", "e", "f") },
+            new object[] { "c", GetInputNode("a", "b", "c", "d", "e", "f"), GetInputNode("a", "b", "d", "e", "f") },
+            new object[] { "d", GetInputNode("a", "b", "c", "d", "e", "f"), GetInputNode("a", "b", "c", "e", "f") },
+            new object[] { "e", GetInputNode("a", "b", "c", "d", "e", "f"), GetInputNode("a", "b", "c", "d", "f") },
+        };
     }
 
     public class Chapter2_3Data_Middle : Chapter2_3Data

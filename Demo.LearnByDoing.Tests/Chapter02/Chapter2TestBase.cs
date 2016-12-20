@@ -12,7 +12,9 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
         protected bool AreNodesEqual<T>(Node<T> expected, Node<T> actual)
         {
-            while (expected != null && actual != null)
+            if (expected == null || actual == null) return false;
+
+            while (expected != null)
             {
                 //if (expected.Data != actual.Data) return false;
                 if (!expected.Data.Equals(actual.Data)) return false;
