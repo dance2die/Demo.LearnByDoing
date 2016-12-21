@@ -17,14 +17,14 @@ namespace Demo.LearnByDoing.Tests.Chapter02
             return GetEnumerator();
         }
 
-        protected static Node<string> GetInputNode(params string[] nodeData)
+        protected static Node<T> GetInputNode<T>(params T[] nodeData)
         {
-            Node<string> head = new Node<string>(nodeData[0]);
-            Node<string> result = head;
+            Node<T> head = new Node<T>(nodeData[0]);
+            Node<T> result = head;
 
             for (int i = 1; i < nodeData.Length; i++)
             {
-                result.Next = new Node<string>(nodeData[i]);
+                result.Next = new Node<T>(nodeData[i]);
                 result = result.Next;
             }
 

@@ -32,6 +32,9 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
     public class Chapter2_4Data : Chapter2Data
     {
-        public override List<object[]> Data { get; set; }
+        public override List<object[]> Data { get; set; } = new List<object[]>
+        {
+            
+        };
     }
 }
