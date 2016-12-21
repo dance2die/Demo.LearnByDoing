@@ -35,10 +35,39 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
             Assert.True(AreNodesEqual(expected, actual));
         }
+
+        [Theory]
+        [ClassData(typeof(Chapter2_4Data))]
+        public void TestPartitioningNodeByValue2(int partition, Node<int> input, Node<int> expected)
+        {
+            Node<int> actual = _sut.PartitionNode2(partition, input);
+
+            Assert.True(AreNodesEqual(expected, actual));
+        }
     }
 
     public class Chapter2_4
     {
+        public Node<int> PartitionNode2(int partition, Node<int> input)
+        {
+            Dictionary<int, Node<int>> map = GetNodeMap2(input);
+            var sortedValueMap = (from pair in map
+                                  orderby pair.Value.Data ascending
+                                  select pair).ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            Node<int> result = sortedValueMap.FirstOrDefault().Value;
+            Node<int> head = result;
+
+            // Skip the first element.
+            foreach (KeyValuePair<int, Node<int>> pair in sortedValueMap.Skip(1))
+            {
+                result.Next = new Node<int>(pair.Value.Data);
+                result = result.Next;
+            }
+
+            return head;
+        }
+
         public Node<int> PartitionNode(int partition, Node<int> input)
         {
             // int1 => index, int2 => data
@@ -65,7 +94,6 @@ namespace Demo.LearnByDoing.Tests.Chapter02
             Dictionary<int, int> result = new Dictionary<int, int>();
 
             Node<int> head = input;
-
             int index = 0;
             result.Add(index, input.Data);
 
@@ -75,6 +103,27 @@ namespace Demo.LearnByDoing.Tests.Chapter02
                 index++;
 
                 result.Add(index, input.Data);
+
+                input = input.Next;
+            }
+
+            return result;
+        }
+
+        private Dictionary<int, Node<int>> GetNodeMap2(Node<int> input)
+        {
+            Dictionary<int, Node<int>> result = new Dictionary<int, Node<int>>();
+
+            Node<int> head = input;
+            int index = 0;
+            result.Add(index, input);
+
+            input = input.Next;
+            while (input != null)
+            {
+                index++;
+
+                result.Add(index, input);
 
                 input = input.Next;
             }
