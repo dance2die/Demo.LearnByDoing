@@ -44,10 +44,62 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
             Assert.True(AreNodesEqual(expected, actual));
         }
+
+        [Theory]
+        [ClassData(typeof(Chapter2_4Data_Small))]
+        public void TestPartitioningNodeByValueUsingAnswerFromBook(int partition, Node<int> input, Node<int> expected)
+        {
+            Node<int> actual = _sut.PartitionNode3(partition, input);
+
+            Assert.True(AreNodesEqual(expected, actual));
+        }
     }
 
     public class Chapter2_4
     {
+        public List<T> NodeToList<T>(Node<T> node)
+        {
+            List<T> result = new List<T>();
+            while (node != null)
+            {
+                result.Add(node.Data);
+                node = node.Next;
+            }
+
+            return result;
+        }
+
+        public Node<int> PartitionNode3(int partition, Node<int> node)
+        {
+            Node<int> head = node;
+            Node<int> tail = node;
+
+            while (node != null)
+            {
+                var next = node.Next;
+
+                if (node.Data < partition)
+                {
+                    // Insert node at head
+                    node.Next = head;
+                    head = node;
+                }
+                else
+                {
+                    // Insert node at tail
+                    tail.Next = node;
+                    tail = node;
+                }
+
+                node = next;
+            }
+
+            tail.Next = null;
+
+            // The head has changed, so we need to return it to the user.
+            return head;
+        }
+
         public Node<int> PartitionNode2(int partition, Node<int> input)
         {
             Dictionary<int, Node<int>> map = GetNodeMap2(input);
@@ -130,6 +182,15 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
             return result;
         }
+    }
+
+    public class Chapter2_4Data_Small : Chapter2Data
+    {
+        public override List<object[]> Data { get; set; } = new List<object[]>
+        {
+            new object[] { 3, GetInputNode(1, 2, 3, 4), GetInputNode(1, 2, 3, 4) },
+            new object[] { 3, GetInputNode(3, 5, 8, 1), GetInputNode(1, 3, 5, 8) },
+        };
     }
 
     public class Chapter2_4Data : Chapter2Data

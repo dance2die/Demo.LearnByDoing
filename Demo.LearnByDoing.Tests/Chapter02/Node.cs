@@ -21,5 +21,19 @@
             Node<T> newNode = new Node<T>(data);
             currentNode.Next = newNode;
         }
+
+        public override string ToString()
+        {
+            var head = this;
+            string result = "Start";
+            while (head != null)
+            {
+                result += " -> " + head.Data;
+
+                head = head.Next;
+            }
+
+            return result;
+        }
     }
 }
