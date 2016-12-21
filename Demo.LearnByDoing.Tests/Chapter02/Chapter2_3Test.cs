@@ -24,7 +24,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         }
 
         [Theory]
-        [ClassData(typeof(Chapter2_3Data_Length))]
+        [ClassData(typeof(Chapter2DataLength))]
         public void TestGettingSinglyLinkedListLength(Node<string> input, int expected)
         {
             int actual = _sut.GetNodeCount(input);
@@ -33,7 +33,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         }
 
         [Theory]
-        [ClassData(typeof(Chapter2_3Data_Middle))]
+        [ClassData(typeof(Chapter2DataMiddle))]
         public void TestGettingMiddleNodesOnly(Node<string> input, Node<string> expected)
         {
             Node<string> actual = _sut.GetMiddleNodes(input);
@@ -42,7 +42,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         }
 
         [Theory]
-        [ClassData(typeof(Chapter2_3Data_RemoveMiddle))]
+        [ClassData(typeof(Chapter2DataRemoveMiddle))]
         public void TestRemovingMiddleNode(string middleValue, Node<string> input, Node<string> expected)
         {
             Node<string> actual = _sut.RemoveMiddelValue(middleValue, input);

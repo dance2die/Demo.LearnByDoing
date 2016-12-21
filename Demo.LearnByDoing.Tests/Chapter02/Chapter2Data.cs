@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Demo.LearnByDoing.Tests.Chapter02
 {
-    public abstract class Chapter2_3Data : IEnumerable<object[]>
+    public abstract class Chapter2Data : IEnumerable<object[]>
     {
         public abstract List<object[]> Data { get; set; }
 
@@ -32,7 +32,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         }
     }
 
-    public class Chapter2_3Data_RemoveMiddle : Chapter2_3Data
+    public class Chapter2DataRemoveMiddle : Chapter2Data
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
@@ -43,7 +43,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         };
     }
 
-    public class Chapter2_3Data_Middle : Chapter2_3Data
+    public class Chapter2DataMiddle : Chapter2Data
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
@@ -54,7 +54,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         };
     }
 
-    public class Chapter2_3Data_Length : Chapter2_3Data
+    public class Chapter2DataLength : Chapter2Data
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
