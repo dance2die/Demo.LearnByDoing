@@ -38,7 +38,10 @@ namespace Demo.LearnByDoing.Tests.Chapter02
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
-            new object[] { GetInputNode(7, 1, 6), GetInputNode(5, 9, 2), GetInputNode(2, 1, 9) }
+            new object[] { GetInputNode(9), GetInputNode(5), GetInputNode(4, 1) },
+            new object[] { GetInputNode(7, 1, 6), GetInputNode(5, 9, 2), GetInputNode(2, 1, 9) },
+            new object[] { GetInputNode(9, 9, 9), GetInputNode(0, 0, 1), GetInputNode(9, 9, 0, 1) },
+            new object[] { GetInputNode(9, 9, 9), GetInputNode(0, 1), GetInputNode(9, 0, 0, 1) },
         };
     }
 
@@ -46,7 +49,10 @@ namespace Demo.LearnByDoing.Tests.Chapter02
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
-            new object[] { GetInputNode(6, 1, 7), GetInputNode(2, 9, 5), GetInputNode(9, 1, 2) }
+            new object[] { GetInputNode(9), GetInputNode(5), GetInputNode(1, 4) },
+            new object[] { GetInputNode(6, 1, 7), GetInputNode(2, 9, 5), GetInputNode(9, 1, 2) },
+            new object[] { GetInputNode(9, 9, 9), GetInputNode(1, 0, 0), GetInputNode(1, 0, 9, 9) },
+            new object[] { GetInputNode(9, 9, 9), GetInputNode(1, 0), GetInputNode(1, 0, 0, 9) },
         };
     }
 }
