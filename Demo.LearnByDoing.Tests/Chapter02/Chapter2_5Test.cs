@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Demo.LearnByDoing.Tests.Core;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -46,36 +45,29 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         public Node<int> AddReverseNodes(Node<int> left, Node<int> right)
         {
             const int startDigit = 1;
-            return ConvertToReverseNode(SumNodes(left, right, startDigit));
+            const int startNumber = 0;
+            return ConvertToReverseNode(SumNodes(left, right, startDigit, startNumber));
         }
 
-        private int SumNodes(Node<int> left, Node<int> right, int digit)
+        private int SumNodes(Node<int> left, Node<int> right, int digit, int accum)
         {
             int nextDigit = digit * 10;
+            var zeroNode = new Node<int>(0);
 
-            if (left == null && right.Next != null)
-            {
-                return SumNodes(new Node<int>(0), right.Next, nextDigit);
-            }
+            if (left == null && right == null) return accum;
 
-            if (left != null && right == null)
-            {
-                return SumNodes(left.Next, new Node<int>(0), nextDigit);
-            }
+            var sum = (left.Data + right.Data) * digit;
+            if (left.Next == null && right.Next == null) return accum + sum;
+            if (left.Next != null && right.Next == null) return SumNodes(left.Next, zeroNode, nextDigit, accum + sum);
+            if (left.Next == null && right.Next != null) return SumNodes(zeroNode, right.Next, nextDigit, accum + sum);
+            if (left.Next != null && right.Next != null) return SumNodes(left.Next, right.Next, nextDigit, accum + sum);
 
-            if (left == null && right == null) return 0;
-
-            if (left.Next == null && right.Next == null)
-            {
-                return (left.Data * digit) + (right.Data * digit);
-            }
-
-            return SumNodes(left.Next, right.Next, nextDigit);
+            return SumNodes(left.Next, right.Next, nextDigit, accum + sum);
         }
 
         private Node<int> ConvertToReverseNode(int value)
         {
-            var numbers = value.ToString().ToCharArray().Cast<int>().ToList();
+            var numbers = value.ToString().ToCharArray().Select(c => int.Parse(c.ToString())).Reverse().ToList();
             Node<int> result = new Node<int>(numbers.FirstOrDefault());
             Node<int> head = result;
 
