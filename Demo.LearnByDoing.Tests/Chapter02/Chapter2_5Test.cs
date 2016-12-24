@@ -34,7 +34,16 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         [ClassData(typeof(Chapter2_5Data_Reverse))]
         public void TestReverseAdditionOfNodes(Node<int> left, Node<int> right, Node<int> expected)
         {
-            Node<int> actual = _sut.AddReverseNodes(left, right);
+            Node<int> actual = _sut.AddNodesReverse(left, right);
+
+            Assert.True(AreNodesEqual(expected, actual));
+        }
+
+        [Theory]
+        [ClassData(typeof(Chapter2_5Data_Forward))]
+        public void TestForwardAdditionOfNodes(Node<int> left, Node<int> right, Node<int> expected)
+        {
+            Node<int> actual = _sut.AddNodesForwards(left, right);
 
             Assert.True(AreNodesEqual(expected, actual));
         }
@@ -42,7 +51,12 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
     public class Chapter2_5
     {
-        public Node<int> AddReverseNodes(Node<int> left, Node<int> right)
+        public Node<int> AddNodesForwards(Node<int> left, Node<int> right)
+        {
+            return null;
+        }
+
+        public Node<int> AddNodesReverse(Node<int> left, Node<int> right)
         {
             const int startDigit = 1;
             const int startNumber = 0;
