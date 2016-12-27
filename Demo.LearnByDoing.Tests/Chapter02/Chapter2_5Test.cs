@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
@@ -63,12 +65,53 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         {
             Node<int> actual = _sut.AddNodesForwards(left, right);
 
+            _output.WriteLine("expected: {0}\nactual: {1}", expected, actual);
             Assert.True(AreNodesEqual(expected, actual));
         }
     }
 
     public class Chapter2_5
     {
+        public Node<int> AddNodesForwards(Node<int> left, Node<int> right)
+        {
+            int leftLength = GetNodeLength(left);
+            int rightLength = GetNodeLength(right);
+
+            if (leftLength > rightLength)
+                right = PadZeroNodes(leftLength, right);
+
+            if (leftLength < rightLength)
+                left = PadZeroNodes(rightLength, left);
+
+
+            int startDigit = (int) Math.Pow(10.0, Math.Max(leftLength, rightLength) - 1);
+            const int startNumber = 0;
+            return ConvertToForwardNode(SumNodesForward(left, right, startDigit, startNumber));
+        }
+
+        private int SumNodesForward(Node<int> left, Node<int> right, int digit, int accum)
+        {
+            int nextDigit = digit / 10;
+            var zeroNode = new Node<int>(0);
+
+            if (left == null && right == null) return accum;
+
+            var sum = (left.Data + right.Data) * digit;
+            if (left.Next == null && right.Next == null) return accum + sum;
+            if (left.Next != null && right.Next == null) return SumNodesForward(left.Next, zeroNode, nextDigit, accum + sum);
+            if (left.Next == null && right.Next != null) return SumNodesForward(zeroNode, right.Next, nextDigit, accum + sum);
+            if (left.Next != null && right.Next != null) return SumNodesForward(left.Next, right.Next, nextDigit, accum + sum);
+
+            return SumNodesForward(left.Next, right.Next, nextDigit, accum + sum);
+        }
+
+        public Node<int> AddNodesReverse(Node<int> left, Node<int> right)
+        {
+            const int startDigit = 1;
+            const int startNumber = 0;
+            return ConvertToReverseNode(SumNodes(left, right, startDigit, startNumber));
+        }
+
         public int GetNodeLength(Node<int> node)
         {
             Node<int> copy = node;
@@ -81,18 +124,6 @@ namespace Demo.LearnByDoing.Tests.Chapter02
             }
 
             return count;
-        }
-
-        public Node<int> AddNodesForwards(Node<int> left, Node<int> right)
-        {
-            return null;
-        }
-
-        public Node<int> AddNodesReverse(Node<int> left, Node<int> right)
-        {
-            const int startDigit = 1;
-            const int startNumber = 0;
-            return ConvertToReverseNode(SumNodes(left, right, startDigit, startNumber));
         }
 
         /// <param name="length">It's 1-based!</param>
@@ -134,6 +165,21 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         private Node<int> ConvertToReverseNode(int value)
         {
             var numbers = value.ToString().ToCharArray().Select(c => int.Parse(c.ToString())).Reverse().ToList();
+            Node<int> result = new Node<int>(numbers.FirstOrDefault());
+            Node<int> head = result;
+
+            foreach (int number in numbers.Skip(1))
+            {
+                result.Next = new Node<int>(number);
+                result = result.Next;
+            }
+
+            return head;
+        }
+
+        private Node<int> ConvertToForwardNode(int value)
+        {
+            var numbers = value.ToString().ToCharArray().Select(c => int.Parse(c.ToString())).ToList();
             Node<int> result = new Node<int>(numbers.FirstOrDefault());
             Node<int> head = result;
 
