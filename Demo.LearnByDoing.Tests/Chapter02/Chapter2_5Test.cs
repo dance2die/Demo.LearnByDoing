@@ -110,7 +110,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
-            new object[] { GetInputNode(9), GetInputNode(5), GetInputNode(1, 4) },
+            new object[] { GetInputNode(1, 9), GetInputNode(5), GetInputNode(2, 4) },
             new object[] { GetInputNode(6, 1, 7), GetInputNode(2, 9, 5), GetInputNode(9, 1, 2) },
             new object[] { GetInputNode(9, 9, 9), GetInputNode(1, 0, 0), GetInputNode(1, 0, 9, 9) },
             new object[] { GetInputNode(9, 9, 9), GetInputNode(1, 0), GetInputNode(1, 0, 0, 9) },
