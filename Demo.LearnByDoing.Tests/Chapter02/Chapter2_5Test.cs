@@ -49,6 +49,15 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         }
 
         [Theory]
+        [ClassData(typeof(Chapter2_5Data_Length))]
+        public void TestNodeLengths(Node<int> node, int expected)
+        {
+            int actual = _sut.GetNodeLength(node);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
         [ClassData(typeof(Chapter2_5Data_Forward))]
         public void TestForwardAdditionOfNodes(Node<int> left, Node<int> right, Node<int> expected)
         {
@@ -60,6 +69,32 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
     public class Chapter2_5
     {
+        public int GetNodeLength(Node<int> node)
+        {
+            Node<int> copy = node;
+            int count = 0;
+            while (copy != null)
+            {
+                count++;
+
+                copy = copy.Next;
+            }
+
+            return count;
+        }
+
+        public Node<int> AddNodesForwards(Node<int> left, Node<int> right)
+        {
+            return null;
+        }
+
+        public Node<int> AddNodesReverse(Node<int> left, Node<int> right)
+        {
+            const int startDigit = 1;
+            const int startNumber = 0;
+            return ConvertToReverseNode(SumNodes(left, right, startDigit, startNumber));
+        }
+
         /// <param name="length">It's 1-based!</param>
         public Node<int> PadZeroNodes(int length, Node<int> node)
         {
@@ -78,18 +113,6 @@ namespace Demo.LearnByDoing.Tests.Chapter02
             }
 
             return head;
-        }
-
-        public Node<int> AddNodesForwards(Node<int> left, Node<int> right)
-        {
-            return null;
-        }
-
-        public Node<int> AddNodesReverse(Node<int> left, Node<int> right)
-        {
-            const int startDigit = 1;
-            const int startNumber = 0;
-            return ConvertToReverseNode(SumNodes(left, right, startDigit, startNumber));
         }
 
         private int SumNodes(Node<int> left, Node<int> right, int digit, int accum)
@@ -141,6 +164,17 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         };
     }
 
+    public class Chapter2_5Data_Length : Chapter2Data
+    {
+        public override List<object[]> Data { get; set; } = new List<object[]>
+        {
+            new object[] { GetInputNode(9), 1 },
+            new object[] { GetInputNode(7, 1), 2 },
+            new object[] { GetInputNode(9, 9, 9), 3 },
+            new object[] { GetInputNode(9, 9, 1, 2), 4 },  
+            new object[] { GetInputNode(9, 9, 1, 2, 6), 5 },
+        };
+    }
     public class Chapter2_5Data_Reverse : Chapter2Data
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
