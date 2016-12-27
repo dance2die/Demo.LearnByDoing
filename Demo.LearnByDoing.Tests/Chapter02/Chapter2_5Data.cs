@@ -30,6 +30,7 @@ namespace Demo.LearnByDoing.Tests.Chapter02
             new object[] { GetInputNode(9, 9, 1, 2, 6), 5 },
         };
     }
+
     public class Chapter2_5Data_Reverse : Chapter2Data
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
