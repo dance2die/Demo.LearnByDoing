@@ -40,6 +40,15 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         }
 
         [Theory]
+        [ClassData(typeof(Chapter2_5Data_Padding))]
+        public void TestPadZeroToIncreaseNodeLength(int length, Node<int> node, Node<int> expected)
+        {
+            Node<int> actual = _sut.PadZeroNodes(length, node);
+
+            Assert.True(AreNodesEqual(expected, actual));
+        }
+
+        [Theory]
         [ClassData(typeof(Chapter2_5Data_Forward))]
         public void TestForwardAdditionOfNodes(Node<int> left, Node<int> right, Node<int> expected)
         {
@@ -51,6 +60,26 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
     public class Chapter2_5
     {
+        /// <param name="length">It's 1-based!</param>
+        public Node<int> PadZeroNodes(int length, Node<int> node)
+        {
+            Node<int> head = node;
+
+            for (int i = 1; i < length; i++)
+            {
+                node = node?.Next;
+                if (node == null)
+                {
+                    var zeroNode = new Node<int>(0);
+                    zeroNode.Next = head;
+                    head = zeroNode;
+                }
+
+            }
+
+            return head;
+        }
+
         public Node<int> AddNodesForwards(Node<int> left, Node<int> right)
         {
             return null;
@@ -93,6 +122,23 @@ namespace Demo.LearnByDoing.Tests.Chapter02
 
             return head;
         }
+    }
+
+    public class Chapter2_5Data_Padding : Chapter2Data
+    {
+        public override List<object[]> Data { get; set; } = new List<object[]>
+        {
+            new object[] { 1, GetInputNode(5), GetInputNode(5) },
+            new object[] { 2, GetInputNode(5), GetInputNode(0, 5) },
+            new object[] { 3, GetInputNode(5), GetInputNode(0, 0, 5) },
+            new object[] { 4, GetInputNode(5), GetInputNode(0, 0, 0, 5) },
+            //new object[] { 2, GetInputNode(0, 5), GetInputNode(0, 5) },
+            //new object[] { 3, GetInputNode(0, 5), GetInputNode(0, 0, 5) },
+            //new object[] { 4, GetInputNode(0, 5), GetInputNode(0, 0, 0, 5) },
+            new object[] { 3, GetInputNode(1, 5), GetInputNode(0, 1, 5) },
+            new object[] { 4, GetInputNode(1, 5), GetInputNode(0, 0, 1, 5) },
+            new object[] { 4, GetInputNode(2, 1, 5), GetInputNode(0, 2, 1, 5) },
+        };
     }
 
     public class Chapter2_5Data_Reverse : Chapter2Data
