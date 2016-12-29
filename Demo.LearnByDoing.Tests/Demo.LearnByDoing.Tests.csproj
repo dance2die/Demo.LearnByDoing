@@ -91,6 +91,8 @@
     <Compile Include="Chapter02\Chapter2_5.cs" />
     <Compile Include="Chapter02\Chapter2_5Data.cs" />
     <Compile Include="Chapter02\Chapter2_5Test.cs" />
+    <Compile Include="Chapter02\Chapter2_6.cs" />
+    <Compile Include="Chapter02\Chapter2_6Data.cs" />
     <Compile Include="Chapter02\Chapter2_6Test.cs" />
     <Compile Include="Chapter02\LinkedListWithInit.cs" />
     <Compile Include="Chapter02\Node.cs" />
