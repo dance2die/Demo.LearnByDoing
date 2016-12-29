@@ -35,5 +35,25 @@
 
             return result;
         }
+
+        /// <summary>
+        /// Get Node's length
+        /// </summary>
+        /// <remarks>
+        /// Copied from Chapter2_5
+        /// </remarks>
+        public int GetLength()
+        {
+            Node<T> copy = this;
+            int count = 0;
+
+            while (copy != null)
+            {
+                count++;
+                copy = copy.Next;
+            }
+
+            return count;
+        }
     }
 }

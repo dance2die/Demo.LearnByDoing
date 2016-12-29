@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter02
@@ -14,10 +15,23 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         public Chapter2_6Test(ITestOutputHelper output) : base(output)
         {
         }
+
+        [Theory]
+        [ClassData(typeof(Chapter2_6Data))]
+        public void TestIfNodeIsPalindromic(Node<int> node, bool expected)
+        {
+            bool actual = _sut.IsNodePalindrome(node);
+
+            Assert.Equal(expected, actual);
+        }
     }
 
     public class Chapter2_6
     {
+        public bool IsNodePalindrome(Node<int> node)
+        {
+            
+        }
     }
 
     public class Chapter2_6Data : Chapter2Data
