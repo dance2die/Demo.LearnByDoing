@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -24,12 +25,57 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         [ClassData(typeof(Chapter2_7Data))]
         public void TestNodeIntersection(Tuple<Node<int>, Node<int>> nodes, bool expected)
         {
-            
+            bool actual = _sut.AreNodesIntersecting(nodes.Item1, nodes.Item2);
+
+            Assert.Equal(expected, actual);
         }
     }
 
     public class Chapter2_7
     {
+        public bool AreNodesIntersecting(Node<int> node1, Node<int> node2)
+        {
+            if (node1 == node2) return true;
+
+            return AreIntersecting(node1, node2).AreIntersecting;
+        }
+
+        private NodeResult<int> AreIntersecting(Node<int> node1, Node<int> node2)
+        {
+            if (node1 == node2) return new NodeResult<int>(node1, node2, true);
+            if (node1.Next != null && node2.Next == null) return new NodeResult<int>(node1, node2, false);
+            if (node1.Next == null && node2.Next != null) return new NodeResult<int>(node1, node2, false);
+
+            var areIntersecting = new NodeResult<int>(node1, node2.Next, false).AreIntersecting && 
+                                  new NodeResult<int>(node1.Next, node2, false).AreIntersecting;
+            return new NodeResult<int>(node1, node2, areIntersecting);
+
+            //if (node1.Next == null && node2.Next == null) return new NodeResult<int>(node1, node2, false);
+            //if (node1.Next != null && node2.Next == null) return new NodeResult<int>(node1.Next, node2, false);
+            //if (node1.Next == null && node2.Next != null) return new NodeResult<int>(node1, node2.Next, false);
+            //if (node1.Next != null && node2.Next !=null) return new NodeResult<int>(node1.Next, node2.Next, false);
+
+            ////if (node1 == null && node2 != null) return new NodeResult<int>(new Node<int>(0), node2.Next, false);
+            ////if (node1 != null && node2 == null) return new NodeResult<int>(node1.Next, new Node<int>(0), false);
+            ////if (node1 != null && node2 != null) return new NodeResult<int>(node1.Next, node2.Next, false);
+            //////if (node1 == null && node2 == null) return new NodeResult<int>(new Node<int>(0), node2.Next, false);
+
+            //return new NodeResult<int>(new Node<int>(0), new Node<int>(0), false);
+        }
+    }
+
+    internal class NodeResult<T>
+    {
+        public Node<T> Node1 { get; set; }
+        public Node<T> Node2 { get; set; }
+        public bool AreIntersecting { get; set; }
+
+        public NodeResult(Node<T> node1, Node<T> node2, bool areIntersecting)
+        {
+            Node1 = node1;
+            Node2 = node2;
+            AreIntersecting = areIntersecting;
+        }
     }
 
     public class Chapter2_7Data : Chapter2Data
@@ -46,11 +92,11 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         /// node1 = 1 -> 2 -> 3 -> 4 -> 5
         /// node2 = 2 -> 3 -> 4 -> 5
         /// 
-        /// where node2 intersections with node1 at value 2.
+        /// where node2 intersects with node1 at value 2.
         /// </summary>
         private static Tuple<Node<int>, Node<int>>  GetNodes1()
         {
-            var node1 = GetInputNode(1, 5);
+            var node1 = GetInputNode(Enumerable.Range(1, 5).ToArray());
             var node2 = node1.Next;
 
             return Tuple.Create(node1, node2);
@@ -60,11 +106,11 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         /// node1 = 1 -> 2 -> 3 -> 4 -> 5
         /// node2 = 1 -> 2 -> 3 -> 4 -> 5
         /// 
-        /// where node2 intersections with node1 at value 1.
+        /// where node2 intersects with node1 at value 1.
         /// </summary>
         private static Tuple<Node<int>, Node<int>>  GetNodes2()
         {
-            var node1 = GetInputNode(1, 5);
+            var node1 = GetInputNode(Enumerable.Range(1, 5).ToArray());
             var node2 = node1;
 
             return Tuple.Create(node1, node2);
@@ -78,8 +124,8 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         /// </summary>
         private static Tuple<Node<int>, Node<int>>  GetNodes3()
         {
-            var node1 = GetInputNode(1, 5);
-            var node2 = GetInputNode(2, 5);
+            var node1 = GetInputNode(Enumerable.Range(1, 5).ToArray());
+            var node2 = GetInputNode(Enumerable.Range(2, 4).ToArray());
 
             return Tuple.Create(node1, node2);
         }
@@ -92,8 +138,8 @@ namespace Demo.LearnByDoing.Tests.Chapter02
         /// </summary>
         private static Tuple<Node<int>, Node<int>>  GetNodes4()
         {
-            var node1 = GetInputNode(1, 5);
-            var node2 = GetInputNode(1, 5);
+            var node1 = GetInputNode(Enumerable.Range(1, 5).ToArray());
+            var node2 = GetInputNode(Enumerable.Range(1, 5).ToArray());
 
             return Tuple.Create(node1, node2);
         }
