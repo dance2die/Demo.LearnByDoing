@@ -46,8 +46,8 @@ namespace Demo.LearnByDoing.Tests.Chapter02
             if (node1.Next != null && node2.Next == null) return new NodeResult<int>(node1, node2, false);
             if (node1.Next == null && node2.Next != null) return new NodeResult<int>(node1, node2, false);
 
-            var areIntersecting = new NodeResult<int>(node1, node2.Next, false).AreIntersecting && 
-                                  new NodeResult<int>(node1.Next, node2, false).AreIntersecting;
+            var areIntersecting = AreIntersecting(node1, node2.Next).AreIntersecting ||
+                                  AreIntersecting(node1.Next, node2).AreIntersecting;
             return new NodeResult<int>(node1, node2, areIntersecting);
 
             //if (node1.Next == null && node2.Next == null) return new NodeResult<int>(node1, node2, false);
