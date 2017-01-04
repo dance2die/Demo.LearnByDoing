@@ -1,22 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Demo.LearnByDoing.Tests.Core;
 
 namespace Demo.LearnByDoing.Tests.Chapter02
 {
-    public abstract class Chapter2Data : IEnumerable<object[]>
+    public abstract class Chapter2Data : TestDataBase
     {
-        public abstract List<object[]> Data { get; set; }
-
-        public IEnumerator<object[]> GetEnumerator()
-        {
-            return Data.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
         protected static Node<T> GetInputNode<T>(params T[] nodeData)
         {
             Node<T> head = new Node<T>(nodeData[0]);
