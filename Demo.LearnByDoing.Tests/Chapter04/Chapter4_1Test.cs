@@ -8,8 +8,6 @@ namespace Demo.LearnByDoing.Tests.Chapter04
     /// ROUTE BETWEEN NODES:
     /// Given a directred graph, design an algorithm to find out 
     /// whether there is a route between two nodes.
-    /// 
-    /// ToDo: Create a Graph & Node classes to represent graph
     /// </summary>
     public class Chapter4_1Test : BaseTest
     {
@@ -19,6 +17,7 @@ namespace Demo.LearnByDoing.Tests.Chapter04
         {
         }
     }
+
 
     public class Chapter4_1
     {
