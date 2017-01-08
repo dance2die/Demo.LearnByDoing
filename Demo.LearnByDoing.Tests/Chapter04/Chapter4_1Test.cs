@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Demo.LearnByDoing.Tests.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -21,9 +22,9 @@ namespace Demo.LearnByDoing.Tests.Chapter04
         [Theory]
         [ClassData(typeof(Chapter4_1Data))]
         public void TestDepthFirstSearchToFindRouteBetweenTwoNodes(
-            bool expected, Graph<int> graph, Node<int> node1, Node<int> node2)
+            bool expected, Node<int> node1, Node<int> node2)
         {
-            bool actual = _sut.ExistsRouteUsingDfs(graph, node1, node2);
+            bool actual = _sut.ExistsRouteUsingDfs(node1, node2);
 
             Assert.Equal(expected, actual);
         }
@@ -39,25 +40,41 @@ namespace Demo.LearnByDoing.Tests.Chapter04
         /// <param name="node1">"From" node</param>
         /// <param name="node2">"To" node</param>
         /// <returns>True if route exists, false, otherwise</returns>
-        public bool ExistsRouteUsingDfs<T>(Graph<T> graph, Node<T> node1, Node<T> node2)
+        public bool ExistsRouteUsingDfs<T>(Node<T> node1, Node<T> node2)
         {
-            return SearchDfs(node1, node2);
+            var nodeValues1 = GetValuesUsingDfs(node1);
+            var nodeValues2 = GetValuesUsingDfs(node2);
+
+            // If both node1 and node2 have a common value, then there is a route between them.
+            return nodeValues1.Intersect(nodeValues2).Any();
         }
 
-        private bool SearchDfs<T>(Node<T> node1, Node<T> node2)
+        /// <summary>
+        /// Get all available values for the given node.
+        /// </summary>
+        /// <remarks>
+        /// Iterative implementation of Depth First Search
+        /// <see cref="https://en.wikipedia.org/wiki/Depth-first_search#Pseudocode"/>
+        /// </remarks>
+        private IEnumerable<T> GetValuesUsingDfs<T>(Node<T> node)
         {
-            if (node1 == null || node2 == null) return false;
-            if (node1 == node2) return true;
+            var stack = new Stack<Node<T>>();
+            stack.Push(node);
 
-            node1.IsVisited = true;
-
-            foreach (Node<T> childNode in node1.Children)
+            while (stack.Count > 0)
             {
-                if (!childNode.IsVisited)
-                    return SearchDfs(childNode, node2);
-            }
+                var v = stack.Pop();
+                yield return v.Name;
 
-            return false;
+                if (!v.IsVisited)
+                {
+                    v.IsVisited = true;
+                    foreach (Node<T> child in v.Children)
+                    {
+                        stack.Push(child);
+                    }
+                }
+            }
         }
     }
 
@@ -65,9 +82,38 @@ namespace Demo.LearnByDoing.Tests.Chapter04
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
-            new object[] { false, GetGraph(), GetGraph().Nodes[0], GetGraph().Nodes[GetGraph().Nodes.Count - 1] },
-            new object[] { true, GetGraph(), GetGraph().Nodes[0], GetGraph().Nodes[GetGraph().Nodes.Count - 1] },
+            //// Node 1 and Node 4 -> No route between them.
+            //new object[] { false, GetGraph(), GetGraph().Nodes.First(), GetGraph().Nodes.Last() },
+            //// Node 1 and Node 3 -> Has a route between them.
+            //new object[] { true, GetGraph(), GetGraph().Nodes.First(), GetGraph().Nodes.Skip(2).First() },
+
+            // There is a route between first node and the 5th node
+            new object[] {true, GetGraph().Nodes.First(), GetGraph().Nodes[5] },
+            // There is NO route between first node and the 6th node
+            new object[] {false, GetGraph().Nodes.First(), GetGraph().Nodes.Last() },
         };
+
+        private static Graph<int> GetGraph2()
+        {
+            var graph = new Graph<int>();
+            var n1 = new Node<int>(1);
+            var n2 = new Node<int>(2);
+            var n3 = new Node<int>(3);
+            var n4 = new Node<int>(4);
+            var n5 = new Node<int>(5);
+            var n6 = new Node<int>(6);
+
+            graph.Nodes.AddRange(new[] {n1, n2, n3, n4, n5, n6});
+
+            n1.Children.Add(n2);
+            n2.Children.AddRange(new [] {n4, n5});
+            n3.Children.AddRange(new [] {n1});
+            n4.Children.AddRange(new [] {n5, n6});
+            n5.Children.AddRange(new [] {n3, n6});
+            // none for n6
+
+            return graph;
+        }
 
         /// <summary>
         /// 1 : 2
