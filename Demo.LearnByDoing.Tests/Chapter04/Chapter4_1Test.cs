@@ -21,8 +21,7 @@ namespace Demo.LearnByDoing.Tests.Chapter04
 
         [Theory]
         [ClassData(typeof(Chapter4_1Data))]
-        public void TestDepthFirstSearchToFindRouteBetweenTwoNodes(
-            bool expected, Node<int> node1, Node<int> node2)
+        public void TestDepthFirstSearchToFindRouteBetweenTwoNodes(bool expected, Node<int> node1, Node<int> node2)
         {
             bool actual = _sut.ExistsRouteUsingDfs(node1, node2);
 
@@ -42,11 +41,10 @@ namespace Demo.LearnByDoing.Tests.Chapter04
         /// <returns>True if route exists, false, otherwise</returns>
         public bool ExistsRouteUsingDfs<T>(Node<T> node1, Node<T> node2)
         {
-            var nodeValues1 = GetValuesUsingDfs(node1);
-            var nodeValues2 = GetValuesUsingDfs(node2);
+            var nodeValues1 = GetValuesUsingDfs(node1).ToList();
+            var nodeValues2 = GetValuesUsingDfs(node2).ToList();
 
-            // If both node1 and node2 have a common value, then there is a route between them.
-            return nodeValues1.Intersect(nodeValues2).Any();
+            return nodeValues1.Contains(node2.Name) && nodeValues2.Contains(node1.Name);
         }
 
         /// <summary>
@@ -64,11 +62,11 @@ namespace Demo.LearnByDoing.Tests.Chapter04
             while (stack.Count > 0)
             {
                 var v = stack.Pop();
-                yield return v.Name;
-
                 if (!v.IsVisited)
                 {
                     v.IsVisited = true;
+                    yield return v.Name;
+
                     foreach (Node<T> child in v.Children)
                     {
                         stack.Push(child);
@@ -88,9 +86,9 @@ namespace Demo.LearnByDoing.Tests.Chapter04
             //new object[] { true, GetGraph(), GetGraph().Nodes.First(), GetGraph().Nodes.Skip(2).First() },
 
             // There is a route between first node and the 5th node
-            new object[] {true, GetGraph().Nodes.First(), GetGraph().Nodes[5] },
+            new object[] {true, GetGraph2().Nodes.First(), GetGraph2().Nodes[GetGraph2().Nodes.Count - 2]},
             // There is NO route between first node and the 6th node
-            new object[] {false, GetGraph().Nodes.First(), GetGraph().Nodes.Last() },
+            new object[] {false, GetGraph2().Nodes.First(), GetGraph2().Nodes.Last()},
         };
 
         private static Graph<int> GetGraph2()
