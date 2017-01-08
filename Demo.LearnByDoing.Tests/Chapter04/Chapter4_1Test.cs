@@ -89,6 +89,8 @@ namespace Demo.LearnByDoing.Tests.Chapter04
             new object[] {true, GetGraph2().Nodes.First(), GetGraph2().Nodes[GetGraph2().Nodes.Count - 2]},
             // There is NO route between first node and the 6th node
             new object[] {false, GetGraph2().Nodes.First(), GetGraph2().Nodes.Last()},
+            new object[] {false, GetGraph2().Nodes[2], GetGraph2().Nodes.Last()},
+            new object[] {false, GetGraph2().Nodes[3], GetGraph2().Nodes.Last()},
         };
 
         private static Graph<int> GetGraph2()
