@@ -23,7 +23,16 @@ namespace Demo.LearnByDoing.Tests.Chapter04
         [ClassData(typeof(Chapter4_1Data))]
         public void TestDepthFirstSearchToFindRouteBetweenTwoNodes(bool expected, Node<int> node1, Node<int> node2)
         {
-            bool actual = _sut.ExistsRouteUsingDfs(node1, node2);
+            bool actual = _sut.HasRouteUsingDfs(node1, node2);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [ClassData(typeof(Chapter4_1Data))]
+        public void TestDepthFirstSearchToFindRouteBetweenTwoNodesOptimized(bool expected, Node<int> node1, Node<int> node2)
+        {
+            bool actual = _sut.HasRouteUsingDfs2(node1, node2);
 
             Assert.Equal(expected, actual);
         }
@@ -33,13 +42,21 @@ namespace Demo.LearnByDoing.Tests.Chapter04
     public class Chapter4_1
     {
         /// <summary>
+        /// Optimized solution for finding a route between two nodes using Depth First Search algorithm.
+        /// </summary>
+        public bool HasRouteUsingDfs2(Node<int> node1, Node<int> node2)
+        {
+            return false;
+        }
+
+        /// <summary>
         /// Find if a route between two nodes in the specified graph using DFS (Depth First Search) algorithm.
         /// </summary>
         /// <param name="graph">Graph containing all nodes</param>
         /// <param name="node1">"From" node</param>
         /// <param name="node2">"To" node</param>
         /// <returns>True if route exists, false, otherwise</returns>
-        public bool ExistsRouteUsingDfs<T>(Node<T> node1, Node<T> node2)
+        public bool HasRouteUsingDfs<T>(Node<T> node1, Node<T> node2)
         {
             var nodeValues1 = GetValuesUsingDfs(node1).ToList();
             var nodeValues2 = GetValuesUsingDfs(node2).ToList();
