@@ -46,6 +46,23 @@ namespace Demo.LearnByDoing.Tests.Chapter04
         /// </summary>
         public bool HasRouteUsingDfs2(Node<int> node1, Node<int> node2)
         {
+            var nodes1 = GetValuesUsingDfs(node1);
+            var nodes2 = GetValuesUsingDfs(node2);
+
+            // Enumerate multiple lists one at a time using Depth-First Search
+            // http://stackoverflow.com/a/18396163/4035
+            using (var n1 = nodes1.GetEnumerator())
+            using (var n2 = nodes2.GetEnumerator())
+            {
+                while (n1.MoveNext() && n2.MoveNext())
+                {
+                    var nodeValue1 = n1.Current;
+                    var nodeValue2 = n2.Current;
+
+                    if (nodeValue1 == nodeValue2) return true;
+                }
+            }
+
             return false;
         }
 
