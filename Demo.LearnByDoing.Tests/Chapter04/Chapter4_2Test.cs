@@ -29,4 +29,15 @@ namespace Demo.LearnByDoing.Tests.Chapter04
             
         };
     }
+
+    public class TreeNode<T>
+    {
+        public string Name { get; set; }
+        public TreeNode<T>[] Children { get; set; }
+    }
+
+    public class Tree<T>
+    {
+        public TreeNode<T> Root { get; set; }
+    }
 }
