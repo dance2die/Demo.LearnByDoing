@@ -14,13 +14,18 @@ namespace Demo.LearnByDoing.Tests.Chapter05
         }
 
         [Fact]
-        public void TestGettingSettingBits()
+        public void TestGettingBits()
         {
             int val8 = 8;
             for (int i = 0; i < 4; i++)
             {
                 _output.WriteLine("{0} gets bit: {1} at position {2}", Convert.ToString(val8, 2), GetBit(val8, i), i);
             }
+
+            Assert.False(GetBit(val8, 0));
+            Assert.False(GetBit(val8, 1));
+            Assert.False(GetBit(val8, 2));
+            Assert.True(GetBit(val8, 3));
         }
 
         private bool GetBit(int num, int i)
