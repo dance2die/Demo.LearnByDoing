@@ -28,6 +28,18 @@ namespace Demo.LearnByDoing.Tests.Chapter05
             Assert.True(GetBit(val8, 3));
         }
 
+        [Fact]
+        public void TestSettingBits()
+        {
+            int value = 0;
+
+            for (int i = 1, j = 0; i <= 4; i *= 2, j++)
+            {
+                int expected = i;
+                Assert.Equal(i, SetBit(value, j));
+            }
+        }
+
         private bool GetBit(int num, int i)
         {
             int mask = 1 << i;
@@ -36,7 +48,7 @@ namespace Demo.LearnByDoing.Tests.Chapter05
 
         private int SetBit(int num, int i)
         {
-            int mask = 1 << 1;
+            int mask = 1 << i;
             return (num | mask);
         }
     }
