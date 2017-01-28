@@ -49,10 +49,27 @@ namespace Demo.LearnByDoing.Tests.Chapter05
             Assert.Equal(235, _sut.ClearBit(value, 2));
             Assert.Equal(231, _sut.ClearBit(value, 3));
         }
+
+        [Fact]
+        public void TestClearingAllBitsFromTheMostSignificantBitThroughI()
+        {
+            int value = 15;
+
+            // 1111 & 0111 = 01111 => 7
+            Assert.Equal(7, _sut.ClearBitsMsbThroughI(value, 3));
+            // 1111 & 0011 = 0011 => 3
+            Assert.Equal(3, _sut.ClearBitsMsbThroughI(value, 2));
+        }
     }
 
     public class CommonBitManipulation
     {
+        public int ClearBitsMsbThroughI(int num, int i)
+        {
+            int mask = (1 << i) - 1;
+            return num & mask;
+        }
+
         public int ClearBit(int num, int i)
         {
             var mask = ~(1 << i);
