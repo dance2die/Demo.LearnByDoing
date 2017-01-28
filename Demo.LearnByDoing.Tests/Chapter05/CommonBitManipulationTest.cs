@@ -60,10 +60,28 @@ namespace Demo.LearnByDoing.Tests.Chapter05
             // 1111 & 0011 = 0011 => 3
             Assert.Equal(3, _sut.ClearBitsMsbThroughI(value, 2));
         }
+
+        [Fact]
+        public void TestUpdatingBit()
+        {
+            int value = 15;
+
+            // (1111 & 1110) | (0000) = 1110 => 14
+            Assert.Equal(14, _sut.UpdateBit(value, 0, false));
+            // (1111 & 1110) | (0001) = 1111 => 15
+            Assert.Equal(15, _sut.UpdateBit(value, 0, true));
+        }
     }
 
     public class CommonBitManipulation
     {
+        public int UpdateBit(int num, int i, bool bitIs1)
+        {
+            int value = bitIs1 ? 1 : 0;
+            int mask = ~(1 << i);
+            return (num & mask) | (value << i);
+        }
+
         public int ClearBitsMsbThroughI(int num, int i)
         {
             int mask = (1 << i) - 1;
