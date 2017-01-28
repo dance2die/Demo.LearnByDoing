@@ -33,11 +33,10 @@ namespace Demo.LearnByDoing.Tests.Chapter05
         {
             int value = 0;
 
-            for (int i = 1, j = 0; i <= 4; i *= 2, j++)
-            {
-                int expected = i;
-                Assert.Equal(i, SetBit(value, j));
-            }
+            Assert.Equal(1, SetBit(value, 0));
+            Assert.Equal(2, SetBit(value, 1));
+            Assert.Equal(4, SetBit(value, 2));
+            Assert.Equal(8, SetBit(value, 3));
         }
 
         private bool GetBit(int num, int i)
