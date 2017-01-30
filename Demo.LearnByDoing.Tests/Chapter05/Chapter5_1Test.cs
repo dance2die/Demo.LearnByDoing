@@ -67,7 +67,7 @@ namespace Demo.LearnByDoing.Tests.Chapter05
             }
 
             int clearedN = n & (left | right);
-            int shiftedM = m << j;
+            int shiftedM = m << i;
 
             return clearedN | shiftedM;
         }
