@@ -105,6 +105,7 @@
     <Compile Include="Chapter04\Node.cs" />
     <Compile Include="Chapter04\Chapter4TestData.cs" />
     <Compile Include="Chapter05\Chapter5_1Test.cs" />
+    <Compile Include="Chapter05\Chapter5_2Test.cs" />
     <Compile Include="Chapter05\CommonBitManipulationTest.cs" />
     <Compile Include="Core\TestDataBase.cs" />
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
