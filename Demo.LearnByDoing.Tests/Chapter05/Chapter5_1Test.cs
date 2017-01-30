@@ -1,4 +1,6 @@
-﻿using Demo.LearnByDoing.Tests.Core;
+﻿using System;
+using Demo.LearnByDoing.Tests.Core;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter05
@@ -25,9 +27,49 @@ namespace Demo.LearnByDoing.Tests.Chapter05
         public Chapter5_1Test(ITestOutputHelper output) : base(output)
         {
         }
+
+        [Fact]
+        public void TestUpdateBits()
+        {
+            const int n = 1024;
+            const int m = 19;
+            const int i = 2;
+            const int j = 6;
+            const int expected = 1100;
+
+            int actual = _sut.UpdateBits(n, m, i, j);
+
+            Func<int, string> toBin = value => Convert.ToString(value, 2);
+            _output.WriteLine("n = {0} => m => {1} <= expected: {2} but actual = {3}", 
+                toBin(n), toBin(m), toBin(expected), toBin(actual));
+
+            Assert.Equal(expected, actual);
+        }
     }
 
     public class Chapter5_1
     {
+        private string ToBin(int value)
+        {
+            return Convert.ToString(value, 2);
+        }
+
+        public int UpdateBits(int n, int m, int i, int j)
+        {
+            int allOnes = ~0;
+            int left = allOnes << (j + 1);
+
+            int right = 0;
+            for (int x = 0; x < i; x++)
+            {
+                right += (1 << x);
+                Console.WriteLine(Convert.ToString(right, 2));
+            }
+
+            int clearedN = n & (left | right);
+            int shiftedM = m << j;
+
+            return clearedN | shiftedM;
+        }
     }
 }
