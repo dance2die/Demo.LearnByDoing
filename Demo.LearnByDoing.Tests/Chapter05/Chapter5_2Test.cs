@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.LearnByDoing.Tests.Core;
+using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Chapter05
@@ -16,6 +17,8 @@ namespace Demo.LearnByDoing.Tests.Chapter05
     /// print "ERROR".
     /// 
     /// Hints: #143, #167, #173, #269, #297
+    /// 
+    /// NOTE: Didn't solve it. This is the answer from the book.
     /// </summary>
     public class Chapter5_2Test : BaseTest
     {
@@ -24,9 +27,47 @@ namespace Demo.LearnByDoing.Tests.Chapter05
         public Chapter5_2Test(ITestOutputHelper output) : base(output)
         {
         }
+
+        [Fact]
+        public void TestGettingStringRepresentationOfBinaryDecimal()
+        {
+            double num = 0.72;
+            string actual = _sut.GetBinaryString(num);
+
+            const string expected = ".101110000101000111101011100001";
+            Assert.Equal(expected, actual);
+        }
     }
 
     public class Chapter5_2
     {
+        public string GetBinaryString(double num)
+        {
+            const string ERROR_STRING = "ERROR";
+            if (num >= 1 || num <= 0) return ERROR_STRING;
+
+            StringBuilder binary = new StringBuilder();
+            binary.Append(".");
+
+            while (num > 0)
+            {
+                // setting a limit on length: 32 characters
+                if (binary.Length >= 31) return binary.ToString();
+
+                double r = num*2;
+                if (r >= 1)
+                {
+                    binary.Append(1);
+                    num = r - 1;
+                }
+                else
+                {
+                    binary.Append(0);
+                    num = r;
+                }
+            }
+
+            return binary.ToString();
+        }
     }
 }
