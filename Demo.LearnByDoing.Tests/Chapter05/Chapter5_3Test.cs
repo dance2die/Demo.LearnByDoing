@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Demo.LearnByDoing.Tests.Core;
 using Xunit;
@@ -43,74 +41,5 @@ namespace Demo.LearnByDoing.Tests.Chapter05
 
             Assert.Equal(expected, actual);
         }
-    }
-
-    public class Chapter5_3
-    {
-        public int GetLongestSequenceOfOnes(int number)
-        {
-            // Get the list containing sequential 1s.
-            // e.g.) 110 1110 1111 => 2, 3, 4
-            List<int> oneCount = GetOneCount(number).ToList();
-
-            // get the sum of next adjacent item
-            // get the max of the sum
-            int max = 0;
-            for (int i = 0; i < oneCount.Count - 1; i++)
-            {
-                int sum = oneCount[i] + oneCount[i + 1];
-                if (sum > max)
-                    max = sum;
-            }
-
-            // flipped bit size
-            const int flippedBitSize = 1;
-            return max + flippedBitSize;
-        }
-
-        // 32 bit integer.
-        private const int INT_BIT_SIZE = 32;
-
-        public IEnumerable<int> GetOneCount(int number)
-        {
-            int startValue = 1;
-            int sequenceSize = 0;
-
-            Func<int, string> toBin = value => Convert.ToString(value, 2);
-
-            for (int i = 0; i < INT_BIT_SIZE; i++)
-            {
-                int mask = startValue << i;
-                if ((mask & number) >= 1)
-                {
-                    sequenceSize++;
-                }
-                else
-                {
-                    if (sequenceSize != 0)
-                        yield return sequenceSize;
-
-                    sequenceSize = 0;
-                }
-            }
-        }
-    }
-
-    public class Chapter5_3Data : TestDataBase
-    {
-        public override List<object[]> Data { get; set; } = new List<object[]>
-        {
-            new object[] {1775, 8}, // 11011101111 => 8
-            new object[] {1463, 6}, // 10110110111 => 6
-        };
-    }
-
-    public class Chapter5_3Data_SequentialCount : TestDataBase
-    {
-        public override List<object[]> Data { get; set; } = new List<object[]>
-        {
-            new object[] {1775, new List<int> {4, 3, 2}},
-            new object[] {1463, new List<int> {3, 2, 2, 1}},
-        };
     }
 }
