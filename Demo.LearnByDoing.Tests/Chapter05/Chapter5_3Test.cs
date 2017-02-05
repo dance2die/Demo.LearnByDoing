@@ -63,7 +63,9 @@ namespace Demo.LearnByDoing.Tests.Chapter05
                     max = sum;
             }
 
-            return max;
+            // flipped bit size
+            const int flippedBitSize = 1;
+            return max + flippedBitSize;
         }
 
         // 32 bit integer.
@@ -90,8 +92,6 @@ namespace Demo.LearnByDoing.Tests.Chapter05
 
                     sequenceSize = 0;
                 }
-
-                mask <<= i + 1;
             }
         }
     }
