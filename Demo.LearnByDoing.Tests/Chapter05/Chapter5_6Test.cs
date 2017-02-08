@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Tests.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -66,7 +63,8 @@ namespace Demo.LearnByDoing.Tests.Chapter05
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
-            new object[] {29, 15, 2}
+            new object[] {29, 15, 2},
+            new object[] {56, 7, 6},
         };
     }
 }
