@@ -31,12 +31,35 @@ namespace Demo.LearnByDoing.Tests.Chapter05
         [ClassData(typeof(Chapter5_6Data))]
         public void TestGettingNumberOfFlippedBits(int n1, int n2, int expected)
         {
-            
+            int actual = _sut.GetFlippedBitCount(n1, n2, _output);
+
+            Assert.Equal(expected, actual);
         }
     }
 
     public class Chapter5_6
     {
+        public int GetFlippedBitCount(int n1, int n2, ITestOutputHelper output)
+        {
+            int bitSize = Convert.ToString(n1, 2).Length;
+            int xorValue = n1 ^ n2;
+
+            Func<int, string> toBin = v => Convert.ToString(v, 2);
+            output.WriteLine("n1: {0}({1}), n2: {2}:({3})", n1, toBin(n1), n2, toBin(n2));
+
+            int flippedBitCount = 0;
+            for (int i = 0; i < bitSize; i++)
+            {
+                int mask = 1 << i;
+                if ((xorValue & mask) >= 1)
+                {
+                    output.WriteLine("mask: {0} => {1}: xorValue: {2} => {3}", mask, toBin(mask), xorValue, toBin(xorValue));
+                    flippedBitCount++;
+                }
+            }
+
+            return flippedBitCount;
+        }
     }
 
     public class Chapter5_6Data : TestDataBase
