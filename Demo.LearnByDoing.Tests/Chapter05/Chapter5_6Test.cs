@@ -28,7 +28,7 @@ namespace Demo.LearnByDoing.Tests.Chapter05
         [ClassData(typeof(Chapter5_6Data))]
         public void TestGettingNumberOfFlippedBits(int n1, int n2, int expected)
         {
-            int actual = _sut.GetFlippedBitCount2(n1, n2, _output);
+            int actual = _sut.GetFlippedBitCount3(n1, n2, _output);
 
             Assert.Equal(expected, actual);
         }
@@ -36,6 +36,29 @@ namespace Demo.LearnByDoing.Tests.Chapter05
 
     public class Chapter5_6
     {
+        public int GetFlippedBitCount3(int n1, int n2, ITestOutputHelper output)
+        {
+            int count = 0;
+
+            for (int c = n1 ^ n2; c != 0; c = c & (c - 1))
+            {
+                count++;
+            }
+
+            return count;
+        }
+
+        public int GetFlippedBitCount2(int n1, int n2, ITestOutputHelper output)
+        {
+            int count = 0;
+            for (int c = n1 ^ n2; c != 0; c = c >> 1)
+            {
+                if ((c & 1) >= 1)
+                    count++;
+            }
+            return count;
+        }
+
         public int GetFlippedBitCount(int n1, int n2, ITestOutputHelper output)
         {
             int bitSize = Convert.ToString(n1, 2).Length;
@@ -56,17 +79,6 @@ namespace Demo.LearnByDoing.Tests.Chapter05
             }
 
             return flippedBitCount;
-        }
-
-        public int GetFlippedBitCount2(int n1, int n2, ITestOutputHelper output)
-        {
-            int count = 0;
-            for (int c = n1 ^ n2; c != 0; c = c >> 1)
-            {
-                if ((c & 1) >= 1)
-                    count++;
-            }
-            return count;
         }
     }
 
