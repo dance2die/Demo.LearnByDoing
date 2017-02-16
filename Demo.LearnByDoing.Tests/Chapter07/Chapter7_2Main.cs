@@ -42,7 +42,7 @@ namespace Demo.LearnByDoing.Tests.Chapter07
         {
             for (int i = 0; i < employeeCount; i++)
             {
-                yield return new Employee("employee " + i, true);
+                yield return new Employee("employee " + i, false);
             }
         }
     }
