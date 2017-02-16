@@ -65,7 +65,12 @@ namespace Demo.LearnByDoing.Tests.Chapter07
 
         public void Accept(IVisitor visitor)
         {
-            visitor.Visit(this, CallCount);
+            //visitor.Visit(this, CallCount);
+            List<Employee> employees = Handlers.SelectMany(group => group).ToList();
+            foreach (Employee employee in employees)
+            {
+                employee.Accept(visitor);
+            }
         }
     }
 
@@ -81,22 +86,14 @@ namespace Demo.LearnByDoing.Tests.Chapter07
 
     public class CallHandlerVisitor : IVisitor
     {
+        public static int CurrentCall { get; set; } = 0;
+
         public void Visit(IElement element, int callCount)
         {
-            var employeeGroups = ((Employees) element).Handlers;
-            List<Employee> employees = employeeGroups.SelectMany(group => group).ToList();
-
-            for (int i = 0; i < callCount; i++)
+            var employee = element as Employee;
+            if (employee.CanHandleCall)
             {
-                foreach (Employee employee in employees)
-                {
-                    if (employee.CanHandleCall)
-                    {
-                        Console.WriteLine("{0} is handling the call {1}", employee.Name, i);
-                        employee.CanHandleCall = false;
-                        break;
-                    }
-                }
+                Console.WriteLine("{0} is handling the call {1}", employee.Name, CurrentCall++);
             }
         }
     }
