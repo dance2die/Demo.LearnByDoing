@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CE9A7533-5942-40B6-9D69-C0EBEEBC5F23}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Demo.LearnByDoing.Tests</RootNamespace>
     <AssemblyName>Demo.LearnByDoing.Tests</AssemblyName>
@@ -28,6 +28,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Demo.LearnByDoing.Tests.Chapter07.Chapter7_2Main</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -111,6 +114,8 @@
     <Compile Include="Chapter05\Chapter5_3Test.cs" />
     <Compile Include="Chapter05\Chapter5_6Test.cs" />
     <Compile Include="Chapter05\CommonBitManipulationTest.cs" />
+    <Compile Include="Chapter07\Chapter7_2Main.cs" />
+    <Compile Include="Chapter07\Chapter7_2Test.cs" />
     <Compile Include="Core\TestDataBase.cs" />
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
     <Compile Include="Core\BaseTest.cs" />
