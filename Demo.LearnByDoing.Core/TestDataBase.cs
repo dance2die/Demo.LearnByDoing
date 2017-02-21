@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Demo.LearnByDoing.Tests.Core
+namespace Demo.LearnByDoing.Core
 {
     public abstract class TestDataBase : IEnumerable<object[]>
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Demo.LearnByDoing.Tests.Core;
+using Demo.LearnByDoing.Core;
 
 namespace Demo.LearnByDoing.Tests.Chapter02
 {

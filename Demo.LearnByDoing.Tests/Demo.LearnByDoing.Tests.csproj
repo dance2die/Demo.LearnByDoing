@@ -116,15 +116,21 @@
     <Compile Include="Chapter05\CommonBitManipulationTest.cs" />
     <Compile Include="Chapter07\Chapter7_2Main.cs" />
     <Compile Include="Chapter07\Chapter7_2Test.cs" />
-    <Compile Include="Core\TestDataBase.cs" />
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
-    <Compile Include="Core\BaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.LearnByDoing.Core\Demo.LearnByDoing.Core.csproj">
+      <Project>{dca6be29-c6cc-41de-b6a2-366c0b3bc945}</Project>
+      <Name>Demo.LearnByDoing.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

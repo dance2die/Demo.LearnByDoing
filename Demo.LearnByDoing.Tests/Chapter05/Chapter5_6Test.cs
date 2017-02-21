@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Demo.LearnByDoing.Tests.Core;
+using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
 

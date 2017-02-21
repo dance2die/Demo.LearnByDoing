@@ -2,7 +2,7 @@
 using System.Linq;
 using Xunit.Abstractions;
 
-namespace Demo.LearnByDoing.Tests.Core
+namespace Demo.LearnByDoing.Core
 {
     public abstract class BaseTest
     {
