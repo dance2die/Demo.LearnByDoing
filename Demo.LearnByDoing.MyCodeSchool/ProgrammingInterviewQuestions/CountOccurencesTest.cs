@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -18,6 +19,15 @@ namespace Demo.LearnByDoing.MyCodeSchool.ProgrammingInterviewQuestions
         public void TestGettingFirstIndexes(int[] a, int value, int expected)
         {
             int actual = _sut.FindFirstIndex(a, value);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [ClassData(typeof(CountOccurencesLastIndexData))]
+        public void TestGettingLastIndexes(int[] a, int value, int expected)
+        {
+            int actual = _sut.FindLastIndex(a, value);
 
             Assert.Equal(expected, actual);
         }
@@ -42,21 +52,50 @@ namespace Demo.LearnByDoing.MyCodeSchool.ProgrammingInterviewQuestions
 
             while (low <= high)
             {
-                int mid = (low + high) / 2;
-                int middleValue = a[mid];
+                int middleIndex = (low + high) / 2;
+                int middleValue = a[middleIndex];
 
                 if (value == middleValue)
                 {
-                    result = mid;
-                    high = mid - 1;
+                    result = middleIndex;
+                    high = middleIndex - 1;
                 }
                 else if (value < middleValue)
                 {
-                    high = mid - 1;
+                    high = middleIndex - 1;
                 }
                 else // value > middleValue
                 {
-                    low = mid + 1;
+                    low = middleIndex + 1;
+                }
+            }
+
+            return result;
+        }
+
+        public int FindLastIndex(int[] a, int value)
+        {
+            int low = 0;
+            int high = a.Length - 1;
+            int result = int.MinValue;
+
+            while (low <= high)
+            {
+                int middleIndex = (low + high) / 2;
+                int middleValue = a[middleIndex];
+
+                if (value == middleValue)
+                {
+                    result = middleIndex;
+                    low = middleIndex + 1;
+                }
+                else if (value < middleIndex)
+                {
+                    high = middleIndex - 1;
+                }
+                else // value > middleValue
+                {
+                    low = middleIndex + 1;
                 }
             }
 
