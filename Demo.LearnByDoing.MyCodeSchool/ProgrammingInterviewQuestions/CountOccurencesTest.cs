@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.MyCodeSchool.ProgrammingInterviewQuestions
 {
+    /// <summary>
+    /// Count occurrences of a number in a sorted array with duplicates using Binary Search
+    /// https://www.youtube.com/watch?v=pLT_9jwaPLs&list=PL2_aWCzGMAwLPEZrZIcNEq9ukGWPfLT4A&index=2
+    /// </summary>
     public class CountOccurencesTest : BaseTest
     {
         private readonly CountOccurences _sut = new CountOccurences();
@@ -32,18 +35,26 @@ namespace Demo.LearnByDoing.MyCodeSchool.ProgrammingInterviewQuestions
             Assert.Equal(expected, actual);
         }
 
-        //[Theory]
-        //[ClassData(typeof(CountOccurencesData))]
-        //public void TestCountOfElementInASortedList(int[] a, int value, int expected)
-        //{
-        //    int actual = _sut.GetCountUsinBinarySearch(a, value);
+        [Theory]
+        [ClassData(typeof(CountOccurencesData))]
+        public void TestCountOfElementInASortedList(int[] a, int value, int expected)
+        {
+            int actual = _sut.GetCountUsinBinarySearch(a, value);
 
-        //    Assert.Equal(expected, actual);
-        //}
+            Assert.Equal(expected, actual);
+        }
     }
 
     public class CountOccurences
     {
+        public int GetCountUsinBinarySearch(int[] a, int value)
+        {
+            int firstIndex = FindFirstIndex(a, value);
+            int lastIndex = FindLastIndex(a, value);
+
+            return lastIndex - firstIndex + 1;
+        }
+
         private int FindIndex(int[] a, int value, bool findFirst = true)
         {
             int low = 0;
@@ -85,14 +96,6 @@ namespace Demo.LearnByDoing.MyCodeSchool.ProgrammingInterviewQuestions
         {
             return FindIndex(a, value, findFirst:false);
         }
-
-        //public int GetCountUsinBinarySearch(int[] a, int value)
-        //{
-        //    int firstIndex = FindFirst(a, value);
-        //    int lastIndex = FindLast(a, value);
-
-        //    return lastIndex - firstIndex + 1;
-        //}
     }
 
     public class CountOccurencesFirstIndexData : TestDataBase
