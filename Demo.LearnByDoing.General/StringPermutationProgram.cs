@@ -43,7 +43,7 @@ namespace Demo.LearnByDoing.General
             for (int i = 0; i < len; i++)
             {
                 var before = remainder.Substring(0, i);
-                var after = remainder.Substring(i + 1, len);
+                var after = remainder.Substring(i + 1);
                 char c = remainder[i];
                 GetPermutations(prefix + c, before + after, result);
             }
