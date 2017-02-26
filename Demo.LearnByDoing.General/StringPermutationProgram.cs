@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,37 @@ namespace Demo.LearnByDoing.General
         public static void Main(string[] args)
         {
             string value = "ABC";
-            Permute(value, 0, value.Length - 1);
+            //Permute(value, 0, value.Length - 1);
+
+            List<string> permutations = GetPermutations(value);
+            foreach (var permutation in permutations)
+            {
+                Console.WriteLine(permutation);
+            }
+        }
+
+        /// <summary>
+        /// Get permutation using algorithm used in Cracking the Coding Interview 8.7
+        /// </summary>
+        private static List<string> GetPermutations(string value)
+        {
+            List<string> result = new List<string>();
+            GetPermutations("", value, result);
+            return result;
+        }
+
+        private static void GetPermutations(string prefix, string remainder, List<string> result)
+        {
+            if (remainder.Length == 0) result.Add(prefix);
+
+            int len = remainder.Length;
+            for (int i = 0; i < len; i++)
+            {
+                var before = remainder.Substring(0, i);
+                var after = remainder.Substring(i + 1, len);
+                char c = remainder[i];
+                GetPermutations(prefix + c, before + after, result);
+            }
         }
 
         private static void Permute(string value, int left, int right)
