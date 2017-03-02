@@ -15,7 +15,7 @@ namespace Demo.LearnByDoing.General
     {
         public static void Main(string[] args)
         {
-            string value = "ABC";
+            string value = "ABCD";
             //Permute(value, 0, value.Length - 1);
 
             List<string> permutations = GetPermutations(value);
