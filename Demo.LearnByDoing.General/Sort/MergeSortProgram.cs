@@ -37,7 +37,7 @@ namespace Demo.LearnByDoing.General.Sort
         private static void Merge(int[] a, int[] helper, int low, int middle, int high)
         {
             // copy both halves into a helper array
-            for (int i = low; i < high; i++)
+            for (int i = low; i <= high; i++)
             {
                 helper[i] = a[i];
             }
