@@ -6,6 +6,8 @@ namespace Demo.LearnByDoing.General.Sort
     /// <summary>
     /// Second attempt to understand Merge Sort from Youtube video
     /// https://youtu.be/TzeBrDU-JaY
+    /// 
+    /// <seealso cref="https://www.khanacademy.org/computing/computer-science/algorithms/merge-sort/a/overview-of-merge-sort"/>
     /// </summary>
     public class MergeSortProgram2
     {
@@ -64,6 +66,7 @@ namespace Demo.LearnByDoing.General.Sort
                 k++;
             }
 
+            // If left has left over, then copy them over
             while (i < nL)
             {
                 a[k] = left[i];
@@ -71,6 +74,7 @@ namespace Demo.LearnByDoing.General.Sort
                 k++;
             }
 
+            // If right has left over, then copy them over
             while (j < nR)
             {
                 a[k] = right[j];
