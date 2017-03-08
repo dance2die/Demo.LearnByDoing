@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.Sort.MergeSortProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.Sort.MergeSortProgram2</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sort\MergeSortProgram.cs" />
+    <Compile Include="Sort\MergeSortProgram2.cs" />
     <Compile Include="Sort\SelectionSortProgram.cs" />
     <Compile Include="StringPermutationProgram.cs" />
     <Compile Include="TowerOfHanoiProgram.cs" />
