@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Sort\MergeSortProgram.cs" />
     <Compile Include="Sort\MergeSortProgram2.cs" />
+    <Compile Include="Sort\QuickSortProgram.cs" />
     <Compile Include="Sort\SelectionSortProgram.cs" />
     <Compile Include="StringPermutationProgram.cs" />
     <Compile Include="TowerOfHanoiProgram.cs" />
