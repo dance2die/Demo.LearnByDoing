@@ -21,7 +21,7 @@ namespace Demo.LearnByDoing.Tests.Chapter10
         [ClassData(typeof(Chapter10_1Data))]
         public void TestCopyingBToA(int lastA, int lastB, int[] a, int[] b, int[] expected)
         {
-            _sut.CopyBToA(a, b, lastA, lastB);
+            _sut.CopyBToA(_output, a, b, lastA, lastB);
 
             Assert.True(expected.SequenceEqual(a));
         }
@@ -41,7 +41,7 @@ namespace Demo.LearnByDoing.Tests.Chapter10
         /// <summary>
         /// From Cracking the Coding Interview 10.1 solution.
         /// </summary>
-        public void CopyBToA(int[] a, int[] b, int lastA, int lastB)
+        public void CopyBToA(ITestOutputHelper output, int[] a, int[] b, int lastA, int lastB)
         {
             int indexA = lastA - 1;
             int indexB = lastB - 1;
@@ -52,6 +52,7 @@ namespace Demo.LearnByDoing.Tests.Chapter10
                 if (indexA >= 0 && a[indexA] > b[indexB])
                 {
                     a[indexMerged] = a[indexA];
+                    
                     indexA--;
                 }
                 else
@@ -59,6 +60,7 @@ namespace Demo.LearnByDoing.Tests.Chapter10
                     a[indexMerged] = b[indexB];
                     indexB--;
                 }
+                output.WriteLine("a[{0}] = {1}", indexMerged, a[indexMerged]);
                 indexMerged--;
             }
         }
