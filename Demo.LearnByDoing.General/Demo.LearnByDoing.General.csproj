@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.ParsingNumbersPerDigitProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.Sort.BinarySearchFindFirstLastProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParsingNumbersPerDigitProgram.cs" />
+    <Compile Include="Sort\BinarySearchFindFirstLastProgram.cs" />
     <Compile Include="Sort\BinarySearchProgram.cs" />
     <Compile Include="Sort\MergeSortProgram.cs" />
     <Compile Include="Sort\MergeSortProgram2.cs" />
