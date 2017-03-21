@@ -47,7 +47,7 @@ namespace Demo.LearnByDoing.General
                 }
             }
 
-            // Add the last element, which is gauranteed to be unique
+            // Add the last element, which is guaranteed to be unique
             result.Add(a[a.Length - 1]);
 
             return result.ToArray();

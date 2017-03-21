@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.RemoveDuplicatesProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.MinimalTreeGenerationProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MinimalTreeGenerationProgram.cs" />
     <Compile Include="ParsingNumbersPerDigitProgram.cs" />
     <Compile Include="RemoveDuplicatesProgram.cs" />
     <Compile Include="Sort\BinarySearchFindFirstLastProgram.cs" />
