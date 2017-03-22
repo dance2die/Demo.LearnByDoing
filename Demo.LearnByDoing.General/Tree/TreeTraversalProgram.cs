@@ -12,9 +12,17 @@ namespace Demo.LearnByDoing.General.Tree
         {
             TreeNode<int> root = CreateSampleBinaryTree();
 
-            List<int> inOrderTraversal = new List<int>();
-            InOrderTraversal(root, inOrderTraversal);
-            Console.Write("In-Order Traversal: {0}", string.Join(" ", inOrderTraversal.Select(val => val.ToString()).ToArray()));
+            List<int> inOrderList = new List<int>();
+            InOrderTraversal(root, inOrderList);
+            PrintListWithHeader("In-Order Traversal", inOrderList);
+
+            List<int> preOrderList = new List<int>();
+            //PreOrderTraversal(root, preOrderList);
+        }
+
+        private static void PrintListWithHeader(string header, List<int> list)
+        {
+            Console.Write("{0}: {1}", header, string.Join(" ", list.Select(val => val.ToString()).ToArray()));
             Console.WriteLine();
         }
 
