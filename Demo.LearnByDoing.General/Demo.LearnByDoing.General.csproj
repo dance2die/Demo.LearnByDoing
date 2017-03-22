@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.MinimalTreeGenerationProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.Tree.TreeTraversalProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -60,6 +60,8 @@
     <Compile Include="StringPermutationProgram.cs" />
     <Compile Include="TowerOfHanoiProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tree\TreeNode.cs" />
+    <Compile Include="Tree\TreeTraversalProgram.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
