@@ -19,6 +19,19 @@ namespace Demo.LearnByDoing.General.Tree
             List<int> preOrderList = new List<int>();
             PreOrderTraversal(root, preOrderList);
             PrintListWithHeader("Pre-Order Traversal", preOrderList);
+
+            List<int> postOrderList = new List<int>();
+            PostOrderTraversal(root, postOrderList);
+            PrintListWithHeader("Post-Order Traversal", postOrderList);
+        }
+
+        private static void PostOrderTraversal(TreeNode<int> node, List<int> list)
+        {
+            if (node == null) return;
+
+            PostOrderTraversal(node.Left, list);
+            PostOrderTraversal(node.Right, list);
+            list.Add(node.Value);
         }
 
         private static void PreOrderTraversal(TreeNode<int> node, List<int> list)
