@@ -17,13 +17,17 @@ namespace Demo.LearnByDoing.General.Tree
             PrintListWithHeader("In-Order Traversal", inOrderList);
 
             List<int> preOrderList = new List<int>();
-            //PreOrderTraversal(root, preOrderList);
+            PreOrderTraversal(root, preOrderList);
+            PrintListWithHeader("Pre-Order Traversal", preOrderList);
         }
 
-        private static void PrintListWithHeader(string header, List<int> list)
+        private static void PreOrderTraversal(TreeNode<int> node, List<int> list)
         {
-            Console.Write("{0}: {1}", header, string.Join(" ", list.Select(val => val.ToString()).ToArray()));
-            Console.WriteLine();
+            if (node == null) return;
+
+            list.Add(node.Value);
+            PreOrderTraversal(node.Left, list);
+            PreOrderTraversal(node.Right, list);
         }
 
         private static void InOrderTraversal(TreeNode<int> node, List<int> list)
@@ -33,6 +37,12 @@ namespace Demo.LearnByDoing.General.Tree
             InOrderTraversal(node.Left, list);
             list.Add(node.Value);
             InOrderTraversal(node.Right, list);
+        }
+
+        private static void PrintListWithHeader(string header, List<int> list)
+        {
+            Console.Write("{0}: {1}", header, string.Join(" ", list.Select(val => val.ToString()).ToArray()));
+            Console.WriteLine();
         }
 
         private static TreeNode<int> CreateSampleBinaryTree()
