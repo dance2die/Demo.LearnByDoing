@@ -1,4 +1,5 @@
 ﻿using System;
+using Demo.LearnByDoing.General.Graph;
 
 namespace Demo.LearnByDoing.General
 {
@@ -33,17 +34,5 @@ namespace Demo.LearnByDoing.General
 
             return node;
         }
-    }
-
-    public class Graph
-    {
-        public Node[] Nodes;
-    }
-
-    public class Node
-    {
-        public int Value { get; set; }
-        public Node Left { get; set; }
-        public Node Right { get; set; }
     }
 }

@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Graph\Graph.cs" />
     <Compile Include="MinimalTreeGenerationProgram.cs" />
+    <Compile Include="Graph\Node.cs" />
     <Compile Include="ParsingNumbersPerDigitProgram.cs" />
     <Compile Include="RemoveDuplicatesProgram.cs" />
     <Compile Include="Sort\BinarySearchFindFirstLastProgram.cs" />
