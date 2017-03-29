@@ -1,4 +1,7 @@
-﻿namespace Demo.LearnByDoing.General.LinkedList
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Demo.LearnByDoing.General.LinkedList
 {
     public class Node<T>
     {
@@ -9,6 +12,20 @@
         {
             Value = value;
             Next = next;
+        }
+
+        public override string ToString()
+        {
+            List<Node<T>> nodes = new List<Node<T>>();
+            Node<T> node = this;
+
+            while (node.Next != null)
+            {
+                nodes.Add(node);
+                node = node.Next;
+            }
+
+            return string.Join("->", nodes.Select(val => val.Value.ToString()));
         }
     }
 }
