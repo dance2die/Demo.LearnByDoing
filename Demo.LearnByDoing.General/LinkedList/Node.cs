@@ -17,12 +17,15 @@ namespace Demo.LearnByDoing.General.LinkedList
         public override string ToString()
         {
             List<Node<T>> nodes = new List<Node<T>>();
-            Node<T> node = this;
+            Node<T> head = this;
 
-            while (node.Next != null)
+            if (head.Next == null)
+                return head.Value.ToString();
+
+            while (head != null)
             {
-                nodes.Add(node);
-                node = node.Next;
+                nodes.Add(head);
+                head = head.Next;
             }
 
             return string.Join("->", nodes.Select(val => val.Value.ToString()));

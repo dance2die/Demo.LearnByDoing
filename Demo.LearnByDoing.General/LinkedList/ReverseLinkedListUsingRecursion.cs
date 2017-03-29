@@ -8,9 +8,24 @@ namespace Demo.LearnByDoing.General.LinkedList
         {
             Node<int> nodes = GetNodes();
             Console.WriteLine("Before Sorting: {0}", nodes);
-            //ReverseUsingRecursion(nodes);
+            ReverseUsingRecursion(nodes);
 
-            Console.WriteLine("After Sorting: {0}", nodes);
+            Console.WriteLine("After Sorting: {0}", _head);
+        }
+
+        private static Node<int> _head;
+        private static void ReverseUsingRecursion(Node<int> node)
+        {
+            if (node.Next == null)
+            {
+                _head = node;
+                return;
+            }
+
+            ReverseUsingRecursion(node.Next);
+            var previousNode = node.Next;
+            node.Next = null;
+            previousNode.Next = node;
         }
 
         private static Node<int> GetNodes()
