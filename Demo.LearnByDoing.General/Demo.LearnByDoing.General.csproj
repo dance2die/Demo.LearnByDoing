@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.LinkedList.ReverseLinkedListUsingRecursion</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.LinkedList.PrintForwardBackwardUsingRecursion</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Graph\Graph.cs" />
     <Compile Include="LinkedList\Node.cs" />
+    <Compile Include="LinkedList\PrintForwardBackwardUsingRecursion.cs" />
     <Compile Include="LinkedList\ReverseLinkedListUsingRecursion.cs" />
     <Compile Include="MinimalTreeGenerationProgram.cs" />
     <Compile Include="Graph\Node.cs" />
