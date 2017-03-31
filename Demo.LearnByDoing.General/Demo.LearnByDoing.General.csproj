@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.LinkedList.ReverseLinkedListIteratively</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.Stack.CheckForBalancedParentheses</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -62,6 +62,7 @@
     <Compile Include="Sort\QuickSortProgram.cs" />
     <Compile Include="Sort\SelectionSortProgram.cs" />
     <Compile Include="Sort\SortedArrayRotationCountProgram.cs" />
+    <Compile Include="Stack\CheckForBalancedParentheses.cs" />
     <Compile Include="StringPermutationProgram.cs" />
     <Compile Include="TowerOfHanoiProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
