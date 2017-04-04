@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.FindingAllFactorsProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.PrimeFactorizationProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,6 +55,7 @@
     <Compile Include="MinimalTreeGenerationProgram.cs" />
     <Compile Include="Graph\Node.cs" />
     <Compile Include="ParsingNumbersPerDigitProgram.cs" />
+    <Compile Include="PrimeFactorizationProgram.cs" />
     <Compile Include="RemoveDuplicatesProgram.cs" />
     <Compile Include="Sort\BinarySearchFindFirstLastProgram.cs" />
     <Compile Include="Sort\BinarySearchProgram.cs" />
