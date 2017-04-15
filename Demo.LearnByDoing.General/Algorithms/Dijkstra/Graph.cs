@@ -30,6 +30,10 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             {
                 // Unknown distance from source to v
                 dist[vertext.Key] = int.MaxValue;   // int.MaxValue => infinity
+                foreach (Edge<T> edge in vertext.Value)
+                {
+                    dist[edge.Node] = int.MaxValue;
+                }
                 // All nodes initially in Q (unvisited nodes)
                 fringe.Add(vertext.Key);
             }
@@ -42,22 +46,30 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             while (fringe.Count > 0)
             {
                 // shortest path
-                Node<T> m = dist.FirstOrDefault(pair => pair.Value == dist.Min(p => p.Value)).Key;
+                var processed = dist.Where(pair => !path.Contains(pair.Key.Value)).ToList();
+                Node<T> m = processed.FirstOrDefault(pair => pair.Value == processed.Min(p => p.Value)).Key;
+                int mDist = dist[m];
                 fringe.Remove(m);
+
+                if (!_vertices.ContainsKey(m))
+                {
+                    dist.Remove(m);
+                    continue;
+                }
 
                 foreach (Edge<T> w in _vertices[m])
                 {
                     if (dist[w.Node] == int.MaxValue)
                     {
-                        dist[w.Node] = dist[w.Node] + (dist[w.Node] + w.Weight);
+                        dist[w.Node] = mDist + (mDist + w.Weight);
                         fringe.Add(w.Node);
-                        path.Add(w.Node.Value);
                     }
                     else
                     {
-                        dist[w.Node] = Math.Min(dist[w.Node], dist[w.Node] + (dist[w.Node] + w.Weight));
+                        dist[w.Node] = Math.Min(dist[w.Node], mDist + (mDist + w.Weight));
                     }
                 }
+                path.Add(m.Value);
             }
 
             return path;
