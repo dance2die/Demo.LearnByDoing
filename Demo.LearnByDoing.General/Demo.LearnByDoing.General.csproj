@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.Tree.BreadthFirstTraversal</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.Algorithms.Dijkstra.DijkstraProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Dijkstra\DijkstraProgram.cs" />
+    <Compile Include="Algorithms\Dijkstra\Graph.cs" />
     <Compile Include="FindAllArrayElementsExistInAnotherArrayProgram.cs" />
     <Compile Include="FindingAllFactorsProgram.cs" />
     <Compile Include="Graph\Graph.cs" />
