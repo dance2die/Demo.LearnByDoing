@@ -17,6 +17,34 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
         }
 
         /// <summary>
+        /// First implementation was bad. Need to redo.
+        /// </summary>
+        public List<char> GetPathBetween2(Node<char> fromNode, Node<char> toNode)
+        {
+            var s = _vertices;
+            var dist = new Dictionary<Node<T>, int>();
+            var fringe = new List<Node<T>>();
+
+            // Initial
+            KeyValuePair<Node<T>, Edge<T>[]> first = s.First();
+            foreach (Edge<T> edge in first.Value)
+            {
+                dist[edge.Node] = edge.Weight;
+            }
+
+            // for all other vertices other than s, set distance to infinity.
+            foreach (var v in _vertices.Where(pair => !pair.Key.Value.Equals(first.Key.Value)))
+            {
+                foreach (Edge<T> edge in v.Value)
+                {
+                    dist[edge.Node] = int.MaxValue; // inifinity
+                }
+            }
+
+
+        }
+
+        /// <summary>
         /// Using pseudocode in Wikipedia https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Pseudocode
         /// </summary>
         public List<T> GetPathBetween(Node<T> fromNode, Node<T> toNode)
