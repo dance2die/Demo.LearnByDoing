@@ -8,7 +8,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
         public static void Main(string[] args)
         {
             Graph<char> graph = CreateSampleGraph();
-            List<char> paths = graph.GetPathBetween2(new Node<char>('A'), new Node<char>('G'));
+            List<Node<char>> paths = graph.GetPathBetween2(new Node<char>('A'), new Node<char>('G'));
             paths.ForEach(c => Console.Write("{0} => ", c));
         }
 

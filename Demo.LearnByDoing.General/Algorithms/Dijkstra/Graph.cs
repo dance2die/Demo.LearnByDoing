@@ -19,7 +19,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
         /// <summary>
         /// First implementation was bad. Need to redo.
         /// </summary>
-        public List<char> GetPathBetween2(Node<char> fromNode, Node<char> toNode)
+        public List<Node<T>> GetPathBetween2(Node<char> fromNode, Node<char> toNode)
         {
             var s = _vertices;
             var dist = new Dictionary<Node<T>, int>();
@@ -48,11 +48,14 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
 
             while (fringe.Count > 0)
             {
+                var notProcessed = dist.Where(pair => !paths.Contains(pair.Key)).ToList();
+                if (notProcessed.Count == 0) break;
+
                 // Remove the minimum distance vertex, say m, from the fringe
                 // (it is done, the shortest path to it has been found)
                 Node<T> m = fringe.First(node =>
                 {
-                    var min = dist.Where(pair => !paths.Contains(pair.Key)).Min(pair => pair.Value);
+                    var min = notProcessed.Min(pair => pair.Value);
                     return dist[node].Equals(min);
                 });
                 fringe.Remove(m);
@@ -68,16 +71,23 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
                         }
                         else
                         {
+                            if (dist[w.Node] < dist[m] + w.Weight)
+                            {
+                                paths.Remove(m);
+                            }
+                            else
+                            {
+                                paths.Remove(w.Node);
+                            }
                             dist[w.Node] = Math.Min(dist[w.Node], dist[m] + w.Weight);
                         }
                     }
                 }
 
-                //dist.Remove(m);
                 paths.Add(m);
             }
 
-            return null;
+            return paths;
         }
 
         /// <summary>
