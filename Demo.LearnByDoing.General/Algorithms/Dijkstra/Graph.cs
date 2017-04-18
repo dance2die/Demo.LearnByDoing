@@ -24,24 +24,60 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             var s = _vertices;
             var dist = new Dictionary<Node<T>, int>();
             var fringe = new List<Node<T>>();
+            var paths = new List<Node<T>>();
 
             // Initial
-            KeyValuePair<Node<T>, Edge<T>[]> first = s.First();
-            foreach (Edge<T> edge in first.Value)
-            {
-                dist[edge.Node] = edge.Weight;
-            }
-
-            // for all other vertices other than s, set distance to infinity.
+            KeyValuePair<Node<T>, Edge<T>[]> first = s.First(pair => pair.Key.Value.Equals(fromNode.Value));
             foreach (var v in _vertices.Where(pair => !pair.Key.Value.Equals(first.Key.Value)))
             {
                 foreach (Edge<T> edge in v.Value)
                 {
                     dist[edge.Node] = int.MaxValue; // inifinity
+                    fringe.Add(edge.Node);
                 }
             }
 
+            foreach (Edge<T> edge in first.Value)
+            {
+                dist[edge.Node] = edge.Weight;
+                fringe.Add(edge.Node);
+            }
 
+            dist[first.Key] = 0;
+            fringe.Add(first.Key);
+
+            while (fringe.Count > 0)
+            {
+                // Remove the minimum distance vertex, say m, from the fringe
+                // (it is done, the shortest path to it has been found)
+                Node<T> m = fringe.First(node =>
+                {
+                    var min = dist.Where(pair => !paths.Contains(pair.Key)).Min(pair => pair.Value);
+                    return dist[node].Equals(min);
+                });
+                fringe.Remove(m);
+
+                if (_vertices.ContainsKey(m))
+                {
+                    foreach (Edge<T> w in _vertices[m])
+                    {
+                        if (dist.ContainsKey(w.Node) && dist[w.Node] == int.MaxValue)
+                        {
+                            dist[w.Node] = dist[m] + w.Weight;
+                            fringe.Add(w.Node);
+                        }
+                        else
+                        {
+                            dist[w.Node] = Math.Min(dist[w.Node], dist[m] + w.Weight);
+                        }
+                    }
+                }
+
+                //dist.Remove(m);
+                paths.Add(m);
+            }
+
+            return null;
         }
 
         /// <summary>
