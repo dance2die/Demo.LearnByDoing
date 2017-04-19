@@ -19,7 +19,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
         /// <summary>
         /// First implementation was bad. Need to redo.
         /// </summary>
-        public List<Node<T>> GetPathBetween2(Node<char> fromNode, Node<char> toNode)
+        public List<Node<T>> GetPathBetween2(Node<T> fromNode, Node<T> toNode)
         {
             var s = _vertices;
             var dist = new Dictionary<Node<T>, int>();
@@ -45,8 +45,8 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             }
 
             dist[first.Key] = 0;
+            prev[first.Key] = first.Key.Value;
             fringe.Add(first.Key);
-
 
             while (fringe.Count > 0)
             {
@@ -75,17 +75,19 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
                         else
                         {
                             //dist[w.Node] = Math.Min(dist[w.Node], alt);
-                            if (alt < dist[w.Node])
-                            {
-                                dist[w.Node] = alt;
-                                prev[w.Node] = m.Value;
-                            }
+                        }
+
+                        if (alt < dist[w.Node])
+                        {
+                            dist[w.Node] = alt;
+                            prev[w.Node] = m.Value;
                         }
                     }
                 }
 
                 if (m.Value.Equals(toNode.Value))
                 {
+                    prev[toNode] = toNode.Value;
                     return new List<Node<T>>(prev.Select(pair => pair.Key));
                 }
 

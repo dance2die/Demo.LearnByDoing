@@ -8,7 +8,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
         public static void Main(string[] args)
         {
             Graph<char> graph = CreateSampleGraph();
-            List<Node<char>> paths = graph.GetPathBetween2(new Node<char>('A'), new Node<char>('G'));
+            List<Node<char>> paths = graph.GetPathBetween2(new Node<char>('A'), new Node<char>('F'));
             paths.ForEach(c => Console.Write("{0} => ", c));
         }
 
@@ -25,8 +25,8 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             var c = new Node<char>('C');
             var d = new Node<char>('D');
             var e = new Node<char>('E');
-            var f = new Node<char>('F');
             var g = new Node<char>('G');
+            var f = new Node<char>('F');
 
             graph.AddVertex(a, new[] { new Edge<char>(5, b), new Edge<char>(10, c) });
             graph.AddVertex(b, new[] { new Edge<char>(3, e), new Edge<char>(6, d) });
