@@ -24,7 +24,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             var s = _vertices;
             var dist = new Dictionary<Node<T>, int>();
             var prev = new Dictionary<Node<T>, T>();
-            var fringe = new List<Node<T>>();
+            var Q = new List<Node<T>>();
             var processed = new List<Node<T>>();
 
             // Initial
@@ -34,64 +34,55 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
                 foreach (Edge<T> edge in v.Value)
                 {
                     dist[edge.Node] = int.MaxValue; // inifinity
-                    fringe.Add(edge.Node);
+                    Q.Add(edge.Node);
                 }
             }
 
             foreach (Edge<T> edge in first.Value)
             {
                 dist[edge.Node] = edge.Weight;
-                fringe.Add(edge.Node);
+                Q.Add(edge.Node);
             }
 
             dist[first.Key] = 0;
             prev[first.Key] = first.Key.Value;
-            fringe.Add(first.Key);
+            Q.Add(first.Key);
 
-            while (fringe.Count > 0)
+            while (Q.Count > 0)
             {
                 var notProcessed = dist.Where(pair => !processed.Contains(pair.Key)).ToList();
                 if (notProcessed.Count == 0) break;
 
                 // Remove the minimum distance vertex, say m, from the fringe
                 // (it is done, the shortest path to it has been found)
-                Node<T> m = fringe.First(node =>
+                Node<T> u = Q.First(node =>
                 {
                     var min = notProcessed.Min(pair => pair.Value);
                     return dist[node].Equals(min);
                 });
-                fringe.Remove(m);
+                Q.Remove(u);
 
-                if (_vertices.ContainsKey(m))
+                if (_vertices.ContainsKey(u))
                 {
-                    foreach (Edge<T> w in _vertices[m])
+                    foreach (Edge<T> v in _vertices[u])
                     {
-                        var alt = dist[m] + w.Weight;
-                        if (dist.ContainsKey(w.Node) && dist[w.Node] == int.MaxValue)
+                        var alt = dist[u] + v.Weight;
+                        if (alt < dist[v.Node])
                         {
-                            dist[w.Node] = alt;
-                            fringe.Add(w.Node);
-                        }
-                        else
-                        {
-                            //dist[w.Node] = Math.Min(dist[w.Node], alt);
-                        }
-
-                        if (alt < dist[w.Node])
-                        {
-                            dist[w.Node] = alt;
-                            prev[w.Node] = m.Value;
+                            dist[v.Node] = alt;
+                            if (!prev.Values.Contains(u.Value))
+                                prev[v.Node] = u.Value;
                         }
                     }
                 }
 
-                if (m.Value.Equals(toNode.Value))
+                if (u.Value.Equals(toNode.Value))
                 {
                     prev[toNode] = toNode.Value;
-                    return new List<Node<T>>(prev.Select(pair => pair.Key));
+                    return new List<Node<T>>(prev.Distinct().Select(pair => new Node<T>(pair.Value)));
                 }
 
-                processed.Add(m);
+                processed.Add(u);
             }
 
             return prev.Select(pair => pair.Key).ToList();
