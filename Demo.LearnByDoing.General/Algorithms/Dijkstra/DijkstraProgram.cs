@@ -10,6 +10,10 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             Graph<char> graph = CreateSampleGraph();
             List<Node<char>> paths = graph.GetPathBetween2(new Node<char>('A'), new Node<char>('F'));
             paths.ForEach(c => Console.Write("{0} => ", c));
+
+            Console.WriteLine();
+            paths = graph.GetPathBetween2(new Node<char>('A'), new Node<char>('C'));
+            paths.ForEach(c => Console.Write("{0} => ", c));
         }
 
         /// <summary>
