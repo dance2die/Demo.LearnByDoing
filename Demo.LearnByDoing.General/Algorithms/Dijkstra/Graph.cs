@@ -23,8 +23,9 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
         {
             var s = _vertices;
             var dist = new Dictionary<Node<T>, int>();
+            var prev = new Dictionary<Node<T>, T>();
             var fringe = new List<Node<T>>();
-            var paths = new List<Node<T>>();
+            var processed = new List<Node<T>>();
 
             // Initial
             KeyValuePair<Node<T>, Edge<T>[]> first = s.First(pair => pair.Key.Value.Equals(fromNode.Value));
@@ -46,9 +47,10 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             dist[first.Key] = 0;
             fringe.Add(first.Key);
 
+
             while (fringe.Count > 0)
             {
-                var notProcessed = dist.Where(pair => !paths.Contains(pair.Key)).ToList();
+                var notProcessed = dist.Where(pair => !processed.Contains(pair.Key)).ToList();
                 if (notProcessed.Count == 0) break;
 
                 // Remove the minimum distance vertex, say m, from the fringe
@@ -64,30 +66,33 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
                 {
                     foreach (Edge<T> w in _vertices[m])
                     {
+                        var alt = dist[m] + w.Weight;
                         if (dist.ContainsKey(w.Node) && dist[w.Node] == int.MaxValue)
                         {
-                            dist[w.Node] = dist[m] + w.Weight;
+                            dist[w.Node] = alt;
                             fringe.Add(w.Node);
                         }
                         else
                         {
-                            if (dist[w.Node] < dist[m] + w.Weight)
+                            //dist[w.Node] = Math.Min(dist[w.Node], alt);
+                            if (alt < dist[w.Node])
                             {
-                                paths.Remove(m);
+                                dist[w.Node] = alt;
+                                prev[w.Node] = m.Value;
                             }
-                            else
-                            {
-                                paths.Remove(w.Node);
-                            }
-                            dist[w.Node] = Math.Min(dist[w.Node], dist[m] + w.Weight);
                         }
                     }
                 }
 
-                paths.Add(m);
+                if (m.Value.Equals(toNode.Value))
+                {
+                    return new List<Node<T>>(prev.Select(pair => pair.Key));
+                }
+
+                processed.Add(m);
             }
 
-            return paths;
+            return prev.Select(pair => pair.Key).ToList();
         }
 
         /// <summary>
