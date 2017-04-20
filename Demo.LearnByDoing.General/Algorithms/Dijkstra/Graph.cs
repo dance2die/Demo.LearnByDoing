@@ -48,12 +48,21 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
                 Node<T> u = (from distance in dist
                              where Q.Contains(distance.Key) && distance.Value == dist.Where(pair => Q.Contains(pair.Key)).Min(pair => pair.Value)
                              select distance.Key).FirstOrDefault();
-                Q.Remove(u);
 
-                if (!_vertices.ContainsKey(u))
+                if (u.Value.Equals(toNode.Value))
                 {
-                    continue;
+                    var S = new Stack<Node<T>>();
+                    while (prev.ContainsKey(u))
+                    {
+                        S.Push(u);
+                        u = prev[u];
+                    }
+                    S.Push(u);
+                    return S.ToList();
                 }
+
+                Q.Remove(u);
+                if (!_vertices.ContainsKey(u)) continue;
 
                 foreach (Edge<T> v in _vertices[u])
                 {
@@ -64,6 +73,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
                         prev[v.Node] = u;
                     }
                 }
+
             }
 
             return null;
