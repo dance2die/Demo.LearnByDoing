@@ -17,7 +17,31 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
         }
 
         /// <summary>
+        /// Implementation using Wikipedia
+        /// </summary>
+        public List<Node<char>> GetPathBetween3(Node<T> fromNode, Node<T> toNode)
+        {
+            var dist = new Dictionary<Node<T>, int>();
+            var prev = new Dictionary<Node<T>, Node<T>>();
+            var Q = new List<Node<T>>();
+
+            foreach (KeyValuePair<Node<T>, Edge<T>[]> v in _vertices)
+            {
+                // Unknown distance from source to v
+                dist[v.Key] = int.MaxValue;
+                // Previous node in optimal path from source
+                prev[v.Key] = null;
+                Q.Add(v.Key);
+            }
+            // Distance from source to source
+            dist[fromNode] = 0;
+
+
+        }
+
+        /// <summary>
         /// First implementation was bad. Need to redo.
+        /// NOT WORKING.
         /// </summary>
         public List<Node<T>> GetPathBetween2(Node<T> fromNode, Node<T> toNode)
         {

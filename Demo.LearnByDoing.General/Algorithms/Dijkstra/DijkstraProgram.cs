@@ -12,7 +12,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             paths.ForEach(c => Console.Write("{0} => ", c));
 
             Console.WriteLine();
-            paths = graph.GetPathBetween2(new Node<char>('A'), new Node<char>('C'));
+            paths = graph.GetPathBetween3(new Node<char>('A'), new Node<char>('C'));
             paths.ForEach(c => Console.Write("{0} => ", c));
         }
 
