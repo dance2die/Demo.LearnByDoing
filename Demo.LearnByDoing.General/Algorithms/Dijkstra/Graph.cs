@@ -19,24 +19,54 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
         /// <summary>
         /// Implementation using Wikipedia
         /// </summary>
-        public List<Node<char>> GetPathBetween3(Node<T> fromNode, Node<T> toNode)
+        public List<Node<T>> GetPathBetween3(Node<T> fromNode, Node<T> toNode)
         {
             var dist = new Dictionary<Node<T>, int>();
             var prev = new Dictionary<Node<T>, Node<T>>();
-            var Q = new List<Node<T>>();
+            var Q = new HashSet<Node<T>>();
 
             foreach (KeyValuePair<Node<T>, Edge<T>[]> v in _vertices)
             {
-                // Unknown distance from source to v
-                dist[v.Key] = int.MaxValue;
-                // Previous node in optimal path from source
-                prev[v.Key] = null;
-                Q.Add(v.Key);
+                foreach (Edge<T> edge in v.Value)
+                {
+                    // Unknown distance from source to v
+                    dist[edge.Node] = int.MaxValue;
+                    // Previous node in optimal path from source
+                    prev[edge.Node] = null;
+                    Q.Add(edge.Node);
+                }
             }
             // Distance from source to source
             dist[fromNode] = 0;
+            Q.Add(fromNode);
 
+            // while Q is not empty:
+            while (Q.Count > 0)
+            {
+                // Node with the Least distance will be selected
+                // Note that order is not guaranteed.
+                Node<T> u = (from distance in dist
+                             where Q.Contains(distance.Key) && distance.Value == dist.Where(pair => Q.Contains(pair.Key)).Min(pair => pair.Value)
+                             select distance.Key).FirstOrDefault();
+                Q.Remove(u);
 
+                if (!_vertices.ContainsKey(u))
+                {
+                    continue;
+                }
+
+                foreach (Edge<T> v in _vertices[u])
+                {
+                    var alt = dist[u] + v.Weight;
+                    if (alt < dist[v.Node])
+                    {
+                        dist[v.Node] = alt;
+                        prev[v.Node] = u;
+                    }
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -179,6 +209,22 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
         public Node(T value)
         {
             Value = value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var that = obj as Node<T>;
+            return Value.Equals(that.Value);
+        }
+
+        protected bool Equals(Node<T> other)
+        {
+            return EqualityComparer<T>.Default.Equals(Value, other.Value);
+        }
+
+        public override int GetHashCode()
+        {
+            return EqualityComparer<T>.Default.GetHashCode(Value);
         }
 
         public override string ToString()
