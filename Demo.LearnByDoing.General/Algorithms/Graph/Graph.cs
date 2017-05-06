@@ -18,7 +18,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
         }
 
 	    public Tuple<Dictionary<Node<T>, int>, Dictionary<Node<T>, Node<T>>> 
-			GetShortestPathUsingBellmanFordAlgorithm(Node<T> fromNode, Node<T> toNode)
+			GetPathInfoUsingBellmanFordAlgorithm(Node<T> fromNode, Node<T> toNode)
 	    {
 			var distance = new Dictionary<Node<T>, int>();
 		    var predecessor = new Dictionary<Node<T>, Node<T>>();
