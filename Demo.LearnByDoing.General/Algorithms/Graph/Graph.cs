@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
+namespace Demo.LearnByDoing.General.Algorithms.Graph
 {
     public class Graph<T>
     {
@@ -209,54 +209,6 @@ namespace Demo.LearnByDoing.General.Algorithms.Dijkstra
             }
 
             return path;
-        }
-    }
-
-    public class Node<T>
-    {
-        public T Value { get; set; }
-
-        public Node(T value)
-        {
-            Value = value;
-        }
-
-        public override bool Equals(object obj)
-        {
-            var that = obj as Node<T>;
-            return Value.Equals(that.Value);
-        }
-
-        protected bool Equals(Node<T> other)
-        {
-            return EqualityComparer<T>.Default.Equals(Value, other.Value);
-        }
-
-        public override int GetHashCode()
-        {
-            return EqualityComparer<T>.Default.GetHashCode(Value);
-        }
-
-        public override string ToString()
-        {
-            return Value.ToString();
-        }
-    }
-
-    public class Edge<T>
-    {
-        public int Weight { get; set; }
-        public Node<T> Node { get; set; }
-
-        public Edge(int weight, Node<T> node)
-        {
-            Weight = weight;
-            Node = node;
-        }
-
-        public override string ToString()
-        {
-            return $"Node Value: {Node}, Weight: {Weight}";
         }
     }
 }

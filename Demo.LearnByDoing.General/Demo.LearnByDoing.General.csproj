@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\Dijkstra\DijkstraProgram.cs" />
-    <Compile Include="Algorithms\Dijkstra\Graph.cs" />
+    <Compile Include="Algorithms\Graph\Edge.cs" />
+    <Compile Include="Algorithms\Graph\Graph.cs" />
+    <Compile Include="Algorithms\Graph\Node.cs" />
     <Compile Include="FindAllArrayElementsExistInAnotherArrayProgram.cs" />
     <Compile Include="FindingAllFactorsProgram.cs" />
     <Compile Include="Graph\Graph.cs" />
@@ -78,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Algorithms\BellmanFord\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
