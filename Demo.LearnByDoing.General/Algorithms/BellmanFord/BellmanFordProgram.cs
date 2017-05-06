@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Demo.LearnByDoing.General.Algorithms.Graph;
 
 namespace Demo.LearnByDoing.General.Algorithms.BellmanFord
@@ -9,11 +8,12 @@ namespace Demo.LearnByDoing.General.Algorithms.BellmanFord
 		public static void Main(string[] args)
 		{
 			Graph<char> graph = CreateSampleGraph();
-			var paths = graph.GetPathInfoUsingBellmanFordAlgorithm(new Node<char>('A'), new Node<char>('F'));
+			//var paths = graph.GetPathInfoUsingBellmanFordAlgorithm(new Node<char>('A'), new Node<char>('F'));
+			var shortestPath = graph.GetShortestPathUsingBellmanFordAlgorithm(new Node<char>('A'), new Node<char>('F'));
 			//paths.ForEach(c => Console.Write("{0} ", c));
 			//Console.WriteLine();
 
-			paths = graph.GetPathInfoUsingBellmanFordAlgorithm(new Node<char>('A'), new Node<char>('D'));
+			shortestPath = graph.GetShortestPathUsingBellmanFordAlgorithm(new Node<char>('A'), new Node<char>('D'));
 			//paths.ForEach(c => Console.Write("{0} ", c));
 			Console.WriteLine();
 

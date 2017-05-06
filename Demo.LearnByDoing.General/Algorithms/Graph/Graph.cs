@@ -17,6 +17,29 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
                 Vertices.Add(node, edges);
         }
 
+	    public List<Node<T>> GetShortestPathUsingBellmanFordAlgorithm(Node<T> fromNode, Node<T> toNode)
+	    {
+		    Tuple<Dictionary<Node<T>, int>, Dictionary<Node<T>, Node<T>>> pathInfo = GetPathInfoUsingBellmanFordAlgorithm(fromNode, toNode);
+		    var predecessors = pathInfo.Item2;
+
+		    Stack<Node<T>> result = new Stack<Node<T>>();
+		    var startNode = toNode;
+		    result.Push(startNode);
+
+		    do
+		    {
+			    if (!predecessors.ContainsKey(startNode)) break;
+
+			    var node = predecessors[startNode];
+			    if (node == null) break;
+
+			    result.Push(node);
+			    startNode = node;
+		    } while (true);
+
+		    return result.ToList();
+	    }
+
 	    public Tuple<Dictionary<Node<T>, int>, Dictionary<Node<T>, Node<T>>> 
 			GetPathInfoUsingBellmanFordAlgorithm(Node<T> fromNode, Node<T> toNode)
 	    {
