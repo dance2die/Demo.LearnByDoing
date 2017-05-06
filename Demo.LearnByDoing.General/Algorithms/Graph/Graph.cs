@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Demo.LearnByDoing.General.Algorithms.BellmanFord;
 
 namespace Demo.LearnByDoing.General.Algorithms.Graph
 {
@@ -8,24 +9,86 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
     {
         public List<Node<T>> Nodes { get; set; }
 
-        private readonly Dictionary<Node<T>, Edge<T>[]> _vertices = new Dictionary<Node<T>, Edge<T>[]>();
+	    public Dictionary<Node<T>, Edge<T>[]> Vertices { get; } = new Dictionary<Node<T>, Edge<T>[]>();
 
-        public void AddVertex(Node<T> node, Edge<T>[] edges)
+	    public void AddVertex(Node<T> node, Edge<T>[] edges)
         {
-            if (!_vertices.ContainsKey(node))
-                _vertices.Add(node, edges);
+            if (!Vertices.ContainsKey(node))
+                Vertices.Add(node, edges);
         }
 
-        /// <summary>
-        /// Implementation using Wikipedia
-        /// </summary>
-        public List<Node<T>> GetPathBetween3(Node<T> fromNode, Node<T> toNode)
+	    public Tuple<Dictionary<Node<T>, int>, Dictionary<Node<T>, Node<T>>> 
+			GetShortestPathUsingBellmanFordAlgorithm(Node<T> fromNode, Node<T> toNode)
+	    {
+			var distance = new Dictionary<Node<T>, int>();
+		    var predecessor = new Dictionary<Node<T>, Node<T>>();
+
+		    // Step 1: initialize graph
+		    foreach (KeyValuePair<Node<T>, Edge<T>[]> vertex in this.Vertices)
+		    {
+			    // At the beginning , all vertices have a weight of infinity
+			    distance[vertex.Key] = int.MaxValue;
+			    // And a null predecessor
+			    predecessor[vertex.Key] = null;
+
+				// initialize nodes in edges
+			    foreach (var edge in vertex.Value)
+			    {
+				    distance[edge.Node] = int.MaxValue;
+				    predecessor[edge.Node] = null;
+			    }
+		    }
+		    // Except for the Source, where the Weight is zero
+		    distance[fromNode] = 0;
+
+		    // Step 2: relax edges repeatedly
+		    for (int i = 1; i < this.Vertices.Count; i++)
+		    {
+			    foreach (KeyValuePair<Node<T>, Edge<T>[]> vertex in this.Vertices)
+			    {
+				    var u = vertex.Key;
+				    foreach (Edge<T> edge in vertex.Value)
+				    {
+					    var v = edge.Node;
+					    var w = edge.Weight;
+
+					    if (distance[u] + w < distance[v])
+					    {
+						    distance[v] = distance[u] + w;
+						    predecessor[v] = u;
+					    }
+				    }
+			    }
+		    }
+
+		    // Step 3: check for negative-weight cycles
+		    foreach (KeyValuePair<Node<T>, Edge<T>[]> vertex in this.Vertices)
+		    {
+			    var u = vertex.Key;
+			    foreach (Edge<T> edge in vertex.Value)
+			    {
+				    var v = edge.Node;
+				    var w = edge.Weight;
+
+				    if (distance[u] + w < distance[v])
+					    throw new InvalidOperationException("Graph contains a negative-weight cycle");
+			    }
+		    }
+
+		    return Tuple.Create(distance, predecessor);
+
+		}
+
+		/// <summary>
+		/// Implementation using Wikipedia
+		/// </summary>
+		public List<Node<T>> GetPathBetween3(Node<T> fromNode, Node<T> toNode)
         {
             var dist = new Dictionary<Node<T>, int>();
             var prev = new Dictionary<Node<T>, Node<T>>();
             var Q = new HashSet<Node<T>>();
 
-            foreach (KeyValuePair<Node<T>, Edge<T>[]> v in _vertices)
+            foreach (KeyValuePair<Node<T>, Edge<T>[]> v in Vertices)
             {
                 foreach (Edge<T> edge in v.Value)
                 {
@@ -62,9 +125,9 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
                 }
 
                 Q.Remove(u);
-                if (!_vertices.ContainsKey(u)) continue;
+                if (!Vertices.ContainsKey(u)) continue;
 
-                foreach (Edge<T> v in _vertices[u])
+                foreach (Edge<T> v in Vertices[u])
                 {
                     var alt = dist[u] + v.Weight;
                     if (alt < dist[v.Node])
@@ -85,7 +148,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
         /// </summary>
         public List<Node<T>> GetPathBetween2(Node<T> fromNode, Node<T> toNode)
         {
-            var s = _vertices;
+            var s = Vertices;
             var dist = new Dictionary<Node<T>, int>();
             var prev = new Dictionary<Node<T>, T>();
             var Q = new List<Node<T>>();
@@ -93,7 +156,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
 
             // Initial
             KeyValuePair<Node<T>, Edge<T>[]> first = s.First(pair => pair.Key.Value.Equals(fromNode.Value));
-            foreach (var v in _vertices.Where(pair => !pair.Key.Value.Equals(first.Key.Value)))
+            foreach (var v in Vertices.Where(pair => !pair.Key.Value.Equals(first.Key.Value)))
             {
                 foreach (Edge<T> edge in v.Value)
                 {
@@ -126,9 +189,9 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
                 });
                 Q.Remove(u);
 
-                if (_vertices.ContainsKey(u))
+                if (Vertices.ContainsKey(u))
                 {
-                    foreach (Edge<T> v in _vertices[u])
+                    foreach (Edge<T> v in Vertices[u])
                     {
                         var alt = dist[u] + v.Weight;
                         if (alt < dist[v.Node])
@@ -162,7 +225,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
             // unvisited nodes
             var fringe = new List<Node<T>>();
 
-            foreach (KeyValuePair<Node<T>, Edge<T>[]> vertext in _vertices)
+            foreach (KeyValuePair<Node<T>, Edge<T>[]> vertext in Vertices)
             {
                 // Unknown distance from source to v
                 dist[vertext.Key] = int.MaxValue;   // int.MaxValue => infinity
@@ -187,13 +250,13 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
                 int mDist = dist[m];
                 fringe.Remove(m);
 
-                if (!_vertices.ContainsKey(m))
+                if (!Vertices.ContainsKey(m))
                 {
                     dist.Remove(m);
                     continue;
                 }
 
-                foreach (Edge<T> w in _vertices[m])
+                foreach (Edge<T> w in Vertices[m])
                 {
                     if (dist[w.Node] == int.MaxValue)
                     {
