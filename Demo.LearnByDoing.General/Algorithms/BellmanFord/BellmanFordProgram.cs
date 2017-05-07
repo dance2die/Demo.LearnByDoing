@@ -17,6 +17,9 @@ namespace Demo.LearnByDoing.General.Algorithms.BellmanFord
 			shortestPath.ForEach(c => Console.Write("{0} ", c));
 			Console.WriteLine();
 
+			shortestPath = graph.GetShortestPathUsingBellmanFordAlgorithm(new Node<char>('B'), new Node<char>('D'));
+			shortestPath.ForEach(c => Console.Write("{0} ", c));
+			Console.WriteLine();
 		}
 
 		/// <summary>

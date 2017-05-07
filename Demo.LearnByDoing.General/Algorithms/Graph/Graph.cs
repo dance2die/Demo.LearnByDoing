@@ -18,23 +18,27 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
 
 	    public List<Node<T>> GetShortestPathUsingBellmanFordAlgorithm(Node<T> fromNode, Node<T> toNode)
 	    {
+			// Get the predecessor
 		    Tuple<Dictionary<Node<T>, int>, Dictionary<Node<T>, Node<T>>> pathInfo = 
 				GetPathInfoUsingBellmanFordAlgorithm(fromNode);
 		    var predecessors = pathInfo.Item2;
 
+			// Initialize the stack with start node, which is the destination
 		    Stack<Node<T>> result = new Stack<Node<T>>();
 		    var startNode = toNode;
 		    result.Push(startNode);
 
+			// Traverse the predecessor hashtable until we find 
 		    do
 		    {
-			    if (!predecessors.ContainsKey(startNode)) break;
-
 			    var node = predecessors[startNode];
-			    if (node == null) break;
-
 			    result.Push(node);
-			    startNode = node;
+
+				// if we reached the source, then we are done.
+			    if (node.Value.Equals(fromNode.Value)) break;
+
+				// Move onto the next node
+				startNode = node;
 		    } while (true);
 
 		    return result.ToList();
