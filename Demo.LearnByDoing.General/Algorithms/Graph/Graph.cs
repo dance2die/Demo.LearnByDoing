@@ -41,7 +41,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
 	    }
 
 	    public Tuple<Dictionary<Node<T>, int>, Dictionary<Node<T>, Node<T>>> 
-			GetPathInfoUsingBellmanFordAlgorithm(Node<T> fromNode)
+			GetPathInfoUsingBellmanFordAlgorithm(Node<T> sourceNode)
 	    {
 			var distance = new Dictionary<Node<T>, int>();
 		    var predecessor = new Dictionary<Node<T>, Node<T>>();
@@ -62,7 +62,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
 			    }
 		    }
 		    // Except for the Source, where the Weight is zero
-		    distance[fromNode] = 0;
+		    distance[sourceNode] = 0;
 
 		    // Step 2: relax edges repeatedly
 		    for (int i = 1; i < this.Vertices.Count; i++)
