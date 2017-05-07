@@ -10,11 +10,11 @@ namespace Demo.LearnByDoing.General.Algorithms.BellmanFord
 			Graph<char> graph = CreateSampleGraph();
 			//var paths = graph.GetPathInfoUsingBellmanFordAlgorithm(new Node<char>('A'), new Node<char>('F'));
 			var shortestPath = graph.GetShortestPathUsingBellmanFordAlgorithm(new Node<char>('A'), new Node<char>('F'));
-			//paths.ForEach(c => Console.Write("{0} ", c));
-			//Console.WriteLine();
+			shortestPath.ForEach(c => Console.Write("{0} ", c));
+			Console.WriteLine();
 
 			shortestPath = graph.GetShortestPathUsingBellmanFordAlgorithm(new Node<char>('A'), new Node<char>('D'));
-			//paths.ForEach(c => Console.Write("{0} ", c));
+			shortestPath.ForEach(c => Console.Write("{0} ", c));
 			Console.WriteLine();
 
 		}

@@ -18,7 +18,8 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
 
 	    public List<Node<T>> GetShortestPathUsingBellmanFordAlgorithm(Node<T> fromNode, Node<T> toNode)
 	    {
-		    Tuple<Dictionary<Node<T>, int>, Dictionary<Node<T>, Node<T>>> pathInfo = GetPathInfoUsingBellmanFordAlgorithm(fromNode, toNode);
+		    Tuple<Dictionary<Node<T>, int>, Dictionary<Node<T>, Node<T>>> pathInfo = 
+				GetPathInfoUsingBellmanFordAlgorithm(fromNode);
 		    var predecessors = pathInfo.Item2;
 
 		    Stack<Node<T>> result = new Stack<Node<T>>();
@@ -40,7 +41,7 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
 	    }
 
 	    public Tuple<Dictionary<Node<T>, int>, Dictionary<Node<T>, Node<T>>> 
-			GetPathInfoUsingBellmanFordAlgorithm(Node<T> fromNode, Node<T> toNode)
+			GetPathInfoUsingBellmanFordAlgorithm(Node<T> fromNode)
 	    {
 			var distance = new Dictionary<Node<T>, int>();
 		    var predecessor = new Dictionary<Node<T>, Node<T>>();
