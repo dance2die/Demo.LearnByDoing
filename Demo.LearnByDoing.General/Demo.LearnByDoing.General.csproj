@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\BellmanFord\BellmanFordProgram.cs" />
-    <Compile Include="Algorithms\BellmanFord\IShortestPathAlgorithm.cs" />
     <Compile Include="Algorithms\Dijkstra\DijkstraProgram.cs" />
     <Compile Include="Algorithms\Graph\Edge.cs" />
     <Compile Include="Algorithms\Graph\Graph.cs" />
