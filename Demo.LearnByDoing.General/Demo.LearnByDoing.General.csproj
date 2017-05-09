@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\AStar\AStarProgram.cs" />
     <Compile Include="Algorithms\BellmanFord\BellmanFordProgram.cs" />
     <Compile Include="Algorithms\Dijkstra\DijkstraProgram.cs" />
     <Compile Include="Algorithms\Graph\Edge.cs" />
