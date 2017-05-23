@@ -52,6 +52,7 @@
     <Compile Include="Algorithms\Graph\Edge.cs" />
     <Compile Include="Algorithms\Graph\Graph.cs" />
     <Compile Include="Algorithms\Graph\Node.cs" />
+    <Compile Include="Algorithms\MaximumSubArraySum\MaximumSubArray.cs" />
     <Compile Include="Algorithms\MaximumSubArraySum\MaximumSubArraySumProgram.cs" />
     <Compile Include="FindAllArrayElementsExistInAnotherArrayProgram.cs" />
     <Compile Include="FindingAllFactorsProgram.cs" />

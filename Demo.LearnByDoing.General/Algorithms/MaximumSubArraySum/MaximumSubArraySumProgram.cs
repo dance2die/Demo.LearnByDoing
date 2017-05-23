@@ -53,18 +53,4 @@ namespace Demo.LearnByDoing.General.Algorithms.MaximumSubArraySum
 			return new MaximumSubArray(@from, to, maxSum);
 		}
 	}
-
-	public class MaximumSubArray
-	{
-		public int From { get; set; }
-		public int To { get; set; }
-		public int Sum { get; set; }
-
-		public MaximumSubArray(int @from, int to, int sum)
-		{
-			From = @from;
-			To = to;
-			Sum = sum;
-		}
-	}
 }
