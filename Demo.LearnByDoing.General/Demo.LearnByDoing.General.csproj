@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.Algorithms.BellmanFord.BellmanFordProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.Algorithms.MaximumSubArraySum.MaximumSubArraySumProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -52,6 +52,7 @@
     <Compile Include="Algorithms\Graph\Edge.cs" />
     <Compile Include="Algorithms\Graph\Graph.cs" />
     <Compile Include="Algorithms\Graph\Node.cs" />
+    <Compile Include="Algorithms\MaximumSubArraySum\MaximumSubArraySumProgram.cs" />
     <Compile Include="FindAllArrayElementsExistInAnotherArrayProgram.cs" />
     <Compile Include="FindingAllFactorsProgram.cs" />
     <Compile Include="Graph\Graph.cs" />
