@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Demo.LearnByDoing.General.Algorithms.MaximumSubArraySum
 {
@@ -14,19 +10,24 @@ namespace Demo.LearnByDoing.General.Algorithms.MaximumSubArraySum
 		public static void Main(string[] args)
 		{
 			// https://youtu.be/ohHWQf1HDfU
-			int[] a = {1, -3, 2, -5, 7, 6, -1, -4, 11, -23};
+			//int[] a = { 1, -3, 2, -5, 7, 6, -1, -4, 11, -23 };
+			int[] a = { 1, 2, 3, 4 };
+			//int[] a = {1, 2, 3, -10};
+			//int[] a = {-10};
 			MaximumSubArray maximumSubArray = GetMaximumSubArray(a);
 			Console.WriteLine(maximumSubArray);
 		}
 
 		private static MaximumSubArray GetMaximumSubArray(int[] a)
 		{
+			if (a.Length <= 0) return null;
+
 			int @from = 0;
 			int to = 0;
-			int sum = 0;
-			int maxSum = 0;
+			int sum = a[0];
+			int maxSum = sum;
 
-			for (int i = 0; i < a.Length; i++)
+			for (int i = 1; i < a.Length; i++)
 			{
 				if (sum + a[i] > 0)
 				{
