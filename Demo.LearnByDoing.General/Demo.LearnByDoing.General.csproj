@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.Algorithms.MaximumSubArraySum.MaximumSubArraySumProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.ConvertIntegerToArrayProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,6 +54,7 @@
     <Compile Include="Algorithms\Graph\Node.cs" />
     <Compile Include="Algorithms\MaximumSubArraySum\MaximumSubArray.cs" />
     <Compile Include="Algorithms\MaximumSubArraySum\MaximumSubArraySumProgram.cs" />
+    <Compile Include="ConvertIntegerToArrayProgram.cs" />
     <Compile Include="FindAllArrayElementsExistInAnotherArrayProgram.cs" />
     <Compile Include="FindingAllFactorsProgram.cs" />
     <Compile Include="Graph\Graph.cs" />
