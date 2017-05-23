@@ -30,6 +30,8 @@ namespace Demo.LearnByDoing.General
 
 		private static IEnumerable<int> GetArray2(int value)
 		{
+			if (value < 0) value *= -1;	// or Math.Abs
+
 			string text = value.ToString();
 			for (int i = 0; i < text.Length; i++)
 			{
