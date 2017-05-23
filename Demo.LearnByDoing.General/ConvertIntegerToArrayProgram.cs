@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,26 @@ namespace Demo.LearnByDoing.General
 		public static void Main(string[] args)
 		{
 			int value = 1234567890;
-			int[] a1 = GetArray1(value);
-			Console.WriteLine(a1);
 
-			//int[] a2 = GetArray2(value);
-			//Console.WriteLine(a2);
+			Stopwatch watch = new Stopwatch();
+			watch.Start();
+			int[] a1 = GetArray1(value);
+			watch.Stop();
+			Console.WriteLine("First attempt took: {0}", watch.Elapsed);
+
+			watch.Start();
+			int[] a2 = GetArray2(value).ToArray();
+			watch.Stop();
+			Console.WriteLine("Second attempt took: {0}", watch.Elapsed);
+		}
+
+		private static IEnumerable<int> GetArray2(int value)
+		{
+			string text = value.ToString();
+			for (int i = 0; i < text.Length; i++)
+			{
+				yield return text[i] - '0';
+			}
 		}
 
 		private static int[] GetArray1(int value)
