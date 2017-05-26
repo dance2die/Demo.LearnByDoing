@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.Algorithms.MaximumSubArraySum.MaximumSubArraySumProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.FindValueInSortedArrayProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -57,6 +57,7 @@
     <Compile Include="ConvertIntegerToArrayProgram.cs" />
     <Compile Include="FindAllArrayElementsExistInAnotherArrayProgram.cs" />
     <Compile Include="FindingAllFactorsProgram.cs" />
+    <Compile Include="FindValueInSortedArrayProgram.cs" />
     <Compile Include="Graph\Graph.cs" />
     <Compile Include="LinkedList\Node.cs" />
     <Compile Include="LinkedList\PrintForwardBackwardUsingRecursion.cs" />
