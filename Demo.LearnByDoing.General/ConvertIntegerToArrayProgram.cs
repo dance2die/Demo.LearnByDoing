@@ -25,27 +25,25 @@ namespace Demo.LearnByDoing.General
 				GetArray1(value);
 			}
 			watch.Stop();
-			Console.WriteLine("Implementation using Stack took: {0}", watch.Elapsed);
+			Console.WriteLine("Implementation using Stack: {0}", watch.Elapsed);
 
-
+			watch.Reset();
 			watch.Start();
 			for (int i = 0; i < trialCount; i++)
 			{
 				GetArray2(value).ToList();
 			}
 			watch.Stop();
-			Console.WriteLine("Ordinal number subtraction took: {0}", watch.Elapsed);
-		}
+			Console.WriteLine("Implementation using int.parse: {0}", watch.Elapsed);
 
-		private static IEnumerable<int> GetArray2(int value)
-		{
-			if (value < 0) value *= -1;	// or Math.Abs
-
-			string text = value.ToString();
-			for (int i = 0; i < text.Length; i++)
+			watch.Reset();
+			watch.Start();
+			for (int i = 0; i < trialCount; i++)
 			{
-				yield return text[i] - '0';
+				GetArray3(value).ToList();
 			}
+			watch.Stop();
+			Console.WriteLine("Implementation using ordinal number: {0}", watch.Elapsed);
 		}
 
 		private static int[] GetArray1(int value)
@@ -60,6 +58,28 @@ namespace Demo.LearnByDoing.General
 			}
 
 			return digits.ToArray();
+		}
+
+		private static IEnumerable<int> GetArray2(int value)
+		{
+			if (value < 0) value *= -1; // or Math.Abs
+
+			string text = value.ToString();
+			for (int i = 0; i < text.Length; i++)
+			{
+				yield return int.Parse(text[i].ToString());
+			}
+		}
+
+		private static IEnumerable<int> GetArray3(int value)
+		{
+			if (value < 0) value *= -1;	// or Math.Abs
+
+			string text = value.ToString();
+			for (int i = 0; i < text.Length; i++)
+			{
+				yield return text[i] - '0';
+			}
 		}
 	}
 }
