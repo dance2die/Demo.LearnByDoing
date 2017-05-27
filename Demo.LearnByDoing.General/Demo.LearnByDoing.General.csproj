@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.FindValueInSortedArrayProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.ConvertIntegerToArrayProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

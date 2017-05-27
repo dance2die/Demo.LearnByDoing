@@ -15,17 +15,26 @@ namespace Demo.LearnByDoing.General
 		public static void Main(string[] args)
 		{
 			int value = 1234567890;
+			const int trialCount = 10000000;
 
 			Stopwatch watch = new Stopwatch();
 			watch.Start();
-			int[] a1 = GetArray1(value);
+
+			for (int i = 0; i < trialCount; i++)
+			{
+				GetArray1(value);
+			}
 			watch.Stop();
-			Console.WriteLine("First attempt took: {0}", watch.Elapsed);
+			Console.WriteLine("Implementation using Stack took: {0}", watch.Elapsed);
+
 
 			watch.Start();
-			int[] a2 = GetArray2(value).ToArray();
+			for (int i = 0; i < trialCount; i++)
+			{
+				GetArray2(value).ToList();
+			}
 			watch.Stop();
-			Console.WriteLine("Second attempt took: {0}", watch.Elapsed);
+			Console.WriteLine("Ordinal number subtraction took: {0}", watch.Elapsed);
 		}
 
 		private static IEnumerable<int> GetArray2(int value)
