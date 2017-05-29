@@ -44,7 +44,7 @@ namespace Demo.LearnByDoing.General.LinkedList
 			Node<int> root = new Node<int>(1, null);
 			var head = root;
 
-			foreach (var i in Enumerable.Range(2, 4))
+			foreach (var i in Enumerable.Range(2, 9))
 			{
 				root.Next = new Node<int>(i, null);
 				root = root.Next;
