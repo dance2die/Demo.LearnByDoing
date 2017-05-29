@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.LinkedList.ReverseLinkedListProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.Sort.SortBasedOnAnotherListProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -76,6 +76,7 @@
     <Compile Include="Sort\MergeSortProgram2.cs" />
     <Compile Include="Sort\QuickSortProgram.cs" />
     <Compile Include="Sort\SelectionSortProgram.cs" />
+    <Compile Include="Sort\SortBasedOnAnotherListProgram.cs" />
     <Compile Include="Sort\SortedArrayRotationCountProgram.cs" />
     <Compile Include="Stack\CheckForBalancedParentheses.cs" />
     <Compile Include="StringPermutationProgram.cs" />
