@@ -7,8 +7,19 @@ namespace Demo.LearnByDoing.General.LinkedList
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine($"{BuildLinkedList()} to {ReverseIteratively(BuildLinkedList())}");
-			//Console.WriteLine(ReverseRecursively(BuildLinkedList()));
+			Console.WriteLine($"Iterative {BuildLinkedList()} to {ReverseIteratively(BuildLinkedList())}");
+			var head = BuildLinkedList();
+			Console.WriteLine($"Recursive {BuildLinkedList()} to {ReverseRecursively(head, head.Next, null)}");
+		}
+
+		private static Node<int> ReverseRecursively(Node<int> curr, Node<int> next, Node<int> prev)
+		{
+			curr.Next = prev;
+			if (next == null) return curr;
+
+			prev = curr;
+			curr = next;
+			return ReverseRecursively(curr, next.Next, prev);
 		}
 
 		private static Node<int> ReverseIteratively(Node<int> head)
