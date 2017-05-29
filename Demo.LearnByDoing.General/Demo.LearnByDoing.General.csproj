@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.ConvertIntegerToArrayProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.LinkedList.ReverseLinkedListProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -62,6 +62,7 @@
     <Compile Include="LinkedList\Node.cs" />
     <Compile Include="LinkedList\PrintForwardBackwardUsingRecursion.cs" />
     <Compile Include="LinkedList\ReverseLinkedListIteratively.cs" />
+    <Compile Include="LinkedList\ReverseLinkedListProgram.cs" />
     <Compile Include="LinkedList\ReverseLinkedListUsingRecursion.cs" />
     <Compile Include="MinimalTreeGenerationProgram.cs" />
     <Compile Include="Graph\Node.cs" />
