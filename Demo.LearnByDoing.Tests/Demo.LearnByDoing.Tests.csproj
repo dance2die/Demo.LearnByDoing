@@ -118,6 +118,7 @@
     <Compile Include="Chapter07\Chapter7_2Test.cs" />
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
+    <Compile Include="PalinedromeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
