@@ -11,7 +11,7 @@ namespace Demo.LearnByDoing.General.Search
 			string word = "abxabcabcabyabcaby";
 			string searchWord = "abcaby";
 			searchWord = "abcdabca";
-			//searchWord = "acacabacacabacacac";
+			searchWord = "acacabacacabacacac";
 			//searchWord = "abxc";
 			//searchWord = "abcdabd";
 
@@ -52,12 +52,6 @@ namespace Demo.LearnByDoing.General.Search
 				}
 				else
 				{
-					//T[i] = 0;
-					//i++;
-
-					// Move to the index pointed by the previous item.
-					//j = T[j - 1];
-					//while (j - 1 >= 0 && searchWord[T[j - 1]] != T[i])
 					while (j - 1 >= 0 && searchWord[T[j - 1]] != searchWord[i])
 					{
 						j--;
@@ -67,6 +61,7 @@ namespace Demo.LearnByDoing.General.Search
 						{
 							T[i] = j - 1;
 							j++;
+							break;
 						}
 					}
 
