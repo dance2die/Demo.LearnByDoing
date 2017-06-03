@@ -71,6 +71,7 @@
     <Compile Include="RemoveDuplicatesProgram.cs" />
     <Compile Include="Search\FindingFirstLastOccurrenceOfANumberProgram.cs" />
     <Compile Include="Search\KmpAlgorithmProgram.cs" />
+    <Compile Include="Search\KmpSearch.cs" />
     <Compile Include="Sort\BinarySearchFindFirstLastProgram.cs" />
     <Compile Include="Sort\BinarySearchProgram.cs" />
     <Compile Include="Sort\MergeSortProgram.cs" />
