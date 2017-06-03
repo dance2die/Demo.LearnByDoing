@@ -8,7 +8,7 @@ namespace Demo.LearnByDoing.General.Search
 	{
 		public static void Main(string[] args)
 		{
-			string word = "abxabcabcaby";
+			string word = "abxabcabcabyabcaby";
 			string searchWord = "abcaby";
 			//searchWord = "abxc";
 			//searchWord = "abcdabd";
@@ -40,17 +40,17 @@ namespace Demo.LearnByDoing.General.Search
 			{
 				if (W[i] == S[m + i])
 				{
-					i++;
-					if (i == W.Length)
+					if (i + 1 == W.Length)
 					{
 						//return m;	// or store/user occurrence.
 						foundIndices.Add(m);
-						if (i >= T.Length) break;
+						//if (i >= T.Length) break;
 
 						m = m + i - T[i];
 						// preparing for search next occurence, T[w.length] can't be -1)
 						i = T[i];
 					}
+					i++;
 				}
 				else
 				{
