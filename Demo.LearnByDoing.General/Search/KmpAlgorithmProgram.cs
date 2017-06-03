@@ -52,18 +52,26 @@ namespace Demo.LearnByDoing.General.Search
 				}
 				else
 				{
-					while (j - 1 >= 0 && searchWord[T[j - 1]] != searchWord[i])
-					{
-						j--;
-						j = T[j];
+					//while (j - 1 >= 0 && searchWord[T[j - 1]] != searchWord[i])
+					//{
+					//	j = T[--j];
 
-						if (j - 1 >= 0 && searchWord[i] == searchWord[T[j - 1]])
-						{
-							T[i] = j - 1;
-							j++;
-							break;
-						}
+					//	//if (j - 1 >= 0 && searchWord[i] == searchWord[T[j - 1]])
+					//	//{
+					//	//	T[i] = j - 1;
+					//	//	j++;
+					//	//	break;
+					//	//}
+					//}
+
+					while (j >= 1 && searchWord[j] != searchWord[i])
+					{
+						j = T[j - 1];
+						if (j == 0) break;
 					}
+
+					if (searchWord[j] == searchWord[i])
+						T[i] = j + 1;
 
 					i++;
 				}
