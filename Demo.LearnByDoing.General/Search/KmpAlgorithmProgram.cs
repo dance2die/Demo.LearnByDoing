@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Demo.LearnByDoing.General.Search
 {
@@ -12,8 +10,8 @@ namespace Demo.LearnByDoing.General.Search
 		{
 			string word = "abxabcabcaby";
 			string searchWord = "abcaby";
-			searchWord = "aabaabaaa";
-			searchWord = "abcdabd";
+			//searchWord = "abxc";
+			//searchWord = "abcdabd";
 
 			bool isFound = SearchUsingKmp(word, searchWord);
 			Console.WriteLine($"{searchWord} is found within {word}? {isFound}");
@@ -22,7 +20,54 @@ namespace Demo.LearnByDoing.General.Search
 		private static bool SearchUsingKmp(string word, string searchWord)
 		{
 			int[] prefixTable = BuildPrefixTable(searchWord);
-			return false;
+			int[] foundIndices = SearchByKmp(word, searchWord, prefixTable);
+
+			if (foundIndices.Any(a => a == -1) || foundIndices.Length == 0)
+				return false;
+			return true;
+		}
+
+		private static int[] SearchByKmp(string S, string W, int[] T)
+		{
+			List<int> foundIndices = new List<int>();
+
+			// the beginning of the current match in S.
+			int m = 0;
+			// the position of the current character in W.
+			int i = 0;
+
+			while (m + i < S.Length)
+			{
+				if (W[i] == S[m + i])
+				{
+					i++;
+					if (i == W.Length)
+					{
+						//return m;	// or store/user occurrence.
+						foundIndices.Add(m);
+						if (i >= T.Length) break;
+
+						m = m + i - T[i];
+						// preparing for search next occurence, T[w.length] can't be -1)
+						i = T[i];
+					}
+				}
+				else
+				{
+					if (T[i] > -1)
+					{
+						m = m + i - T[i];
+						i = T[i];
+					}
+					else
+					{
+						m = m + i + 1;
+						i = 0;
+					}
+				}
+			}
+
+			return foundIndices.ToArray();
 		}
 
 		/// <summary>
