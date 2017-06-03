@@ -20,7 +20,9 @@ namespace Demo.LearnByDoing.General.Sort
 		{
 			var zipped = a.Zip(words, (key, word) => Tuple.Create(key, word)).ToList();
 			//zipped.Sort((x, y) => -1 * x.Item1.CompareTo(y.Item1));
-			zipped.Sort((x, y) => Guid.NewGuid().CompareTo(Guid.NewGuid()));
+			//zipped.Sort((x, y) => Guid.NewGuid().CompareTo(Guid.NewGuid()));
+			Random random = new Random();
+			zipped.Sort((x, y) => random.Next().CompareTo(random.Next()));
 			foreach (Tuple<int, string> tuple in zipped)
 			{
 				Console.Write($"{tuple.Item1} ");
