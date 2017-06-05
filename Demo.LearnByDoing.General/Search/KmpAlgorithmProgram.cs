@@ -20,8 +20,8 @@ namespace Demo.LearnByDoing.General.Search
 			word = "abcabcabc";
 			searchWord = "abcabc";
 
-			bool isFound = kmpSearch.SearchUsingKmp(word, searchWord);
-			//bool isFound = SearchUsingKmp(word, searchWord);
+			//bool isFound = kmpSearch.SearchUsingKmp(word, searchWord);
+			bool isFound = SearchUsingKmp(word, searchWord);
 			Console.WriteLine($"{searchWord} is found within {word}? {isFound}");
 		}
 
