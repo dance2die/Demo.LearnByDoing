@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.Sort.SortBasedOnAnotherListProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.Search.KmpAlgorithmProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

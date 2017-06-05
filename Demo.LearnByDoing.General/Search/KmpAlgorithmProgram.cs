@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Demo.LearnByDoing.General.Search
@@ -10,23 +9,35 @@ namespace Demo.LearnByDoing.General.Search
 		{
 			string word = "abxabcabcabyabcaby";
 			string searchWord = "abcaby";
-			searchWord = "abcdabca";
-			searchWord = "acacabacacabacacac";
+			//searchWord = "abcdabca";
+			//searchWord = "acacabacacabacacac";
 			//searchWord = "abxc";
 			//searchWord = "abcdabd";
 
 			KmpSearch kmpSearch = new KmpSearch();
 			//KmpSearch2 kmpSearch2 = new KmpSearch2();
 
-			//bool isFound = kmpSearch2.SearchUsingKmp(word, searchWord);
-			bool isFound = SearchUsingKmp(word, searchWord);
+			word = "abcabcabc";
+			searchWord = "abcabc";
+
+			bool isFound = kmpSearch.SearchUsingKmp(word, searchWord);
+			//bool isFound = SearchUsingKmp(word, searchWord);
 			Console.WriteLine($"{searchWord} is found within {word}? {isFound}");
 		}
 
 		private static bool SearchUsingKmp(string word, string searchWord)
 		{
 			int[] prefixTable = BuildPrefixTable(searchWord);
-			return false;
+			int[] foundIndices = SearchByKmp(word, searchWord, prefixTable);
+
+			if (foundIndices.Any(a => a == -1) || foundIndices.Length == 0)
+				return false;
+			return true;
+		}
+
+		private static int[] SearchByKmp(string word, string searchWord, int[] prefixTable)
+		{
+			return null;
 		}
 
 		/// <summary>
