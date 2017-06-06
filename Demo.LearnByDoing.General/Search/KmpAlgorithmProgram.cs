@@ -19,6 +19,11 @@ namespace Demo.LearnByDoing.General.Search
 			//KmpSearch2 kmpSearch2 = new KmpSearch2();
 
 			word = "abcabcabc";
+
+			word = "abxabxabxabx";
+			word = "cxabcabcxabc";
+			word = "cxabcabcabcxabcabc";
+
 			searchWord = "abcabc";
 
 			//bool isFound = kmpSearch.SearchUsingKmp(word, searchWord);
