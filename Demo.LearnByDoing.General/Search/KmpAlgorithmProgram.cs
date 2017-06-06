@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Demo.LearnByDoing.General.Search
@@ -35,9 +36,40 @@ namespace Demo.LearnByDoing.General.Search
 			return true;
 		}
 
-		private static int[] SearchByKmp(string word, string searchWord, int[] prefixTable)
+		private static int[] SearchByKmp(string S, string W, int[] T)
 		{
-			return null;
+			int i = 0;	// index position for W
+			int m = 0;	// index position for S
+			List<int> found = new List<int>();
+
+			while (m + i < S.Length)
+			{
+				if (S[m + i] == W[i])
+				{
+					i++;
+					if (i == W.Length)
+					{
+						found.Add(m);
+						m = m + i - T[i - 1];
+						i = T[i - 1];
+					}
+				}
+				else
+				{
+					if (T[i] == 0)
+					{
+						m = m + i + 1;
+						i = 0;
+					}
+					else
+					{
+						m = m + i;
+						i = (i - 1) < 0 ? 0 : T[i - 1];
+					}
+				}
+			}
+
+			return found.ToArray();
 		}
 
 		/// <summary>
