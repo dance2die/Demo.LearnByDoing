@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.General.Search.KmpAlgorithmProgram</StartupObject>
+    <StartupObject>Demo.LearnByDoing.General.Algorithms.PalindromePartition.PalindromePartitionProgram</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,6 +54,7 @@
     <Compile Include="Algorithms\Graph\Node.cs" />
     <Compile Include="Algorithms\MaximumSubArraySum\MaximumSubArray.cs" />
     <Compile Include="Algorithms\MaximumSubArraySum\MaximumSubArraySumProgram.cs" />
+    <Compile Include="Algorithms\PalindromePartition\PalindromePartitionProgram.cs" />
     <Compile Include="ConvertIntegerToArrayProgram.cs" />
     <Compile Include="FindAllArrayElementsExistInAnotherArrayProgram.cs" />
     <Compile Include="FindingAllFactorsProgram.cs" />
@@ -94,7 +95,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.LearnByDoing.Core\Demo.LearnByDoing.Core.csproj">
+      <Project>{dca6be29-c6cc-41de-b6a2-366c0b3bc945}</Project>
+      <Name>Demo.LearnByDoing.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
