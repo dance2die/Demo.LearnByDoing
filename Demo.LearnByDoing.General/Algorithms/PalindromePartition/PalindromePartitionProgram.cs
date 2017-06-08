@@ -25,9 +25,9 @@ namespace Demo.LearnByDoing.General.Algorithms.PalindromePartition
 
 			for (int i = 0; i < word.Length; i++)
 			{
-				for (int j = 1; j < word.Length - 1; j++)
+				for (int j = i + 1; j < word.Length; j++)
 				{
-					if (palinedromeChecker.IsPalindrome(word.Substring(i, j - 1)))
+					if (palinedromeChecker.IsPalindrome(word.Substring(i, j - i)))
 					{
 						matrix[i, j] = 0;
 					}
@@ -43,11 +43,12 @@ namespace Demo.LearnByDoing.General.Algorithms.PalindromePartition
 
 		private static int GetMinimumBetween(int[,] matrix, int i, int j)
 		{
-			int min = int.MaxValue;
+			var value = 1 + matrix[i, i] + matrix[i + 1, j];
+			int min = value;
 
-			for (int k = i; k < j - 1; k++)
+			for (int k = i + 1; k <= j - 1; k++)
 			{
-				var value = 1 + matrix[i, k] + matrix[k + i, j];
+				value = 1 + matrix[i, k] + matrix[k + i, j];
 				if (min > value)
 					min = value;
 			}
