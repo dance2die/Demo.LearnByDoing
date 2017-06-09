@@ -4,7 +4,8 @@ namespace Demo.LearnByDoing.Core
 	{
 		public bool IsPalindrome(string word)
 		{
-			if (string.IsNullOrEmpty(word) || word.Length <= 1) return false;
+			if (word.Length == 1) return true;
+			if (string.IsNullOrEmpty(word)) return false;
 
 			int start = 0;
 			int end = word.Length - 1;
