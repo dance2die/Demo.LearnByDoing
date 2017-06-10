@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using Demo.LearnByDoing.Core;
 
 namespace Demo.LearnByDoing.General.Algorithms.PalindromePartition
@@ -51,10 +50,9 @@ namespace Demo.LearnByDoing.General.Algorithms.PalindromePartition
 			var value = 1 + matrix[i, i] + matrix[i + 1, j];
 			int min = value;
 
-			for (int k = i + 1; k <= j - i + 1; k++)
+			for (int k = i; k <= j - 1; k++)
 			{
-				//value = 1 + matrix[i, k] + matrix[k + i, j];
-				value = 1 + matrix[i, k] + matrix[i + 1, j];
+				value = 1 + matrix[i, k] + matrix[k + 1, j];
 				if (min > value)
 					min = value;
 			}
