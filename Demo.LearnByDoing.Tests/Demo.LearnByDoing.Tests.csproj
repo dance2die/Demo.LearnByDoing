@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\MakePalindromeTest.cs" />
     <Compile Include="Chapter01\Chapter1_1.cs" />
     <Compile Include="Chapter01\Chapter1_1Test.cs" />
     <Compile Include="Chapter01\Chapter1_2.cs" />
