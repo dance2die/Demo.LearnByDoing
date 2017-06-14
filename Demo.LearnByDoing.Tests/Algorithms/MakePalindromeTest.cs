@@ -15,6 +15,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
 		[Theory]
 		[InlineData("BAAABAAB", "AAAB")]
+		[InlineData("BAABAAAB", "BAA")]
 		[InlineData("abxabacab", "axba")]
 		[InlineData("ABB", "A")]
 		public void TestForwardLoopResult(string word, string expected)
@@ -25,8 +26,9 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 
 		[Theory]
-		[InlineData("BAAABAAB", "AAABAAB")]
-		[InlineData("abxabacab", "bxabacab")]
+		[InlineData("BAAABAAB", "BAA")]
+		[InlineData("BAABAAAB", "BAAA")]
+		[InlineData("abxabacab", "bacabaxb")]
 		[InlineData("ABB", "BB")]
 		public void TestBackwardLoopResult(string word, string expected)
 		{
@@ -39,12 +41,24 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		[ClassData(typeof(AddMinCharToMakePalindromeTest_Data))]
 		public void AddMinCharToMakePalindrome(string word, string expected)
 		{
-			
+			string actual = _sut.BuildPalindrome(word);
+
+			Assert.Equal(expected, actual);
 		}
 	}
 
 	public class MakePalindrome
 	{
+		public string BuildPalindrome(string word)
+		{
+			string forwardPrefix = GetForwardPrefix(word);
+			string backwardPrefix = GetBackwardPrefix(word);
+
+			if (forwardPrefix.Length < backwardPrefix.Length)
+				return word + forwardPrefix;
+			return backwardPrefix + word;
+		}
+
 		public string GetForwardPrefix(string word)
 		{
 			var potential = new List<string>();
@@ -76,7 +90,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		public string GetBackwardPrefix(string word)
 		{
 			var potential = new List<string>();
-			var notMatched = new Stack<string>();
+			var notMatched = new List<string>();
 
 			int firstIndex = 0;
 			int j = firstIndex;
@@ -91,9 +105,14 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 				}
 				else
 				{
-					PushRange(notMatched, potential);
-					notMatched.Push(word[i].ToString());
+					notMatched.AddRange(potential);
 					potential.Clear();
+
+					if (word[i] == word[firstIndex])
+						i++;
+					else
+						notMatched.Add(word[i].ToString());
+
 					j = firstIndex;
 				}
 			}
@@ -112,7 +131,10 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 	{
 		public override List<object[]> Data { get; set; } = new List<object[]>
 		{
-			new object[]{"BAAABAAB", "BAABAAABAAB" }
+			new object[]{ "BAAABAAB", "BAABAAABAAB" },
+			new object[]{ "BAABAAAB", "BAABAAABAAB" },
+			new object[]{ "abxabacab", "abxabacabaxba" },
+			new object[]{ "ABB", "ABBA" },
 		};
 	}
 }
