@@ -25,12 +25,14 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 
 		[Theory]
-		[InlineData("BAAABAAB", "BAA")]
-		[InlineData("abxabacab", "bacabaxb")]
+		[InlineData("BAAABAAB", "AAABAAB")]
+		[InlineData("abxabacab", "bxabacab")]
 		[InlineData("ABB", "BB")]
 		public void TestBackwardLoopResult(string word, string expected)
 		{
-			
+			string actual = _sut.GetBackwardPrefix(word);
+
+			Assert.Equal(expected, actual);
 		}
 
 		[Theory]
@@ -65,6 +67,34 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 					notMatched.Push(word[i].ToString());
 					potential.Clear();
 					j = lastIndex;
+				}
+			}
+
+			return string.Join("", notMatched);
+		}
+
+		public string GetBackwardPrefix(string word)
+		{
+			var potential = new List<string>();
+			var notMatched = new Stack<string>();
+
+			int firstIndex = 0;
+			int j = firstIndex;
+
+			for (int i = word.Length - 1; i >= 0; i--)
+			{
+				if (word[i] == word[j])
+				{
+					potential.Add(word[i].ToString());
+					j++;
+					if (j >= i) break;
+				}
+				else
+				{
+					PushRange(notMatched, potential);
+					notMatched.Push(word[i].ToString());
+					potential.Clear();
+					j = firstIndex;
 				}
 			}
 
