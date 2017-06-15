@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -45,10 +46,51 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
 			Assert.Equal(expected, actual);
 		}
+
+		///// <summary>
+		///// Using Algorithm on http://www.programcreek.com/2014/06/leetcode-shortest-palindrome-java/
+		///// "Java Solution 1"
+		///// </summary>
+		//[Theory]
+		//[ClassData(typeof(AddMinCharToMakePalindromeTest_Data))]
+		//public void AddMinCharToMakePalindromeUsingDifferentAlgorithm(string word, string expected)
+		//{
+		//	string actual = _sut.GetShortestPalindrome(word);
+
+		//	Assert.Equal(expected, actual);
+		//}
 	}
 
 	public class MakePalindrome
 	{
+		/// <summary>
+		/// this doesn't seem to return the shortest palindrome...
+		/// </summary>
+		/// <param name="word"></param>
+		/// <returns></returns>
+		public string GetShortestPalindrome(string word)
+		{
+			int i = 0;
+			int j = word.Length - 1;
+
+			while (j >= 0)
+			{
+				if (word[i] == word[j])
+					i++;
+				j--;
+			}
+
+			// it's already a palindrome. Return itself.
+			if (i == word.Length)
+				return word;
+
+			string suffix = word.Substring(i);
+			string prefix = new string(suffix.Reverse().ToArray());
+			string mid = GetShortestPalindrome(word.Substring(0, i));
+
+			return $"{prefix}{mid}{suffix}";
+		}
+
 		public string BuildPalindrome(string word)
 		{
 			string forwardPrefix = GetForwardPrefix(word);
