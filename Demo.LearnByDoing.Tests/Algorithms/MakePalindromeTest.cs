@@ -15,7 +15,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
 		[Theory]
 		[InlineData("BAAABAAB", "AAAB")]
-		[InlineData("BAABAAAB", "BAA")]
+		[InlineData("BAABAAAB", "AAB")]
 		[InlineData("abxabacab", "axba")]
 		[InlineData("ABB", "A")]
 		public void TestForwardLoopResult(string word, string expected)
@@ -78,8 +78,13 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 				else
 				{
 					PushRange(notMatched, potential);
-					notMatched.Push(word[i].ToString());
 					potential.Clear();
+
+					if (word[i] == word[lastIndex])
+						i--;
+					else
+						notMatched.Push(word[i].ToString());
+
 					j = lastIndex;
 				}
 			}
