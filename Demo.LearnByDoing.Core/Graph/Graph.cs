@@ -78,7 +78,7 @@ namespace Demo.LearnByDoing.Core.Graph
 			}
 		}
 
-		public IEnumerable<Vertex<T>> GetAllVertices()
+		public IEnumerable<Vertex<T>> GetVertices()
 		{
 			return Vertices.Values;
 		}
@@ -88,7 +88,7 @@ namespace Demo.LearnByDoing.Core.Graph
 			if (Vertices.ContainsKey(id))
 			{
 				Vertex<T> vertex = Vertices[id];
-				vertex.SetData(data);
+				vertex.Data = data;
 			}
 		}
 

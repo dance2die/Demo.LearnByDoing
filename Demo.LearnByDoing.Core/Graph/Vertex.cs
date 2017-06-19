@@ -5,18 +5,13 @@ namespace Demo.LearnByDoing.Core.Graph
 	public class Vertex<T>
 	{
 		public long Id { get; }
-		public T Data { get; private set; }
+		public T Data { get; set; }
 		public List<Edge<T>> Edges { get; } = new List<Edge<T>>();
 		public List<Vertex<T>> AdjacentVertex { get; } = new List<Vertex<T>>();
 
 		public Vertex(long id)
 		{
 			Id = id;
-		}
-
-		public void SetData(T data)
-		{
-			Data = data;
 		}
 
 		public void AddAdjacentVertex(Edge<T> e, Vertex<T> v)
@@ -27,7 +22,7 @@ namespace Demo.LearnByDoing.Core.Graph
 
 		public override string ToString()
 		{
-			return Id.ToString();
+			return $"Id:{Id}, Data:'{Data}'";
 		}
 
 		public int GetDegree()
