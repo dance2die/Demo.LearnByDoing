@@ -40,9 +40,11 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 			Stack<Vertex<T>> stack = new Stack<Vertex<T>>();
 			HashSet<Vertex<T>> visited = new HashSet<Vertex<T>>();
 
+			// Order, which Tushar Roy used in his video.
 			int[] order = {3, 2, 4, 1, 5, 6, 7};
 			var vertices = graph.GetVertices();
 
+			// Sort the vertices according to the "order".
 			var zipped = vertices.Zip(order, Tuple.Create);
 			List<Tuple<Vertex<T>, int>> ordered = zipped.OrderBy(tuple => tuple.Item2).ToList();
 
