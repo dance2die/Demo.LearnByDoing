@@ -18,21 +18,77 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 
 		[Theory]
-		[ClassData(typeof(MergeSortTestData))]
-		public void TestMergeSort(int[] a, int[] expected)
+		[ClassData(typeof(MergeSortTestData_Merge))]
+		public void TestMergingTwoListSorted(int[] left, int[] right, int[] expected)
 		{
-			int[] actual = _sut.Sort(a);
+			int[] actual = new int[left.Length + right.Length];
+			_sut.Merge(left, right, actual);
 
 			Assert.Equal(expected, actual);
 		}
+
+		//[Theory]
+		//[ClassData(typeof(MergeSortTestData))]
+		//public void TestMergeSort(int[] a, int[] expected)
+		//{
+		//	int[] actual = _sut.Sort(a);
+
+		//	Assert.Equal(expected, actual);
+		//}
 	}
 
 	public class MergeSort
 	{
-		public int[] Sort(int[] a)
+		public void Merge(int[] left, int[] right, int[] a)
 		{
+			int i = 0;
+			int j = 0;
+			int k = 0;
 
+			while (i < left.Length && j < right.Length)
+			{
+				if (left[i] < right[j])
+				{
+					a[k] = left[i];
+					i++;
+				}
+				else
+				{
+					a[k] = right[j];
+					j++;
+				}
+
+				k++;
+			}
+
+			while (i < left.Length)
+			{
+				a[k] = left[i];
+				k++;
+				i++;
+			}
+
+			while (j < right.Length)
+			{
+				a[k] = right[j];
+				k++;
+				j++;
+			}
 		}
+	}
+
+	public class MergeSortTestData_Merge : TestDataBase
+	{
+		public override List<object[]> Data { get; set; } = new List<object[]>
+		{
+			new object[] {new[] {1, 2, 4, 6}, new[] {3, 5, 7, 8}, new[] {1, 2, 3, 4, 5, 6, 7, 8}},
+			new object[] {new[] {2, 4}, new[] {1, 6}, new[] {1, 2, 4, 6}},
+			new object[] {new[] {5, 8}, new[] {3, 7}, new[] {3, 5, 7, 8}},
+			new object[] {new[] {2}, new[] {4}, new[] {2, 4}},
+			new object[] {new[] {1}, new[] {6}, new[] {1, 6}},
+			new object[] {new[] {8}, new[] {5}, new[] {5, 8}},
+			new object[] {new[] {3}, new[] {7}, new[] {3, 7}}
+		};
 	}
 
 	public class MergeSortTestData : TestDataBase
