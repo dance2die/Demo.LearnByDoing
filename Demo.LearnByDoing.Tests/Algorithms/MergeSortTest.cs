@@ -83,7 +83,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
 			int mid = n / 2;
 			var left = new int[mid];
-			var right = new int[mid];
+			var right = new int[n % 2 == 1 ? mid + 1 : mid];
 
 			// fill left array
 			for (int i = 0; i < mid; i++)
