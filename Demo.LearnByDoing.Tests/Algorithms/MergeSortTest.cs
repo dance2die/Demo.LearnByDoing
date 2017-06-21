@@ -27,14 +27,14 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 			Assert.Equal(expected, actual);
 		}
 
-		//[Theory]
-		//[ClassData(typeof(MergeSortTestData))]
-		//public void TestMergeSort(int[] a, int[] expected)
-		//{
-		//	int[] actual = _sut.Sort(a);
+		[Theory]
+		[ClassData(typeof(MergeSortTestData))]
+		public void TestMergeSort(int[] a, int[] expected)
+		{
+			int[] actual = _sut.Sort(a);
 
-		//	Assert.Equal(expected, actual);
-		//}
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class MergeSort
@@ -75,6 +75,47 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 				j++;
 			}
 		}
+
+		public int[] Sort(int[] a)
+		{
+			int n = a.Length;
+			if (n < 2) return a;
+
+			int mid = n / 2;
+			var left = new int[mid];
+			var right = new int[mid];
+
+			// fill left array
+			for (int i = 0; i < mid; i++)
+			{
+				left[i] = a[i];
+			}
+
+			// fill right array
+			for (int i = mid; i < n; i++)
+			{
+				right[i - mid] = a[i];
+			}
+
+			// sort left & right
+			Sort(left);
+			Sort(right);
+
+			// merge left & right
+			Merge(left, right, a);
+
+			return a;
+		}
+	}
+
+	public class MergeSortTestData : TestDataBase
+	{
+		public override List<object[]> Data { get; set; } = new List<object[]>
+		{
+			new object[] {new[] {2, 4, 1, 6}, new[] {1, 2, 4, 6}},
+			new object[] {new[] {8, 5, 3, 7}, new[] {3, 5, 7, 8}},
+			new object[] {new[] {2, 4, 1, 6, 8, 5, 3, 7}, new[] {1, 2, 3, 4, 5, 6, 7, 8}}
+		};
 	}
 
 	public class MergeSortTestData_Merge : TestDataBase
@@ -88,14 +129,6 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 			new object[] {new[] {1}, new[] {6}, new[] {1, 6}},
 			new object[] {new[] {8}, new[] {5}, new[] {5, 8}},
 			new object[] {new[] {3}, new[] {7}, new[] {3, 7}}
-		};
-	}
-
-	public class MergeSortTestData : TestDataBase
-	{
-		public override List<object[]> Data { get; set; } = new List<object[]>
-		{
-			new object[] {new[] {2, 4, 1, 6, 8, 5, 3, 7}, new[] {1, 2, 3, 4, 5, 6, 7, 8}}
 		};
 	}
 }
