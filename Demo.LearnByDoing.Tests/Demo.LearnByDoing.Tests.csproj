@@ -122,6 +122,7 @@
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
     <Compile Include="CodeWars\Kyu6\DuplicateEncoderTest.cs" />
+    <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
     <Compile Include="PalinedromeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -135,7 +136,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CodeWars\Kyu8\" />
     <Folder Include="Core\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
