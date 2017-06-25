@@ -20,7 +20,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 
 		[Theory]
-		[ClassData(typeof(TopologicalGraphSortTestData))]
+		[ClassData(typeof(TopologicalGraphSortBaseTestData))]
 		public void TestTopologicalSort(Graph<string> graph, string expected)
 		{
 			List<Vertex<string>> sorted = _sut.GetSorted(graph);
@@ -74,7 +74,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 	}
 
-	public class TopologicalGraphSortTestData : TestDataBase
+	public class TopologicalGraphSortBaseTestData : BaseTestData
 	{
 		public override List<object[]> Data { get; set; } = new List<object[]>
 		{

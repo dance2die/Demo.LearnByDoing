@@ -82,7 +82,7 @@ namespace Demo.LearnByDoing.Tests.Chapter05
         }
     }
 
-    public class Chapter5_6Data : TestDataBase
+    public class Chapter5_6Data : BaseTestData
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {

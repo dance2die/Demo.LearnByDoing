@@ -39,7 +39,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 
 		[Theory]
-		[ClassData(typeof(AddMinCharToMakePalindromeTest_Data))]
+		[ClassData(typeof(AddMinCharToMakePalindromeBaseTestData))]
 		public void AddMinCharToMakePalindrome(string word, string expected)
 		{
 			string actual = _sut.BuildPalindrome(word);
@@ -52,7 +52,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		///// "Java Solution 1"
 		///// </summary>
 		//[Theory]
-		//[ClassData(typeof(AddMinCharToMakePalindromeTest_Data))]
+		//[ClassData(typeof(AddMinCharToMakePalindromeBaseTestData))]
 		//public void AddMinCharToMakePalindromeUsingDifferentAlgorithm(string word, string expected)
 		//{
 		//	string actual = _sut.GetShortestPalindrome(word);
@@ -174,7 +174,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 	}
 
-	public class AddMinCharToMakePalindromeTest_Data : TestDataBase
+	public class AddMinCharToMakePalindromeBaseTestData : BaseTestData
 	{
 		public override List<object[]> Data { get; set; } = new List<object[]>
 		{

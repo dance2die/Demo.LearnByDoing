@@ -27,7 +27,7 @@ namespace Demo.LearnByDoing.Tests.Chapter10
         }
     }
 
-    public class Chapter10_1Data : TestDataBase
+    public class Chapter10_1Data : BaseTestData
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {

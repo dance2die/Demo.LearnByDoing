@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Demo.LearnByDoing.Core
 {
-    public abstract class TestDataBase : IEnumerable<object[]>
+    public abstract class BaseTestData : IEnumerable<object[]>
     {
         public abstract List<object[]> Data { get; set; }
 

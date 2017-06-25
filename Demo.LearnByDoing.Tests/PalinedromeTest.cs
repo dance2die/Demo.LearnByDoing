@@ -14,7 +14,7 @@ namespace Demo.LearnByDoing.Tests
 		}
 
 		[Theory]
-		[ClassData(typeof(PalinedromeTestData))]
+		[ClassData(typeof(PalinedromeBaseTestData))]
 		public void TestPalindrome(string word, bool expected)
 		{
 			bool actual = _sut.IsPalindrome(word);
@@ -22,7 +22,7 @@ namespace Demo.LearnByDoing.Tests
 		}
 	}
 
-	public class PalinedromeTestData : TestDataBase
+	public class PalinedromeBaseTestData : BaseTestData
 	{
 		public override List<object[]> Data { get; set; } = new List<object[]>
 		{

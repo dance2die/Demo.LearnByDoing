@@ -69,7 +69,7 @@
     <Compile Include="Graph\Vertex.cs" />
     <Compile Include="PalinedromeChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDataBase.cs" />
+    <Compile Include="BaseTestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

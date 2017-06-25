@@ -3,7 +3,7 @@ using Demo.LearnByDoing.Core;
 
 namespace Demo.LearnByDoing.Tests.Chapter02
 {
-    public abstract class Chapter2Data : TestDataBase
+    public abstract class Chapter2Data : BaseTestData
     {
         protected static Node<T> GetInputNode<T>(params T[] nodeData)
         {

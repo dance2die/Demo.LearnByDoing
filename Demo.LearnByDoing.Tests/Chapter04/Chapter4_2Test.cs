@@ -22,7 +22,7 @@ namespace Demo.LearnByDoing.Tests.Chapter04
     {
     }
 
-    public class Chapter4_2Data : Chapter4TestData
+    public class Chapter4Base2Data : Chapter4BaseTestData
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {

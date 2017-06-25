@@ -13,7 +13,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		}
 
 		[Theory]
-		[ClassData(typeof(DuplicateEncoderTestData))]
+		[ClassData(typeof(DuplicateEncoderBaseTestData))]
 		public void TestDuplicateEncode(string word, string expected)
 		{
 			string actual = Kata.DuplicateEncode(word);
@@ -54,7 +54,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		}
 	}
 
-	public class DuplicateEncoderTestData : TestDataBase
+	public class DuplicateEncoderBaseTestData : BaseTestData
 	{
 		public override List<object[]> Data { get; set; } = new List<object[]>
 		{

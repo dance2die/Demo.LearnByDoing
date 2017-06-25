@@ -3,7 +3,7 @@ using Demo.LearnByDoing.Core;
 
 namespace Demo.LearnByDoing.Tests.Chapter05
 {
-    public class Chapter5_3Data : TestDataBase
+    public class Chapter5_3Data : BaseTestData
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
@@ -12,7 +12,7 @@ namespace Demo.LearnByDoing.Tests.Chapter05
         };
     }
 
-    public class Chapter5_3Data_SequentialCount : TestDataBase
+    public class Chapter5_3Data_SequentialCount : BaseTestData
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {

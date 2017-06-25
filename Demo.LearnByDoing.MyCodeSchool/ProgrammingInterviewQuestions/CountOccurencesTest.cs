@@ -98,7 +98,7 @@ namespace Demo.LearnByDoing.MyCodeSchool.ProgrammingInterviewQuestions
         }
     }
 
-    public class CountOccurencesFirstIndexData : TestDataBase
+    public class CountOccurencesFirstIndexData : BaseTestData
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
@@ -110,7 +110,7 @@ namespace Demo.LearnByDoing.MyCodeSchool.ProgrammingInterviewQuestions
         };
     }
 
-    public class CountOccurencesLastIndexData : TestDataBase
+    public class CountOccurencesLastIndexData : BaseTestData
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
@@ -122,7 +122,7 @@ namespace Demo.LearnByDoing.MyCodeSchool.ProgrammingInterviewQuestions
         };
     }
 
-    public class CountOccurencesData : TestDataBase
+    public class CountOccurencesData : BaseTestData
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {

@@ -18,7 +18,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 
 		[Theory]
-		[ClassData(typeof(MergeSortTestData_Merge))]
+		[ClassData(typeof(MergeSortBaseTestDataMerge))]
 		public void TestMergingTwoListSorted(int[] left, int[] right, int[] expected)
 		{
 			int[] actual = new int[left.Length + right.Length];
@@ -28,7 +28,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 
 		[Theory]
-		[ClassData(typeof(MergeSortTestData))]
+		[ClassData(typeof(MergeSortBaseTestData))]
 		public void TestMergeSort(int[] a, int[] expected)
 		{
 			int[] actual = _sut.Sort(a);
@@ -108,7 +108,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		}
 	}
 
-	public class MergeSortTestData : TestDataBase
+	public class MergeSortBaseTestData : BaseTestData
 	{
 		public override List<object[]> Data { get; set; } = new List<object[]>
 		{
@@ -120,7 +120,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		};
 	}
 
-	public class MergeSortTestData_Merge : TestDataBase
+	public class MergeSortBaseTestDataMerge : BaseTestData
 	{
 		public override List<object[]> Data { get; set; } = new List<object[]>
 		{

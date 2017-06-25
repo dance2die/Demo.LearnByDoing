@@ -20,7 +20,7 @@ namespace Demo.LearnByDoing.Tests.Chapter04
         }
 
         [Theory]
-        [ClassData(typeof(Chapter4_1Data))]
+        [ClassData(typeof(Chapter4Base1Data))]
         public void TestDepthFirstSearchToFindRouteBetweenTwoNodes(bool expected, Node<int> node1, Node<int> node2)
         {
             bool actual = _sut.HasRouteUsingDfs(node1, node2);
@@ -29,7 +29,7 @@ namespace Demo.LearnByDoing.Tests.Chapter04
         }
 
         [Theory]
-        [ClassData(typeof(Chapter4_1Data))]
+        [ClassData(typeof(Chapter4Base1Data))]
         public void TestDepthFirstSearchToFindRouteBetweenTwoNodesOptimized(bool expected, Node<int> node1, Node<int> node2)
         {
             bool actual = _sut.HasRouteUsingDfs2(node1, node2);
@@ -110,7 +110,7 @@ namespace Demo.LearnByDoing.Tests.Chapter04
         }
     }
 
-    public class Chapter4_1Data : Chapter4TestData
+    public class Chapter4Base1Data : Chapter4BaseTestData
     {
         public override List<object[]> Data { get; set; } = new List<object[]>
         {
