@@ -4,7 +4,7 @@ using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Demo.LearnByDoing.Tests.CodeWars
+namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 {
 	public class DuplicateEncoderTest : BaseTest
 	{
