@@ -25,7 +25,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		}
 	}
 
-	public class Kata
+	public partial class Kata
 	{
 		public static string PigIt(string sentence)
 		{

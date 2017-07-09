@@ -121,6 +121,7 @@
     <Compile Include="Chapter07\Chapter7_2Test.cs" />
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
+    <Compile Include="CodeWars\Kyu5\GreedIsGoodTest.cs" />
     <Compile Include="CodeWars\Kyu5\SimplePigLatinTest.cs" />
     <Compile Include="CodeWars\Kyu5\WeightForWeightTest.cs" />
     <Compile Include="CodeWars\Kyu6\DubstepTest.cs" />
