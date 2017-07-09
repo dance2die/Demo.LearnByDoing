@@ -123,6 +123,7 @@
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
     <Compile Include="CodeWars\Kyu5\SimplePigLatinTest.cs" />
     <Compile Include="CodeWars\Kyu6\DuplicateEncoderTest.cs" />
+    <Compile Include="CodeWars\Kyu6\IQTestTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
     <Compile Include="PalinedromeTest.cs" />
