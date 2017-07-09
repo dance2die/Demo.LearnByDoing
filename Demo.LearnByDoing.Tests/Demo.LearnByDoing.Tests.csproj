@@ -125,6 +125,7 @@
     <Compile Include="CodeWars\Kyu6\DubstepTest.cs" />
     <Compile Include="CodeWars\Kyu6\DuplicateEncoderTest.cs" />
     <Compile Include="CodeWars\Kyu6\IQTestTest.cs" />
+    <Compile Include="CodeWars\Kyu6\PersistentBuggerTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
     <Compile Include="PalinedromeTest.cs" />
