@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -122,6 +123,7 @@
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
     <Compile Include="CodeWars\Kyu4\IPValidationTest.cs" />
+    <Compile Include="CodeWars\Kyu4\NonBouncyNumberCountTest.cs" />
     <Compile Include="CodeWars\Kyu4\ReversePolishNotationCalculatorTest.cs" />
     <Compile Include="CodeWars\Kyu5\DirectionsReductionTest.cs" />
     <Compile Include="CodeWars\Kyu5\FirstNonRepeatingLetterTest.cs" />
