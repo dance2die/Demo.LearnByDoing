@@ -16,6 +16,26 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		{
 		}
 
+		[Fact]
+		public void TestBouncyNumbers()
+		{
+			int[] nonBouncyNumbers =
+			{
+				110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 122, 123, 124, 125, 126, 127, 128, 129, 133, 134, 135, 136, 137,
+				138, 139, 144, 145, 146, 147, 148, 149, 155, 156, 157, 158, 159, 166, 167, 168, 169, 177, 178, 179, 188, 189, 199,
+				200
+			};
+
+			List<int> nonBouncyNumberList = new List<int>();
+			for (int i = 101; i <= 200; i++)
+			{
+				if (!TotalIncreasingOrDecreasingNumbers.IsBouncyNumber(i))
+					nonBouncyNumberList.Add(i);
+			}
+
+			Assert.True(nonBouncyNumberList.SequenceEqual(nonBouncyNumbers));
+		}
+
 		[Theory]
 		[MemberData(nameof(GetNumbers))]
 		public void TestTotalIncDecCount(int power, string expected)
@@ -29,7 +49,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 			yield return new object[] { 0, "1" };
 			yield return new object[] { 1, "10" };
 			yield return new object[] { 2, "100" };
-			yield return new object[] { 3, "457" };
+			yield return new object[] { 3, "475" };
 			yield return new object[] { 4, "1675" };
 			yield return new object[] { 5, "4954" };
 			yield return new object[] { 6, "12952" };
@@ -40,21 +60,22 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 	{
 		public static BigInteger TotalIncDec(int power)
 		{
-			BigInteger total = BigInteger.Zero;
 			BigInteger upto = BigInteger.Pow(10, power);
-
 			if (upto <= 100) return upto;
 
-			for (BigInteger i = 1; i < upto; i++)
+			BigInteger total = 100;
+
+			for (BigInteger i = 101; i <= upto; i++)
 			{
-				if (!IsBouncyNumber(i))
+				var isBouncy = IsBouncyNumber(i);
+				if (!isBouncy)
 					total++;
 			}
 
 			return total;
 		}
 
-		private static bool IsBouncyNumber(BigInteger number)
+		public static bool IsBouncyNumber(BigInteger number)
 		{
 			if (number <= 99) return false;
 
@@ -69,15 +90,17 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 				var next = digits[i];
 
 				// is Decreasing
-				if (prev >= next)
+				if (prev > next)
 					isDecreasing = true;
 
 				// is Increasing
-				if (prev <= next)
+				if (prev < next)
 					isIncreasing = true;
 
 				if (isDecreasing && isIncreasing)
 					return true;
+
+				prev = next;
 			}
 
 			return false;
