@@ -67,6 +67,14 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 
 			for (BigInteger i = 101; i <= upto; i++)
 			{
+				if (i % 1000 == 0)
+				{
+					// Skip bouncy numbers
+					var digits = GetDigits(i).ToList();
+					var skipBy = int.Parse(string.Join("", Enumerable.Repeat(digits[0].ToString(), digits.Count - 3)) + (digits[0] - 1) + "9");
+					i = BigInteger.Min(upto, i + skipBy);
+				}
+
 				var isBouncy = IsBouncyNumber(i);
 				if (!isBouncy)
 					total++;
