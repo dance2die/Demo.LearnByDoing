@@ -129,6 +129,7 @@
     <Compile Include="CodeWars\Kyu5\FirstNonRepeatingLetterTest.cs" />
     <Compile Include="CodeWars\Kyu5\GreedIsGoodTest.cs" />
     <Compile Include="CodeWars\Kyu5\PaginationHelperTest.cs" />
+    <Compile Include="CodeWars\Kyu5\SimpleFun155PackManTest.cs" />
     <Compile Include="CodeWars\Kyu5\SimplePigLatinTest.cs" />
     <Compile Include="CodeWars\Kyu5\TicTacToeCheckerTest.cs" />
     <Compile Include="CodeWars\Kyu5\WeightForWeightTest.cs" />
