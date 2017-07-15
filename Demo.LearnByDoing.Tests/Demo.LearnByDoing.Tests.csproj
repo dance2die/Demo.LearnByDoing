@@ -124,6 +124,7 @@
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
     <Compile Include="CodeWars\Kyu4\IPValidationTest.cs" />
     <Compile Include="CodeWars\Kyu4\NonBouncyNumberCountTest.cs" />
+    <Compile Include="CodeWars\Kyu4\PyramidSlideDownTest.cs" />
     <Compile Include="CodeWars\Kyu4\ReversePolishNotationCalculatorTest.cs" />
     <Compile Include="CodeWars\Kyu5\DirectionsReductionTest.cs" />
     <Compile Include="CodeWars\Kyu5\FirstNonRepeatingLetterTest.cs" />
