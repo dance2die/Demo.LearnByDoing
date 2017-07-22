@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Demo.LearnByDoing.Core;
 using Xunit;
@@ -21,13 +20,16 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		[InlineData(111, -1)]
 		[InlineData(135, -1)]
 		[InlineData(21, 12)]
-		[InlineData(907, 970)]
+		[InlineData(907, 790)]
 		[InlineData(531, 513)]
 		[InlineData(2071, 2017)]
 		[InlineData(2017, 1720)]
 		[InlineData(1027, -1)]
 		[InlineData(441, 414)]
 		[InlineData(123456798, 123456789)]
+		[InlineData(53249, 52943)]
+		[InlineData(51226262651257, 51226262627551)]
+		[InlineData(518517, 518175)]
 		public void FixedTests(long number, long expected)
 		{
 			long actual = Kata.NextSmaller(number);
@@ -41,35 +43,42 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		{
 			var digits = GetDigits(number).ToList();
 			int from = digits.Count - 1;
-			int foundAt = -1;
+			int foundAt = 1;
+			bool isFound = false;
 
-			// Move the least significant digit to the left most
-
-			// 2nd iteration: From found lo
-
+			// Move the least significant digit to the left possible digit	
 			do
 			{
-				for (int i = from; i >= foundAt + 1; i--)
+				for (int i = from; i >= foundAt; i--)
 				{
-					for (int j = i - 1; j >= foundAt + 1; j--)
+					for (int j = i - 1; j >= foundAt; j--)
 					{
-						if (i == from && digits[i] < digits[j])
+						if (digits[i] < digits[j])
 						{
 							foundAt = j;
 							digits = Swap(digits, i, j);
-						}
-						else if (i < from && digits[i] > digits[j])
-						{
-							foundAt = j;
-							digits = Swap(digits, i, j);
+							isFound = true;
+							break;
 						}
 					}
+
+					from--;
+					//foundAt++;
 				}
-			} while (foundAt > 0);
+			} while (foundAt < from);
+			//} while (false);
+
+			int mid = isFound ? foundAt + 1 : 1;
+
+			// 2nd iteration: Reverse sort from found + 1.
+			var left = digits.Take(mid);
+			var right = digits.Skip(mid).Reverse();
 
 			const int notFound = -1;
-			var smallerCandidate = ToLong(digits);
-			return smallerCandidate >= number ? notFound : smallerCandidate;
+			var smallerCandidate = ToLong(left.Concat(right).ToList());
+			if (!smallerCandidate.HasValue)
+				return notFound;
+			return smallerCandidate.Value >= number ? notFound : smallerCandidate.Value;
 		}
 
 		private static List<int> Swap(List<int> digits, int i, int j)
@@ -80,8 +89,10 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 			return digits;
 		}
 
-		private static long ToLong(List<int> digits)
+		private static long? ToLong(List<int> digits)
 		{
+			if (digits.Count > 0 && digits[0] == 0)
+				return null;
 			return long.Parse(string.Join("", digits.Select(digit => digit.ToString())));
 		}
 
