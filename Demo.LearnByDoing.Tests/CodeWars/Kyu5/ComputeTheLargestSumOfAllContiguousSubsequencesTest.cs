@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -35,11 +32,32 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		}
 	}
 
-	static partial class Kata
+	partial class Kata
 	{
-		public static int LargestSum(int[] arr)
+		public static int LargestSum(int[] a)
 		{
-			
+			var list = a.ToList();
+
+			if (list.Count == 0) return 0;
+			// if all numbers are negative, return 0
+			if (list.Max() <= 0) return 0;
+			// if all numbers are positive, return the sum of array
+			if (list.All(value => value >= 0)) return list.Sum();
+
+			int max = 0;
+			int sum = 0;
+
+			foreach (var value in list)
+			{
+				sum += value;
+				if (sum < 0)
+					sum = 0;
+
+				if (sum > max)
+					max = sum;
+			}
+
+			return max;
 		}
 	}
 }
