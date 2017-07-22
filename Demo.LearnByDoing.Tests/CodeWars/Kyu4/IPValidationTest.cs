@@ -36,7 +36,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		}
 	}
 
-	class Kata
+	partial class Kata
 	{
 		public static bool is_valid_IP(string input)
 		{
