@@ -30,6 +30,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		[InlineData(53249, 52943)]
 		[InlineData(51226262651257, 51226262627551)]
 		[InlineData(518517, 518175)]
+		[InlineData(59884848483559, 59884848459853)]
 		public void FixedTests(long number, long expected)
 		{
 			long actual = Kata.NextSmaller(number);
@@ -69,7 +70,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 
 			// 2nd iteration: Reverse sort from found + 1.
 			var left = digits.Take(foundAt);
-			var right = digits.Skip(foundAt).Reverse();
+			var right = digits.Skip(foundAt).OrderByDescending(value => value);
 
 			var smallerCandidate = ToLong(left.Concat(right).ToList());
 			if (!smallerCandidate.HasValue)
