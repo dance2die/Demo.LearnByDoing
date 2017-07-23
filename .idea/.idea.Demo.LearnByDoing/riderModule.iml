@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RIDER_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Chapter01" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.General" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.MyCodeSchool" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Permutation" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Tests" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Chapter01/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Chapter01/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Core/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Core/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.General/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.General/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.MyCodeSchool/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.MyCodeSchool/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Permutation/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Permutation/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Tests/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../Demo.LearnByDoing.Tests/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../packages" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
