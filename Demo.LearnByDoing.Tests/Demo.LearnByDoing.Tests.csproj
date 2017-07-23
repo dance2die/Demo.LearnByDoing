@@ -136,6 +136,7 @@
     <Compile Include="CodeWars\Kyu5\SimplePigLatinTest.cs" />
     <Compile Include="CodeWars\Kyu5\TicTacToeCheckerTest.cs" />
     <Compile Include="CodeWars\Kyu5\WeightForWeightTest.cs" />
+    <Compile Include="CodeWars\Kyu5\WhatDoesntBelongToTheseTest.cs" />
     <Compile Include="CodeWars\Kyu6\DubstepTest.cs" />
     <Compile Include="CodeWars\Kyu6\DuplicateEncoderTest.cs" />
     <Compile Include="CodeWars\Kyu6\IQTestTest.cs" />
