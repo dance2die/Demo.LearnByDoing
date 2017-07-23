@@ -43,42 +43,52 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		{
 			var digits = GetDigits(number).ToList();
 			int from = digits.Count - 1;
-			int foundAt = 1;
-			bool isFound = false;
-
-			// Move the least significant digit to the left possible digit	
-			do
-			{
-				for (int i = from; i >= foundAt; i--)
-				{
-					for (int j = i - 1; j >= foundAt; j--)
-					{
-						if (digits[i] < digits[j])
-						{
-							foundAt = j;
-							digits = Swap(digits, i, j);
-							isFound = true;
-							break;
-						}
-					}
-
-					from--;
-					//foundAt++;
-				}
-			} while (foundAt < from);
-			//} while (false);
-
-			int mid = isFound ? foundAt + 1 : 1;
-
-			// 2nd iteration: Reverse sort from found + 1.
-			var left = digits.Take(mid);
-			var right = digits.Skip(mid).Reverse();
 
 			const int notFound = -1;
+			int foundAt = notFound;
+			//bool isFound = false;
+
+			for (int i = from, j = from - 1; i >= 1 ; i--, j--)
+			{
+				var r = digits[i];
+				var l = digits.Where((value, index) => index < i && value != 0).LastOrDefault();
+				var lIndex = digits.Select((Value, Index) => new {Value, Index}).LastOrDefault(obj => obj.Value != 0 && obj.Index < i).Index;
+
+				if (l > r)
+				{
+					// Get max index where value is less than "r" value.
+					var maxIndex = GetMaxIndexAfter(digits, l, i);
+
+					digits = Swap(digits, lIndex, maxIndex);
+					foundAt = lIndex + 1;
+					break;
+				}
+			}
+
+			if (foundAt == notFound) return notFound;
+
+			// 2nd iteration: Reverse sort from found + 1.
+			var left = digits.Take(foundAt);
+			var right = digits.Skip(foundAt).Reverse();
+
 			var smallerCandidate = ToLong(left.Concat(right).ToList());
 			if (!smallerCandidate.HasValue)
 				return notFound;
 			return smallerCandidate.Value >= number ? notFound : smallerCandidate.Value;
+		}
+
+		private static int GetMaxIndexAfter(List<int> digits, int value, int i)
+		{
+			var candidates = digits.Select((Value, Index) => new { Value, Index }).Where(obj => obj.Index >= i && obj.Value < value).ToList();
+			int maxValue = candidates.Max(obj => obj.Value);
+
+			foreach (var obj in candidates)
+			{
+				if (obj.Value == maxValue)
+					return obj.Index;
+			}
+
+			return -1;
 		}
 
 		private static List<int> Swap(List<int> digits, int i, int j)
