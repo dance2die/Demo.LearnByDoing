@@ -15,6 +15,10 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		{
 		}
 
+		/// <summary>
+		/// Find next number from here
+		/// http://www.geeksforgeeks.org/find-next-greater-number-set-digits/
+		/// </summary>
 		[Theory]
 		[InlineData(9, -1)]
 		[InlineData(111, -1)]
