@@ -127,6 +127,7 @@
     <Compile Include="CodeWars\Kyu4\NonBouncyNumberCountTest.cs" />
     <Compile Include="CodeWars\Kyu4\PyramidSlideDownTest.cs" />
     <Compile Include="CodeWars\Kyu4\ReversePolishNotationCalculatorTest.cs" />
+    <Compile Include="CodeWars\Kyu5\BasicNicoVariationTest.cs" />
     <Compile Include="CodeWars\Kyu5\ComputeTheLargestSumOfAllContiguousSubsequencesTest.cs" />
     <Compile Include="CodeWars\Kyu5\DirectionsReductionTest.cs" />
     <Compile Include="CodeWars\Kyu5\FirstNonRepeatingLetterTest.cs" />
