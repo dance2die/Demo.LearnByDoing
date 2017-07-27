@@ -98,6 +98,58 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			Assert.Equal(349525, actual[20]);
 			Assert.Equal(5726623061, actual[34]);
 		}
+
+		[Fact]
+		public void TestPell()
+		{
+			int n = 31;
+			// from https://oeis.org/A000045
+			BigInteger[] result =
+			{
+				0, 1, 2, 5, 12, 29, 70, 169, 408, 985, 2378, 5741, 13860, 33461, 80782, 195025, 470832, 1136689, 2744210, 6625109,
+				15994428, 38613965, 93222358, 225058681, 543339720, 1311738121, 3166815962, 7645370045, 18457556052, 44560482149,
+				107578520350, 259717522849
+			};
+
+			var pell = new Pell();
+			var actual = pell.GetSequence(n).ToList();
+			Assert.True(result.SequenceEqual(actual));
+			Assert.Equal(0, actual[0]);
+			Assert.Equal(1, actual[1]);
+			Assert.Equal(2, actual[2]);
+			Assert.Equal(5, actual[3]);
+			Assert.Equal(12, actual[4]);
+			Assert.Equal(107578520350, actual[30]);
+			Assert.Equal(259717522849, actual[31]);
+		}
+	}
+
+	public class Pell
+	{
+		public IEnumerable<BigInteger> GetSequence(int n)
+		{
+			if (n <= 1)
+			{
+				yield return n;
+				yield break;
+			}
+
+			BigInteger prev1 = 0;
+			BigInteger prev2 = 1;
+
+			yield return prev1;
+			yield return prev2;
+
+			for (int i = 2; i <= n; i++)
+			{
+				var current = (2 * prev2) + prev1;
+				yield return current;
+
+				prev1 = prev2;
+				prev2 = current;
+			}
+
+		}
 	}
 
 	public class Jacobsthal
