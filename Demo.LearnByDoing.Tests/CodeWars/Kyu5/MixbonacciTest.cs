@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Numerics;
 using Demo.LearnByDoing.Core;
@@ -162,6 +164,31 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 		}
 
+		[Fact]
+		public void TestFactory()
+		{
+			var types = new []
+			{
+				"fib", "pad", "jac",
+				"pel", "tri", "tet",
+			};
+
+			var classes = new[]
+			{
+				typeof(Fibonacci), typeof(Padovan), typeof(Jacobsthal),
+				typeof(Pell), typeof(Tribonacci), typeof(Tetranacci),
+			};
+
+			for (int i = 0; i < types.Length; i++)
+			{
+				var type = types[i];
+				IGetSequence strategy = Kata.GetNacciStrategy(type);
+
+				var @class = classes[i];
+				Assert.True(strategy.GetType() == @class);
+			}
+		}
+
 		public static IEnumerable<object[]> GetTestCases()
 		{
 			yield return new object[] { new [] { "fib" }, 0, new int[0] { } };
@@ -182,9 +209,23 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		{
 			return null;
 		}
+
+		public static IGetSequence GetNacciStrategy(string type)
+		{
+			switch (type)
+			{
+				case "fib": return new Fibonacci();
+				case "pad": return new Padovan();
+				case "jac": return new Jacobsthal();
+				case "pel": return new Pell();
+				case "tri": return new Tribonacci();
+				case "tet": return new Tetranacci();
+				default: throw new Exception();
+			}
+		}
 	}
 
-	public class Tetranacci
+	public class Tetranacci : IGetSequence
 	{
 		public IEnumerable<BigInteger> GetSequence(int n)
 		{
@@ -222,7 +263,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		}
 	}
 
-	public class Tribonacci
+	public class Tribonacci : IGetSequence
 	{
 		public IEnumerable<BigInteger> GetSequence(int n)
 		{
@@ -256,7 +297,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		}
 	}
 
-	public class Pell
+	public class Pell : IGetSequence
 	{
 		public IEnumerable<BigInteger> GetSequence(int n)
 		{
@@ -284,7 +325,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		}
 	}
 
-	public class Jacobsthal
+	public class Jacobsthal : IGetSequence
 	{
 		public IEnumerable<BigInteger> GetSequence(int n)
 		{
@@ -311,7 +352,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		}
 	}
 
-	public class Padovan
+	public class Padovan : IGetSequence
 	{
 		public IEnumerable<BigInteger> GetSequence(int n)
 		{
@@ -345,7 +386,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		}
 	}
 
-	public class Fibonacci
+	public class Fibonacci : IGetSequence
 	{
 		public IEnumerable<BigInteger> GetSequence(int n)
 		{
@@ -370,5 +411,10 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 				prev2 = current;
 			}
 		}
+	}
+
+	public interface IGetSequence
+	{
+		IEnumerable<BigInteger> GetSequence(int n);
 	}
 }
