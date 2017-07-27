@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Numerics;
 using Demo.LearnByDoing.Core;
@@ -157,13 +156,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			Assert.Equal(2775641472, actual[37]);
 		}
 
-		[Theory]
-		[MemberData(nameof(GetTestCases))]
-		public void BasicTests(string[] patterns, int n, int[] expected)
-		{
-
-		}
-
 		[Fact]
 		public void TestFactory()
 		{
@@ -191,28 +183,61 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 		public static IEnumerable<object[]> GetTestCases()
 		{
-			yield return new object[] { new [] { "fib" }, 0, new int[0] { } };
-			yield return new object[] { new [] { "fib" }, 10, new int[] { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34 } };
-			yield return new object[] { new [] { "pad" }, 10, new int[] { 1, 0, 0, 1, 0, 1, 1, 1, 2, 2 } };
-			yield return new object[] { new [] { "jac" }, 10, new int[] { 0, 1, 1, 3, 5, 11, 21, 43, 85, 171 } };
-			yield return new object[] { new [] { "pel" }, 10, new int[] { 0, 1, 2, 5, 12, 29, 70, 169, 408, 985 } };
-			yield return new object[] { new [] { "tri" }, 10, new int[] { 0, 0, 1, 1, 2, 4, 7, 13, 24, 44 } };
-			yield return new object[] { new [] { "tet" }, 10, new int[] { 0, 0, 0, 1, 1, 2, 4, 8, 15, 29 } };
-			yield return new object[] { new [] { "fib", "tet" }, 10, new int[] { 0, 0, 1, 0, 1, 0, 2, 1, 3, 1 } };
-			yield return new object[] { new [] { "jac", "jac", "pel" }, 10, new int[] { 0, 1, 0, 1, 3, 1, 5, 11, 2, 21 } };
+			yield return new object[] { new[] { "fib" }, 0, new BigInteger[] { } };
+			yield return new object[] { new[] { "fib" }, 10, new BigInteger[] { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34 } };
+			yield return new object[] { new[] { "pad" }, 10, new BigInteger[] { 1, 0, 0, 1, 0, 1, 1, 1, 2, 2 } };
+			yield return new object[] { new[] { "jac" }, 10, new BigInteger[] { 0, 1, 1, 3, 5, 11, 21, 43, 85, 171 } };
+			yield return new object[] { new[] { "pel" }, 10, new BigInteger[] { 0, 1, 2, 5, 12, 29, 70, 169, 408, 985 } };
+			yield return new object[] { new[] { "tri" }, 10, new BigInteger[] { 0, 0, 1, 1, 2, 4, 7, 13, 24, 44 } };
+			yield return new object[] { new[] { "tet" }, 10, new BigInteger[] { 0, 0, 0, 1, 1, 2, 4, 8, 15, 29 } };
+			yield return new object[] { new[] { "fib", "tet" }, 10, new BigInteger[] { 0, 0, 1, 0, 1, 0, 2, 1, 3, 1 } };
+			yield return new object[] { new [] { "jac", "jac", "pel" }, 10, new BigInteger[] { 0, 1, 0, 1, 3, 1, 5, 11, 2, 21 } };
+		}
+
+		[Theory]
+		[MemberData(nameof(GetTestCases))]
+		public void BasicTests(string[] patterns, int n, BigInteger[] expected)
+		{
+			var actual = Kata.Mixbonacci(patterns, n);
+			Assert.True(expected.SequenceEqual(actual));
 		}
 	}
 
 	public partial class Kata
 	{
-		public static BigInteger[] Mixbonacci(string[] pattern, int length)
+		public static BigInteger[] Mixbonacci(string[] patterns, int n)
 		{
-			return null;
+			// Build sequence map
+			var patternList = patterns.ToList();
+			var sequenceMap = patternList
+				.Distinct()
+				.Select(pattern => new { Pattern = pattern, Strategy = Kata.GetNacciStrategy(pattern) })
+				.ToDictionary(obj => obj.Pattern, obj => obj.Strategy.GetSequence(n).ToList());
+
+			//var patternCountMap = Enumerable.Repeat(0, patterns.Length).ToArray();
+			Dictionary<string, int> patternCountMap = new Dictionary<string, int>();
+			foreach (string pattern in patterns)
+			{
+				if (!patternCountMap.ContainsKey(pattern))
+					patternCountMap.Add(pattern, 0);
+			}
+
+			var actual = new List<BigInteger>(n);
+			for (int i = 0; i < n; i++)
+			{
+				int patternIndex = i % patterns.Length;
+				string pattern = patterns[patternIndex];
+				int mapIndex = patternCountMap[pattern]++;
+
+				actual.Add(sequenceMap[pattern][mapIndex]);
+			}
+
+			return actual.ToArray();
 		}
 
-		public static IGetSequence GetNacciStrategy(string type)
+		public static IGetSequence GetNacciStrategy(string pattern)
 		{
-			switch (type)
+			switch (pattern)
 			{
 				case "fib": return new Fibonacci();
 				case "pad": return new Padovan();
