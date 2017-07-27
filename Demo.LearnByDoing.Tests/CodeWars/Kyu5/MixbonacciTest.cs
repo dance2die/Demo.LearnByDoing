@@ -39,22 +39,80 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		[Fact]
 		public void TestFibonacci()
 		{
-			int n = 39;
 			// from https://oeis.org/A000045
-			int[] result = {
+			BigInteger[] result = {
 				0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657,
 				46368, 75025, 121393, 196418, 317811, 514229, 832040, 1346269, 2178309, 3524578, 5702887, 9227465, 14930352,
 				24157817, 39088169
 			};
 
-			var actual = new Fibonacci().GetSequence(n);
+			var fibonacci = new Fibonacci();
+			var actual = fibonacci.GetSequence(38).ToList();
 			Assert.True(result.SequenceEqual(actual));
+			Assert.Equal(0, actual[0]);
+			Assert.Equal(1, actual[1]);
+			Assert.Equal(1, actual[2]);
+			Assert.Equal(2, actual[3]);
+		}
+
+		[Fact]
+		public void TestPadovan()
+		{
+			int n = 49;
+			// from https://oeis.org/A000045
+			BigInteger[] result =
+			{
+				1, 0, 0, 1, 0, 1, 1, 1, 2, 2, 3, 4, 5, 7, 9, 12, 16, 21, 28, 37, 49, 65, 86, 114, 151, 200, 265, 351, 465, 616, 816,
+				1081, 1432, 1897, 2513, 3329, 4410, 5842, 7739, 10252, 13581, 17991, 23833, 31572, 41824, 55405, 73396, 97229,
+				128801, 170625
+			};
+
+			var padovan = new Padovan();
+			var actual = padovan.GetSequence(n).ToList();
+			Assert.True(result.SequenceEqual(actual));
+			Assert.Equal(616, actual[29]);
+			Assert.Equal(13581, actual[40]);
+			Assert.Equal(170625, actual[49]);
+		}
+	}
+
+	public class Padovan
+	{
+		public IEnumerable<BigInteger> GetSequence(int n)
+		{
+			if (n <= 2)
+			{
+				if (n == 0) yield return 1;
+				if (n == 1) yield return 0;
+				if (n == 2) yield return 0;
+
+				yield break;
+			}
+
+			BigInteger prev0 = 1;
+			BigInteger prev1 = 0;
+			BigInteger prev2 = 0;
+			BigInteger current = prev0 + prev1;
+
+			yield return prev0;
+			yield return prev1;
+			yield return prev2;
+
+			for (int i = 3; i <= n; i++)
+			{
+				current = prev0 + prev1;
+				yield return current;
+
+				prev0 = prev1;
+				prev1 = prev2;
+				prev2 = current;
+			}
 		}
 	}
 
 	public class Fibonacci
 	{
-		public IEnumerable<int> GetSequence(int n)
+		public IEnumerable<BigInteger> GetSequence(int n)
 		{
 			if (n <= 1)
 			{
@@ -62,14 +120,14 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 				yield break;
 			}
 
-			int prev1 = 0;
-			int prev2 = 1;
-			int current = prev1 + prev2;
+			BigInteger prev1 = 0;
+			BigInteger prev2 = 1;
+			BigInteger current = prev1 + prev2;
 
 			yield return prev1;
 			yield return prev2;
 
-			for (int i = 3; i <= n; i++)
+			for (int i = 2; i <= n; i++)
 			{
 				current = prev1 + prev2;
 				yield return current;
