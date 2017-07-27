@@ -16,26 +16,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		{
 		}
 
-		[Theory]
-		[MemberData(nameof(GetTestCases))]
-		public void BasicTests(string[] patterns, int n, int[] expected)
-		{
-
-		}
-
-		public static IEnumerable<object[]> GetTestCases()
-		{
-			yield return new object[] { new [] { "fib" }, 0, new int[0] { } };
-			yield return new object[] { new [] { "fib" }, 10, new int[] { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34 } };
-			yield return new object[] { new [] { "pad" }, 10, new int[] { 1, 0, 0, 1, 0, 1, 1, 1, 2, 2 } };
-			yield return new object[] { new [] { "jac" }, 10, new int[] { 0, 1, 1, 3, 5, 11, 21, 43, 85, 171 } };
-			yield return new object[] { new [] { "pel" }, 10, new int[] { 0, 1, 2, 5, 12, 29, 70, 169, 408, 985 } };
-			yield return new object[] { new [] { "tri" }, 10, new int[] { 0, 0, 1, 1, 2, 4, 7, 13, 24, 44 } };
-			yield return new object[] { new [] { "tet" }, 10, new int[] { 0, 0, 0, 1, 1, 2, 4, 8, 15, 29 } };
-			yield return new object[] { new [] { "fib", "tet" }, 10, new int[] { 0, 0, 1, 0, 1, 0, 2, 1, 3, 1 } };
-			yield return new object[] { new [] { "jac", "jac", "pel" }, 10, new int[] { 0, 1, 0, 1, 3, 1, 5, 11, 2, 21 } };
-		}
-
 		[Fact]
 		public void TestFibonacci()
 		{
@@ -173,6 +153,34 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			Assert.Equal(8, actual[7]);
 			Assert.Equal(1439975216, actual[36]);
 			Assert.Equal(2775641472, actual[37]);
+		}
+
+		[Theory]
+		[MemberData(nameof(GetTestCases))]
+		public void BasicTests(string[] patterns, int n, int[] expected)
+		{
+
+		}
+
+		public static IEnumerable<object[]> GetTestCases()
+		{
+			yield return new object[] { new [] { "fib" }, 0, new int[0] { } };
+			yield return new object[] { new [] { "fib" }, 10, new int[] { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34 } };
+			yield return new object[] { new [] { "pad" }, 10, new int[] { 1, 0, 0, 1, 0, 1, 1, 1, 2, 2 } };
+			yield return new object[] { new [] { "jac" }, 10, new int[] { 0, 1, 1, 3, 5, 11, 21, 43, 85, 171 } };
+			yield return new object[] { new [] { "pel" }, 10, new int[] { 0, 1, 2, 5, 12, 29, 70, 169, 408, 985 } };
+			yield return new object[] { new [] { "tri" }, 10, new int[] { 0, 0, 1, 1, 2, 4, 7, 13, 24, 44 } };
+			yield return new object[] { new [] { "tet" }, 10, new int[] { 0, 0, 0, 1, 1, 2, 4, 8, 15, 29 } };
+			yield return new object[] { new [] { "fib", "tet" }, 10, new int[] { 0, 0, 1, 0, 1, 0, 2, 1, 3, 1 } };
+			yield return new object[] { new [] { "jac", "jac", "pel" }, 10, new int[] { 0, 1, 0, 1, 3, 1, 5, 11, 2, 21 } };
+		}
+	}
+
+	public partial class Kata
+	{
+		public static BigInteger[] Mixbonacci(string[] pattern, int length)
+		{
+			return null;
 		}
 	}
 
@@ -361,14 +369,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 				prev1 = prev2;
 				prev2 = current;
 			}
-		}
-	}
-
-	public partial class Kata
-	{
-		public static BigInteger[] Mixbonacci(string[] pattern, int length)
-		{
-			return null;
 		}
 	}
 }
