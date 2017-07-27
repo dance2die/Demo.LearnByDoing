@@ -147,6 +147,71 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			Assert.Equal(615693474, actual[36]);
 			Assert.Equal(1132436852, actual[37]);
 		}
+
+		[Fact]
+		public void TestTetranacci()
+		{
+			int n = 37;
+			// from https://oeis.org/A000045
+			BigInteger[] result =
+			{
+				0, 0, 0, 1, 1, 2, 4, 8, 15, 29, 56, 108, 208, 401, 773, 1490, 2872, 5536, 10671, 20569, 39648, 76424, 147312,
+				283953, 547337, 1055026, 2033628, 3919944, 7555935, 14564533, 28074040, 54114452, 104308960, 201061985, 387559437,
+				747044834, 1439975216, 2775641472
+			};
+
+			var tetranacci = new Tetranacci();
+			var actual = tetranacci.GetSequence(n).ToList();
+			Assert.True(result.SequenceEqual(actual));
+			Assert.Equal(0, actual[0]);
+			Assert.Equal(0, actual[1]);
+			Assert.Equal(0, actual[2]);
+			Assert.Equal(1, actual[3]);
+			Assert.Equal(1, actual[4]);
+			Assert.Equal(2, actual[5]);
+			Assert.Equal(4, actual[6]);
+			Assert.Equal(8, actual[7]);
+			Assert.Equal(1439975216, actual[36]);
+			Assert.Equal(2775641472, actual[37]);
+		}
+	}
+
+	public class Tetranacci
+	{
+		public IEnumerable<BigInteger> GetSequence(int n)
+		{
+			if (n <= 3)
+			{
+				if (n == 0) yield return 0;
+				if (n == 1) yield return 0;
+				if (n == 2) yield return 0;
+				if (n == 3) yield return 1;
+
+				yield break;
+			}
+
+			BigInteger prev0 = 0;
+			BigInteger prev1 = 0;
+			BigInteger prev2 = 0;
+			BigInteger prev3 = 1;
+
+			yield return prev0;
+			yield return prev1;
+			yield return prev2;
+
+			for (int i = 3; i <= n; i++)
+			{
+				var current = prev0 + prev1 + prev2 + prev3;
+
+				prev3 = prev2;
+				prev2 = prev1;
+				prev1 = prev0;
+				prev0 = current;
+
+				yield return current;
+			}
+
+		}
 	}
 
 	public class Tribonacci
