@@ -122,6 +122,65 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			Assert.Equal(107578520350, actual[30]);
 			Assert.Equal(259717522849, actual[31]);
 		}
+
+		[Fact]
+		public void TestTribonacci()
+		{
+			int n = 37;
+			// from https://oeis.org/A000045
+			BigInteger[] result =
+			{
+				0, 0, 1, 1, 2, 4, 7, 13, 24, 44, 81, 149, 274, 504, 927, 1705, 3136, 5768, 10609, 19513, 35890, 66012, 121415,
+				223317, 410744, 755476, 1389537, 2555757, 4700770, 8646064, 15902591, 29249425, 53798080, 98950096, 181997601,
+				334745777, 615693474, 1132436852
+			};
+
+			var tribonacci = new Tribonacci();
+			var actual = tribonacci.GetSequence(n).ToList();
+			Assert.True(result.SequenceEqual(actual));
+			Assert.Equal(0, actual[0]);
+			Assert.Equal(0, actual[1]);
+			Assert.Equal(1, actual[2]);
+			Assert.Equal(1, actual[3]);
+			Assert.Equal(2, actual[4]);
+			Assert.Equal(4, actual[5]);
+			Assert.Equal(615693474, actual[36]);
+			Assert.Equal(1132436852, actual[37]);
+		}
+	}
+
+	public class Tribonacci
+	{
+		public IEnumerable<BigInteger> GetSequence(int n)
+		{
+			if (n <= 2)
+			{
+				if (n == 0) yield return 0;
+				if (n == 1) yield return 0;
+				if (n == 2) yield return 1;
+
+				yield break;
+			}
+
+			BigInteger prev0 = 0;
+			BigInteger prev1 = 0;
+			BigInteger prev2 = 1;
+
+			yield return prev0;
+			yield return prev1;
+
+			for (int i = 2; i <= n; i++)
+			{
+				var current = prev0 + prev1 + prev2;
+
+				prev2 = prev1;
+				prev1 = prev0;
+				prev0 = current;
+
+				yield return current;
+			}
+
+		}
 	}
 
 	public class Pell
@@ -225,14 +284,13 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 			BigInteger prev1 = 0;
 			BigInteger prev2 = 1;
-			BigInteger current = prev1 + prev2;
 
 			yield return prev1;
 			yield return prev2;
 
 			for (int i = 2; i <= n; i++)
 			{
-				current = prev1 + prev2;
+				var current = prev1 + prev2;
 				yield return current;
 
 				prev1 = prev2;
