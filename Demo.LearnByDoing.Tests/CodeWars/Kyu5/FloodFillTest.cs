@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Demo.LearnByDoing.Core;
 using Xunit;
@@ -58,16 +59,31 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			var queue = new Queue<Node>();
 			queue.Enqueue(startNode);
 
-			var visited = GetInitialVisited(a);
+			//var visited = GetInitialVisited(a);
+			var visited = new Dictionary<Node, bool>();
 
 			while (queue.Count > 0)
 			{
 				var node = queue.Dequeue();
-				if (a[node.X, node.Y] == startValue)
-					visited[node] = true;
+				if (a[node.X, node.Y] == startValue && !visited.ContainsKey(node))
+				{
+					visited.Add(node, true);
+				}
 
 				var neighbors = GetNeighbors(a, node, startValue, visited).ToList();
-				neighbors.ForEach(n => { if (!visited[n]) { queue.Enqueue(n); } });
+				neighbors.ForEach(n =>
+				{
+					if (visited.ContainsKey(n))
+					{
+						if (!visited[n])
+							queue.Enqueue(n);
+					}
+					else
+					{
+						visited.Add(n, true);
+						queue.Enqueue(n);
+					}
+				});
 			}
 
 			foreach (var pair in visited)
@@ -79,22 +95,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			return a;
 		}
 
-		private static Dictionary<Node, bool> GetInitialVisited(int[,] a)
-		{
-			var result = new Dictionary<Node, bool>();
-
-			for (int i = 0; i < a.GetLength(0); i++)
-			{
-				for (int j = 0; j < a.GetLength(1); j++)
-				{
-					var node = new Node(i, j);
-					result.Add(node, false);
-				}
-			}
-
-			return result;
-		}
-
 		private static IEnumerable<Node> GetNeighbors(int[,] a, Node node, int startValue, Dictionary<Node, bool> visited)
 		{
 			Node top = GetNodeAt(a, node.X, node.Y - 1);
@@ -102,10 +102,21 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			Node bottom = GetNodeAt(a, node.X, node.Y + 1);
 			Node left = GetNodeAt(a, node.X - 1, node.Y);
 
-			if (top != _invalidNode && a[top.X, top.Y] == startValue && !visited[top]) yield return top;
-			if (right != _invalidNode && a[right.X, right.Y] == startValue && !visited[right]) yield return right;
-			if (bottom != _invalidNode && a[bottom.X, bottom.Y] == startValue && !visited[bottom]) yield return bottom;
-			if (left != _invalidNode && a[left.X, left.Y] == startValue && !visited[left]) yield return left;
+			//Func<Node, bool> isValid = n => n != _invalidNode && a[n.X, n.Y] == startValue && visited.ContainsKey(n) && !visited[n];
+			Func<Node, bool> isValid = n =>
+			{
+				if (n == _invalidNode) return false;
+				if (a[n.X, n.Y] == startValue) return true;
+				if (visited.ContainsKey(n))
+					if (!visited[n]) return true;
+
+				return false;
+			};
+
+			if (isValid(top)) yield return top;
+			if (isValid(right)) yield return right;
+			if (isValid(bottom)) yield return bottom;
+			if (isValid(left)) yield return left;
 		}
 
 		private static readonly Node _invalidNode = new Node(-1, -1);
