@@ -52,57 +52,74 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 	{
 		public static int[,] FloodFill(int[,] a, int x, int y, int newValue)
 		{
-			HashSet<Node> visited = new HashSet<Node>();
-
 			var startValue = a[x, y];
 			var startNode = new Node(x, y);
 
 			var queue = new Queue<Node>();
 			queue.Enqueue(startNode);
 
-			//var neighbors = GetNeighbors(a, startNode, startValue).ToList();
-			//neighbors.Where(n => !visited.Contains(n)).ToList().ForEach(n => queue.Enqueue(n));
+			var visited = GetInitialVisited(a);
 
 			while (queue.Count > 0)
 			{
 				var node = queue.Dequeue();
-				if (visited.Contains(node)) continue;
-				visited.Add(node);
+				if (a[node.X, node.Y] == startValue)
+					visited[node] = true;
 
-				var neighbors = GetNeighbors(a, node, startValue).ToList();
-				neighbors.ForEach(n => { if (!visited.Contains(n)) { queue.Enqueue(n); } });
-				var value = a[node.X, node.Y];
-				if (value == newValue) continue;
+				var neighbors = GetNeighbors(a, node, startValue, visited).ToList();
+				neighbors.ForEach(n => { if (!visited[n]) { queue.Enqueue(n); } });
+			}
 
-				a[node.X, node.Y] = newValue;
+			foreach (var pair in visited)
+			{
+				if (pair.Value)
+					a[pair.Key.X, pair.Key.Y] = newValue;
 			}
 
 			return a;
 		}
 
-		private static IEnumerable<Node> GetNeighbors(int[,] a, Node node, int startValue)
+		private static Dictionary<Node, bool> GetInitialVisited(int[,] a)
+		{
+			var result = new Dictionary<Node, bool>();
+
+			for (int i = 0; i < a.GetLength(0); i++)
+			{
+				for (int j = 0; j < a.GetLength(1); j++)
+				{
+					var node = new Node(i, j);
+					result.Add(node, false);
+				}
+			}
+
+			return result;
+		}
+
+		private static IEnumerable<Node> GetNeighbors(int[,] a, Node node, int startValue, Dictionary<Node, bool> visited)
 		{
 			Node top = GetNodeAt(a, node.X, node.Y - 1);
 			Node right = GetNodeAt(a, node.X + 1, node.Y);
 			Node bottom = GetNodeAt(a, node.X, node.Y + 1);
 			Node left = GetNodeAt(a, node.X - 1, node.Y);
 
-			if (top != null && a[top.X, top.Y] == startValue) yield return top;
-			if (right != null && a[right.X, right.Y] == startValue) yield return right;
-			if (bottom != null && a[bottom.X, bottom.Y] == startValue) yield return bottom;
-			if (left != null && a[left.X, left.Y] == startValue) yield return left;
+			if (top != _invalidNode && a[top.X, top.Y] == startValue && !visited[top]) yield return top;
+			if (right != _invalidNode && a[right.X, right.Y] == startValue && !visited[right]) yield return right;
+			if (bottom != _invalidNode && a[bottom.X, bottom.Y] == startValue && !visited[bottom]) yield return bottom;
+			if (left != _invalidNode && a[left.X, left.Y] == startValue && !visited[left]) yield return left;
 		}
+
+		private static readonly Node _invalidNode = new Node(-1, -1);
 
 		private static Node GetNodeAt(int[,] a, int x, int y)
 		{
-			if (x < 0 || x >= a.GetLength(0)) return null;
-			if (y < 0 || y >= a.GetLength(1)) return null;
+			if (x < 0 || x >= a.GetLength(0)) return _invalidNode;
+			if (y < 0 || y >= a.GetLength(1)) return _invalidNode;
 
 			return new Node(x, y);
 		}
 	}
 
-	public class Node
+	public struct Node
 	{
 		public int X { get; set; }
 		public int Y { get; set; }
@@ -111,6 +128,27 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		{
 			X = x;
 			Y = y;
+		}
+
+		public static bool operator ==(Node n1, Node n2)
+		{
+			return n1.X == n2.X && n1.Y == n2.Y;
+		}
+
+		public static bool operator !=(Node n1, Node n2)
+		{
+			return !(n1 == n2);
+		}
+
+		public override bool Equals(object obj)
+		{
+			Node node = (Node) obj;
+			return X == node.X && Y == node.Y;
+		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
 		}
 
 		public override string ToString()
