@@ -135,6 +135,7 @@
     <Compile Include="CodeWars\Kyu5\GreedIsGoodTest.cs" />
     <Compile Include="CodeWars\Kyu5\HumanReadableTimeTest.cs" />
     <Compile Include="CodeWars\Kyu5\MixbonacciTest.cs" />
+    <Compile Include="CodeWars\Kyu5\OnesAndZeroesAndWildcardsTest.cs" />
     <Compile Include="CodeWars\Kyu5\PaginationHelperTest.cs" />
     <Compile Include="CodeWars\Kyu5\SimpleFun155PackManTest.cs" />
     <Compile Include="CodeWars\Kyu5\SimpleFun166BestMatchTest.cs" />
