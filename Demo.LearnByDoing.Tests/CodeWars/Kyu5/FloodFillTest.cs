@@ -28,8 +28,23 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 				{1,2,2},
 				{2,3,2}
 			};
-
 			Assert.Equal(expected, Kata.FloodFill(actual, 0, 1, 4));
+
+			expected = new int[,]
+			{
+				{2,1,3},
+				{1,4,1},
+				{2,3,2}}
+			;
+
+			actual = new int[,]
+			{
+				{2,1,3},
+				{1,2,1},
+				{2,3,2}
+			};
+
+			Assert.Equal(expected, Kata.FloodFill(actual, 1, 1, 4));
 		}
 	}
 
@@ -41,11 +56,12 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 			var startValue = a[x, y];
 			var startNode = new Node(x, y);
-			visited.Add(startNode);
 
 			var queue = new Queue<Node>();
-			var neighbors = GetNeighbors(a, startNode, startValue).ToList();
-			neighbors.Where(n => !visited.Contains(n)).ToList().ForEach(n => queue.Enqueue(n));
+			queue.Enqueue(startNode);
+
+			//var neighbors = GetNeighbors(a, startNode, startValue).ToList();
+			//neighbors.Where(n => !visited.Contains(n)).ToList().ForEach(n => queue.Enqueue(n));
 
 			while (queue.Count > 0)
 			{
@@ -53,7 +69,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 				if (visited.Contains(node)) continue;
 				visited.Add(node);
 
-				neighbors = GetNeighbors(a, node, startValue).ToList();
+				var neighbors = GetNeighbors(a, node, startValue).ToList();
 				neighbors.ForEach(n => { if (!visited.Contains(n)) { queue.Enqueue(n); } });
 				var value = a[node.X, node.Y];
 				if (value == newValue) continue;
