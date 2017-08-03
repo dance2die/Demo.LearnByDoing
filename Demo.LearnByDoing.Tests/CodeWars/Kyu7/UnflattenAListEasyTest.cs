@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -33,9 +30,30 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 
 	public class Kata
 	{
-		public static object[] Unflatten(int[] flatArray)
+		public static object[] Unflatten(int[] a)
 		{
-			return new object[0];
+			var result = new List<object>();
+
+			for (int i = 0; i < a.Length; i++)
+			{
+				var value = a[i];
+				if (value < 3)
+				{
+					result.Add(value);
+				}
+				else if (value >= 3)
+				{
+					int len = a.Length - i < value ? a.Length - i : value;
+					var subArray = new int[len];
+					Array.Copy(a, i, subArray, 0, len);
+
+					result.Add(subArray);
+
+					i += len - 1;
+				}
+			}
+
+			return result.ToArray();
 		}
 	}
 }
