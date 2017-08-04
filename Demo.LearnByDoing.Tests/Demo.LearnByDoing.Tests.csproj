@@ -118,6 +118,7 @@
     <Compile Include="Chapter07\Chapter7_2Test.cs" />
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
+    <Compile Include="CodeWars\Kyu4\BattleShipsSunkDamagedOrNotTouchedTest.cs" />
     <Compile Include="CodeWars\Kyu4\IPValidationTest.cs" />
     <Compile Include="CodeWars\Kyu4\NextSmallerNumberWithTheSameDigitsTest.cs" />
     <Compile Include="CodeWars\Kyu4\NonBouncyNumberCountTest.cs" />
