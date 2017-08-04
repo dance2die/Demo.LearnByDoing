@@ -22,7 +22,8 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		public void BasicTest1()
 		{
 			var kata = new Kata();
-			int[,] board = { { 0, 0, 1, 0 },
+			int[,] board = { 
+				{ 0, 0, 1, 0 },
 				{ 0, 0, 1, 0 },
 				{ 0, 0, 1, 0 } };
 			int[,] attacks = { { 3, 1 }, { 3, 2 }, { 3, 3 } };
@@ -38,7 +39,8 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		public void BasicTest2()
 		{
 			var kata = new Kata();
-			int[,] board = { { 3, 0, 1 },
+			int[,] board = { 
+				{ 3, 0, 1 },
 				{ 3, 0, 1 },
 				{ 0, 2, 1 },
 				{ 0, 2, 0 } };
@@ -64,6 +66,9 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 				{ "points", 0 },
 			};
 
+			var ships = GetShips(board);
+
+			
 
 
 			return result;
