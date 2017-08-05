@@ -102,7 +102,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			Node bottom = GetNodeAt(a, node.X, node.Y + 1);
 			Node left = GetNodeAt(a, node.X - 1, node.Y);
 
-			//Func<Node, bool> isValid = n => n != _invalidNode && a[n.X, n.Y] == startValue && visited.ContainsKey(n) && !visited[n];
+			//Func<Node, bool> isValid = n => n != _invalidNode && a[n.AttackX, n.AttackY] == startValue && visited.ContainsKey(n) && !visited[n];
 			Func<Node, bool> isValid = n =>
 			{
 				if (n == _invalidNode) return false;
@@ -164,7 +164,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 		public override string ToString()
 		{
-			return string.Format("X:{0} Y:{1}", X, Y);
+			return string.Format("AttackX:{0} AttackY:{1}", X, Y);
 		}
 	}
 }
