@@ -64,7 +64,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 				{ "points", 0 },
 			};
 
-			var ships = GetShips(board);
+			Dictionary<int, List<ShipStatus>> ships = GetShips(board);
 			for (int i = 0; i < attacks.GetLength(0); i++)
 			{
 				var attackX = (int) attacks.GetValue(i, 0);
@@ -126,16 +126,12 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		private static Tuple<int, int> GetAttackCoord(int[,] board, int i, int j)
 		{
 			var rowLength = board.GetLength(0);
-			var colLength = board.GetLength(1);
 
 			// attack coord is 1-based.
 			int x = j + 1;
 			int y = rowLength - i;
 
-			//int x = colLength - j + 1;
-			//int y = i + 1;
 			return Tuple.Create(x, y);
-
 		}
 
 		private static Tuple<int, int, int, double> GetScores(Dictionary<int, List<ShipStatus>> ships)
@@ -174,7 +170,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 	{
 		public int AttackX { get; set; }
 		public int AttackY { get; set; }
-		public bool IsHit { get; set; } = false;
+		public bool IsHit { get; set; }
 
 		public ShipStatus(int attackX, int attackY)
 		{
