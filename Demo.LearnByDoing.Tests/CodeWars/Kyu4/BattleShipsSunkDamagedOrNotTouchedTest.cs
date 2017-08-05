@@ -127,10 +127,17 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 
 		private static Tuple<int, int> GetAttackCoord(int[,] board, int i, int j)
 		{
+			var rowLength = board.GetLength(0);
 			var colLength = board.GetLength(1);
 
 			// attack coord is 1-based.
-			return Tuple.Create(j + 1, colLength - i - 1);
+			int x = j + 1;
+			int y = rowLength - i;
+
+			//int x = colLength - j + 1;
+			//int y = i + 1;
+			return Tuple.Create(x, y);
+
 		}
 
 		private static Tuple<int, int, int, double> GetScores(Dictionary<int, List<ShipStatus>> ships)
@@ -145,8 +152,8 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 					sunkCount++;
 				else if (IsNotTouched(ship))
 					notTouchedCount++;
-				else 
-					damagedCount += ship.Value.Count(status => status.IsHit);
+				else
+					damagedCount += ship.Value.Any(status => status.IsHit) ? 1 : 0;
 			}
 
 			double points = sunkCount + (damagedCount * 0.5) + (-1 * notTouchedCount);
