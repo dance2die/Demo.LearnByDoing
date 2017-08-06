@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -38,7 +40,61 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 	{
 		public List<string> Possibilities(string input)
 		{
-			return new List<string>();
+			var result = new List<string>();
+			int depth = GetDepth(input);
+			List<string> permutations = GetPermutations(depth).ToList();
+
+			foreach (string permutation in permutations)
+			{
+				char[] digits = permutation.ToCharArray();
+				var j = 0;
+				var temp = new StringBuilder(input);
+
+				for (int i = 0; i < input.Length; i++)
+				{
+					if (temp[i] == '?')
+					{
+						temp[i] = digits[j];
+						j++;
+					}
+				}
+
+				result.Add(temp.ToString());
+			}
+
+			return result;
+		}
+
+		private IEnumerable<string> GetPermutations(int depth)
+		{
+			string acc = "";
+			return GetPermutations(acc, "", depth).ToList();
+			//yield return GetPermutations(acc, "1", depth - 1);
+		}
+
+		private IEnumerable<string> GetPermutations(string acc, string prefix, int depth)
+		{
+			acc = prefix + acc;
+			if (depth <= 0)
+			{
+				yield return acc;
+				yield break;
+			}
+
+			foreach (string permutation in GetPermutations(acc, "0", depth - 1).ToList())
+			{
+				yield return permutation;
+			}
+
+			foreach (string permutation in GetPermutations(acc, "1", depth - 1).ToList())
+			{
+				yield return permutation;
+			}
+		}
+
+		private int GetDepth(string input)
+		{
+			return input.Count(c => c == '?');
 		}
 	}
 }
