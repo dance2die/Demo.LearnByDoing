@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -28,9 +25,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	{
 		public static int Solution(int value)
 		{
-			if (value <= 0)
-				return 0;
-			return Enumerable.Range(1, value - 1).Where(n => n % 3 == 0 || n % 5 == 0).Distinct().Sum();
+			return Enumerable.Range(0, value).Where(n => n % 3 == 0 || n % 5 == 0).Distinct().Sum();
 		}
 	}
 }
