@@ -19,7 +19,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		[Fact]
 		public void BasicTest1()
 		{
-			var kata = new Kata();
 			int[,] board = { 
 				{ 0, 0, 1, 0 },
 				{ 0, 0, 1, 0 },
@@ -36,7 +35,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		[Fact]
 		public void BasicTest2()
 		{
-			var kata = new Kata();
 			int[,] board = { 
 				{ 3, 0, 1 },
 				{ 3, 0, 1 },
@@ -52,7 +50,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		}
 	}
 
-	partial class Kata
+	public partial class Kata
 	{
 		public static Dictionary<string, double> damagedOrSunk(int[,] board, int[,] attacks)
 		{
