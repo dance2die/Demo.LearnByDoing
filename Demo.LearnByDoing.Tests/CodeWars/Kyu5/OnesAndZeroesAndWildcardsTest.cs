@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Demo.LearnByDoing.Core;
@@ -39,6 +38,15 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 	public partial class Kata
 	{
 		public List<string> Possibilities(string input)
+		{
+			int index = input.IndexOf('?');
+			if (index < 0) return new List<string> {input};
+
+			return     Possibilities(input.Substring(0, index) + "0" + input.Substring(index + 1))
+				.Union(Possibilities(input.Substring(0, index) + "1" + input.Substring(index + 1))).ToList();
+		}
+
+		public List<string> Possibilities2(string input)
 		{
 			var result = new List<string>();
 			int depth = GetDepth(input);
