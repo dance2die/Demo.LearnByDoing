@@ -118,6 +118,7 @@
     <Compile Include="Chapter07\Chapter7_2Test.cs" />
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
+    <Compile Include="CodeWars\Kyu4\AddingBigNumbersTest.cs" />
     <Compile Include="CodeWars\Kyu4\BattleShipsSunkDamagedOrNotTouchedTest.cs" />
     <Compile Include="CodeWars\Kyu4\CatchingCarMileageNumbersTest.cs" />
     <Compile Include="CodeWars\Kyu4\IPValidationTest.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="CodeWars\Kyu6\DubstepTest.cs" />
     <Compile Include="CodeWars\Kyu6\DuplicateEncoderTest.cs" />
     <Compile Include="CodeWars\Kyu6\IQTestTest.cs" />
+    <Compile Include="CodeWars\Kyu6\MrSafetysTreasuresTest.cs" />
     <Compile Include="CodeWars\Kyu6\MultiplesOf3And5Test.cs" />
     <Compile Include="CodeWars\Kyu6\PersistentBuggerTest.cs" />
     <Compile Include="CodeWars\Kyu6\ReversedWordsTest.cs" />
