@@ -22,7 +22,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		}
 	}
 
-	public class Kata
+	public partial class Kata
 	{
 		public static string DuplicateEncode(string word)
 		{
