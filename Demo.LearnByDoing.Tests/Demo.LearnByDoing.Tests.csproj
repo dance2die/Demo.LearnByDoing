@@ -143,6 +143,7 @@
     <Compile Include="CodeWars\Kyu6\DubstepTest.cs" />
     <Compile Include="CodeWars\Kyu6\DuplicateEncoderTest.cs" />
     <Compile Include="CodeWars\Kyu6\IQTestTest.cs" />
+    <Compile Include="CodeWars\Kyu6\MultiplesOf3And5Test.cs" />
     <Compile Include="CodeWars\Kyu6\PersistentBuggerTest.cs" />
     <Compile Include="CodeWars\Kyu6\StopgninnipSMysdroWTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
