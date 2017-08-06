@@ -68,8 +68,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		private IEnumerable<string> GetPermutations(int depth)
 		{
 			string acc = "";
-			return GetPermutations(acc, "", depth).ToList();
-			//yield return GetPermutations(acc, "1", depth - 1);
+			return GetPermutations(acc, "", depth);
 		}
 
 		private IEnumerable<string> GetPermutations(string acc, string prefix, int depth)
@@ -81,12 +80,12 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 				yield break;
 			}
 
-			foreach (string permutation in GetPermutations(acc, "0", depth - 1).ToList())
+			foreach (string permutation in GetPermutations(acc, "0", depth - 1))
 			{
 				yield return permutation;
 			}
 
-			foreach (string permutation in GetPermutations(acc, "1", depth - 1).ToList())
+			foreach (string permutation in GetPermutations(acc, "1", depth - 1))
 			{
 				yield return permutation;
 			}
