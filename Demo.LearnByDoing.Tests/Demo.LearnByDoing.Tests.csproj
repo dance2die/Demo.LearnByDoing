@@ -118,6 +118,7 @@
     <Compile Include="Chapter07\Chapter7_2Test.cs" />
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
+    <Compile Include="CodeWars\Beta\TheABProblemTest.cs" />
     <Compile Include="CodeWars\Kyu4\AddingBigNumbersTest.cs" />
     <Compile Include="CodeWars\Kyu4\BattleShipsSunkDamagedOrNotTouchedTest.cs" />
     <Compile Include="CodeWars\Kyu4\CatchingCarMileageNumbersTest.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="CodeWars\Kyu5\BasicNicoVariationTest.cs" />
     <Compile Include="CodeWars\Kyu5\BitCalculatorTest.cs" />
     <Compile Include="CodeWars\Kyu5\ComputeTheLargestSumOfAllContiguousSubsequencesTest.cs" />
+    <Compile Include="CodeWars\Kyu5\ConvertStringToCamelCaseTest.cs" />
     <Compile Include="CodeWars\Kyu5\DirectionsReductionTest.cs" />
     <Compile Include="CodeWars\Kyu5\FirstNonRepeatingLetterTest.cs" />
     <Compile Include="CodeWars\Kyu5\FloodFillTest.cs" />
