@@ -155,6 +155,7 @@
     <Compile Include="CodeWars\Kyu6\PersistentBuggerTest.cs" />
     <Compile Include="CodeWars\Kyu6\ReversedWordsTest.cs" />
     <Compile Include="CodeWars\Kyu6\StopgninnipSMysdroWTest.cs" />
+    <Compile Include="CodeWars\Kyu6\TriangleNumberCheckTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
     <Compile Include="CodeWars\Kyu7\UnflattenAListEasyTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
