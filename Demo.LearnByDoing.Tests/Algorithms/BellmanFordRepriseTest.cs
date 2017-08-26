@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -22,16 +19,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 		public void TestBellmanFord()
 		{
 			var vertices = new[] {"S", "A", "B", "C", "D", "E"};
-			var memo = new Dictionary<string, int>
-			{
-				{"S", 0},
-				{"A", int.MaxValue},
-				{"B", int.MaxValue},
-				{"C", int.MaxValue},
-				{"D", int.MaxValue},
-				{"E", int.MaxValue},
-			};
-			var graph = new BellmanFordEdge[]
+			var graph = new[]
 			{
 				new BellmanFordEdge(@from: "S", to: "A", cost: 4),
 				new BellmanFordEdge(@from: "S", to: "E", cost: -5),
@@ -42,6 +30,19 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 				new BellmanFordEdge(@from: "D", to: "A", cost: 10),
 				new BellmanFordEdge(@from: "E", to: "D", cost: 8),
 			};
+
+			var expected = new Dictionary<string, int>
+			{
+				{"S", 0 },
+				{"A", 4 },
+				{"B", 4 },
+				{"C", 6 },
+				{"D", 3 },
+				{"E", -5 },
+			};
+
+			Dictionary<string, int> actual = new BellmanFordReprise().GetShortestPath(vertices, graph);
+			Assert.True(expected.SequenceEqual(actual));
 		}
 
 	}
@@ -62,6 +63,53 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
 	public class BellmanFordReprise
 	{
-		
+		public Dictionary<string, int> GetShortestPath(string[] vertices, BellmanFordEdge[] graph)
+		{
+			Dictionary<string, int> map = BuildVertexMap(vertices);
+
+			foreach (string vertex in vertices)
+			{
+				if (!Iterate(vertices, graph, map)) break;
+			}
+
+			return map;
+		}
+
+		private bool Iterate(string[] vertices, BellmanFordEdge[] graph, Dictionary<string, int> map)
+		{
+			// The return value
+			bool doItAgain = false;
+
+			foreach (string fromVertex in vertices)
+			{
+				// get the outgoing edges for this vertex.
+				var edges = graph.Where(edge => edge.From == fromVertex);
+
+				// iterate over the edges and set the costs
+				foreach (BellmanFordEdge edge in edges)
+				{
+					// calculate the cost of the outgoing edge
+					int potentialCost = map[edge.From] + edge.Cost;
+					// If it's less than what's in our map table for the target vertex...
+					if (potentialCost < map[edge.To])
+					{
+						// update the map table
+						map[edge.To] = potentialCost;
+						// since we made an update, we will want to iterate again
+						doItAgain = true;
+					}
+				}
+			}
+
+			return doItAgain;
+		}
+
+		private Dictionary<string, int> BuildVertexMap(string[] vertices)
+		{
+			if (vertices.Length == 0) return new Dictionary<string, int>();
+
+			var firstVertex = vertices[0];
+			return vertices.ToDictionary(v => v, v => v == firstVertex ? 0 : int.MaxValue);
+		}
 	}
 }
