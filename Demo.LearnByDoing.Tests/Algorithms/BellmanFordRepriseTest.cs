@@ -83,7 +83,8 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 			foreach (string fromVertex in vertices)
 			{
 				// get the outgoing edges for this vertex.
-				var edges = graph.Where(edge => edge.From == fromVertex);
+				// Skip records that we cannot reach: map[edge.From] != int.MaxValue
+				var edges = graph.Where(edge => edge.From == fromVertex && map[edge.From] != int.MaxValue);
 
 				// iterate over the edges and set the costs
 				foreach (BellmanFordEdge edge in edges)
