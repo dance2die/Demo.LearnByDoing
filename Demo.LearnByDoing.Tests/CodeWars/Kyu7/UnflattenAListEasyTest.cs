@@ -28,7 +28,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 		}
 	}
 
-	public class Kata
+	public partial class Kata
 	{
 		public static object[] Unflatten(int[] a)
 		{

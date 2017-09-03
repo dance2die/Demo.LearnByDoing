@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\BellmanFordRepriseTest.cs" />
+    <Compile Include="Algorithms\DjikstraRepriseTest.cs" />
     <Compile Include="Algorithms\MakePalindromeTest.cs" />
     <Compile Include="Algorithms\MergeSortTest.cs" />
     <Compile Include="Algorithms\TopologicalGraphSortTest.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="CodeWars\Kyu6\ReversedWordsTest.cs" />
     <Compile Include="CodeWars\Kyu6\StopgninnipSMysdroWTest.cs" />
     <Compile Include="CodeWars\Kyu6\TriangleNumberCheckTest.cs" />
+    <Compile Include="CodeWars\Kyu7\DisemvowelTrollsTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
     <Compile Include="CodeWars\Kyu7\UnflattenAListEasyTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
