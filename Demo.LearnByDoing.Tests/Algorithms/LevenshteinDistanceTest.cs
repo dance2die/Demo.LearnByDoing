@@ -6,6 +6,10 @@ using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.Algorithms
 {
+	/// <summary>
+	/// Learned about Levenshtein Distance algorithm but came up with implementation algorithm by myself.
+	/// https://www.youtube.com/watch?v=We3YDTzNXEk
+	/// </summary>
 	public class LevenshteinDistanceTest : BaseTest
 	{
 		public LevenshteinDistanceTest(ITestOutputHelper output) : base(output)
