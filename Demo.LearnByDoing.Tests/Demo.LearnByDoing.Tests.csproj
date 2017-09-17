@@ -170,6 +170,7 @@
     <Compile Include="CodeWars\Kyu7\HeadTailInitAndLastTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
     <Compile Include="CodeWars\Kyu7\NiceArrayTest.cs" />
+    <Compile Include="CodeWars\Kyu7\RegexValidatePinCodeTest.cs" />
     <Compile Include="CodeWars\Kyu7\UnflattenAListEasyTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
     <Compile Include="DataStructure\TriestTest.cs" />
