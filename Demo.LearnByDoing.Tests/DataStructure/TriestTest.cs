@@ -25,7 +25,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 		}
 
 		[Theory]
-		[MemberData(nameof(GetTestData))]
+		[MemberData(nameof(GetCompleteWordData))]
 		public void TestCompleteWordSearch(bool expected, string word, string[] source)
 		{
 			bool actual = _sut.BuildTrie(source).CompleteWordSearch(word);
@@ -33,7 +33,9 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 			Assert.Equal(expected, actual);
 		}
 
-		public static IEnumerable<object[]> GetTestData()
+
+
+		public static IEnumerable<object[]> GetCompleteWordData()
 		{
 			yield return new object[] { true, "abc", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
 			yield return new object[] { true, "abgl", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
