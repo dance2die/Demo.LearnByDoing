@@ -28,11 +28,35 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 		[MemberData(nameof(GetCompleteWordData))]
 		public void TestCompleteWordSearch(bool expected, string word, string[] source)
 		{
-			bool actual = _sut.BuildTrie(source).CompleteWordSearch(word);
+			bool actual = _sut.BuildTrie(source).SearchCompleteWord(word);
 
 			Assert.Equal(expected, actual);
 		}
 
+		[Theory]
+		[MemberData(nameof(GetPrefixData))]
+		public void TestPrefixWordSearch(bool expected, string prefix, string[] source)
+		{
+			bool actual = _sut.BuildTrie(source).SearchPrefix(prefix);
+
+			Assert.Equal(expected, actual);
+		}
+
+		public static IEnumerable<object[]> GetPrefixData()
+		{
+			yield return new object[] { true, "abc", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { true, "ab", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { true, "a", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { true, "cdf", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { true, "cd", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { true, "c", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "x", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "abd", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "abx", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "cda", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "swyx", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+		}
 
 
 		public static IEnumerable<object[]> GetCompleteWordData()
@@ -63,7 +87,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 		/// <summary>
 		/// Search for a complete word, not a prefix search.
 		/// </summary>
-		public bool CompleteWordSearch(string word)
+		public bool SearchCompleteWord(string word)
 		{
 			var current = this;
 			foreach (char c in word)
@@ -79,6 +103,26 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 			}
 
 			return current.IsCompleteWord;
+		}
+
+		public bool SearchPrefix(string prefix)
+		{
+			if (string.IsNullOrWhiteSpace(prefix)) return false;
+
+			var current = this;
+			foreach (char c in prefix)
+			{
+				if (current.Children.TryGetValue(c, out TrieNode node))
+				{
+					current = node;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			return true;
 		}
 	}
 
