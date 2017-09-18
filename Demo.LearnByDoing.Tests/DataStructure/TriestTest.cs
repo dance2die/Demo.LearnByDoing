@@ -23,6 +23,61 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 			TrieNode root = _sut.BuildTrie(words);
 			Console.WriteLine(root);
 		}
+
+		[Theory]
+		[MemberData(nameof(GetTestData))]
+		public void TestCompleteWordSearch(bool expected, string word, string[] source)
+		{
+			bool actual = _sut.BuildTrie(source).CompleteWordSearch(word);
+
+			Assert.Equal(expected, actual);
+		}
+
+		public static IEnumerable<object[]> GetTestData()
+		{
+			yield return new object[] { true, "abc", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { true, "abgl", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { true, "cdf", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { true, "abcd", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { true, "lmn", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "ab", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "abg", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "cd", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "abcx", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "abglx", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "cdfx", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "abcdx", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+			yield return new object[] { false, "lmnx", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
+		}
+
+	}
+
+	public class TrieNode
+	{
+		public bool IsCompleteWord { get; set; } = false;
+
+		public Dictionary<char, TrieNode> Children { get; } = new Dictionary<char, TrieNode>();
+
+		/// <summary>
+		/// Search for a complete word, not a prefix search.
+		/// </summary>
+		public bool CompleteWordSearch(string word)
+		{
+			var current = this;
+			foreach (char c in word)
+			{
+				if (current.Children.TryGetValue(c, out TrieNode node))
+				{
+					current = node;
+				}
+				else
+				{
+					return false;
+				}
+			}
+
+			return current.IsCompleteWord;
+		}
 	}
 
 	/// <summary>
@@ -56,12 +111,5 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 
 			current.IsCompleteWord = true;
 		}
-	}
-
-	public class TrieNode
-	{
-		public bool IsCompleteWord { get; set; } = false;
-
-		public Dictionary<char, TrieNode> Children { get; } = new Dictionary<char, TrieNode>();
 	}
 }
