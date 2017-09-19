@@ -15,6 +15,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 		{
 		}
 
+		[Fact]
 		public void test01()
 		{
 			Assert.Equal("TTTT", DnaStrand.MakeComplement("AAAA"));
@@ -43,7 +44,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 				{ 'C', 'G' },{ 'G', 'C' },
 			};
 
-			return new string(dna.Select(c => map[c]).ToArray());
+			return string.Concat(dna.Select(c => map[c]));
 		}
 	}
 }
