@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -53,7 +50,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 
 		public static string HorMirror(string text)
 		{
-			return "";
+			return string.Join("\n", text.Split('\n').Reverse());
 		}
 
 		public static string Oper(Func<string, string> strategy, string text)
