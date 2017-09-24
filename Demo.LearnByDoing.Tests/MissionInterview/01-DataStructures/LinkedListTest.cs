@@ -22,11 +22,10 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 		}
 
 		[Fact]
-		public void TestLinkedList()
+		public void TestInsertAndTraversal()
 		{
-			var sut = new SungLinkedList<int>();
-
 			// Arrange
+			var sut = new SungLinkedList<int>();
 			sut.Append(1);
 			sut.Append(2);
 			sut.Append(3);
@@ -36,6 +35,24 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 
 			// Assert
 			int[] expected = { 1, 2, 3 };
+			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Fact]
+		public void TestInsertAt()
+		{
+			// Arrange
+			var sut = new SungLinkedList<int>();
+			sut.Append(1);
+			var node = sut.Append(2);
+			sut.Append(3);
+
+			// Act: Insert at 2
+			sut.InsertAt(node, 10);
+
+			// Assert
+			int[] expected = {1, 2, 10, 3};
+			var actual = sut.Traverse().Select(n => n.Value);
 			Assert.True(expected.SequenceEqual(actual));
 		}
 	}
@@ -73,14 +90,14 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 			return newNode;
 		}
 
-		//public void InsertAt(Node<T> node, T value)
-		//{
-			
-		//}
+		public SungNode<T> InsertAt(SungNode<T> node, T value)
+		{
+			return null;
+		}
 
-		//public void Remove(Node<T> node)
+		//public void Remove(SungNode<T> node)
 		//{
-			
+
 		//}
 	}
 
