@@ -19,6 +19,12 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 
 			// When nothing's added, there shoun't be *ANY* result.
 			Assert.False(sut.Traverse().Any());
+
+			// When something not in the list is removed, then there shouldn't be anything returned.
+			Assert.Null(sut.Remove(null));
+
+			// When something not in the list is removed, then there shouldn't be anything returned.
+			Assert.Null(sut.Remove(new SungNode<int>(1)));
 		}
 
 		[Fact]
@@ -117,6 +123,9 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 
 		public SungNode<T> Remove(SungNode<T> node)
 		{
+			// if the node to remove is not found, then return null.
+			if (Traverse().All(n => n != node)) return null;
+
 			return null;
 		}
 	}
