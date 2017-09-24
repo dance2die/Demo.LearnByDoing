@@ -55,6 +55,24 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 			var actual = sut.Traverse().Select(n => n.Value);
 			Assert.True(expected.SequenceEqual(actual));
 		}
+
+		[Fact]
+		public void TestRemoving()
+		{
+			// Arrange
+			var sut = new SungLinkedList<int>();
+			sut.Append(1);
+			var node = sut.Append(2);
+			sut.Append(3);
+
+			// Act: Remove 2.
+			sut.Remove(node);
+
+			// Assert
+			int[] expected = { 1, 3 };
+			var actual = sut.Traverse().Select(n => n.Value);
+			Assert.True(expected.SequenceEqual(actual));
+		}
 	}
 
 	public class SungLinkedList<T>
@@ -97,10 +115,10 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 			return newNode;
 		}
 
-		//public void Remove(SungNode<T> node)
-		//{
-
-		//}
+		public SungNode<T> Remove(SungNode<T> node)
+		{
+			return null;
+		}
 	}
 
 	public class SungNode<T>
