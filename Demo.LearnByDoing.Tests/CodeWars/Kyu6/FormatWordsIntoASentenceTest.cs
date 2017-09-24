@@ -15,7 +15,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		{
 		}
 
-		[Fact]
+		[Theory]
 		[MemberData(nameof(GetNumbers))]
 		public void Test(string expected, string[] words)
 		{
@@ -48,7 +48,14 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			// Edge case guard condition.
 			if (words == null || words.Length == 0 || words.All(string.IsNullOrWhiteSpace)) return string.Empty;
 
-			return "";
+			List<string> wordsOnly = words.Where(word => !string.IsNullOrWhiteSpace(word)).ToList();
+			if (wordsOnly.Count == 1) return wordsOnly.FirstOrDefault();
+			if (wordsOnly.Count == 2) return string.Join(" and ", wordsOnly);
+
+			string left = string.Join(", ", wordsOnly.Take(wordsOnly.Count - 1));
+			string right = wordsOnly.LastOrDefault();
+
+			return string.Format("{0} and {1}", left, right);
 		}
 	}
 }
