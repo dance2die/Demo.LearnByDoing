@@ -185,6 +185,7 @@
     <Compile Include="CodeWars\Kyu7\UnflattenAListEasyTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
     <Compile Include="DataStructure\TriestTest.cs" />
+    <Compile Include="MissionInterview\01-DataStructures\LinkedListTest.cs" />
     <Compile Include="PalinedromeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
