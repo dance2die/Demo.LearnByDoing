@@ -92,7 +92,9 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 
 		public SungNode<T> InsertAt(SungNode<T> node, T value)
 		{
-			return null;
+			var newNode = new SungNode<T>(value) {Next = node.Next};
+			node.Next = newNode;
+			return newNode;
 		}
 
 		//public void Remove(SungNode<T> node)
