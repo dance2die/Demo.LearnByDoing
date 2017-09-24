@@ -124,7 +124,7 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 		public SungNode<T> Remove(SungNode<T> node)
 		{
 			// if the node to remove is not found, then return null.
-			if (Traverse().All(n => n != node)) return null;
+			if (Traverse().All(n => n.Equals(node))) return null;
 
 			return null;
 		}
@@ -139,6 +139,25 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 		{
 			Value = value;
 			Next = null;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (obj == null) return false;
+			return Value.Equals(((SungNode<T>) obj).Value);
+		}
+
+		protected bool Equals(SungNode<T> other)
+		{
+			return EqualityComparer<T>.Default.Equals(Value, other.Value) && Equals(Next, other.Next);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				return (EqualityComparer<T>.Default.GetHashCode(Value) * 397) ^ (Next != null ? Next.GetHashCode() : 0);
+			}
 		}
 	}
 }
