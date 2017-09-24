@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Demo.LearnByDoing.Core;
 using Xunit;
@@ -45,6 +46,19 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 		}
 
 		[Fact]
+		public void TestTraversalCallback()
+		{
+			var sut = new SungLinkedList<int>();
+			sut.Append(1);
+			sut.Append(2);
+			sut.Append(3);
+
+			int[] expected = { 1, 2, 3 };
+			Assert.True(expected.SequenceEqual(sut.Traverse((curr, last) => false).Select(n => n.Value)));
+			Assert.Empty(sut.Traverse((curr, last) => true));
+		}
+
+		[Fact]
 		public void TestInsertAt()
 		{
 			// Arrange
@@ -85,14 +99,19 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 	{
 		public SungNode<T> Head { get; set; }
 
-		public IEnumerable<SungNode<T>> Traverse()
+		public IEnumerable<SungNode<T>> Traverse(Func<SungNode<T>, SungNode<T>, bool> callback = null)
 		{
 			var current = Head;
+			SungNode<T> last = null;
 
 			while (current != null)
 			{
+				var callbackResult = callback != null && callback(current, last);
+				if (callbackResult) break;
+
 				yield return current;
 
+				last = current;
 				current = current.Next;
 			}
 		}
@@ -124,7 +143,8 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 		public SungNode<T> Remove(SungNode<T> node)
 		{
 			// if the node to remove is not found, then return null.
-			if (Traverse().All(n => n.Equals(node))) return null;
+			var nodeToRemove = Traverse().FirstOrDefault(n => n.Equals(node));
+			if (nodeToRemove == null) return null;
 
 			return null;
 		}
