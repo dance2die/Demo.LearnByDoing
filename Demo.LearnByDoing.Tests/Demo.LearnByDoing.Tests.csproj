@@ -172,11 +172,14 @@
     <Compile Include="CodeWars\Kyu7\CountTheDigitTest.cs" />
     <Compile Include="CodeWars\Kyu7\DisemvowelTrollsTest.cs" />
     <Compile Include="CodeWars\Kyu7\FindTheStrayNumberTest.cs" />
+    <Compile Include="CodeWars\Kyu7\GaussNeedsHelpTest.cs" />
     <Compile Include="CodeWars\Kyu7\GetTheMiddleCharacterTest.cs" />
     <Compile Include="CodeWars\Kyu7\HeadTailInitAndLastTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
+    <Compile Include="CodeWars\Kyu7\MovesInSquaredStringsTest.cs" />
     <Compile Include="CodeWars\Kyu7\NiceArrayTest.cs" />
     <Compile Include="CodeWars\Kyu7\RegexValidatePinCodeTest.cs" />
+    <Compile Include="CodeWars\Kyu7\SumOfAllTheMultiplesOf3Or5Test.cs" />
     <Compile Include="CodeWars\Kyu7\UnflattenAListEasyTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
     <Compile Include="DataStructure\TriestTest.cs" />
