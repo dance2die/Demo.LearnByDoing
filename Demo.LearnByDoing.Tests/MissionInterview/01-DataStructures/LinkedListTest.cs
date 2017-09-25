@@ -162,7 +162,9 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 
 					// we are NOT don't yet. Move to next iteration.
 					return false;
-				});
+				})
+				// force enumeration
+				.ToList();
 			}
 		}
 	}
