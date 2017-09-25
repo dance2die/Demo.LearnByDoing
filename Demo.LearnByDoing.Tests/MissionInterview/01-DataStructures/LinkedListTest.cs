@@ -21,11 +21,11 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 			// When nothing's added, there shoun't be *ANY* result.
 			Assert.False(sut.Traverse().Any());
 
-			// When something not in the list is removed, then there shouldn't be anything returned.
-			Assert.Null(sut.Remove(null));
+			//// When something not in the list is removed, then there shouldn't be anything returned.
+			//Assert.Null(sut.Remove(null));
 
-			// When something not in the list is removed, then there shouldn't be anything returned.
-			Assert.Null(sut.Remove(new SungNode<int>(1)));
+			//// When something not in the list is removed, then there shouldn't be anything returned.
+			//Assert.Null(sut.Remove(new SungNode<int>(1)));
 		}
 
 		[Fact]
@@ -71,7 +71,7 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 			sut.InsertAt(node, 10);
 
 			// Assert
-			int[] expected = {1, 2, 10, 3};
+			int[] expected = { 1, 2, 10, 3 };
 			var actual = sut.Traverse().Select(n => n.Value);
 			Assert.True(expected.SequenceEqual(actual));
 		}
@@ -135,18 +135,35 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 
 		public SungNode<T> InsertAt(SungNode<T> node, T value)
 		{
-			var newNode = new SungNode<T>(value) {Next = node.Next};
+			var newNode = new SungNode<T>(value) { Next = node.Next };
 			node.Next = newNode;
 			return newNode;
 		}
 
-		public SungNode<T> Remove(SungNode<T> node)
+		public void Remove(SungNode<T> node)
 		{
-			// if the node to remove is not found, then return null.
-			var nodeToRemove = Traverse().FirstOrDefault(n => n.Equals(node));
-			if (nodeToRemove == null) return null;
+			if (Head.Equals(node))
+			{
+				Head.Next = Head.Next;
+			}
+			else
+			{
+				Traverse((currentNode, lastNode) =>
+				{
+					if (currentNode.Equals(node))
+					{
+						// Move the last node to point to current's next node.
+						// Basically we are removing "current" here.
+						lastNode.Next = currentNode.Next;
 
-			return null;
+						// stop the iteration, we are done removing.
+						return true;
+					}
+
+					// we are NOT don't yet. Move to next iteration.
+					return false;
+				});
+			}
 		}
 	}
 
@@ -154,7 +171,7 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 	{
 		public T Value { get; set; }
 		public SungNode<T> Next { get; set; }
-		
+
 		public SungNode(T value)
 		{
 			Value = value;
@@ -164,7 +181,7 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 		public override bool Equals(object obj)
 		{
 			if (obj == null) return false;
-			return Value.Equals(((SungNode<T>) obj).Value);
+			return Value.Equals(((SungNode<T>)obj).Value);
 		}
 
 		protected bool Equals(SungNode<T> other)

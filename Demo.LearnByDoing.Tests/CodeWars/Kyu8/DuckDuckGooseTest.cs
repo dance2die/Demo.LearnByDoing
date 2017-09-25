@@ -32,7 +32,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu8
 		}
 	}
 
-	public class Kata
+	public partial class Kata
 	{
 		public static string DuckDuckGoose(Player[] players, int goose)
 		{

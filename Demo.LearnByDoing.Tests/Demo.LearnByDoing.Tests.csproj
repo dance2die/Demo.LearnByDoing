@@ -183,6 +183,7 @@
     <Compile Include="CodeWars\Kyu7\SumOfAllTheMultiplesOf3Or5Test.cs" />
     <Compile Include="CodeWars\Kyu7\TwoToOneTest.cs" />
     <Compile Include="CodeWars\Kyu7\UnflattenAListEasyTest.cs" />
+    <Compile Include="CodeWars\Kyu8\CountByXTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
     <Compile Include="DataStructure\TriestTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\LinkedListTest.cs" />
