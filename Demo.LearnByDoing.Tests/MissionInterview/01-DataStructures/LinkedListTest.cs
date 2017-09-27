@@ -5,7 +5,7 @@ using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
+namespace Demo.LearnByDoing.Tests.MissionInterview
 {
 	public class LinkedListTest : BaseTest
 	{
