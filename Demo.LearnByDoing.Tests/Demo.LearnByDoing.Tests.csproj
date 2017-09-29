@@ -191,7 +191,10 @@
     <Compile Include="CodeWars\Kyu8\FindTheFirstNonConsecutiveNumberTest.cs" />
     <Compile Include="DataStructure\TriestTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\DoublyLinkedListTest.cs" />
+    <Compile Include="MissionInterview\01-DataStructures\DoublySungLinkedList.cs" />
     <Compile Include="MissionInterview\01-DataStructures\LinkedListTest.cs" />
+    <Compile Include="MissionInterview\01-DataStructures\SungLinkedList.cs" />
+    <Compile Include="MissionInterview\StackTest.cs" />
     <Compile Include="PalinedromeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
