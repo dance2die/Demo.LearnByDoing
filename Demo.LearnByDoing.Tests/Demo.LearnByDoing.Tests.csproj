@@ -137,6 +137,7 @@
     <Compile Include="CodeWars\Kyu5\ComputeTheLargestSumOfAllContiguousSubsequencesTest.cs" />
     <Compile Include="CodeWars\Kyu5\ConvertStringToCamelCaseTest.cs" />
     <Compile Include="CodeWars\Kyu5\DirectionsReductionTest.cs" />
+    <Compile Include="CodeWars\Kyu5\DoubleColaTest.cs" />
     <Compile Include="CodeWars\Kyu5\FirstNonRepeatingLetterTest.cs" />
     <Compile Include="CodeWars\Kyu5\FloodFillTest.cs" />
     <Compile Include="CodeWars\Kyu5\GreedIsGoodTest.cs" />
