@@ -182,6 +182,7 @@
     <Compile Include="CodeWars\Kyu7\MovesInSquaredStringsTest.cs" />
     <Compile Include="CodeWars\Kyu7\NiceArrayTest.cs" />
     <Compile Include="CodeWars\Kyu7\RegexValidatePinCodeTest.cs" />
+    <Compile Include="CodeWars\Kyu7\SevenAte9Test.cs" />
     <Compile Include="CodeWars\Kyu7\SumOfAllTheMultiplesOf3Or5Test.cs" />
     <Compile Include="CodeWars\Kyu7\TwoToOneTest.cs" />
     <Compile Include="CodeWars\Kyu7\UnflattenAListEasyTest.cs" />
