@@ -50,6 +50,28 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 
 			Assert.Throws<InvalidOperationException>(() => sut.Pop());
 		}
+
+		[Fact]
+		public void TestPeek()
+		{
+			var sut = new SungStack<int>();
+			const int itemCount = 3;
+
+			for (int i = 1; i <= itemCount; i++)
+			{
+				sut.Push(i);
+				Assert.Equal(i, sut.Peek());
+			}
+
+			for (int i = itemCount - 1; i >= 0; i--)
+			{
+				sut.Pop();
+				Assert.Equal(i, sut.Peek());
+			}
+
+			// default(int) returns 0
+			Assert.Equal(0, sut.Peek());
+		}
 	}
 
 	public class SungStack<T>
@@ -85,6 +107,13 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 			_list.Head = _list.Head.Next;
 
 			return result;
+		}
+
+		public T Peek()
+		{
+			if (_count == 0)
+				return default(T);
+			return _list.Head.Value;
 		}
 	}
 }
