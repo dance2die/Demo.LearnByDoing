@@ -33,11 +33,12 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 	public class SungQueue<T>
 	{
 		private int _count = 0;
-		private DoublySungLinkedList<T> _list = new DoublySungLinkedList<T>();
+		private readonly DoublySungLinkedList<T> _list = new DoublySungLinkedList<T>();
 
 		public void Enqueue(T value)
 		{
-			
+			_count++;
+			_list.Append(value);
 		}
 
 		public IEnumerable<T> Traverse()
