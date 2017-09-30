@@ -6,19 +6,19 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 {
 	public class SungStack<T>
 	{
-		private readonly SungLinkedList<T> _list;
+		private readonly DoublySungLinkedList<T> _list;
 		private int _count;
 
 		public SungStack()
 		{
-			_list = new SungLinkedList<T>();
+			_list = new DoublySungLinkedList<T>();
 			_count = 0;
 		}
 
 		public void Push(T value)
 		{
 			_count++;
-			var newNode = new SungNode<T>(value) {Next = _list.Head};
+			var newNode = new DoublySungNode<T>(value) {Next = _list.Head};
 			_list.Head = newNode;
 		}
 
@@ -34,7 +34,6 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 
 			_count--;
 			var result = _list.Head.Value;
-			//_list.Head = _list.Head.Next;
 			_list.Remove(_list.Head);
 
 			return result;

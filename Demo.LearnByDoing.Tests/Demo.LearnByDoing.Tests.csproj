@@ -195,6 +195,7 @@
     <Compile Include="MissionInterview\01-DataStructures\DoublyLinkedListTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\DoublySungLinkedList.cs" />
     <Compile Include="MissionInterview\01-DataStructures\LinkedListTest.cs" />
+    <Compile Include="MissionInterview\01-DataStructures\QueueTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\SungLinkedList.cs" />
     <Compile Include="MissionInterview\01-DataStructures\StackTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\SungStack.cs" />
