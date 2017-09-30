@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 {
-	public class QueueTest : BaseTest
+	public class QueueTest
 	{
-		public QueueTest(ITestOutputHelper output) : base(output)
-		{
-		}
-
 		[Fact]
 		public void TestEnqueue()
 		{
@@ -27,6 +21,39 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 			}
 
 			Assert.True(Enumerable.Range(1, upto).SequenceEqual(sut.Traverse()));
+		}
+
+		[Fact]
+		public void TestPeek()
+		{
+			var sut = new SungQueue<int>();
+			Assert.Equal(0, sut.Peek());
+
+			const int upto = 10;
+			for (int i = 1; i <= upto; i++)
+			{
+				sut.Enqueue(i);
+			}
+		}
+
+		[Fact]
+		public void TestDequeue()
+		{
+			var sut = new SungQueue<int>();
+
+			const int upto = 10;
+			for (int i = 1; i <= upto; i++)
+			{
+				sut.Enqueue(i);
+			}
+
+			for (int expected = 1; expected <= upto; expected++)
+			{
+				var actual = sut.Dequeue();
+				Assert.Equal(expected, actual);
+			}
+
+			Assert.Throws<InvalidOperationException>(() => sut.Dequeue());
 		}
 	}
 
@@ -44,6 +71,22 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 		public IEnumerable<T> Traverse()
 		{
 			return _list.Traverse().Select(a => a.Value);
+		}
+
+		public T Dequeue()
+		{
+			if (_count == 0)
+				throw new InvalidOperationException("Queue empty.");
+
+			_count--;
+			var result = _list.Head;
+			_list.Remove(_list.Head);
+			return result.Value;
+		}
+
+		public T Peek()
+		{
+			return _list.Head == null ? default(T) : _list.Head.Value;
 		}
 	}
 }
