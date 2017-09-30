@@ -197,6 +197,7 @@
     <Compile Include="MissionInterview\01-DataStructures\LinkedListTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\SungLinkedList.cs" />
     <Compile Include="MissionInterview\01-DataStructures\StackTest.cs" />
+    <Compile Include="MissionInterview\01-DataStructures\SungStack.cs" />
     <Compile Include="PalinedromeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
