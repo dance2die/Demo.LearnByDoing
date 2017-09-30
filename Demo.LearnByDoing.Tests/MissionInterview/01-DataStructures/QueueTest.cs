@@ -26,7 +26,7 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 				sut.Enqueue(i);
 			}
 
-			//Assert.True(Enumerable.Range(1, upto).SequenceEqual(sut.Traverse()));
+			Assert.True(Enumerable.Range(1, upto).SequenceEqual(sut.Traverse()));
 		}
 	}
 
@@ -38,6 +38,11 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 		public void Enqueue(T value)
 		{
 			
+		}
+
+		public IEnumerable<T> Traverse()
+		{
+			return _list.Traverse().Select(a => a.Value);
 		}
 	}
 }
