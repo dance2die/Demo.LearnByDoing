@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -29,6 +27,29 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 			int[] expected = {3, 2, 1};
 			Assert.True(expected.SequenceEqual(sut.Traverse().ToArray()));
 		}
+
+		[Fact]
+		public void TestPop()
+		{
+			var sut = new SungStack<int>();
+			sut.Push(1);
+			sut.Push(2);
+			sut.Push(3);
+
+			var popped = sut.Pop();
+			Assert.Equal(3, popped);
+			Assert.True(new[] {2,1}.SequenceEqual(sut.Traverse().ToArray()));
+
+			popped = sut.Pop();
+			Assert.Equal(2, popped);
+			Assert.True(new[] {1}.SequenceEqual(sut.Traverse().ToArray()));
+
+			popped = sut.Pop();
+			Assert.Equal(1, popped);
+			Assert.True(new int[] {}.SequenceEqual(sut.Traverse().ToArray()));
+
+			Assert.Throws<InvalidOperationException>(() => sut.Pop());
+		}
 	}
 
 	public class SungStack<T>
@@ -45,14 +66,25 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 		public void Push(T value)
 		{
 			_count++;
-			var newNode = new SungNode<T>(value);
-			newNode.Next = _list.Head;
+			var newNode = new SungNode<T>(value) {Next = _list.Head};
 			_list.Head = newNode;
 		}
 
 		public IEnumerable<T> Traverse()
 		{
 			return _list.Traverse().Select(o => o.Value);
+		}
+
+		public T Pop()
+		{
+			if (_count == 0)
+				throw new InvalidOperationException("Stack empty.");
+
+			_count--;
+			var result = _list.Head.Value;
+			_list.Head = _list.Head.Next;
+
+			return result;
 		}
 	}
 }
