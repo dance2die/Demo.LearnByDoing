@@ -104,7 +104,8 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 
 			_count--;
 			var result = _list.Head.Value;
-			_list.Head = _list.Head.Next;
+			//_list.Head = _list.Head.Next;
+			_list.Remove(_list.Head);
 
 			return result;
 		}

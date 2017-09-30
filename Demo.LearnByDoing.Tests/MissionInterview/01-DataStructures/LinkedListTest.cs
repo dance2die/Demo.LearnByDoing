@@ -92,6 +92,24 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 			var actual = sut.Traverse().Select(n => n.Value);
 			Assert.True(expected.SequenceEqual(actual));
 		}
+
+		/// <summary>
+		/// Testing edge cases.
+		/// </summary>
+		[Fact]
+		public void TestRemovingFirstAndLast()
+		{
+			var sut = new SungLinkedList<int>();
+			var a = sut.Append(1);
+			var b = sut.Append(2);
+			var c = sut.Append(3);
+
+			sut.Remove(a);
+			Assert.True(new[] { 2, 3 }.SequenceEqual(sut.Traverse().Select(node => node.Value)));
+
+			sut.Remove(c);
+			Assert.True(new[] { 2 }.SequenceEqual(sut.Traverse().Select(node => node.Value)));
+		}
 	}
 
 	public class SungNode<T>

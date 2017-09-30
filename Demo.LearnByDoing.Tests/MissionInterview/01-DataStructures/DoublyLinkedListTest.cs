@@ -19,12 +19,6 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 
 			// When nothing's added, there shoun't be *ANY* result.
 			Assert.False(sut.Traverse().Any());
-
-			//// When something not in the list is removed, then there shouldn't be anything returned.
-			//Assert.Null(sut.Remove(null));
-
-			//// When something not in the list is removed, then there shouldn't be anything returned.
-			//Assert.Null(sut.Remove(new DoublySungNode<int>(1)));
 		}
 
 		[Fact]
@@ -112,6 +106,25 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 			var newNode = sut.InsertAt(node2, 5);
 			Assert.True(newNode.Previous.Value == 3);
 		}
+
+		/// <summary>
+		/// Testing edge cases.
+		/// </summary>
+		[Fact]
+		public void TestRemovingFirstAndLast()
+		{
+			var sut = new DoublySungLinkedList<int>();
+			var a = sut.Append(1);
+			var b = sut.Append(2);
+			var c = sut.Append(3);
+
+			sut.Remove(a);
+			Assert.True(new[] { 2, 3 }.SequenceEqual(sut.Traverse().Select(node => node.Value)));
+
+			sut.Remove(c);
+			Assert.True(new[] { 2 }.SequenceEqual(sut.Traverse().Select(node => node.Value)));
+		}
+
 	}
 
 	public class DoublySungNode<T>

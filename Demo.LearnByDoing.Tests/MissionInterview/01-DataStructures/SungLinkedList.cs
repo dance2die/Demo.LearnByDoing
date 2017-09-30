@@ -53,7 +53,7 @@ namespace Demo.LearnByDoing.Tests.MissionInterview
 		{
 			if (Head.Equals(node))
 			{
-				Head.Next = Head.Next;
+				Head = Head.Next;
 			}
 			else
 			{
