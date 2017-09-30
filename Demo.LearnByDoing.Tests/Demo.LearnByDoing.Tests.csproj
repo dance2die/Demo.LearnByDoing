@@ -142,6 +142,7 @@
     <Compile Include="CodeWars\Kyu5\FloodFillTest.cs" />
     <Compile Include="CodeWars\Kyu5\GreedIsGoodTest.cs" />
     <Compile Include="CodeWars\Kyu5\HumanReadableTimeTest.cs" />
+    <Compile Include="CodeWars\Kyu5\Int32ToIP4Test.cs" />
     <Compile Include="CodeWars\Kyu5\MixbonacciTest.cs" />
     <Compile Include="CodeWars\Kyu5\OnesAndZeroesAndWildcardsTest.cs" />
     <Compile Include="CodeWars\Kyu5\PaginationHelperTest.cs" />
