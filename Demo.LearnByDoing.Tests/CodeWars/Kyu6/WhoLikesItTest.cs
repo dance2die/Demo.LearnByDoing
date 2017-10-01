@@ -31,6 +31,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		{
 			if (name == null || name.Length == 0) return "no one likes this";
 			if (name.Length == 1) return $"{name[0]} likes this";
+			if (name.Length == 2) return $"{name[0]} and {name[1]} like this";
 
 			throw new Exception("You shouldn't get here!");
 		}
