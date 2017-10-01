@@ -171,6 +171,7 @@
     <Compile Include="CodeWars\Kyu6\SortTheOddTest.cs" />
     <Compile Include="CodeWars\Kyu6\StopgninnipSMysdroWTest.cs" />
     <Compile Include="CodeWars\Kyu6\TriangleNumberCheckTest.cs" />
+    <Compile Include="CodeWars\Kyu6\WhoLikesItTest.cs" />
     <Compile Include="CodeWars\Kyu7\AllInclusiveTest.cs" />
     <Compile Include="CodeWars\Kyu7\ComplementaryDnaTest.cs" />
     <Compile Include="CodeWars\Kyu7\CountingArrayElementsTest.cs" />
