@@ -30,6 +30,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		public static string Likes(string[] name)
 		{
 			if (name == null || name.Length == 0) return "no one likes this";
+			if (name.Length == 1) return $"{name[0]} likes this";
 
 			throw new Exception("You shouldn't get here!");
 		}
