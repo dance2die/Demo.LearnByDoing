@@ -29,7 +29,9 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	{
 		public static string Likes(string[] name)
 		{
-			throw new NotImplementedException();
+			if (name == null || name.Length == 0) return "no one likes this";
+
+			throw new Exception("You shouldn't get here!");
 		}
 	}
 }
