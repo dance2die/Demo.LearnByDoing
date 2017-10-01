@@ -191,6 +191,7 @@
     <Compile Include="CodeWars\Kyu8\CalculateBmiTest.cs" />
     <Compile Include="CodeWars\Kyu8\CountByXTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
+    <Compile Include="CodeWars\Kyu8\FilterOutTheGeeseTest.cs" />
     <Compile Include="CodeWars\Kyu8\FindTheFirstNonConsecutiveNumberTest.cs" />
     <Compile Include="DataStructure\TriestTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\DoublyLinkedListTest.cs" />
