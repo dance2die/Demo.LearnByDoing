@@ -165,6 +165,7 @@
     <Compile Include="CodeWars\Kyu6\IQTestTest.cs" />
     <Compile Include="CodeWars\Kyu6\MrSafetysTreasuresTest.cs" />
     <Compile Include="CodeWars\Kyu6\MultiplesOf3And5Test.cs" />
+    <Compile Include="CodeWars\Kyu6\ParseALinkedListFromAStringTest.cs" />
     <Compile Include="CodeWars\Kyu6\PersistentBuggerTest.cs" />
     <Compile Include="CodeWars\Kyu6\ReplaceWithAlphabetPositionTest.cs" />
     <Compile Include="CodeWars\Kyu6\ReversedWordsTest.cs" />
