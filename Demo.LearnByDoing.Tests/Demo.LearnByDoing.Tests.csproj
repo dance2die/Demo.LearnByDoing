@@ -205,6 +205,7 @@
     <Compile Include="MissionInterview\01-DataStructures\StackTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\SungQueue.cs" />
     <Compile Include="MissionInterview\01-DataStructures\SungStack.cs" />
+    <Compile Include="MissionInterview\01-DataStructures\SungTreeTest.cs" />
     <Compile Include="PalinedromeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
