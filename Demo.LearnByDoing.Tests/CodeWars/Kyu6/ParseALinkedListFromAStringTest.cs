@@ -12,18 +12,39 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	/// </summary>
 	public class ParseALinkedListFromAStringTest
 	{
-		public void SampleTest()
+		[Theory]
+		[InlineData(new[]{"1", "2", "3", "null"}, "1 -> 2 -> 3 -> null")]
+		[InlineData(new[]{"0", "1", "4", "9", "16", "null"}, "0 -> 1 -> 4 -> 9 -> 16 -> null")]
+		[InlineData(new[]{"null"}, "null")]
+		public void TestSplit(string[] expected, string input)
 		{
-			Assert.Equal(new Node(1, new Node(2, new Node(3))), Kata.Parse("1 -> 2 -> 3 -> null"));
-			Assert.Equal(new Node(0, new Node(1, new Node(4, new Node(9, new Node(16))))), Kata.Parse("0 -> 1 -> 4 -> 9 -> 16 -> null"));
-			Assert.Equal(null, Kata.Parse("null"));
+			Assert.True(expected.SequenceEqual(input.Split(new []{ " -> " }, StringSplitOptions.RemoveEmptyEntries)));
+		}
+
+		[Theory]
+		[MemberData(nameof(GetSampleData))]
+		public void SampleTest(Node expected, string input)
+		{
+			Assert.Equal(expected, Kata.Parse(input));
+		}
+
+		public static IEnumerable<object[]> GetSampleData()
+		{
+			yield return new object[] {new Node(1, new Node(2, new Node(3))), "1 -> 2 -> 3 -> null" };
+			yield return new object[] {new Node(0, new Node(1, new Node(4, new Node(9, new Node(16))))), "0 -> 1 -> 4 -> 9 -> 16 -> null" };
+			yield return new object[] {null, "null" };
 		}
 	}
 
 	public static partial class Kata
 	{
-		public static Node Parse(string nodes)
+		public static Node Parse(string input)
 		{
+			if (input == "null") return null;
+			var nodeTexts = input.Split(new[] {" -> "}, StringSplitOptions.RemoveEmptyEntries);
+			// drop last "null"
+			var nodeValues = nodeTexts.Take(nodeTexts.Length - 1);
+
 			return null;
 		}
 	}
@@ -35,8 +56,8 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 
 		public Node(int data, Node next = null)
 		{
-			this.Data = data;
-			this.Next = next;
+			Data = data;
+			Next = next;
 		}
 
 		public override bool Equals(Object obj)
@@ -44,12 +65,12 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			// Check for null values and compare run-time types.
 			if (obj == null || GetType() != obj.GetType()) { return false; }
 
-			return this.ToString() == obj.ToString();
+			return ToString() == obj.ToString();
 		}
 
 		public override string ToString()
 		{
-			List<int> result = new List<int>();
+			var result = new List<int>();
 			Node curr = this;
 
 			while (curr != null)
@@ -58,7 +79,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 				curr = curr.Next;
 			}
 
-			return String.Join(" -> ", result) + " -> null";
+			return string.Copy(string.Join(" -> ", result) + " -> null");
 		}
 	}
 }
