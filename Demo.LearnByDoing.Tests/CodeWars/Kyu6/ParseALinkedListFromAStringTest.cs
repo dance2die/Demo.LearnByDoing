@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
@@ -43,9 +41,15 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			if (input == "null") return null;
 			var nodeTexts = input.Split(new[] {" -> "}, StringSplitOptions.RemoveEmptyEntries);
 			// drop last "null"
-			var nodeValues = nodeTexts.Take(nodeTexts.Length - 1);
+			var nodeValues = nodeTexts.Take(nodeTexts.Length - 1).Select(t => Convert.ToInt32(t)).Reverse();
 
-			return null;
+			Node node = null;
+			foreach (int value in nodeValues)
+			{
+				node = new Node(value, node);
+			}
+
+			return node;
 		}
 	}
 
