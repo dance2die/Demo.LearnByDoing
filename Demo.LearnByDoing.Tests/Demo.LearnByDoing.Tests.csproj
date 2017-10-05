@@ -155,6 +155,7 @@
     <Compile Include="CodeWars\Kyu5\WeightForWeightTest.cs" />
     <Compile Include="CodeWars\Kyu5\WhatDoesntBelongToTheseTest.cs" />
     <Compile Include="CodeWars\Kyu6\AreTheyTheSameTest.cs" />
+    <Compile Include="CodeWars\Kyu6\ArrayDeepCountTest.cs" />
     <Compile Include="CodeWars\Kyu6\BuildTowerTest.cs" />
     <Compile Include="CodeWars\Kyu6\DoesMNumberLookBigInThisTest.cs" />
     <Compile Include="CodeWars\Kyu6\DubstepTest.cs" />
