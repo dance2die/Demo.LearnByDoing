@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Tests.CodeWars.Kyu6.Tree;
 using Xunit;
 
@@ -33,7 +31,8 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			TreeNode left = TreeNode.Leaf(-22).WithLeaves(9, 50);
 			TreeNode right = TreeNode.Leaf(11).WithLeaves(9, 2);
 			TreeNode root = TreeNode.Join(5, left, right);
-			Assert.Equal(33, Tree.Solution.MaxSum(root));
+			var maxSum = Tree.Solution.MaxSum(root);
+			Assert.Equal(33, maxSum);
 		}
 	}
 
@@ -41,11 +40,21 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	{
 		public class Solution
 		{
-			public static int MaxSum(TreeNode root)
+			public static int MaxSum(TreeNode node)
 			{
-				if (root == null) return 0;
+				return GetMax(node).Sum();
+			}
 
-				return 0;
+			public static IEnumerable<int> GetMax(TreeNode node)
+			{
+				if (node == null) yield break;
+
+				yield return node.value;
+
+				var left = GetMax(node.left).Sum();
+				var right = GetMax(node.right).Sum();
+
+				yield return Math.Max(left, right);
 			}
 		}
 
