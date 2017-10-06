@@ -173,6 +173,7 @@
     <Compile Include="CodeWars\Kyu6\ReversedWordsTest.cs" />
     <Compile Include="CodeWars\Kyu6\SortTheOddTest.cs" />
     <Compile Include="CodeWars\Kyu6\StopgninnipSMysdroWTest.cs" />
+    <Compile Include="CodeWars\Kyu6\TheBookOfMormonTest.cs" />
     <Compile Include="CodeWars\Kyu6\TriangleNumberCheckTest.cs" />
     <Compile Include="CodeWars\Kyu6\WhoLikesItTest.cs" />
     <Compile Include="CodeWars\Kyu7\AllInclusiveTest.cs" />
