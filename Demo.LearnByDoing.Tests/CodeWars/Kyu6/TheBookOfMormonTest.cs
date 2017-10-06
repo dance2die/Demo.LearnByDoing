@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
 namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 {
@@ -27,7 +22,15 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	{
 		public static long Mormons(long startingNumber, long reach, long target)
 		{
-			return 0;
+			var depth = 0;
+			return GetDepth(startingNumber, reach, target, depth);
+		}
+
+		private static long GetDepth(long startingNumber, long reach, long target, int depth)
+		{
+			if (startingNumber >= target) return depth;
+
+			return GetDepth(startingNumber + (startingNumber * reach), reach, target, depth + 1);
 		}
 	}
 }
