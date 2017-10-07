@@ -185,6 +185,7 @@
     <Compile Include="CodeWars\Kyu7\FindTheStrayNumberTest.cs" />
     <Compile Include="CodeWars\Kyu7\GaussNeedsHelpTest.cs" />
     <Compile Include="CodeWars\Kyu7\GetTheMiddleCharacterTest.cs" />
+    <Compile Include="CodeWars\Kyu7\GreatestCommonDivisorTest.cs" />
     <Compile Include="CodeWars\Kyu7\HeadTailInitAndLastTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
     <Compile Include="CodeWars\Kyu7\MovesInSquaredStringsTest.cs" />
