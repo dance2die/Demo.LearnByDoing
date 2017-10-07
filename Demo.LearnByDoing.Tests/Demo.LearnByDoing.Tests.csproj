@@ -182,6 +182,7 @@
     <Compile Include="CodeWars\Kyu7\CountingArrayElementsTest.cs" />
     <Compile Include="CodeWars\Kyu7\CountTheDigitTest.cs" />
     <Compile Include="CodeWars\Kyu7\DisemvowelTrollsTest.cs" />
+    <Compile Include="CodeWars\Kyu7\FactorialFactoryTest.cs" />
     <Compile Include="CodeWars\Kyu7\FindTheStrayNumberTest.cs" />
     <Compile Include="CodeWars\Kyu7\GaussNeedsHelpTest.cs" />
     <Compile Include="CodeWars\Kyu7\GetTheMiddleCharacterTest.cs" />
