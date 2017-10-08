@@ -31,36 +31,39 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		[Fact]
 		public void TestKeyGeneration()
 		{
-			//// cryptogambdefhijklnqsuvwxz
-			//Dictionary<char, int> expected = new Dictionary<char, int>
-			//{
-			//	{'c', 1}, {'r', 2}, {'y', 3}, {'p', 4}, {'t', 5},
-			//	{'o', 6}, {'g', 7}, {'a', 8}, {'m', 9}, {'b', 10},
-			//	{'d', 11}, {'e', 12}, {'f', 13}, {'h', 14}, {'i', 15},
-			//	{'j', 16}, {'k', 17}, {'l', 18}, {'n', 19}, {'q', 20}, 
-			//	{'s', 21}, {'u', 22}, {'v', 23}, {'w', 24}, {'x', 25}, 
-			//	{'z', 26}
-			//};
+			// cryptogambdefhijklnqsuvwxz
+			Dictionary<char, int> expected = new Dictionary<char, int>
+			{
+				{'c', 1}, {'r', 2}, {'y', 3}, {'p', 4}, {'t', 5},
+				{'o', 6}, {'g', 7}, {'a', 8}, {'m', 9}, {'b', 10},
+				{'d', 11}, {'e', 12}, {'f', 13}, {'h', 14}, {'i', 15},
+				{'j', 16}, {'k', 17}, {'l', 18}, {'n', 19}, {'q', 20},
+				{'s', 21}, {'u', 22}, {'v', 23}, {'w', 24}, {'x', 25},
+				{'z', 26}
+			};
 
-			var expected = "cryptogambdefhijklnqsuvwxz";
+			//var expected = "cryptogambdefhijklnqsuvwxz";
 			var actual = Kata.GetMap("cryptogram");
-			Assert.Equal(expected, actual);
+			//Assert.Equal(expected, actual);
+			Assert.True(expected.SequenceEqual(actual));
 		}
 
-		[Theory]
-		[InlineData('j', "cryptogram", 'o', 10)]
-		[InlineData('y', "cryptogram", 'n', 10)]
-		[InlineData('d', "cryptogram", 'c', 10)]
-		[InlineData('s', "cryptogram", 'c', 20)]
-		[InlineData('z', "cryptogram", 'c', 25)]
-		[InlineData('c', "cryptogram", 'c', 26)]
-		[InlineData('r', "cryptogram", 'c', 27)]
-		[InlineData('y', "cryptogram", 'c', 28)]
-		public void TestGettingShiftedCharacter(char expected, string key, char c, int shiftBy)
-		{
-			var actual = Kata.GetShiftedCharacter(key, c, shiftBy);
-			Assert.Equal(expected, actual);
-		}
+		//[Theory]
+		//[InlineData('j', "cryptogram", 'o', 10)]
+		//[InlineData('y', "cryptogram", 'n', 10)]
+		//[InlineData('j', "cryptogam", 'o', 10)]
+		//[InlineData('x', "cryptogam", 'n', 10)]
+		//[InlineData('d', "cryptogram", 'c', 10)]
+		//[InlineData('s', "cryptogram", 'c', 20)]
+		//[InlineData('z', "cryptogram", 'c', 25)]
+		//[InlineData('c', "cryptogram", 'c', 26)]
+		//[InlineData('r', "cryptogram", 'c', 27)]
+		//[InlineData('y', "cryptogram", 'c', 28)]
+		//public void TestGettingShiftedCharacter(char expected, string key, char c, int shiftBy)
+		//{
+		//	var actual = Kata.GetShiftedCharacter(key, c, shiftBy);
+		//	Assert.Equal(expected, actual);
+		//}
 
 		[Theory]
 		[InlineData("jx", "on", "cryptogam", 10)]
@@ -77,7 +80,8 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	{
 		public static string Encode(string key, string message, int shiftBy)
 		{
-			return new string(message.Select(c => GetShiftedCharacter(key, c, shiftBy)).ToArray());
+			//return new string(message.Select(c => GetShiftedCharacter(key, c, shiftBy)).ToArray());
+			return message;
 		}
 
 		public static string Decode(string key, string message, int initShift)
@@ -85,15 +89,15 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			return message;
 		}
 
-		public static char GetShiftedCharacter(string key, char c, int shiftBy)
-		{
-			var map = GetMap(key);
-			int offset = map.IndexOf(c);
-			int shiftedKey = (map.Length + shiftBy + offset) % map.Length;
-			return map[shiftedKey];
-		}
+		//public static char GetShiftedCharacter(string key, char c, int shiftBy)
+		//{
+		//	var map = GetMap(key);
+		//	int offset = map.IndexOf(c);
+		//	int shiftedKey = (map.Length + shiftBy + offset) % map.Length;
+		//	return map[shiftedKey];
+		//}
 
-		public static string GetMap(string key)
+		public static Dictionary<char, int> GetMap(string key)
 		{
 			var map = key
 				.Distinct()
@@ -108,7 +112,8 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 				map.Add((char)rest[i], i + offset + 1);
 			}
 
-			return new string(map.Select(pair => pair.Key).ToArray());
+			//return new string(map.Select(pair => pair.Key).ToArray());
+			return map;
 		}
 	}
 }
