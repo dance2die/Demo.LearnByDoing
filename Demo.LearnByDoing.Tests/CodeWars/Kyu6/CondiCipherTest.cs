@@ -78,10 +78,34 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 
 	public partial class Kata
 	{
-		public static string Encode(string key, string message, int shiftBy)
+		public static string Encode(string key, string message, int initShift)
 		{
-			//return new string(message.Select(c => GetShiftedCharacter(key, c, shiftBy)).ToArray());
-			return message;
+			var map = GetMap(key);
+			var buffer = new StringBuilder(message.Length);
+			Func<int, int> shiftBy = i =>
+			{
+				var index = (map.Count + i) % map.Count;
+				return index == 0 ? map.Count : index;
+			};
+			int nextShift = shiftBy(initShift);
+			
+			foreach (char c in message)
+			{
+				if (!map.ContainsKey(c))
+				{
+					buffer.Append(c);
+					continue;
+				}
+
+				int currIndex = map[c];
+				var encodeIndex = shiftBy(currIndex + nextShift);
+				char encodedChar = map.First(pair => pair.Value == encodeIndex).Key;
+				buffer.Append(encodedChar);
+
+				nextShift = shiftBy(map[c]);
+			}
+
+			return buffer.ToString();
 		}
 
 		public static string Decode(string key, string message, int initShift)
