@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -16,9 +17,9 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 
 		public static IEnumerable<object[]> GetTestData()
 		{
-			yield return new object[] { "apple", new List<char> { 'p' } };
 			yield return new object[] { "limbojackassin the garden", new List<char> { 'a', 's', 'i', ' ', 'e', 'n' } };
-			yield return new object[] { "11pinguin", new List<char> { '1', 'i', 'n' } };
+			//yield return new object[] { "apple", new List<char> { 'p' } };
+			//yield return new object[] { "11pinguin", new List<char> { '1', 'i', 'n' } };
 		}
 	}
 
@@ -33,20 +34,28 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			//	.Select(arg => arg.Key)
 			//	.ToList();
 
-			var map = new HashSet<char>();
-			var result = new List<char>();
+			return str
+				.Select((x, i) => Tuple.Create(x, i))
+				.GroupBy(x => x.Item1)
+				.Where(x => x.Count() >= 2)
+				.OrderBy(x => x.ElementAt(1).Item2)
+				.Select(x => x.Key)
+				.ToList();
 
-			foreach (char c in str)
-			{
-				if (map.Contains(c))
-				{
-					if (!result.Contains(c))
-						result.Add(c);
-				}
-				else map.Add(c);
-			}
+			//var map = new HashSet<char>();
+			//var result = new List<char>();
 
-			return result;
+			//foreach (char c in str)
+			//{
+			//	if (map.Contains(c))
+			//	{
+			//		if (!result.Contains(c))
+			//			result.Add(c);
+			//	}
+			//	else map.Add(c);
+			//}
+
+			//return result;
 		}
 	}
 }
