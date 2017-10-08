@@ -177,6 +177,7 @@
     <Compile Include="CodeWars\Kyu6\TriangleNumberCheckTest.cs" />
     <Compile Include="CodeWars\Kyu6\WhoLikesItTest.cs" />
     <Compile Include="CodeWars\Kyu7\AllInclusiveTest.cs" />
+    <Compile Include="CodeWars\Kyu7\CompareAStringBySumOfCharsTest.cs" />
     <Compile Include="CodeWars\Kyu7\ComplementaryDnaTest.cs" />
     <Compile Include="CodeWars\Kyu7\ConvertALinkedListToAStringTest.cs" />
     <Compile Include="CodeWars\Kyu7\CountingArrayElementsTest.cs" />
@@ -228,6 +229,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
