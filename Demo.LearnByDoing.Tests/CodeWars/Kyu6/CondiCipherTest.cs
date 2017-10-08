@@ -41,19 +41,32 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		[Fact]
 		public void TestKeyGeneration()
 		{
-			// cryptogambdefhijklnqsuvwxz
-			Dictionary<char, int> expected = new Dictionary<char, int>
-			{
-				{'c', 1}, {'r', 2}, {'y', 3}, {'p', 4}, {'t', 5},
-				{'o', 6}, {'g', 7}, {'a', 8}, {'m', 9}, {'b', 10},
-				{'d', 11}, {'e', 12}, {'f', 13}, {'h', 14}, {'i', 15},
-				{'j', 16}, {'k', 17}, {'l', 18}, {'n', 19}, {'q', 20}, 
-				{'s', 21}, {'u', 22}, {'v', 23}, {'w', 24}, {'x', 25}, 
-				{'z', 26}
-			};
+			//// cryptogambdefhijklnqsuvwxz
+			//Dictionary<char, int> expected = new Dictionary<char, int>
+			//{
+			//	{'c', 1}, {'r', 2}, {'y', 3}, {'p', 4}, {'t', 5},
+			//	{'o', 6}, {'g', 7}, {'a', 8}, {'m', 9}, {'b', 10},
+			//	{'d', 11}, {'e', 12}, {'f', 13}, {'h', 14}, {'i', 15},
+			//	{'j', 16}, {'k', 17}, {'l', 18}, {'n', 19}, {'q', 20}, 
+			//	{'s', 21}, {'u', 22}, {'v', 23}, {'w', 24}, {'x', 25}, 
+			//	{'z', 26}
+			//};
 
+			var expected = "cryptogambdefhijklnqsuvwxz";
 			var actual = Kata.GetMap("cryptogram");
-			Assert.True(expected.SequenceEqual(actual));
+			Assert.Equal(expected, actual);
+		}
+
+		[Theory]
+		[InlineData('c', "cryptogram", 'd', 10)]
+		[InlineData('s', "cryptogram", 'd', 20)]
+		[InlineData('z', "cryptogram", 'd', 25)]
+		[InlineData('d', "cryptogram", 'd', 26)]
+		[InlineData('r', "cryptogram", 'd', 27)]
+		public void TestGettingShiftedCharacter(char expected, string key, char c, int shiftBy)
+		{
+			var actual = Kata.GetShiftedCharacter(key, c, shiftBy);
+			Assert.Equal(expected, actual);
 		}
 	}
 
@@ -63,12 +76,21 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		{
 			return m;
 		}
+
 		public static string Decode(string key, string m, int initShift)
 		{
 			return m;
 		}
 
-		public static Dictionary<char, int> GetMap(string key)
+		public static char GetShiftedCharacter(string key, char c, int shiftBy)
+		{
+			//var map = GetMap(key);
+			//int shiftedKey = (map.Count + shiftBy) % map.Count;
+			//return map[];
+			return 'a';
+		}
+
+		public static string GetMap(string key)
 		{
 			var map = key
 				.Distinct()
@@ -83,7 +105,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 				map.Add((char)rest[i], i + offset + 1);
 			}
 
-			return map;
+			return new string(map.Select(pair => pair.Key).ToArray());
 		}
 	}
 }
