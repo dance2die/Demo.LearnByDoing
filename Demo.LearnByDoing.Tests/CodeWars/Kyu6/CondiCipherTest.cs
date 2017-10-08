@@ -58,11 +58,15 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		}
 
 		[Theory]
-		[InlineData('c', "cryptogram", 'd', 10)]
-		[InlineData('s', "cryptogram", 'd', 20)]
-		[InlineData('z', "cryptogram", 'd', 25)]
-		[InlineData('d', "cryptogram", 'd', 26)]
-		[InlineData('r', "cryptogram", 'd', 27)]
+		[InlineData('d', "cryptogram", 'c', 10)]
+		[InlineData('s', "cryptogram", 'c', 20)]
+		[InlineData('z', "cryptogram", 'c', 25)]
+		[InlineData('c', "cryptogram", 'c', 26)]
+		[InlineData('r', "cryptogram", 'c', 27)]
+		[InlineData('y', "cryptogram", 'c', 28)]
+		[InlineData('z', "cryptogram", 'c', 51)]
+		[InlineData('c', "cryptogram", 'c', 52)]
+		[InlineData('r', "cryptogram", 'c', 53)]
 		public void TestGettingShiftedCharacter(char expected, string key, char c, int shiftBy)
 		{
 			var actual = Kata.GetShiftedCharacter(key, c, shiftBy);
@@ -84,10 +88,9 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 
 		public static char GetShiftedCharacter(string key, char c, int shiftBy)
 		{
-			//var map = GetMap(key);
-			//int shiftedKey = (map.Count + shiftBy) % map.Count;
-			//return map[];
-			return 'a';
+			var map = GetMap(key);
+			int shiftedKey = (map.Length + shiftBy) % map.Length;
+			return map[shiftedKey];
 		}
 
 		public static string GetMap(string key)
