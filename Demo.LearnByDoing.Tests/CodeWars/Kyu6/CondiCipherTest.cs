@@ -16,16 +16,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		}
 
 		[Theory]
-		[InlineData("jx", "on", "cryptogam", 10)]
-		[InlineData("cytgmdfmbk", "cryptogram", "cryptogam", 0)]
-		[InlineData("jx wnz xrkvz jnd l ufd vwcz.", "on the first day i got lost.", "cryptogam", 10)]
-		[InlineData("n ggka cvssb bfe esz omgdyr bqqva", "i will never eat any grapes again", "superkey", 4)]
-		public void TestEncoding(string expected, string key, string m, int initShift)
-		{
-			Assert.Equal(expected, Kata.Encode(key, m, initShift));
-		}
-
-		[Theory]
 		[InlineData("on", "jx", "cryptogam", 10)]
 		[InlineData("....", "....", "cryptogam", 10)]
 		[InlineData("sit", "abc", "keykeykeykey", 10)]
@@ -58,38 +48,48 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		}
 
 		[Theory]
+		[InlineData('j', "cryptogram", 'o', 10)]
+		[InlineData('y', "cryptogram", 'n', 10)]
 		[InlineData('d', "cryptogram", 'c', 10)]
 		[InlineData('s', "cryptogram", 'c', 20)]
 		[InlineData('z', "cryptogram", 'c', 25)]
 		[InlineData('c', "cryptogram", 'c', 26)]
 		[InlineData('r', "cryptogram", 'c', 27)]
 		[InlineData('y', "cryptogram", 'c', 28)]
-		[InlineData('z', "cryptogram", 'c', 51)]
-		[InlineData('c', "cryptogram", 'c', 52)]
-		[InlineData('r', "cryptogram", 'c', 53)]
 		public void TestGettingShiftedCharacter(char expected, string key, char c, int shiftBy)
 		{
 			var actual = Kata.GetShiftedCharacter(key, c, shiftBy);
 			Assert.Equal(expected, actual);
 		}
+
+		[Theory]
+		[InlineData("jx", "on", "cryptogam", 10)]
+		[InlineData("cytgmdfmbk", "cryptogram", "cryptogam", 0)]
+		[InlineData("jx wnz xrkvz jnd l ufd vwcz.", "on the first day i got lost.", "cryptogam", 10)]
+		[InlineData("n ggka cvssb bfe esz omgdyr bqqva", "i will never eat any grapes again", "superkey", 4)]
+		public void TestEncoding(string expected, string message, string key, int initShift)
+		{
+			Assert.Equal(expected, Kata.Encode(key, message, initShift));
+		}
 	}
 
 	public partial class Kata
 	{
-		public static string Encode(string key, string m, int initShift)
+		public static string Encode(string key, string message, int shiftBy)
 		{
-			return m;
+			return new string(message.Select(c => GetShiftedCharacter(key, c, shiftBy)).ToArray());
 		}
 
-		public static string Decode(string key, string m, int initShift)
+		public static string Decode(string key, string message, int initShift)
 		{
-			return m;
+			return message;
 		}
 
 		public static char GetShiftedCharacter(string key, char c, int shiftBy)
 		{
 			var map = GetMap(key);
-			int shiftedKey = (map.Length + shiftBy) % map.Length;
+			int offset = map.IndexOf(c);
+			int shiftedKey = (map.Length + shiftBy + offset) % map.Length;
 			return map[shiftedKey];
 		}
 
