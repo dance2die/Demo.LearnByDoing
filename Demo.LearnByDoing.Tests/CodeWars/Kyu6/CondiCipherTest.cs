@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -13,19 +12,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	{
 		public CondiCipherTest(ITestOutputHelper output) : base(output)
 		{
-		}
-
-		[Theory]
-		[InlineData("on", "jx", "cryptogam", 10)]
-		[InlineData("....", "....", "cryptogam", 10)]
-		[InlineData("sit", "abc", "keykeykeykey", 10)]
-		[InlineData(",sit", ",abc", "keykeykeykey", 10)]
-		[InlineData("on the first day i got lost.", "jx wnz xrkvz jnd l ufd vwcz.", "cryptogam", 10)]
-		[InlineData("i will never eat any grapes again", "n ggka cvssb bfe esz omgdyr bqqva", "superkey", 30)]
-		[InlineData("zva nguhbmmgydx.s,ok se,rmafz vpedgbua", "qvf cmnxmdkjfca.p,ab mf,byokf vjhwpcyb", "nqhbfgmi", 28)]
-		public void TestDecoding(string expected, string key, string m, int initShift)
-		{
-			Assert.Equal(expected, Kata.Decode(key, m, initShift));
 		}
 
 		[Fact]
@@ -48,23 +34,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			Assert.True(expected.SequenceEqual(actual));
 		}
 
-		//[Theory]
-		//[InlineData('j', "cryptogram", 'o', 10)]
-		//[InlineData('y', "cryptogram", 'n', 10)]
-		//[InlineData('j', "cryptogam", 'o', 10)]
-		//[InlineData('x', "cryptogam", 'n', 10)]
-		//[InlineData('d', "cryptogram", 'c', 10)]
-		//[InlineData('s', "cryptogram", 'c', 20)]
-		//[InlineData('z', "cryptogram", 'c', 25)]
-		//[InlineData('c', "cryptogram", 'c', 26)]
-		//[InlineData('r', "cryptogram", 'c', 27)]
-		//[InlineData('y', "cryptogram", 'c', 28)]
-		//public void TestGettingShiftedCharacter(char expected, string key, char c, int shiftBy)
-		//{
-		//	var actual = Kata.GetShiftedCharacter(key, c, shiftBy);
-		//	Assert.Equal(expected, actual);
-		//}
-
 		[Theory]
 		[InlineData("jx", "on", "cryptogam", 10)]
 		[InlineData("cytgmdfmbk", "cryptogram", "cryptogam", 0)]
@@ -74,6 +43,19 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		{
 			Assert.Equal(expected, Kata.Encode(key, message, initShift));
 		}
+
+		[Theory]
+		//[InlineData("on", "jx", "cryptogam", 10)]
+		//[InlineData("....", "....", "cryptogam", 10)]
+		//[InlineData("sit", "abc", "keykeykeykey", 10)]
+		//[InlineData(",sit", ",abc", "keykeykeykey", 10)]
+		//[InlineData("on the first day i got lost.", "jx wnz xrkvz jnd l ufd vwcz.", "cryptogam", 10)]
+		[InlineData("i will never eat any grapes again", "n ggka cvssb bfe esz omgdyr bqqva", "superkey", 30)]
+		[InlineData("zva nguhbmmgydx.s,ok se,rmafz vpedgbua", "qvf cmnxmdkjfca.p,ab mf,byokf vjhwpcyb", "nqhbfgmi", 28)]
+		public void TestDecoding(string expected, string message, string key, int initShift)
+		{
+			Assert.Equal(expected, Kata.Decode(key, message, initShift));
+		}
 	}
 
 	public partial class Kata
@@ -81,14 +63,49 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		public static string Encode(string key, string message, int initShift)
 		{
 			var map = GetMap(key);
-			var buffer = new StringBuilder(message.Length);
 			Func<int, int> shiftBy = i =>
 			{
 				var index = (map.Count + i) % map.Count;
 				return index == 0 ? map.Count : index;
 			};
+
+			var buffer = new StringBuilder(message.Length);
 			int nextShift = shiftBy(initShift);
-			
+
+			foreach (char c in message)
+			{
+				if (!map.ContainsKey(c))
+				{
+					buffer.Append(c);
+					continue;
+				}
+
+				int currIndex = map[c];
+				var encodeIndex = shiftBy(currIndex + nextShift);
+				char encodedChar = map.First(pair => pair.Value == encodeIndex).Key;
+				buffer.Append(encodedChar);
+
+				nextShift = shiftBy(map[c]);
+			}
+
+			return buffer.ToString();
+
+		}
+
+		public static string Decode(string key, string message, int initShift)
+		{
+			var map = GetMap(key);
+			Func<int, int> shiftBy = i =>
+			{
+				if (i == 0) return map.Count;
+
+				var index = (map.Count - i) % map.Count;
+				return index == 0 ? map.Count : index;
+			};
+
+			var buffer = new StringBuilder(message.Length);
+			int nextShift = shiftBy(initShift);
+
 			foreach (char c in message)
 			{
 				if (!map.ContainsKey(c))
@@ -108,19 +125,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			return buffer.ToString();
 		}
 
-		public static string Decode(string key, string message, int initShift)
-		{
-			return message;
-		}
-
-		//public static char GetShiftedCharacter(string key, char c, int shiftBy)
-		//{
-		//	var map = GetMap(key);
-		//	int offset = map.IndexOf(c);
-		//	int shiftedKey = (map.Length + shiftBy + offset) % map.Length;
-		//	return map[shiftedKey];
-		//}
-
 		public static Dictionary<char, int> GetMap(string key)
 		{
 			var map = key
@@ -131,12 +135,12 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			int offset = map.Count;
 			var aToZ = Enumerable.Range('a', 'z' - 'a' + 1).ToList();
 			var rest = aToZ.Where(n => !map.ContainsKey((char) n)).ToList();
+
 			for (int i = 0; i < aToZ.Count - offset; i++)
 			{
 				map.Add((char)rest[i], i + offset + 1);
 			}
 
-			//return new string(map.Select(pair => pair.Key).ToArray());
 			return map;
 		}
 	}
