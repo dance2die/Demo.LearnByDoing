@@ -157,6 +157,7 @@
     <Compile Include="CodeWars\Kyu6\AreTheyTheSameTest.cs" />
     <Compile Include="CodeWars\Kyu6\ArrayDeepCountTest.cs" />
     <Compile Include="CodeWars\Kyu6\BuildTowerTest.cs" />
+    <Compile Include="CodeWars\Kyu6\CondiCipherTest.cs" />
     <Compile Include="CodeWars\Kyu6\DoesMNumberLookBigInThisTest.cs" />
     <Compile Include="CodeWars\Kyu6\DubstepTest.cs" />
     <Compile Include="CodeWars\Kyu6\DuplicateEncoderTest.cs" />
