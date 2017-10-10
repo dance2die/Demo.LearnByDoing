@@ -193,6 +193,7 @@
     <Compile Include="CodeWars\Kyu7\HeadTailInitAndLastTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
     <Compile Include="CodeWars\Kyu7\JadenCasingStringsTest.cs" />
+    <Compile Include="CodeWars\Kyu7\MoveAllVowelsTest.cs" />
     <Compile Include="CodeWars\Kyu7\MovesInSquaredStringsTest.cs" />
     <Compile Include="CodeWars\Kyu7\NiceArrayTest.cs" />
     <Compile Include="CodeWars\Kyu7\RegexValidatePinCodeTest.cs" />
