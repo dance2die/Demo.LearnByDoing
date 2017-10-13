@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.CodeFights.Arrays
@@ -31,13 +27,11 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arrays
 		{
 			for (int i = 0; i < a.Length; i++)
 			{
-				if (a[i] < 0) return -a[i];
-				var innerIndex = a[i] - 1;
+				var curr = Math.Abs(a[i]) - 1;
+				var next = a[curr] - 1;
+				if (next < 0) return curr + 1;
 
-				if (a[innerIndex] < 0)
-					return -a[innerIndex];
-
-				a[innerIndex] = -a[innerIndex];
+				a[curr] = -a[curr];
 			}
 
 			return -1;
