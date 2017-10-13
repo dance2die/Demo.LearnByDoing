@@ -8,7 +8,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 {
 	public class TriestTest : BaseTest
 	{
-		private readonly TrieBuilder _sut = new TrieBuilder();
+		private readonly TrieBuilder _trieBuilder = new TrieBuilder();
 
 		public TriestTest(ITestOutputHelper output) : base(output)
 		{
@@ -20,7 +20,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 			//var words = new[] {"abc", "abgl", "cdf", "abcd", "lmn"};
 			var words = new[] {"abc", "abgl"};
 
-			TrieNode root = _sut.BuildTrie(words);
+			TrieNode root = _trieBuilder.BuildTrie(words);
 			Console.WriteLine(root);
 		}
 
@@ -28,7 +28,9 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 		[MemberData(nameof(GetCompleteWordData))]
 		public void TestCompleteWordSearch(bool expected, string word, string[] source)
 		{
-			bool actual = _sut.BuildTrie(source).SearchCompleteWord(word);
+			var trieNode = _trieBuilder.BuildTrie(source);
+			var sut = new Trie(trieNode);
+			var actual = sut.SearchCompleteWord(word);
 
 			Assert.Equal(expected, actual);
 		}
@@ -37,8 +39,10 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 		[MemberData(nameof(GetPrefixData))]
 		public void TestPrefixWordSearch(bool expected, string prefix, string[] source)
 		{
-			bool actual = _sut.BuildTrie(source).SearchPrefix(prefix);
-
+			var trieNode = _trieBuilder.BuildTrie(source);
+			var trie = new Trie(trieNode);
+			var actual = trie.SearchPrefix(prefix);
+			
 			Assert.Equal(expected, actual);
 		}
 
@@ -57,7 +61,6 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 			yield return new object[] { false, "cda", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
 			yield return new object[] { false, "swyx", new[] { "abc", "abgl", "cdf", "abcd", "lmn" } };
 		}
-
 
 		public static IEnumerable<object[]> GetCompleteWordData()
 		{
@@ -78,28 +81,27 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 
 	}
 
-	public class TrieNode
+	public class Trie
 	{
-		public bool IsCompleteWord { get; set; } = false;
+		public TrieNode Root { get; set; }
 
-		public Dictionary<char, TrieNode> Children { get; } = new Dictionary<char, TrieNode>();
+		public Trie(TrieNode root)
+		{
+			Root = root;
+		}
 
 		/// <summary>
 		/// Search for a complete word, not a prefix search.
 		/// </summary>
 		public bool SearchCompleteWord(string word)
 		{
-			var current = this;
+			var current = Root;
 			foreach (char c in word)
 			{
 				if (current.Children.TryGetValue(c, out TrieNode node))
-				{
 					current = node;
-				}
 				else
-				{
 					return false;
-				}
 			}
 
 			return current.IsCompleteWord;
@@ -109,21 +111,24 @@ namespace Demo.LearnByDoing.Tests.DataStructure
 		{
 			if (string.IsNullOrWhiteSpace(prefix)) return false;
 
-			var current = this;
+			var current = Root;
 			foreach (char c in prefix)
 			{
 				if (current.Children.TryGetValue(c, out TrieNode node))
-				{
 					current = node;
-				}
 				else
-				{
 					return false;
-				}
 			}
 
 			return true;
 		}
+	}
+
+	public class TrieNode
+	{
+		public bool IsCompleteWord { get; set; } = false;
+
+		public Dictionary<char, TrieNode> Children { get; } = new Dictionary<char, TrieNode>();
 	}
 
 	/// <summary>

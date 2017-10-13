@@ -15,6 +15,12 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arrays
 		[Theory]
 		[InlineData(3, new[] { 2, 3, 3, 1, 5, 2 })]
 		[InlineData(-1, new[] { 2, 4, 3, 5, 1 })]
+		[InlineData(-1, new[] { 2, 1 })]
+		[InlineData(2, new[] { 2, 2 })]
+		[InlineData(3, new[] { 2, 3, 3 })]
+		[InlineData(-1, new[] { 2, 1, 3 })]
+		[InlineData(-1, new[] { 10, 6, 8, 4, 9, 1, 7, 2, 5, 3 })]
+		[InlineData(6, new[] { 8, 4, 6, 2, 6, 4, 7, 9, 5, 8 })]
 		public void TestSampleData(int expected, int[] input)
 		{
 			var actual = firstDuplicate(input);
@@ -23,7 +29,18 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arrays
 
 		int firstDuplicate(int[] a)
 		{
-			return -100;
+			for (int i = 0; i < a.Length; i++)
+			{
+				if (a[i] < 0) return -a[i];
+				var innerIndex = a[i] - 1;
+
+				if (a[innerIndex] < 0)
+					return -a[innerIndex];
+
+				a[innerIndex] = -a[innerIndex];
+			}
+
+			return -1;
 		}
 	}
 }
