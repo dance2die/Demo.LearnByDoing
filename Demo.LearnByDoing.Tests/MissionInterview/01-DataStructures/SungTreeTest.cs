@@ -50,12 +50,42 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 			yield return new object[] {new List<int>{1000, 500, 400, 220, 260, 450, 250, 280, 500, 380, 210, 220, 350, 230, 240}, GetSampleTree()};
 		}
 
+		public static IEnumerable<object[]> GetInData()
+		{
+			yield return new object[] {new List<int>{220, 400, 260, 500, 250, 450, 280, 1000, 210, 380, 220, 500, 230, 350, 240}, GetSampleTree()};
+		}
+
+		public static IEnumerable<object[]> GetPostData()
+		{
+			yield return new object[] {new List<int>{220, 260, 400, 250, 280, 450, 500, 210, 220, 380, 230, 240, 350, 500, 1000}, GetSampleTree()};
+		}
+
 		[Theory]
 		[MemberData(nameof(GetPreData))]
 		public void TestPreTraversal(List<int> expected, SungBinaryTreeNode<int> root)
 		{
 			var sut = new SungBinaryTreeTraverser();
 			var actual = sut.TraversePre(root);
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Theory]
+		[MemberData(nameof(GetInData))]
+		public void TestInTraversal(List<int> expected, SungBinaryTreeNode<int> root)
+		{
+			var sut = new SungBinaryTreeTraverser();
+			var actual = sut.TraverseIn(root).ToList();
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Theory]
+		[MemberData(nameof(GetPostData))]
+		public void TestPostTraversal(List<int> expected, SungBinaryTreeNode<int> root)
+		{
+			var sut = new SungBinaryTreeTraverser();
+			var actual = sut.TraversePost(root).ToList();
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
@@ -70,6 +100,24 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 			yield return root.Value;
 			foreach (var value in TraversePre(root.Left)) yield return value;
 			foreach (var value in TraversePre(root.Right)) yield return value;
+		}
+
+		public IEnumerable<int> TraverseIn(SungBinaryTreeNode<int> root)
+		{
+			if (root == null) yield break;
+
+			foreach (var value in TraverseIn(root.Left)) yield return value;
+			yield return root.Value;
+			foreach (var value in TraverseIn(root.Right)) yield return value;
+		}
+
+		public IEnumerable<int> TraversePost(SungBinaryTreeNode<int> root)
+		{
+			if (root == null) yield break;
+
+			foreach (var value in TraversePost(root.Left)) yield return value;
+			foreach (var value in TraversePost(root.Right)) yield return value;
+			yield return root.Value;
 		}
 	}
 
