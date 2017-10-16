@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -15,7 +12,7 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 		{
 		}
 
-		public SungBinaryTreeNode<int> SampleTree()
+		public static SungBinaryTreeNode<int> GetSampleTree()
 		{
 			return new SungBinaryTreeNode<int>(1000)
 			{
@@ -46,6 +43,33 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 					}
 				}
 			};
+		}
+
+		public static IEnumerable<object[]> GetPreData()
+		{
+			yield return new object[] {new List<int>{1000, 500, 400, 220, 260, 450, 250, 280, 500, 380, 210, 220, 350, 230, 240}, GetSampleTree()};
+		}
+
+		[Theory]
+		[MemberData(nameof(GetPreData))]
+		public void TestPreTraversal(List<int> expected, SungBinaryTreeNode<int> root)
+		{
+			var sut = new SungBinaryTreeTraverser();
+			var actual = sut.TraversePre(root);
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
+	}
+
+	public class SungBinaryTreeTraverser
+	{
+		public IEnumerable<T> TraversePre<T>(SungBinaryTreeNode<T> root)
+		{
+			if (root == null) yield break;
+
+			yield return root.Value;
+			foreach (var value in TraversePre(root.Left)) yield return value;
+			foreach (var value in TraversePre(root.Right)) yield return value;
 		}
 	}
 
