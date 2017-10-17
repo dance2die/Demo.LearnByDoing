@@ -181,6 +181,7 @@
     <Compile Include="CodeWars\Kyu6\TheBookOfMormonTest.cs" />
     <Compile Include="CodeWars\Kyu6\TriangleNumberCheckTest.cs" />
     <Compile Include="CodeWars\Kyu6\WhoLikesItTest.cs" />
+    <Compile Include="CodeWars\Kyu6\ZeroFillForTheQueenTest.cs" />
     <Compile Include="CodeWars\Kyu7\AllInclusiveTest.cs" />
     <Compile Include="CodeWars\Kyu7\CartesianNeighborsTest.cs" />
     <Compile Include="CodeWars\Kyu7\CompareAStringBySumOfCharsTest.cs" />
