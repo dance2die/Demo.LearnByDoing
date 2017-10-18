@@ -24,6 +24,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 			foreach (var a in tables)
 			{
 				// research summing 1 to 100
+				// https://betterexplained.com/articles/techniques-for-adding-the-numbers-1-to-100/
 			}
 
 			return sum;

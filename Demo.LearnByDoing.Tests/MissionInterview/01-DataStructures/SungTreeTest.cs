@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Demo.LearnByDoing.Core;
 using Xunit;
@@ -88,6 +89,61 @@ namespace Demo.LearnByDoing.Tests.MissionInterview._01_DataStructures
 			var actual = sut.TraversePost(root).ToList();
 
 			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Theory]
+		[MemberData(nameof(GetBinaryTreeNodeData))]
+		public void TestBuildingTree(SungBinaryTreeNode<int> expected, int[] input)
+		{
+			var actual = new SungBinaryTreeBuilder().Build(input);
+
+			var traverser = new SungBinaryTreeTraverser();
+			var expectedList = traverser.TraversePost(expected);
+			var actualList = traverser.TraversePost(actual);
+
+			Assert.True(expectedList.SequenceEqual(actualList));
+		}
+
+		public static SungBinaryTreeNode<int> GetSampleBinaryTreeNode()
+		{
+			return new SungBinaryTreeNode<int>(500)
+			{
+				Left = new SungBinaryTreeNode<int>(300)
+				{
+					Left = new SungBinaryTreeNode<int>(200),
+					Right = new SungBinaryTreeNode<int>(400)
+				},
+				Right = new SungBinaryTreeNode<int>(700)
+				{
+					Left = new SungBinaryTreeNode<int>(600),
+					Right = new SungBinaryTreeNode<int>(800)
+				}
+			};
+		}
+
+		public static IEnumerable<object[]> GetBinaryTreeNodeData()
+		{
+			yield return new object[] {GetSampleBinaryTreeNode(), new[] { 200, 300, 400, 500, 600, 700, 800 } };
+		}
+	}
+
+	public class SungBinaryTreeBuilder
+	{
+		public SungBinaryTreeNode<int> Build(int[] input)
+		{
+			return Build(input, 0, input.Length - 1);
+		}
+
+		private SungBinaryTreeNode<int> Build(int[] a, int min, int max)
+		{
+			if (min > max) return null;
+
+			var mid = (min + max) / 2;
+			var node = new SungBinaryTreeNode<int>(a[mid]);
+			node.Left = Build(a, min, mid - 1);
+			node.Right = Build(a, mid + 1, max);
+
+			return node;
 		}
 	}
 
