@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.CodeFights.Arrays
@@ -12,37 +8,41 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arrays
 	/// </summary>
 	public class FirstNotRepeatingCharacterTest
 	{
+		char firstNotRepeatingCharacter(string s)
+		{
+			var map = Enumerable.Range('a', 'z' - 'a' + 1).ToDictionary(n => (char) n, n => -1);
+			for (int i = 0; i < s.Length; i++)
+			{
+				char c = s[i];
+				if (map[c] >= 0) map[c] = int.MinValue;
+				else if (map[c] < 0 && map[c] != int.MinValue) map[c] = i;
+			}
+
+			var hasUnique = map.Any(pair => pair.Value >= 0 && pair.Value != int.MinValue);
+			if (hasUnique)
+			{
+				var minIndex = map.Where(pair => pair.Value >= 0 && pair.Value != int.MinValue).Min(pair => pair.Value);
+				return map.FirstOrDefault(pair => pair.Value == minIndex).Key;
+			}
+			return '_';
+		}
+
 		[Theory]
 		[InlineData('c', "bcb")]
+		[InlineData('c', "bbcdda")]
 		[InlineData('c', "abacabad")]
-		//[InlineData('_', "abacabaabacaba")]
-		//[InlineData('z', "z")]
-		//[InlineData('_', "bcccccccb")]
-		//[InlineData('d', "abcdefghijklmnopqrstuvwxyziflskecznslkjfabe")]
-		//[InlineData('_', "zzz")]
-		//[InlineData('y', "bcccccccccccccyb")]
-		//[InlineData('d', "xdnxxlvupzuwgigeqjggosgljuhliybkjpibyatofcjbfxwtalc")]
-		//[InlineData('g', "ngrhhqbhnsipkcoqjyviikvxbxyphsnjpdxkhtadltsuxbfbrkof")]
+		[InlineData('_', "abacabaabacaba")]
+		[InlineData('d', "abcdefghijklmnopqrstuvwxyziflskecznslkjfabe")]
+		[InlineData('_', "zzz")]
+		[InlineData('d', "xdnxxlvupzuwgigeqjggosgljuhliybkjpibyatofcjbfxwtalc")]
+		[InlineData('g', "ngrhhqbhnsipkcoqjyviikvxbxyphsnjpdxkhtadltsuxbfbrkof")]
+		[InlineData('z', "z")]
+		[InlineData('_', "bcccccccb")]
+		[InlineData('y', "bcccccccccccccyb")]
 		public void SampleTests(char expected, string input)
 		{
 			char actual = firstNotRepeatingCharacter(input);
 			Assert.Equal(expected, actual);
-		}
-
-		char firstNotRepeatingCharacter(string s)
-		{
-			//int result = s.Aggregate((int)s[0], (acc, next) => acc ^ next);
-			//return (char) result;
-
-			if (string.IsNullOrWhiteSpace(s)) return '_';
-
-			int result = 0;
-			foreach (char c in s)
-			{
-				result ^= c;
-			}
-
-			return (char) result;
 		}
 	}
 }
