@@ -17,7 +17,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 			Assert.Equal(expected, actual);
 		}
 
-		private static IEnumerable<object[]> GetTestCases()
+		public static IEnumerable<object[]> GetTestCases()
 		{
 			yield return new object[] {"elevation", "e2lvation"};
 			yield return new object[] {"transplantology", "t2ra2n2spl2o2gy"};

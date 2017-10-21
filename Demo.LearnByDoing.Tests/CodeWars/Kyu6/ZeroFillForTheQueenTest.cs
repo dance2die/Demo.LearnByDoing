@@ -9,7 +9,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	/// </summary>
 	public class ZeroFillForTheQueenTest
 	{
-		private static IEnumerable<object[]> GetTestCases()
+		public static IEnumerable<object[]> GetTestCases()
 		{
 			yield return new object[] {11, 5, "00011"};
 			yield return new object[] {11, 11, "00000000011"};

@@ -9,7 +9,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 	/// </summary>
 	public class IndexedCapitalizationTest
 	{
-		private static IEnumerable<object[]> GetTestCases()
+		public static IEnumerable<object[]> GetTestCases()
 		{
 			yield return new object[]{"abcdef", new List<int> { 1, 2, 5 }, "aBCdeF"};
 			yield return new object[]{"abcdef", new List<int> { 1, 2, 5, 100 }, "aBCdeF" };

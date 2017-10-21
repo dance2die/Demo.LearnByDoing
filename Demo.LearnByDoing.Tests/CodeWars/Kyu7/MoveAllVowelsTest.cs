@@ -10,7 +10,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 	/// </summary>
 	public class MoveAllVowelsTest
 	{
-		private static IEnumerable<object[]> GetTestCases()
+		public static IEnumerable<object[]> GetTestCases()
 		{
 			yield return new object[] { "day", "dya" };
 			yield return new object[] { "apple", "pplae" };
