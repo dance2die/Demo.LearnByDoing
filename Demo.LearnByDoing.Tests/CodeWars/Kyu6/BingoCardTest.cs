@@ -118,11 +118,14 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		private static int GetNextUniqueRandomNumberBetween(HashSet<int> isSeen, int min, int max)
 		{
 			Random random = new Random();
-			var result = -1;
-			do
+
+			var result = random.Next(min, max);
+			while (isSeen.Contains(result))
 			{
 				result = random.Next(min, max);
-			} while (result != -1 && isSeen.Contains(result));
+			}
+
+			isSeen.Add(result);
 
 			return result;
 		}
