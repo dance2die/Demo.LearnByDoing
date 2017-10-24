@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 
 namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
@@ -26,7 +23,17 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	{
 		public static string Order(string words)
 		{
-			throw new NotImplementedException();
+			if (string.IsNullOrWhiteSpace(words)) return string.Empty;
+
+			// to match a number (between 0-9) only.
+			const string pattern = @"\d";
+			var ordered = words
+				.Split()
+				// Extract and save position as a key to sort by it.
+				.ToDictionary(word => int.Parse(Regex.Match(word, pattern).Value), word => word)
+				// Sort by the position matched by regex.
+				.OrderBy(pair => pair.Key);
+			return string.Join(" ", ordered.Select(pair => pair.Value));
 		}
 	}
 }
