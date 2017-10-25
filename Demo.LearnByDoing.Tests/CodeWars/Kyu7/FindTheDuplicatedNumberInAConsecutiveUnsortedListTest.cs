@@ -31,9 +31,9 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 		public static int FindDup(int[] a)
 		{
 			var map = Enumerable.Range(0, a.Length).ToArray();
-			for (int i = 0; i < a.Length; i++)
+			foreach (int number in a)
 			{
-				map[a[i]] ^= a[i];
+				map[number] ^= number;
 			}
 
 			return map.Skip(1).FirstOrDefault(n => n > 0);
