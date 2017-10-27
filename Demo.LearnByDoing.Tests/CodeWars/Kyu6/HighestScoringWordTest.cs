@@ -28,9 +28,15 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	{
 		public static string High(string sentence)
 		{
-			var map = sentence.Split().Distinct().ToDictionary(word => word, GetScore);
-			var maxScore = map.Max(pair => pair.Value);
-			return map.FirstOrDefault(pair => pair.Value == maxScore).Key;
+			//var map = sentence.Split().Distinct().ToDictionary(word => word, GetScore);
+			//var maxScore = map.Max(pair => pair.Value);
+			//return map.FirstOrDefault(pair => pair.Value == maxScore).Key;
+
+			// one of the answers
+			//return sentence.Split().OrderBy(GetScore).LastOrDefault();
+
+			// another clever answer
+			return sentence.Split().Aggregate((l, r) => GetScore(l) > GetScore(r) ? l : r);
 		}
 
 		private static int GetScore(string word)
