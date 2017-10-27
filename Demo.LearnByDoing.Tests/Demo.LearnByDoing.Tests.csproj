@@ -177,6 +177,7 @@
     <Compile Include="CodeWars\Kyu6\FormatWordsIntoASentenceTest.cs" />
     <Compile Include="CodeWars\Kyu6\FunWithTreesMaxSumTest.cs" />
     <Compile Include="CodeWars\Kyu6\GoodVsEvilTest.cs" />
+    <Compile Include="CodeWars\Kyu6\HighestScoringWordTest.cs" />
     <Compile Include="CodeWars\Kyu6\IQTestTest.cs" />
     <Compile Include="CodeWars\Kyu6\LongestPalindromeTest.cs" />
     <Compile Include="CodeWars\Kyu6\MakeTheDeadFishSwimTest.cs" />
