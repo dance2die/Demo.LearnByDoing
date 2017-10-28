@@ -21,10 +21,41 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		{
 			Assert.AreEqual(expected, Deadfish.Parse(data));
 		}
+
+		[Test, TestCaseSource(nameof(_sampleTestCases))]
+		public void TestIterativeVersion(string data, int[] expected)
+		{
+			Assert.AreEqual(expected, Deadfish.ParseIteratively(data));
+		}
 	}
 
 	public class Deadfish
 	{
+		public static int[] ParseIteratively(string data)
+		{
+			var results = new List<int>();
+			var sum = 0;
+			foreach (var cmd in data)
+			{
+				switch (cmd)
+				{
+					case 'i':
+						sum++;
+						break;
+					case 'd':
+						sum--;
+						break;
+					case 's':
+						sum = sum * sum;
+						break;
+					case 'o':
+						results.Add(sum);
+						break;
+				}
+			}
+			return results.ToArray();
+		}
+
 		public static int[] Parse(string data)
 		{
 			var result = new List<int>();
