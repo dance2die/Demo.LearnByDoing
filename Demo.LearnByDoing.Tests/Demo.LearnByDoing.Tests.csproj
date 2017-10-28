@@ -130,6 +130,7 @@
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
     <Compile Include="CodeFights\Arrays\FirstDuplicateTest.cs" />
     <Compile Include="CodeFights\Arrays\FirstNotRepeatingCharacterTest.cs" />
+    <Compile Include="CodeFights\Challenges\PrefixSumsTest.cs" />
     <Compile Include="CodeWars\Beta\ComGovOrgFirstTest.cs" />
     <Compile Include="CodeWars\Beta\TheABProblemTest.cs" />
     <Compile Include="CodeWars\Kyu4\AddingBigNumbersTest.cs" />
