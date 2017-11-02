@@ -192,6 +192,7 @@
     <Compile Include="CodeWars\Kyu6\ReducingByStepsTest.cs" />
     <Compile Include="CodeWars\Kyu6\RememberTest.cs" />
     <Compile Include="CodeWars\Kyu6\ReplaceWithAlphabetPositionTest.cs" />
+    <Compile Include="CodeWars\Kyu6\ReverseASinglyLinkedListTest.cs" />
     <Compile Include="CodeWars\Kyu6\ReversedWordsTest.cs" />
     <Compile Include="CodeWars\Kyu6\SortTheOddTest.cs" />
     <Compile Include="CodeWars\Kyu6\StopgninnipSMysdroWTest.cs" />
