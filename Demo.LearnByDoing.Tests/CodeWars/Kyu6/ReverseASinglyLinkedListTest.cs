@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -21,40 +22,54 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 
 		public class Kata
 		{
-			public static Node ReverseList(Node node)
-			{
-				if (node == null) return null;
-
-				Stack<Node> result = new Stack<Node>();
-				while (node != null)
-				{
-					result.Push(node);
-					node = node.Next;
-				}
-
-				return new Node(result.Select(n => n.Value).ToArray());
-			}
-
-			//private static Node head = null;
 			//public static Node ReverseList(Node node)
 			//{
-			//	Reverse(node);
-			//	return head;
-			//}
+			//	if (node == null) return null;
 
-			//private static Node Reverse(Node node)
-			//{
-			//	if (node.Next == null)
+			//	Stack<Node> result = new Stack<Node>();
+			//	while (node != null)
 			//	{
-			//		head = node;
-			//		return node;
+			//		result.Push(node);
+			//		node = node.Next;
 			//	}
 
-			//	var newNode = Reverse(node.Next);
-			//	node.Next = null;
-			//	newNode.Next = node;
-			//	return node;
+			//	return new Node(result.Select(n => n.Value).ToArray());
 			//}
+
+			private static Node head = null;
+			public static Node ReverseList(Node node)
+			{
+				Console.WriteLine(ToString(node));
+				if (node == null) return head;
+				Reverse(node);
+				return head;
+			}
+
+			private static Node Reverse(Node node)
+			{
+				if (node.Next == null)
+				{
+					head = node;
+					return node;
+				}
+
+				var newNode = Reverse(node.Next);
+				node.Next = null;
+				newNode.Next = node;
+				return node;
+			}
+
+			private static string ToString(Node n)
+			{
+				var result = "";
+				while (n != null)
+				{
+					result += $"{n.Value}=>";
+					n = n.Next;
+				}
+
+				return result + "null";
+			}
 		}
 
 		public class Node
