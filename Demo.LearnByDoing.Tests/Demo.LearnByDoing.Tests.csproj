@@ -202,6 +202,7 @@
     <Compile Include="CodeWars\Kyu6\TakeATenMinuteWalkTest.cs" />
     <Compile Include="CodeWars\Kyu6\TheBookOfMormonTest.cs" />
     <Compile Include="CodeWars\Kyu6\TriangleNumberCheckTest.cs" />
+    <Compile Include="CodeWars\Kyu6\WhichAreInTest.cs" />
     <Compile Include="CodeWars\Kyu6\WhoLikesItTest.cs" />
     <Compile Include="CodeWars\Kyu6\YourOrderPleaseTest.cs" />
     <Compile Include="CodeWars\Kyu6\ZeroFillForTheQueenTest.cs" />
