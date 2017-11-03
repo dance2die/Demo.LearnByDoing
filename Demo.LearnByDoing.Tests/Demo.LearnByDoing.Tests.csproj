@@ -199,6 +199,7 @@
     <Compile Include="CodeWars\Kyu6\StringBreakersTest.cs" />
     <Compile Include="CodeWars\Kyu6\StringLetterCountingTest.cs" />
     <Compile Include="CodeWars\Kyu6\SumTheTreeTest.cs" />
+    <Compile Include="CodeWars\Kyu6\TakeATenMinuteWalkTest.cs" />
     <Compile Include="CodeWars\Kyu6\TheBookOfMormonTest.cs" />
     <Compile Include="CodeWars\Kyu6\TriangleNumberCheckTest.cs" />
     <Compile Include="CodeWars\Kyu6\WhoLikesItTest.cs" />
