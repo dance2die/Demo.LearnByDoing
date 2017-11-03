@@ -12,7 +12,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	{
 		[Theory]
 		[InlineData(6, new [] { 10, 7, 5, 8, 11, 9 })]
-		[InlineData(-1, new [] { 5, 4, 3, 2, 1 })]
+		[InlineData(-4, new [] { 5, 4, 3, 2, 1 })]
 		[InlineData(4, new [] { 1, 2, 3, 4, 5 })]
 		[InlineData(0, new [] { 2, 2, 2 })]
 		public void TestSampleData(int expected, int[] input)
@@ -25,18 +25,29 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		{
 			int min = int.MaxValue;
 			int max = int.MinValue;
+			int minIndex = -1;
+			int maxIndex = -1;
 			int maxDiff = 0;
-
-			foreach (int current in a)
+			
+			for (int i = 0; i < a.Length; i++)
 			{
-				if (current < min) min = current;
-				if (current > max) max = current;
+				var current = a[i];
+				if (current < min)
+				{
+					min = current;
+					minIndex = i;
+				}
+
+				if (current > max)
+				{
+					max = current;
+					maxIndex = i;
+				}
+
 				if (max - min > maxDiff) maxDiff = max - min;
 			}
 
-			return maxDiff;
+			return minIndex > maxIndex ? -maxDiff : maxDiff;
 		}
 	}
-
-
 }
