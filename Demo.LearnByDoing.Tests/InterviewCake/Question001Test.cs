@@ -12,7 +12,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	{
 		[Theory]
 		[InlineData(6, new [] { 10, 7, 5, 8, 11, 9 })]
-		[InlineData(-4, new [] { 5, 4, 3, 2, 1 })]
+		[InlineData(-1, new [] { 5, 4, 3, 2, 1 })]
 		[InlineData(4, new [] { 1, 2, 3, 4, 5 })]
 		[InlineData(0, new [] { 2, 2, 2 })]
 		public void TestSampleData(int expected, int[] input)
