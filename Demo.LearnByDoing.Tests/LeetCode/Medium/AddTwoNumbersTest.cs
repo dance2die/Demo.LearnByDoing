@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -27,6 +28,34 @@ namespace Demo.LearnByDoing.Tests.LeetCode.Medium
 	public class Solution
 	{
 		public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+		{
+			Func<ListNode, int> getValue = n => n?.val ?? 0;
+			Func<ListNode, ListNode, int> getSum = (n1, n2) => getValue(n1) + getValue(n2);
+			Func<int, int> getDigit = n => n % 10;
+			Func<int, int> getCarry = n => n >= 10 ? 1 : 0;
+
+			var sum = getSum(l1, l2);
+			ListNode node = new ListNode(getDigit(sum));
+			ListNode head = node;
+			int carryOver = getCarry(sum);
+			l1 = l1?.next;
+			l2 = l2?.next;
+
+			while (l1 != null || l2 != null)
+			{
+				sum = getSum(l1, l2) + carryOver;
+				node.next = new ListNode(getDigit(sum));
+				carryOver = getCarry(sum);
+
+				l1 = l1?.next;
+				l2 = l2?.next;
+				node = node.next;
+			}
+
+			return head;
+		}
+
+		public ListNode AddTwoNumbers1(ListNode l1, ListNode l2)
 		{
 			var left = GetNodeValue(l1);
 			var right = GetNodeValue(l2);
