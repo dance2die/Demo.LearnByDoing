@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using Xunit;
 
@@ -18,7 +19,7 @@ namespace Demo.LearnByDoing.Tests.LeetCode.Medium
 			var right = sut.BuildNode(465);
 
 			var sumNode = sut.AddTwoNumbers(left, right);
-			const int expected = 807;
+			BigInteger expected = 807;
 			Assert.Equal(expected, sut.GetNodeValue(sumNode));
 		}
 	}
@@ -27,14 +28,14 @@ namespace Demo.LearnByDoing.Tests.LeetCode.Medium
 	{
 		public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
 		{
-			int left = GetNodeValue(l1);
-			int right = GetNodeValue(l2);
-			int sum = left + right;
+			var left = GetNodeValue(l1);
+			var right = GetNodeValue(l2);
+			var sum = left + right;
 
 			return BuildNode(sum);
 		}
 
-		public int GetNodeValue(ListNode n)
+		public BigInteger GetNodeValue(ListNode n)
 		{
 			var buffer = new StringBuilder();
 
@@ -44,10 +45,10 @@ namespace Demo.LearnByDoing.Tests.LeetCode.Medium
 				n = n.next;
 			}
 
-			return int.Parse(buffer.ToString());
+			return BigInteger.Parse(buffer.ToString());
 		}
 
-		public ListNode BuildNode(int value)
+		public ListNode BuildNode(BigInteger value)
 		{
 			var digits = GetDigitsReverse(value).ToList();
 			var node = new ListNode(digits[0]);
@@ -62,7 +63,7 @@ namespace Demo.LearnByDoing.Tests.LeetCode.Medium
 			return head;
 		}
 
-		private IEnumerable<int> GetDigitsReverse(int value)
+		private IEnumerable<int> GetDigitsReverse(BigInteger value)
 		{
 			return value.ToString().Reverse().Select(c => int.Parse(c.ToString()));
 		}
