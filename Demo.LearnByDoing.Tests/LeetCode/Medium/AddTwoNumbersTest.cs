@@ -16,12 +16,21 @@ namespace Demo.LearnByDoing.Tests.LeetCode.Medium
 		public void TestSampleCase()
 		{
 			var sut = new Solution();
+
 			var left = sut.BuildNode(342);
 			var right = sut.BuildNode(465);
 
 			var sumNode = sut.AddTwoNumbers(left, right);
 			BigInteger expected = 807;
 			Assert.Equal(expected, sut.GetNodeValue(sumNode));
+
+			left = sut.BuildNode(5);
+			right = sut.BuildNode(5);
+
+			sumNode = sut.AddTwoNumbers(left, right);
+			expected = 10;
+			Assert.Equal(expected, sut.GetNodeValue(sumNode));
+
 		}
 	}
 
@@ -51,6 +60,9 @@ namespace Demo.LearnByDoing.Tests.LeetCode.Medium
 				l2 = l2?.next;
 				node = node.next;
 			}
+
+			if (carryOver == 1)
+				node.next = new ListNode(carryOver);
 
 			return head;
 		}
