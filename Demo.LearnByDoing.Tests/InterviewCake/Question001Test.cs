@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
 {
@@ -13,6 +14,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		[Theory]
 		[InlineData(6, new [] { 10, 7, 5, 8, 11, 9 })]
 		[InlineData(-1, new [] { 5, 4, 3, 2, 1 })]
+		[InlineData(-2, new [] { 10, 7, 5, 1 })]
 		[InlineData(4, new [] { 1, 2, 3, 4, 5 })]
 		[InlineData(0, new [] { 2, 2, 2 })]
 		public void TestSampleData(int expected, int[] input)
@@ -22,6 +24,20 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		}
 
 		private int GetMaxProfit(int[] a)
+		{
+			int min = a[0];
+			int maxSum = int.MinValue;
+
+			for (int i = 1; i < a.Length; i++)
+			{
+				maxSum = Math.Max(maxSum, a[i] - min);
+				min = a[i] < min ? a[i] : min;
+			}
+
+			return maxSum;
+		}
+
+		private int GetMaxProfitFailsForNegative(int[] a)
 		{
 			int min = int.MaxValue;
 			int max = int.MinValue;
