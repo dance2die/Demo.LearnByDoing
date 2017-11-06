@@ -166,6 +166,7 @@
     <Compile Include="CodeWars\Kyu5\WhatDoesntBelongToTheseTest.cs" />
     <Compile Include="CodeWars\Kyu6\AreTheyTheSameTest.cs" />
     <Compile Include="CodeWars\Kyu6\ArrayDeepCountTest.cs" />
+    <Compile Include="CodeWars\Kyu6\ArrayDiffTest.cs" />
     <Compile Include="CodeWars\Kyu6\BingoCardTest.cs" />
     <Compile Include="CodeWars\Kyu6\BuildTowerTest.cs" />
     <Compile Include="CodeWars\Kyu6\CondiCipherTest.cs" />
