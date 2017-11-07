@@ -223,6 +223,7 @@
     <Compile Include="CodeWars\Kyu7\GreatestCommonDivisorTest.cs" />
     <Compile Include="CodeWars\Kyu7\HeadTailInitAndLastTest.cs" />
     <Compile Include="CodeWars\Kyu7\IndexedCapitalizationTest.cs" />
+    <Compile Include="CodeWars\Kyu7\IsogramsTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
     <Compile Include="CodeWars\Kyu7\JadenCasingStringsTest.cs" />
     <Compile Include="CodeWars\Kyu7\MostDigitsTest.cs" />
