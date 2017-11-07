@@ -33,6 +33,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 	{
 		public static bool IsIsogram(string str)
 		{
+			return new HashSet<char>(str.ToLower().ToCharArray()).Count == str.Length;
 			return str.ToLower().GroupBy(c => c).All(g => g.Count() == 1);
 		}
 	}
