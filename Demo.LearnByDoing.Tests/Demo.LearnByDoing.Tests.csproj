@@ -231,6 +231,7 @@
     <Compile Include="CodeWars\Kyu7\NiceArrayTest.cs" />
     <Compile Include="CodeWars\Kyu7\RegexValidatePinCodeTest.cs" />
     <Compile Include="CodeWars\Kyu7\SevenAte9Test.cs" />
+    <Compile Include="CodeWars\Kyu7\SortArrayByStringLengthTest.cs" />
     <Compile Include="CodeWars\Kyu7\SumOfAllTheMultiplesOf3Or5Test.cs" />
     <Compile Include="CodeWars\Kyu7\SumOfCubesTest.cs" />
     <Compile Include="CodeWars\Kyu7\SumTimesTablesTest.cs" />
