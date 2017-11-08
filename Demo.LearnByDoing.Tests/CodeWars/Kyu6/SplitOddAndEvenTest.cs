@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
@@ -33,24 +30,25 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			var numberText = number.ToString();
 			var result = new List<long>(numberText.Length);
 
-			numberText
-				.Select(c => long.Parse(c.ToString()))
-				.Aggregate("", (acc, n) =>
+			string upto = "";
+			foreach (long n in numberText.Select(c => long.Parse(c.ToString())))
+			{
+				long currBit = n % 2;
+				if (prevBit != currBit && !string.IsNullOrWhiteSpace(upto))
 				{
-					long currBit = n % 1;
-					if (currBit == prevBit)
-					{
-						acc += n;
-					}
-					else
-					{
-						result.Add(long.Parse(acc + n));
-						acc = "";
-					}
+					result.Add(long.Parse(upto));
+					upto = n.ToString();
+				}
+				else
+				{
+					upto += n.ToString();
+				}
 
-					prevBit = currBit;
-					return acc;
-				});
+				prevBit = currBit;
+			}
+
+			if (!string.IsNullOrWhiteSpace(upto))
+				result.Add(long.Parse(upto));
 
 			return result.ToArray();
 		}
