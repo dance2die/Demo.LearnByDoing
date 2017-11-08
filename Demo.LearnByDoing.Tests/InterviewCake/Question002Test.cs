@@ -12,6 +12,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	{
 		[Theory]
 		[InlineData(new []{84, 12, 28, 21}, new []{1, 7, 3, 4})]
+		[InlineData(new []{0, 0, 0, 0}, new []{0, 0, 0, 0})]
 		public void TestSampleCases(int[] expected, int[] a)
 		{
 			var sut = new ICProductOfOtherNumbers();
