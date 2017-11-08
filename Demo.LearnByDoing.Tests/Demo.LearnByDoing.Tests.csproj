@@ -164,8 +164,10 @@
     <Compile Include="CodeWars\Kyu5\TicTacToeCheckerTest.cs" />
     <Compile Include="CodeWars\Kyu5\WeightForWeightTest.cs" />
     <Compile Include="CodeWars\Kyu5\WhatDoesntBelongToTheseTest.cs" />
+    <Compile Include="CodeWars\Kyu6\AFunctionalDeckOfCardsTest.cs" />
     <Compile Include="CodeWars\Kyu6\AreTheyTheSameTest.cs" />
     <Compile Include="CodeWars\Kyu6\ArrayDeepCountTest.cs" />
+    <Compile Include="CodeWars\Kyu6\ArrayDiffTest.cs" />
     <Compile Include="CodeWars\Kyu6\BingoCardTest.cs" />
     <Compile Include="CodeWars\Kyu6\BuildTowerTest.cs" />
     <Compile Include="CodeWars\Kyu6\CondiCipherTest.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="CodeWars\Kyu6\ReverseASinglyLinkedListTest.cs" />
     <Compile Include="CodeWars\Kyu6\ReversedWordsTest.cs" />
     <Compile Include="CodeWars\Kyu6\SortTheOddTest.cs" />
+    <Compile Include="CodeWars\Kyu6\SplitOddAndEvenTest.cs" />
     <Compile Include="CodeWars\Kyu6\StopgninnipSMysdroWTest.cs" />
     <Compile Include="CodeWars\Kyu6\StringBreakersTest.cs" />
     <Compile Include="CodeWars\Kyu6\StringLetterCountingTest.cs" />
@@ -222,6 +225,7 @@
     <Compile Include="CodeWars\Kyu7\GreatestCommonDivisorTest.cs" />
     <Compile Include="CodeWars\Kyu7\HeadTailInitAndLastTest.cs" />
     <Compile Include="CodeWars\Kyu7\IndexedCapitalizationTest.cs" />
+    <Compile Include="CodeWars\Kyu7\IsogramsTest.cs" />
     <Compile Include="CodeWars\Kyu7\IsThisATriangleTest.cs" />
     <Compile Include="CodeWars\Kyu7\JadenCasingStringsTest.cs" />
     <Compile Include="CodeWars\Kyu7\MostDigitsTest.cs" />
@@ -230,6 +234,7 @@
     <Compile Include="CodeWars\Kyu7\NiceArrayTest.cs" />
     <Compile Include="CodeWars\Kyu7\RegexValidatePinCodeTest.cs" />
     <Compile Include="CodeWars\Kyu7\SevenAte9Test.cs" />
+    <Compile Include="CodeWars\Kyu7\SortArrayByStringLengthTest.cs" />
     <Compile Include="CodeWars\Kyu7\SumOfAllTheMultiplesOf3Or5Test.cs" />
     <Compile Include="CodeWars\Kyu7\SumOfCubesTest.cs" />
     <Compile Include="CodeWars\Kyu7\SumTimesTablesTest.cs" />
@@ -240,7 +245,9 @@
     <Compile Include="CodeWars\Kyu7\ZeroBalancedArrayTest.cs" />
     <Compile Include="CodeWars\Kyu8\BeginnerSeriesClockTest.cs" />
     <Compile Include="CodeWars\Kyu8\CalculateBmiTest.cs" />
+    <Compile Include="CodeWars\Kyu8\ConvertNumberToReversedArrayOfDigitsTest.cs" />
     <Compile Include="CodeWars\Kyu8\CountByXTest.cs" />
+    <Compile Include="CodeWars\Kyu8\CountOfpositivesSumOfNegativesTest.cs" />
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
     <Compile Include="CodeWars\Kyu8\FilterOutTheGeeseTest.cs" />
     <Compile Include="CodeWars\Kyu8\FindTheFirstNonConsecutiveNumberTest.cs" />
