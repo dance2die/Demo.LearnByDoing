@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -20,12 +21,24 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
+
+		[Fact]
+		public void ThrowErrorIfLessThanTwoElementIsPassed()
+		{
+			var sut = new ICProductOfOtherNumbers();
+			int[] invalidArray = {};
+			Assert.Throws<ArgumentException>(() => sut.GetProductOfOtherNumbers(null));
+			Assert.Throws<ArgumentException>(() => sut.GetProductOfOtherNumbers(invalidArray));
+		}
 	}
 
 	public class ICProductOfOtherNumbers
 	{
 		public IEnumerable<int> GetProductOfOtherNumbers(int[] a)
 		{
+			if (a == null || a.Length < 2)
+				throw new ArgumentException("An array need to have at least 2 elements in it!");
+
 			// Initialize Result
 			const int invalidStateValue = -1;
 			var result = Enumerable.Repeat(invalidStateValue, a.Length).ToArray();
