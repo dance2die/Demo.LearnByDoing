@@ -221,6 +221,7 @@
     <Compile Include="CodeWars\Kyu7\FactorialFactoryTest.cs" />
     <Compile Include="CodeWars\Kyu7\FindTheDuplicatedNumberInAConsecutiveUnsortedListTest.cs" />
     <Compile Include="CodeWars\Kyu7\FindTheStrayNumberTest.cs" />
+    <Compile Include="CodeWars\Kyu7\FindTheVowelsTest.cs" />
     <Compile Include="CodeWars\Kyu7\GaussNeedsHelpTest.cs" />
     <Compile Include="CodeWars\Kyu7\GetTheMiddleCharacterTest.cs" />
     <Compile Include="CodeWars\Kyu7\GreatestCommonDivisorTest.cs" />
