@@ -252,6 +252,7 @@
     <Compile Include="CodeWars\Kyu8\DuckDuckGooseTest.cs" />
     <Compile Include="CodeWars\Kyu8\FilterOutTheGeeseTest.cs" />
     <Compile Include="CodeWars\Kyu8\FindTheFirstNonConsecutiveNumberTest.cs" />
+    <Compile Include="CodeWars\Kyu8\RemoveAllExclamationMarksFromTheEndOfSentenceTest.cs" />
     <Compile Include="DataStructure\TriestTest.cs" />
     <Compile Include="InterviewCake\Question001Test.cs" />
     <Compile Include="InterviewCake\Question002Test.cs" />
