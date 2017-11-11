@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
@@ -27,21 +24,38 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			String[] cd = { "A", "B", "C", "W" };
 			Assert.AreEqual("(A : 20) - (B : 114) - (C : 50) - (W : 0)", StockList.stockSummary(art, cd));
 		}
+
+		[Test]
+		public void TestEmptyCases()
+		{
+			string[] art = {};
+			String[] cd = { "A", "B", "C", "W" };
+			Assert.AreEqual("", StockList.stockSummary(art, cd));
+
+			string[] art2 = {"ABART 20", "CDXEF 50", "BKWRK 25", "BTSQZ 89", "DRTYM 60"};
+			string[] cd2 = {};
+			Assert.AreEqual("", StockList.stockSummary(art2, cd2));
+		}
 	}
 
 	public static class StockList
 	{
 		public static string stockSummary(string[] arts, string[] cds)
 		{
-			var inCd = arts
-				.Where(art => cds.Contains(art.Substring(0, 1)))
-				.Select(art => new {Key = art[0].ToString(), Value = int.Parse(art.Split()[1])})
-				.GroupBy(o => o.Key);
-				//.OrderBy(o => o.Key)
-				//.Select(g => $"({g.Key} : {g.Sum(o => o.Value)})").ToList();
-			var notInCd = cds.Where(cd => !arts.Select(art => art[0].ToString()).Contains(cd));
+			if (arts.Length == 0 || cds.Length == 0) return string.Empty;
 
-			return string.Join(" - ", grouped);
+			var cdMap = cds.ToDictionary(cd => cd, cd => 0);
+			foreach (var art in arts)
+			{
+				var prefix = art[0].ToString();
+				if (cdMap.ContainsKey(prefix))
+				{
+					var cdValue = int.Parse(art.Split()[1]);
+					cdMap[prefix] += cdValue;
+				}
+			}
+
+			return string.Join(" - ", cdMap.Select(pair => $"({pair.Key} : {pair.Value})"));
 		}
 	}
 }
