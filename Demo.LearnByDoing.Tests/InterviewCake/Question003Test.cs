@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
@@ -17,10 +15,10 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		[InlineData(new[] { 8, 5, 3, 1, 2, 7 }, 280)]
 		[InlineData(new[] { 3, 4, 5, 6, 7 }, 210)]
 		[InlineData(new[] { 7, 6, 5, 4, 3, 2, 1 }, 210)]
-		[InlineData(new[] { 3, 3, 4, 5 }, 60)]
-		[InlineData(new[] { 5, 3, 4, 2 }, 60)]
 		[InlineData(new[] { 3, 3, 3 }, 27)]
 		[InlineData(new[] { -10, -10, 1, 3, 2 }, 300)]
+		[InlineData(new[] { 3, 3, 4, 5 }, 60)]
+		[InlineData(new[] { 5, 3, 4, 2 }, 60)]
 		public void TestSampleCases(int[] input, int expected)
 		{
 			var sut = new HighestProductOfThree();
@@ -32,7 +30,37 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 	public class HighestProductOfThree
 	{
+		private const int PRODUCT_SIZE = 3;
+
 		public int GetMax(int[] a)
+		{
+			var initialArray = a.Take(PRODUCT_SIZE);
+			var negatives = new List<int>(initialArray);
+			var positives = new List<int>(initialArray);
+
+			for (int i = PRODUCT_SIZE; i < a.Length; i++)
+			{
+				var value = a[i];
+				negatives = GetRearrangedNegativeValue(negatives, value);
+				positives = GetRearrangedPositiveValue(positives, value);
+			}
+
+			Func<IEnumerable<int>, int> getProduct = list => list.Aggregate(1, (acc, value) => acc * value);
+			return Math.Max(getProduct(negatives), getProduct(positives));
+		}
+
+		private List<int> GetRearrangedPositiveValue(List<int> list, int value)
+		{
+			list.Add(value);
+			return list.OrderByDescending(n => n).Take(PRODUCT_SIZE).ToList();
+		}
+		private List<int> GetRearrangedNegativeValue(List<int> list, int value)
+		{
+			list.Add(value);
+			return list.OrderByDescending(Math.Abs).Take(PRODUCT_SIZE).ToList();
+		}
+
+		public int GetMax_DoesntWorkForNegativeElement(int[] a)
 		{
 			int max = int.MinValue;
 			int mid = int.MinValue;
