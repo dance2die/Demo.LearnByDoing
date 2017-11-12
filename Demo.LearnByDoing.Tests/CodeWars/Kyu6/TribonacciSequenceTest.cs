@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
@@ -40,7 +38,26 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 	{
 		public double[] Tribonacci(double[] signature, int n)
 		{
-			return null;
+			if (n == 0) return new double[1] { 0.0d };
+			Console.WriteLine($"n={n}, {string.Join(",", signature.Select(x => x.ToString()))}");
+
+			double n1 = signature[0];
+			double n2 = signature[1];
+			double n3 = signature[2];
+
+			var result = new List<double>(signature.Take(3));
+
+			for (int i = 3; i < n; i++)
+			{
+				var current = n1 + n2 + n3;
+				n1 = n2;
+				n2 = n3;
+				n3 = current;
+
+				result.Add(current);
+			}
+
+			return result.Take(n == 0 ? 1 : n).ToArray();
 		}
 	}
 }
