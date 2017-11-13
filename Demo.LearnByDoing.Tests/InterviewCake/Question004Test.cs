@@ -50,6 +50,11 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 				new Meeting[] { new Meeting(1, 5), new Meeting(2, 3) },
 				new Meeting[] { new Meeting(1, 5) }
 			};
+			yield return new object[]
+			{
+				new Meeting[] { new Meeting(1, 10), new Meeting(2, 6), new Meeting(3, 5), new Meeting(7, 9) },
+				new Meeting[] { new Meeting(1, 10) }
+			};
 		}
 
 		[Theory]
