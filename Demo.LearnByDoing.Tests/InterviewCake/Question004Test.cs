@@ -1,35 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
+using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
 {
 	public class Question004Test
 	{
-		private static IEnumerable<TestCaseData> TestCases
+		//private static IEnumerable<TestCaseData> TestCases
+		//{
+		//	get
+		//	{
+		//		yield return new TestCaseData(new Meeting[]{ new Meeting(0, 1), new Meeting(3, 5), new Meeting(4, 8), new Meeting(10, 12), new Meeting(9, 10) })
+		//			.Returns(new Meeting[] { new Meeting(0, 1), new Meeting(3, 8), new Meeting(9, 12) });
+		//		yield return new TestCaseData(new Meeting[] { new Meeting(9, 10), new Meeting(0, 1), new Meeting(10, 12), new Meeting(4, 8), new Meeting(3, 5), new Meeting(11, 15) })
+		//			.Returns(new Meeting[] { new Meeting(0, 1), new Meeting(3, 8), new Meeting(9, 12) });
+		//		// edge cases
+		//		yield return new TestCaseData(new Meeting[] { new Meeting(1, 2), new Meeting(2, 3) })
+		//			.Returns(new Meeting[] { new Meeting(1, 3) });
+		//		yield return new TestCaseData(new Meeting[] { new Meeting(1, 5), new Meeting(2, 3) })
+		//			.Returns(new Meeting[] { new Meeting(1, 5) });
+		//	}
+		//}
+
+		//[Test, TestCaseSource("TestCases")]
+		//public Meeting[] Test(Meeting[] meetings) => MeetingMerger.MergeRanges(meetings);
+
+		public static IEnumerable<object[]> TestCases()
 		{
-			get
+			yield return new object[]
 			{
-				yield return new TestCaseData(new Meeting[]{ new Meeting(0, 1), new Meeting(3, 5), new Meeting(4, 8), new Meeting(10, 12), new Meeting(9, 10) })
-					.Returns(new Meeting[] { new Meeting(0, 1), new Meeting(3, 8), new Meeting(9, 12) });
-				yield return new TestCaseData(new Meeting[] { new Meeting(9, 10), new Meeting(0, 1), new Meeting(10, 12), new Meeting(4, 8), new Meeting(3, 5), new Meeting(11, 15) })
-					.Returns(new Meeting[] { new Meeting(0, 1), new Meeting(3, 8), new Meeting(9, 12) });
-				// edge cases
-				yield return new TestCaseData(new Meeting[] { new Meeting(1, 2), new Meeting(2, 3) })
-					.Returns(new Meeting[] { new Meeting(1, 3) });
-				yield return new TestCaseData(new Meeting[] { new Meeting(1, 5), new Meeting(2, 3) })
-					.Returns(new Meeting[] { new Meeting(1, 5) });
-			}
+				new Meeting[] {new Meeting(0, 1), new Meeting(3, 5), new Meeting(4, 8), new Meeting(10, 12), new Meeting(9, 10)},
+				new Meeting[] {new Meeting(0, 1), new Meeting(3, 8), new Meeting(9, 12)}
+			};
+			yield return new object[]
+			{
+				new Meeting[] { new Meeting(9, 10), new Meeting(0, 1), new Meeting(10, 12), new Meeting(4, 8), new Meeting(3, 5), new Meeting(11, 15) },
+				new Meeting[] { new Meeting(0, 1), new Meeting(3, 8), new Meeting(9, 15) }
+			};
+
+			// edge cases
+			yield return new object[]
+			{
+				new Meeting[] { new Meeting(1, 2), new Meeting(2, 3) },
+				new Meeting[] { new Meeting(1, 3) }
+			};
+			yield return new object[]
+			{
+				new Meeting[] { new Meeting(1, 5), new Meeting(2, 3) },
+				new Meeting[] { new Meeting(1, 5) }
+			};
 		}
 
-		[Test, TestCaseSource("TestCases")]
-		public Meeting[] Test(Meeting[] meetings) => MeetingMerger.MergeRanges(meetings);
+		[Theory]
+		[MemberData(nameof(TestCases))]
+		public void TestAllCases(Meeting[] input, Meeting[] expected)
+		{
+			var sut = new MeetingMerger();
+			var actual = sut.MergeRanges(input);
+
+			Assert.True(expected.SequenceEqual(actual, new MeetingEqualityComparer()));
+		}
+	}
+
+	public class MeetingEqualityComparer : IEqualityComparer<Meeting>
+	{
+		public bool Equals(Meeting x, Meeting y)
+		{
+			return x.StartTime == y.StartTime && x.EndTime == y.EndTime;
+		}
+
+		public int GetHashCode(Meeting obj)
+		{
+			return obj.GetHashCode();
+		}
 	}
 
 	public class MeetingMerger
 	{
-		public static Meeting[] MergeRanges(Meeting[] meetings)
+		public Meeting[] MergeRanges(Meeting[] meetings)
 		{
 			// Order by Start Time (ST)
 			var newMeetings = meetings.OrderBy(meeting => meeting.StartTime).ToList();
@@ -45,19 +94,21 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			{
 				var leftElement = newMeetings[i];
 				var rightElement = newMeetings[i + 1];
-				
+
 				// Case #1 || Case #2
 				bool leftElementEndTimeIsInRightElementRange = rightElement.StartTime <= leftElement.EndTime && leftElement.EndTime <= rightElement.EndTime;
-				bool leftElementStartTimeIsInRightElementRange = rightElement.StartTime <= leftElement.StartTime && leftElement.StartTime <= rightElement.EndTime;
+				bool leftElementStartTimeIsInRightElementRange = leftElement.StartTime <= rightElement.StartTime && rightElement.StartTime <= leftElement.EndTime;
 				if (leftElementEndTimeIsInRightElementRange || leftElementStartTimeIsInRightElementRange)
 				{
 					var newStartTime = Math.Min(leftElement.StartTime, rightElement.StartTime);
 					var newEndTime = Math.Max(leftElement.EndTime, rightElement.EndTime);
 
-					newMeetings.RemoveAt(i);
 					newMeetings.RemoveAt(i + 1);
+					newMeetings.RemoveAt(i);
 
 					newMeetings.Insert(i, new Meeting(newStartTime, newEndTime));
+
+					i--;
 				}
 			}
 
