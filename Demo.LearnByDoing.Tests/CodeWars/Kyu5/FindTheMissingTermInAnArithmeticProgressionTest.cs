@@ -14,6 +14,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		{
 			get
 			{
+				yield return new TestCaseData(new[] { new List<int> { 1, 5, 7, 9, 11 } }).Returns(3);
 				yield return new TestCaseData(new[] { new List<int> { 1, 3, 5, 9, 11 } }).Returns(7);
 				yield return new TestCaseData(new[] { new List<int> { 0, 5, 10, 20, 25 } }).Returns(15);
 				yield return new TestCaseData(new[] { new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 } }).Returns(10);
@@ -28,6 +29,25 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 	public partial class Kata
 	{
 		public static int FindMissing(List<int> list)
+		{
+			int prev = list[0];
+			int curr = list[1];
+			int interval = GetInterval(list);
+
+			for (int i = 2; i <= list.Count; i++)
+			{
+				int currDiff = curr - prev;
+				if (currDiff != interval)
+					return prev + interval;
+
+				prev = curr;
+				curr = list[i];
+			}
+
+			return -1;
+		}
+
+		public static int FindMissing_bad2(List<int> list)
 		{
 			int prev = list[0];
 			int curr = list[1];
@@ -79,12 +99,13 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 					diffMap.Add(diff, 0);
 				diffMap[diff]++;
 
-				if (diffMap[diff] > 1) break;
+				//if (diffMap[diff] > 1) break;
 
 				prev = curr;
 			}
 
-			return diffMap.First(pair => pair.Value >= 1).Key;
+			//return diffMap.First(pair => pair.Value >= 1).Key;
+			return diffMap.OrderByDescending(p => p.Value).First().Key;
 		}
 	}
 }
