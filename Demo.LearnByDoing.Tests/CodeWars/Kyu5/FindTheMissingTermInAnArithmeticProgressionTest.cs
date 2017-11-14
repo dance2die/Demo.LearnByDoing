@@ -29,6 +29,25 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 	{
 		public static int FindMissing(List<int> list)
 		{
+			int prev = list[0];
+			int curr = list[1];
+			int prevDiff = curr - prev;
+
+			for (int i = 2; i <= list.Count; i++)
+			{
+				int currDiff = curr - prev;
+				if (currDiff != prevDiff)
+					return prev + prevDiff;
+
+				prev = curr;
+				curr = list[i];
+			}
+
+			return -1;
+		}
+
+		public static int FindMissing_bad(List<int> list)
+		{
 			//Console.WriteLine(string.Join(",", list.Select(n => n)));
 
 			// find max count of differences
