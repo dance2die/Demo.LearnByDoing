@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
@@ -92,9 +88,57 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			2 = Start Point
 			3 = Finish Point
 		 */
+		private const int SAFE = 0;
 		private const int WALL = 1;
 		private const int START_POINT = 2;
 		private const int FINISH_POINT = 3;
+		private const int DEAD = 4;
+
+		public string mazeRunner(int[,] maze, string[] directions)
+		{
+
+			Func<int, int, bool> isWithinBoundary = (a, b) =>
+				maze.GetLowerBound(0) <= a && a <= maze.GetUpperBound(0) &&
+				maze.GetLowerBound(1) <= b && b <= maze.GetUpperBound(1);
+
+			var points = GetStartEndPaoints(maze);
+			var startPoint = points.Item1;
+			var endPoint = points.Item2;
+
+			Func<int, int, int> getPoint = (a, b) =>
+			{
+				if (!isWithinBoundary(a, b)) return DEAD;
+				if (startPoint[0] == a && startPoint[1] == b) return START_POINT;
+				if (endPoint[0] == a && endPoint[1] == b) return FINISH_POINT;
+				if (maze[a, b] == WALL) return WALL;
+				return SAFE;
+			};
+
+			int x = startPoint[0];
+			int y = startPoint[1];
+
+			foreach (string direction in directions)
+			{
+				switch (direction)
+				{
+					case "N": x--; break;
+					case "S": x++; break;
+					case "E": y++; break;
+					case "W": y--; break;
+				}
+
+				var point = getPoint(x, y);
+				if (point == WALL || point == DEAD)
+					return "Dead";
+
+				if (point == FINISH_POINT)
+					return "Finish";
+			}
+
+			var lastPoint = getPoint(x, y);
+			if (lastPoint == SAFE) return "Lost";
+			return "Finish";
+		}
 
 		public Tuple<int[], int[]> GetStartEndPaoints(int[,] maze)
 		{
@@ -114,11 +158,6 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			}
 
 			return Tuple.Create(start, end);
-		}
-
-		public string mazeRunner(int[,] maze, string[] directions)
-		{
-			return "";
 		}
 	}
 }
