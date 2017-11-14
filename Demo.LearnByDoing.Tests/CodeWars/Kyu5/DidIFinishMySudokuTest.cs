@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
@@ -54,11 +51,86 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 	public class Sudoku
 	{
+		private const int BOARD_SIZE = 9;
+
 		public static string DoneOrNot(int[][] board)
 		{
+			const string failureMessage = "Try again!";
+			const string successMessage = "Finished!";
 
+			// check all rows
+			bool areRowsValid = AreRowsValid(board);
+			if (!areRowsValid) return failureMessage;
 
-			return "Try again!";
+			// check all columns
+			bool areColumnsValid = AreColumnsValid(board);
+			if (!areColumnsValid) return failureMessage;
+
+			// check 9 blocks
+			bool areBlocksValid = AreBlocksValid(board);
+			if (!areBlocksValid) return failureMessage;
+
+			return successMessage;
+		}
+
+		private static bool AreRowsValid(int[][] board)
+		{
+			foreach (int[] row in board)
+			{
+				if (!ContainsAllNumbers(row)) return false;
+			}
+
+			return true;
+		}
+
+		private static bool AreColumnsValid(int[][] board)
+		{
+			for (int colIndex = 0; colIndex < BOARD_SIZE; colIndex++)
+			{
+				var columnValues = GetColumnValues(board, colIndex);
+				if (!ContainsAllNumbers(columnValues)) return false;
+			}
+
+			return true;
+		}
+
+		private static IEnumerable<int> GetColumnValues(int[][] board, int index)
+		{
+			for (int i = 0; i < BOARD_SIZE; i++)
+			{
+				yield return board[index][i];
+			}
+		}
+
+		private static bool AreBlocksValid(int[][] board)
+		{
+			for (int rowIndex = 0, upto = 0; upto < 3; upto++, rowIndex += 3)
+			{
+				for (int colIndex = 0; colIndex < 3; colIndex++)
+				{
+					int startIndex = colIndex * 3;
+					var blockValues = GetBlockValues(board, rowIndex, startIndex);
+					if (!ContainsAllNumbers(blockValues)) return false;
+				}
+			}
+
+			return true;
+		}
+
+		private static IEnumerable<int> GetBlockValues(int[][] board, int rowIndex, int colIndex)
+		{
+			for (int i = rowIndex; i < rowIndex + 3; i++)
+			{
+				for (int j = colIndex; j < colIndex + 3; j++)
+				{
+					yield return board[i][j];
+				}
+			}
+		}
+
+		private static bool ContainsAllNumbers(IEnumerable<int> row)
+		{
+			return !Enumerable.Range(1, 9).Except(row).Any();
 		}
 	}
 }
