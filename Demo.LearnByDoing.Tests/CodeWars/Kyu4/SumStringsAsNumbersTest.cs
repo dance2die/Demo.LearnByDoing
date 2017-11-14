@@ -24,7 +24,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		}
 	}
 
-	public static partial class Kata
+	public partial class Kata
 	{
 		public static string sumStrings(string a, string b)
 		{

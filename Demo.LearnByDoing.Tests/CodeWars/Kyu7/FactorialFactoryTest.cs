@@ -24,7 +24,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 		}
 	}
 
-	public static partial class Kata
+	public partial class Kata
 	{
 		public static int Factorial(int n)
 		{

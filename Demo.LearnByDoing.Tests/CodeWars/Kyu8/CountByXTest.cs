@@ -37,7 +37,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu8
 		}
 	}
 
-	public static partial class Kata
+	public partial class Kata
 	{
 		public static int[] CountBy(int x, int n)
 		{

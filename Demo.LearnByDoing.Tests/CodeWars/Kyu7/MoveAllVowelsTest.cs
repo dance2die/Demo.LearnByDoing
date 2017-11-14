@@ -23,7 +23,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 			Assert.Equal(expected, Kata.MoveVowel(input));
 	}
 
-	public static partial class Kata
+	public partial class Kata
 	{
 		public static string MoveVowel(string input)
 		{

@@ -30,7 +30,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 		}
 	}
 
-	public static partial class Kata
+	public partial class Kata
 	{
 		public static int IsInteresting(int number, List<int> awesomePhrases)
 		{

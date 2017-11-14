@@ -16,7 +16,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 		}
 	}
 
-	public static partial class Kata
+	public partial class Kata
 	{
 		public static long SumTimesTable(List<int> tables, long min, long max)
 		{

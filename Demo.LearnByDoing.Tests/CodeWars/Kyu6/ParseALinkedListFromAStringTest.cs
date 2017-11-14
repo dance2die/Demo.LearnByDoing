@@ -34,7 +34,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 		}
 	}
 
-	public static partial class Kata
+	public partial class Kata
 	{
 		public static Node Parse(string input)
 		{

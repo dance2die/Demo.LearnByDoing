@@ -19,7 +19,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu7
 		}
 	}
 
-	public static partial class Kata
+	public partial class Kata
 	{
 		public static string Disemvowel(string input)
 		{
