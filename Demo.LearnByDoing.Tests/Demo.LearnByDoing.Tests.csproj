@@ -149,6 +149,7 @@
     <Compile Include="CodeWars\Kyu5\DidIFinishMySudokuTest.cs" />
     <Compile Include="CodeWars\Kyu5\DirectionsReductionTest.cs" />
     <Compile Include="CodeWars\Kyu5\DoubleColaTest.cs" />
+    <Compile Include="CodeWars\Kyu5\FindTheMissingTermInAnArithmeticProgressionTest.cs" />
     <Compile Include="CodeWars\Kyu5\FirstNonRepeatingLetterTest.cs" />
     <Compile Include="CodeWars\Kyu5\FloodFillTest.cs" />
     <Compile Include="CodeWars\Kyu5\GreedIsGoodTest.cs" />
