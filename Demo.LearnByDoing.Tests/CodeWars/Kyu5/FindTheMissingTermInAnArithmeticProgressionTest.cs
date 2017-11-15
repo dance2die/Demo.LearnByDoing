@@ -29,11 +29,23 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 	public partial class Kata
 	{
-		//public static int FindMissing(List<int> list)
-		//{
-		//	int interval = GetInterval(list);
+		public static int FindMissing(List<int> list)
+		{
+			int interval = GetInterval(list);
 
-		//}
+			int first = list.First();
+			int last = list.Last();
+			var ranage = GetRange(first, last, interval);
+			return ranage.Except(list).First();
+		}
+
+		private static IEnumerable<int> GetRange(int first, int last, int interval)
+		{
+			for (int i = first; i <= last; i += interval)
+			{
+				yield return i;
+			}
+		}
 
 		private static int GetInterval(List<int> list)
 		{
@@ -43,7 +55,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 		}
 
 
-		public static int FindMissing(List<int> list)
+		public static int FindMissing_bad3(List<int> list)
 		{
 			int prev = list[0];
 			int curr = list[1];
