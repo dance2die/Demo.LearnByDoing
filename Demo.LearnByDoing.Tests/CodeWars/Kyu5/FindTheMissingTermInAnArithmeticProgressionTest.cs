@@ -29,6 +29,20 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 	public partial class Kata
 	{
+		//public static int FindMissing(List<int> list)
+		//{
+		//	int interval = GetInterval(list);
+
+		//}
+
+		private static int GetInterval(List<int> list)
+		{
+			int first = list.First();
+			int last = list.Last();
+			return (last - first) / list.Count;
+		}
+
+
 		public static int FindMissing(List<int> list)
 		{
 			int prev = list[0];
@@ -87,7 +101,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			return -1;
 		}
 
-		private static int GetInterval(List<int> list)
+		private static int GetInterval2(List<int> list)
 		{
 			var diffMap = new Dictionary<int, int>(2);
 			int prev = list[0];
