@@ -60,15 +60,37 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			return buffer.ToString();
 		}
 
+		public static string Decode(string message, int rowSize)
+		{
+			var colSize = GetColumnSize(message, rowSize);
+			var map = new string[rowSize, colSize];
+
+			// fill the map
+			int messageIndex = 0;
+			for (int colIndex = 0; colIndex < colSize; colIndex++)
+			{
+				for (int rowIndex = 0; rowIndex < rowSize; rowIndex++)
+				{
+					map[rowIndex, colIndex] = message[messageIndex++].ToString();
+				}
+			}
+
+			// Encode by iterating column wise
+			var buffer = new StringBuilder(message.Length);
+			for (int rowIndex = 0; rowIndex < rowSize; rowIndex++)
+			{
+				for (int colIndex = 0; colIndex < colSize; colIndex++)
+				{
+					buffer.Append(map[rowIndex, colIndex]);
+				}
+			}
+
+			return buffer.ToString();
+		}
+
 		private static int GetColumnSize(string message, int rowSize)
 		{
 			return (int) Math.Ceiling((double)message.Length / rowSize);
-		}
-
-		public static string Decode(string message, int cylinderSides)
-		{
-			// TODO: implement me
-			return message;
 		}
 	}
 }
