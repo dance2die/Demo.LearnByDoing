@@ -160,6 +160,7 @@
     <Compile Include="CodeWars\Kyu5\PaginationHelperTest.cs" />
     <Compile Include="CodeWars\Kyu5\Rot13Test.cs" />
     <Compile Include="CodeWars\Kyu5\ScrambliesTest.cs" />
+    <Compile Include="CodeWars\Kyu5\ScytaleEncoderDecoderTest.cs" />
     <Compile Include="CodeWars\Kyu5\SimpleFun155PackManTest.cs" />
     <Compile Include="CodeWars\Kyu5\SimpleFun166BestMatchTest.cs" />
     <Compile Include="CodeWars\Kyu5\SimplePigLatinTest.cs" />
