@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -35,16 +34,14 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 			int first = list.First();
 			int last = list.Last();
-			var ranage = GetRange(first, last, interval);
-			return ranage.Except(list).First();
-		}
+			var set = new HashSet<int>(list);	// for O(1) lookup
 
-		private static IEnumerable<int> GetRange(int first, int last, int interval)
-		{
 			for (int i = first; i <= last; i += interval)
 			{
-				yield return i;
+				if (!set.Contains(i)) return i;
 			}
+
+			return -1;
 		}
 
 		private static int GetInterval(List<int> list)
