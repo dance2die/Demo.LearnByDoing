@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 
@@ -28,13 +29,54 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 
 			Assert.That(actual, Is.EqualTo(expected));
 		}
+
+		private static IEnumerable<TestCaseData> EncodeTestCases
+		{
+			get
+			{
+				yield return new TestCaseData("CodeWars Scytale Kata", 4).Returns("CW t aoaSaK drcla esyet");
+				//yield return new TestCaseData("HELLOANDTHANKYOUFORDOINGTHISKATA", 11).Returns("CW t aoaSaK drcla esyet");
+			}
+		}
+
+		//private static IEnumerable<TestCaseData> DecodeTestCases
+		//{
+		//	get
+		//	{
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//	}
+		//}
+
+		//private static IEnumerable<TestCaseData> EncodeDecodeTestCases
+		//{
+		//	get
+		//	{
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//		yield return new TestCaseData("aaa").Returns("bbb");
+		//	}
+		//}
+
+		[Test, TestCaseSource(nameof(EncodeTestCases))]
+		public string TestFailingEncodeTests(string message, int rowSize) => Scytale.Encode(message, rowSize);
+		//[Test, TestCaseSource("DecodeTestCases")]
+		//public string TestFailingDecodeTests(string message, int rowSize) => Scytale.Decode(message, rowSize);
+		//[Test, TestCaseSource("EncodeDecodeTestCases")]
+		//public string TestFailingEncodeDecodeTests(string message, int rowSize) => Scytale.Decode(Scytale.Encode(message, rowSize), rowSize);
 	}
 
 	public class Scytale
 	{
-		public static string Encode(string message, int rowSize)
+		public static string Encode(string message, int colSize)
 		{
-			var colSize = GetColumnSize(message, rowSize);
+			var rowSize = GetColumnSize(message, colSize);
+			Console.WriteLine($"{rowSize}, {colSize} => {message}");
 			var map = new string[rowSize, colSize];
 
 			// fill the map
@@ -43,7 +85,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			{
 				for (int colIndex = 0; colIndex < colSize; colIndex++)
 				{
-					map[rowIndex, colIndex] = message[messageIndex++].ToString();
+					map[rowIndex, colIndex] = messageIndex >= message.Length ? " " : message[messageIndex++].ToString();
 				}
 			}
 
@@ -57,12 +99,13 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 				}
 			}
 
-			return buffer.ToString();
+			return buffer.ToString().Trim();
 		}
 
-		public static string Decode(string message, int rowSize)
+		public static string Decode(string message, int colSize)
 		{
-			var colSize = GetColumnSize(message, rowSize);
+			var rowSize = GetColumnSize(message, colSize);
+			Console.WriteLine($"{rowSize}, {colSize} => {message}");
 			var map = new string[rowSize, colSize];
 
 			// fill the map
@@ -71,7 +114,7 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 			{
 				for (int rowIndex = 0; rowIndex < rowSize; rowIndex++)
 				{
-					map[rowIndex, colIndex] = message[messageIndex++].ToString();
+					map[rowIndex, colIndex] = messageIndex >= message.Length ? " " : message[messageIndex++].ToString();
 				}
 			}
 
@@ -85,12 +128,12 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu5
 				}
 			}
 
-			return buffer.ToString();
+			return buffer.ToString().Trim();
 		}
 
-		private static int GetColumnSize(string message, int rowSize)
+		private static int GetColumnSize(string message, int colSize)
 		{
-			return (int) Math.Ceiling((double)message.Length / rowSize);
+			return (int) Math.Ceiling((double)message.Length / colSize);
 		}
 	}
 }
