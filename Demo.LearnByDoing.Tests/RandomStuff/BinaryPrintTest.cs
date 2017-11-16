@@ -18,11 +18,10 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
 		[Fact]
 		public void JustPrint()
 		{
-			var digit = 2;
-			var a = new int[2];
+			var digit = 3;
+			var a = new int[digit];
 			PrintBinaryCombinations(a, digit);
 		}
-		
 
 		private void PrintBinaryCombinations(int[] a, int i)
 		{
