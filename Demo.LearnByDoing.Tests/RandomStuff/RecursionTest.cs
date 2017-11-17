@@ -1,4 +1,5 @@
-﻿using Demo.LearnByDoing.Core;
+﻿using System;
+using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -20,10 +21,39 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
 			int actual = sut.GetSum(input);
 			Assert.Equal(expected, actual);
 		}
+
+		[Theory]
+		[InlineData(new object[]{new []{1,2,3}, 4, new []{5}}, 15)]
+		[InlineData(new object[]{-1, new[] {0, 1}, new []{5}, 10}, 5)]
+		public void TestNestedArraySum(object[] input, int expected)
+		{
+			var sut = new RecursionStuff();
+			int actual = sut.GetNestedArraySum(input);
+			Assert.Equal(expected, actual);
+		}
 	}
 
 	public class RecursionStuff
 	{
+		public int GetNestedArraySum(object[] input)
+		{
+			return GetNestedArraySumRecursively(input, input.Length - 1);
+		}
+
+		private int GetNestedArraySumRecursively(object[] input, int i)
+		{
+			if (i < 0) return 0;
+
+			var current = 0;
+			var arr = input[i] as object[];
+			if (arr != null)
+			{
+				current += GetNestedArraySumRecursively(arr, arr.Length - 1);
+			}
+
+			return current + GetNestedArraySumRecursively(input, i - 1);
+		}
+
 		public int GetSum(int[] input)
 		{
 			return GetSumRecursively(input, input.Length - 1);
