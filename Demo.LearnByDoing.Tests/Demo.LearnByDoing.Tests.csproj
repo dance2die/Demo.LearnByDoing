@@ -285,6 +285,7 @@
     <Compile Include="RandomStuff\BinaryPrintTest.cs" />
     <Compile Include="RandomStuff\FogCreekSupportEngineer1Test.cs" />
     <Compile Include="RandomStuff\PalindromeUsingXorTest.cs" />
+    <Compile Include="RandomStuff\RecursionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Demo.LearnByDoing.Core\Demo.LearnByDoing.Core.csproj">
