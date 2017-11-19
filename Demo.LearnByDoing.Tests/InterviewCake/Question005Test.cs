@@ -25,7 +25,31 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			const int expected = 4;
 			var seen = new Dictionary<Tuple<int, int[]>, int>();
 			//var actual = ChangePossibilitiesTopDown_Copied(4, denominations, 0, seen);
-			var actual = ChangePossibilitiesTopDown2(4, denominations, 0);
+			var actual = ChangePossibilitiesTopDown2(amount, denominations, 0);
+
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void TestNoAnswer()
+		{
+			var amount = 1;
+			var denominations = new[] {2, 3};
+
+			const int expected = 0;
+			var actual = ChangePossibilitiesTopDown2(amount, denominations, 0);
+
+			Assert.Equal(expected, actual);
+		}
+
+		[Fact]
+		public void TestSomethingElse()
+		{
+			var amount = 4;
+			var denominations = new[] {1, 2};
+
+			const int expected = 3;
+			var actual = ChangePossibilitiesTopDown2(amount, denominations, 0);
 
 			Assert.Equal(expected, actual);
 		}
