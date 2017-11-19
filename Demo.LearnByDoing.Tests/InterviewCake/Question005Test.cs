@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -26,7 +24,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 			const int expected = 4;
 			var seen = new Dictionary<Tuple<int, int[]>, int>();
-			var actual = ChangePossibilitiesTopDown(4, denominations, 0, seen);
+			var actual = ChangePossibilitiesTopDown_Copied(4, denominations, 0, seen);
 
 			Assert.Equal(expected, actual);
 		}
@@ -34,7 +32,10 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		public int ChangePossibilitiesTopDown(int amountLeft, int[] denominations, int currentIndex, Dictionary<Tuple<int, int[]>, int> seen)
 		{
 			var key = Tuple.Create(amountLeft, denominations);
-			if (seen.ContainsKey(key)) return seen[key];
+			if (seen.ContainsKey(key))
+			{
+				return seen[key];
+			}
 
 			if (amountLeft == 0)
 			{
@@ -70,8 +71,16 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		/// <summary>
 		/// Copied & pasted...
 		/// </summary>
-		public int ChangePossibilitiesTopDown_Copied(int amountLeft, int[] denominations, int currentIndex = 0)
+		public int ChangePossibilitiesTopDown_Copied(int amountLeft, int[] denominations, int currentIndex, Dictionary<Tuple<int, int[]>, int> seen)
 		{
+			var key = Tuple.Create(amountLeft, denominations);
+			if (seen.ContainsKey(key))
+			{
+				_output.WriteLine("Returning cache... on top");
+				return seen[key];
+			}
+
+
 			var indent = new string(' ', currentIndex * 4);
 			//_output.WriteLine(indent + $"#{steps++} = Currently checking ways to make {amountLeft} with " + $"[{string.Join(", ", denominations.Skip(currentIndex).Take(denominations.Length - currentIndex))}] @ currentIndex: {currentIndex}");
 			
@@ -80,12 +89,14 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			if (amountLeft == 0)
 			{
 				_output.WriteLine(indent + $"=====> for ${amountLeft}, currentIndex: {currentIndex}, returning 1: " + $"[{string.Join(", ", denominations.Skip(currentIndex).Take(denominations.Length - currentIndex))}]");
+				seen.Add(key, 1);
 				return 1;
 			}
 
 			// We overshot the amount left (used too many coins)
 			if (amountLeft < 0)
 			{
+				seen.Add(key, 0);
 				return 0;
 			}
 
@@ -106,7 +117,14 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			int numPossibilities = 0;
 			while (amountLeft >= 0)
 			{
-				numPossibilities += ChangePossibilitiesTopDown_Copied(amountLeft, denominations, currentIndex + 1);
+				if (seen.ContainsKey(key))
+				{
+					_output.WriteLine("Returning cache... in loop");
+					numPossibilities += seen[key];
+				}
+				else
+					numPossibilities += ChangePossibilitiesTopDown_Copied(amountLeft, denominations, currentIndex + 1, seen);
+
 				amountLeft -= currentCoin;
 			}
 
