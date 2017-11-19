@@ -19,7 +19,8 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
 		public void JustPrint()
 		{
 			var digit = 2;
-			var a = new int[digit];
+			//var a = new int[digit];
+			int[] a = Enumerable.Repeat(-9999, digit).ToArray();
 			PrintBinaryCombinations(a, digit, step);
 		}
 
@@ -29,6 +30,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
 		{
 			step++;
 			_output.WriteLine("Step " + step);
+			PrintArray(a);
 			if (i == 0)
 			{
 				_output.WriteLine($"{step}# => {string.Join("", a.Select(n => n))} ");
@@ -43,10 +45,11 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
 
 		private void PrintArray(int[] a)
 		{
-			foreach (var n in a)
-			{
-				_output.WriteLine("==" + n);
-			}
+			_output.WriteLine("===" + string.Join(", ", a.Select(n => n.ToString())));
+			//foreach (var n in a)
+			//{
+			//	_output.WriteLine("==" + n);
+			//}
 		}
 	}
 }
