@@ -24,9 +24,27 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 			const int expected = 4;
 			var seen = new Dictionary<Tuple<int, int[]>, int>();
-			var actual = ChangePossibilitiesTopDown_Copied(4, denominations, 0, seen);
+			//var actual = ChangePossibilitiesTopDown_Copied(4, denominations, 0, seen);
+			var actual = ChangePossibilitiesTopDown2(4, denominations, 0);
 
 			Assert.Equal(expected, actual);
+		}
+
+		public int ChangePossibilitiesTopDown2(int amountLeft, int[] denominations, int currentIndex)
+		{
+			if (amountLeft == 0) return 1;
+			if (amountLeft < 0) return 0;
+			if (currentIndex == denominations.Length) return 0;
+
+			int possibilityCount = 0;
+			int current = denominations[currentIndex];
+			while (amountLeft >= 0)
+			{
+				possibilityCount += ChangePossibilitiesTopDown2(amountLeft, denominations, currentIndex + 1);
+				amountLeft -= current;
+			}
+
+			return possibilityCount;
 		}
 
 		public int ChangePossibilitiesTopDown(int amountLeft, int[] denominations, int currentIndex, Dictionary<Tuple<int, int[]>, int> seen)
