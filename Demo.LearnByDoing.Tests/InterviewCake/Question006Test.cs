@@ -16,7 +16,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	class Rectangle
 	{
 		// Coordinates of bottom left corner
-		public int LeftX { get; set; }
+		public int LeftX { get; set; }									
 		public int BottomY { get; set; }
 
 		// Dimensions
