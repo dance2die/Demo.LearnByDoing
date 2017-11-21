@@ -20,7 +20,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			Assert.Equal(max, sut.GetMax());
 			Assert.Equal(min, sut.GetMin());
 			Assert.Equal(mean, sut.GetMean(), 2);
-			//Assert.Equal(mode, sut.GetMode());
+			Assert.Equal(mode, sut.GetMode());
 		}
 
 		public static IEnumerable<object[]> GetTestInsertData()
@@ -40,10 +40,6 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 	class TemperatureTracker
 	{
-		/// <summary>
-		/// key = unique value, value = count of items
-		/// </summary>
-		//private readonly Dictionary<int, int> _map = new Dictionary<int, int>();
 
 		private int _max = int.MinValue;
 		private int _min = int.MaxValue;
@@ -53,15 +49,16 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		private int _count = 0;
 		private double _mean = 0;
 
-
+		// For keeping track of mode.
+		private int _maxOccurrences = 0;
 		private int _mode = 0;
+		/// <summary>
+		/// key = unique value, value = count of items
+		/// </summary>
+		private readonly Dictionary<int, int> _map = new Dictionary<int, int>();
 
 		public void Insert(int temperature)
 		{
-			//if (!_map.ContainsKey(temperature))
-			//	_map.Add(temperature, 0);
-			//_map[temperature]++;
-
 			if (temperature > _max) _max = temperature;
 			if (temperature < _min) _min = temperature;
 
@@ -72,6 +69,15 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 			//int maxOccurrence = _map.Max(p => p.Value);
 			//_mode = _map.First(p => p.Value == maxOccurrence).Key;
+			if (!_map.ContainsKey(temperature))
+				_map.Add(temperature, 0);
+			_map[temperature]++;
+
+			if (_map[temperature] > _maxOccurrences)
+			{
+				_maxOccurrences = _map[temperature];
+				_mode = temperature;
+			};
 		}
 
 
