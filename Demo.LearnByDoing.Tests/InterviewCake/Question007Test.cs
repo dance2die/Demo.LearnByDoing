@@ -12,10 +12,10 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	{
 		[Theory]
 		[MemberData(nameof(GetTestInsertData))]
-		public void TestInsert(int[] input, int max, int min, double mean, int mode)
+		public void TestInsert(int[] temperatures, int max, int min, double mean, int mode)
 		{
 			var sut = new TemperatureTracker();
-			input.ToList().ForEach(n => sut.Insert(n));
+			temperatures.ToList().ForEach(n => sut.Insert(n));
 
 			Assert.Equal(max, sut.GetMax());
 			Assert.Equal(min, sut.GetMin());
@@ -56,17 +56,17 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 		private int _mode = 0;
 
-		public void Insert(int newItem)
+		public void Insert(int temperature)
 		{
-			//if (!_map.ContainsKey(newItem))
-			//	_map.Add(newItem, 0);
-			//_map[newItem]++;
+			//if (!_map.ContainsKey(temperature))
+			//	_map.Add(temperature, 0);
+			//_map[temperature]++;
 
-			if (newItem > _max) _max = newItem;
-			if (newItem < _min) _min = newItem;
+			if (temperature > _max) _max = temperature;
+			if (temperature < _min) _min = temperature;
 
 			//_mean = (double)_map.Sum(p => p.Key * p.Value) / _map.Values.Sum();
-			_sum += newItem;
+			_sum += temperature;
 			_count++;
 			_mean = (double) _sum / _count;
 
