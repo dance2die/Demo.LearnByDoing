@@ -24,7 +24,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 		}
 
 		[Theory]
-		[MemberData(nameof(GetDepthFirstRecursionPreOrderData))]
+		[MemberData(nameof(GetDepthFirstPreOrderData))]
 		public void TestRecursiveDepthFirstPreOrderRecursionSearch(IEnumerable<int> expected, BinaryTreeNode root)
 		{
 			var sut = new BinaryTreeNodeTraverser();
@@ -34,7 +34,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 		}
 
 		[Theory]
-		[MemberData(nameof(GetDepthFirstRecursionInOrderData))]
+		[MemberData(nameof(GetDepthFirstInOrderData))]
 		public void TestRecursiveDepthFirstInOrderRecursionSearch(IEnumerable<int> expected, BinaryTreeNode root)
 		{
 			var sut = new BinaryTreeNodeTraverser();
@@ -44,7 +44,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 		}
 
 		[Theory]
-		[MemberData(nameof(GetDepthFirstRecursionPostOrderData))]
+		[MemberData(nameof(GetDepthFirstPostOrderData))]
 		public void TestRecursiveDepthFirstPostOrderRecursionSearch(IEnumerable<int> expected, BinaryTreeNode root)
 		{
 			var sut = new BinaryTreeNodeTraverser();
@@ -53,17 +53,17 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 			Assert.True(expected.SequenceEqual(actual));
 		}
 
-		public static IEnumerable<object[]> GetDepthFirstRecursionPreOrderData()
+		public static IEnumerable<object[]> GetDepthFirstPreOrderData()
 		{
 			yield return new object[] { new[] { 4, 2, 1, 3, 6, 5, 7 }, GetSampleBinaryTreeNode() };
 		}
 
-		public static IEnumerable<object[]> GetDepthFirstRecursionInOrderData()
+		public static IEnumerable<object[]> GetDepthFirstInOrderData()
 		{
 			yield return new object[] { new[] { 1, 2, 3, 4, 5, 6, 7 }, GetSampleBinaryTreeNode() };
 		}
 
-		public static IEnumerable<object[]> GetDepthFirstRecursionPostOrderData()
+		public static IEnumerable<object[]> GetDepthFirstPostOrderData()
 		{
 			yield return new object[] { new[] { 1, 3, 2, 5, 7, 6, 4 }, GetSampleBinaryTreeNode() };
 		}
