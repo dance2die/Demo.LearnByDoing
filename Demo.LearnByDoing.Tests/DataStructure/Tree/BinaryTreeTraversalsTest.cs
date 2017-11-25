@@ -25,7 +25,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 
 		[Theory]
 		[MemberData(nameof(GetDepthFirstPreOrderData))]
-		public void TestRecursiveDepthFirstPreOrderRecursionSearch(IEnumerable<int> expected, BinaryTreeNode root)
+		public void TestRecursiveDepthFirstPreOrderSearch(IEnumerable<int> expected, BinaryTreeNode root)
 		{
 			var sut = new BinaryTreeNodeTraverser();
 			var actual = sut.TraverseDfsPreOrderRecursively(root);
@@ -45,7 +45,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 
 		[Theory]
 		[MemberData(nameof(GetDepthFirstInOrderData))]
-		public void TestRecursiveDepthFirstInOrderRecursionSearch(IEnumerable<int> expected, BinaryTreeNode root)
+		public void TestRecursiveDepthFirstInOrderSearch(IEnumerable<int> expected, BinaryTreeNode root)
 		{
 			var sut = new BinaryTreeNodeTraverser();
 			var actual = sut.TraverseDfsInOrderRecursively(root);
@@ -55,10 +55,20 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 
 		[Theory]
 		[MemberData(nameof(GetDepthFirstPostOrderData))]
-		public void TestRecursiveDepthFirstPostOrderRecursionSearch(IEnumerable<int> expected, BinaryTreeNode root)
+		public void TestRecursiveDepthFirstPostOrderSearch(IEnumerable<int> expected, BinaryTreeNode root)
 		{
 			var sut = new BinaryTreeNodeTraverser();
 			var actual = sut.TraverseDfsPostOrderRecursively(root);
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Theory]
+		[MemberData(nameof(GetDepthFirstPostOrderData))]
+		public void TestIterativeDepthFirstPostOrderSearch(IEnumerable<int> expected, BinaryTreeNode root)
+		{
+			var sut = new BinaryTreeNodeTraverser();
+			var actual = sut.TraverseDfsPostOrderIterativelyUsingDoubleStack(root);
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
@@ -96,6 +106,32 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 				if (node.Right != null) stack.Push(node.Right);
 				if (node.Left != null) stack.Push(node.Left);
 			}
+		}
+
+		/// <summary>
+		/// Iterative Post-order DFS
+		/// </summary>
+		/// <remarks><see cref="http://www.geeksforgeeks.org/iterative-postorder-traversal/"/>
+		/// http://www.geeksforgeeks.org/iterative-postorder-traversal/
+		/// </remarks>
+		public IEnumerable<int> TraverseDfsPostOrderIterativelyUsingDoubleStack(BinaryTreeNode root)
+		{
+			if (root == null) return new List<int>(0);
+
+			var inStack = new Stack<BinaryTreeNode>();
+			var outStack = new Stack<BinaryTreeNode>();
+
+			inStack.Push(root);
+
+			while (inStack.Count > 0)
+			{
+				var node = inStack.Pop();
+				outStack.Push(node);
+				if (node.Left != null) inStack.Push(node.Left);
+				if (node.Right != null) inStack.Push(node.Right);
+			}
+
+			return outStack.Select(node => node.Value);
 		}
 
 		public IEnumerable<int> TraverseDfsPreOrderRecursively(BinaryTreeNode root)
