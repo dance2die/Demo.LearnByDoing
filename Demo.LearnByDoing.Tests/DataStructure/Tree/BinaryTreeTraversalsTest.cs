@@ -34,6 +34,16 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 		}
 
 		[Theory]
+		[MemberData(nameof(GetDepthFirstPreOrderData))]
+		public void TestIterativeDepthFirstSearch(IEnumerable<int> expected, BinaryTreeNode root)
+		{
+			var sut = new BinaryTreeNodeTraverser();
+			var actual = sut.TraverseDfsIteratively(root);
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Theory]
 		[MemberData(nameof(GetDepthFirstInOrderData))]
 		public void TestRecursiveDepthFirstInOrderRecursionSearch(IEnumerable<int> expected, BinaryTreeNode root)
 		{
@@ -71,6 +81,23 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 
 	public class BinaryTreeNodeTraverser
 	{
+		public IEnumerable<int> TraverseDfsIteratively(BinaryTreeNode root)
+		{
+			if (root == null) yield break;
+
+			var stack = new Stack<BinaryTreeNode>();
+			stack.Push(root);
+
+			while (stack.Count > 0)
+			{
+				var node = stack.Pop();
+				yield return node.Value;
+
+				if (node.Right != null) stack.Push(node.Right);
+				if (node.Left != null) stack.Push(node.Left);
+			}
+		}
+
 		public IEnumerable<int> TraverseDfsPreOrderRecursively(BinaryTreeNode root)
 		{
 			if (root == null) yield break;
