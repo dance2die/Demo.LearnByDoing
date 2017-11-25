@@ -38,7 +38,7 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 		public void TestIterativeDepthFirstSearch(IEnumerable<int> expected, BinaryTreeNode root)
 		{
 			var sut = new BinaryTreeNodeTraverser();
-			var actual = sut.TraverseDfsIteratively(root);
+			var actual = sut.TraverseDfsPreOrderIteratively(root);
 
 			Assert.True(expected.SequenceEqual(actual));
 		}
@@ -91,7 +91,20 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 
 	public class BinaryTreeNodeTraverser
 	{
-		public IEnumerable<int> TraverseDfsIteratively(BinaryTreeNode root)
+		/// <summary>
+		/// Iterative Depth First Pre-order traversal
+		/// </summary>
+		/// <remarks>
+		/// 1. Push root to stack.
+		/// 2. Loop while the stack is not empty.
+		///		2.1. Pop a node
+		///		2.2. Retun the popped node's value.
+		///		2.2. Push the right node to the stack
+		///		2.3. Push the left node to the stack
+		/// 
+		/// Note: You are pushing the RIGHT node into the stack first!
+		/// </remarks>
+		public IEnumerable<int> TraverseDfsPreOrderIteratively(BinaryTreeNode root)
 		{
 			if (root == null) yield break;
 
@@ -113,6 +126,12 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
 		/// </summary>
 		/// <remarks><see cref="http://www.geeksforgeeks.org/iterative-postorder-traversal/"/>
 		/// http://www.geeksforgeeks.org/iterative-postorder-traversal/
+		/// Algorithm.
+		/// 1. Push root to first stack.
+		/// 2. Loop while first stack is not empty
+		///		 2.1 Pop a node from first stack and push it to second stack
+		///		 2.2 Push left and right children of the popped node to first stack
+		/// 3. Print contents of second stack
 		/// </remarks>
 		public IEnumerable<int> TraverseDfsPostOrderIterativelyUsingDoubleStack(BinaryTreeNode root)
 		{
