@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
@@ -54,34 +55,38 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		void TestBinaryTreeChecker(bool expected, BinaryTreeNode root)
 		{
 			var sut = new BinaryTreeChecker();
-			sut.IsBinarySearchTree(root);
-			Assert.Equal(expected, sut.IsBalanced);
+			var actual = sut.IsBinarySearchTree(root);
+			Assert.Equal(expected, actual);
 		}
 	}
 
 	class BinaryTreeChecker
 	{
-		public bool IsBalanced { get; set; } = true;
-		public int IsBinarySearchTree(BinaryTreeNode root)
+		
+		public bool IsBinarySearchTree(BinaryTreeNode root)
 		{
-			if (root == null) return -1;
-			// Return the value if the root is a leaft node.
-			if (root.Left == null && root.Right == null) return root.Value;
+			var numbers = TraverseInOrder(root).ToList();
 
-			int left = IsBinarySearchTree(root.Left);
-			int curr = root.Value;
-			int right = IsBinarySearchTree(root.Right);
+			// check that next number is bigger than the previous one.
+			int prev = numbers[0];
+			for (int i = 1; i < numbers.Count; i++)
+			{
+				int curr = numbers[i];
+				if (curr < prev) return false;
 
-			if (left <= curr && curr <= right)
-			{
-				IsBalanced = true;
-				return curr;
+				prev = curr;
 			}
-			else
-			{
-				IsBalanced = false;
-				return -1;
-			}
+
+			return true;
+		}
+
+		private IEnumerable<int> TraverseInOrder(BinaryTreeNode root)
+		{
+			if (root == null) yield break;
+
+			foreach (var number in TraverseInOrder(root.Left).ToList()) yield return number;
+			yield return root.Value;
+			foreach (var number in TraverseInOrder(root.Right).ToList()) yield return number;
 		}
 	}
 }
