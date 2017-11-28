@@ -35,6 +35,18 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			root3.InsertLeft(2).InsertLeft(1);
 			root3.InsertRight(5);
 			yield return new object[] { true, root3 };
+
+
+
+			var root4 = new BinaryTreeNode(50);
+			var l4 = root4.InsertLeft(30);
+			var r4 = root4.InsertRight(80);
+			l4.InsertLeft(20);
+			l4.InsertRight(60);
+			r4.InsertLeft(70);
+			r4.InsertRight(90);
+			yield return new object[] { false, root4 };
+
 		}
 
 		[Theory]
