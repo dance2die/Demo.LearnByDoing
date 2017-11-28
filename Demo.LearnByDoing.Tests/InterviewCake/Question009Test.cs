@@ -62,21 +62,30 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 	class BinaryTreeChecker
 	{
-		
 		public bool IsBinarySearchTree(BinaryTreeNode root)
 		{
-			var numbers = TraverseInOrder(root).ToList();
+			//var numbers = TraverseInOrder(root).ToList();
 
-			// check that next number is bigger than the previous one.
-			int prev = numbers[0];
-			for (int i = 1; i < numbers.Count; i++)
+			//// check that next number is bigger than the previous one.
+			//int prev = numbers[0];
+			//for (int i = 1; i < numbers.Count; i++)
+			//{
+			//	int curr = numbers[i];
+			//	if (curr < prev) return false;
+
+			//	prev = curr;
+			//}
+
+			//return true;
+
+			// 2nd implementation. Iterate only when necessary.
+			var numbers = TraverseInOrder(root);
+			int prev = numbers.FirstOrDefault();
+			foreach (var curr in numbers.Skip(1))
 			{
-				int curr = numbers[i];
 				if (curr < prev) return false;
-
 				prev = curr;
 			}
-
 			return true;
 		}
 
