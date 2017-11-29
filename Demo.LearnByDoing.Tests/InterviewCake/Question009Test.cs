@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
@@ -64,6 +66,27 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	{
 		public bool IsBinarySearchTree(BinaryTreeNode root)
 		{
+			Stack<NodeBounds> boundsStack = new Stack<NodeBounds>();
+			boundsStack.Push(new NodeBounds(root, int.MinValue, int.MaxValue));
+
+			while (boundsStack.Count > 0)
+			{
+				var bounds = boundsStack.Pop();
+				var node = bounds.Node;
+				var lowerBound = bounds.LowerBound;
+				var upperBound = bounds.UpperBound;
+
+				if (lowerBound >= node.Value || node.Value >= upperBound) return false;
+
+				if (node.Left != null) boundsStack.Push(new NodeBounds(node.Left, lowerBound, node.Value));
+				if (node.Right != null) boundsStack.Push(new NodeBounds(node.Right, node.Value, upperBound));
+			}
+
+			return true;
+		}
+
+		public bool IsBinarySearchTree_MyImplmentation(BinaryTreeNode root)
+		{
 			//var numbers = TraverseInOrder(root).ToList();
 
 			//// check that next number is bigger than the previous one.
@@ -96,6 +119,20 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			foreach (var number in TraverseInOrder(root.Left).ToList()) yield return number;
 			yield return root.Value;
 			foreach (var number in TraverseInOrder(root.Right).ToList()) yield return number;
+		}
+	}
+
+	class NodeBounds
+	{
+		public BinaryTreeNode Node { get; set; }
+		public int LowerBound { get; set; }
+		public int UpperBound { get; set; }
+
+		public NodeBounds(BinaryTreeNode node, int lowerBound, int upperBound)
+		{
+			Node = node;
+			LowerBound = lowerBound;
+			UpperBound = upperBound;
 		}
 	}
 }
