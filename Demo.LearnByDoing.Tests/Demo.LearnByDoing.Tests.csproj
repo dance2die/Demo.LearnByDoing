@@ -207,6 +207,7 @@
     <Compile Include="CodeWars\Kyu6\SortTheOddTest.cs" />
     <Compile Include="CodeWars\Kyu6\SplitOddAndEvenTest.cs" />
     <Compile Include="CodeWars\Kyu6\StopgninnipSMysdroWTest.cs" />
+    <Compile Include="CodeWars\Kyu6\StreetFighter2CharacterSelectionTest.cs" />
     <Compile Include="CodeWars\Kyu6\StringBreakersTest.cs" />
     <Compile Include="CodeWars\Kyu6\StringLetterCountingTest.cs" />
     <Compile Include="CodeWars\Kyu6\SumTheTreeTest.cs" />
