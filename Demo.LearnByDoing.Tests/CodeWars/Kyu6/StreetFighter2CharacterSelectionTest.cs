@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
@@ -92,30 +94,47 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 			int x = position[0];
 			int y = position[1];
 
-			var result = new List<string>();
-
-			foreach (string move in moves)
+			var moveMap = new Dictionary<string, Action>
 			{
-				switch (move)
-				{
-					case "up":
-						y = y - 1 < 0 ? 0 : y - 1;
-						break;
-					case "left":
-						x = x - 1 < 0 ? fighters[0].Length - 1 : x - 1;
-						break;
-					case "down":
-						y = y + 1 >= fighters.Length ? fighters.Length - 1 : y + 1;
-						break;
-					case "right":
-						x = x + 1 >= fighters[0].Length ? 0 : x + 1;
-						break;
-				}
+				{"up", () => y = y - 1 < 0 ? 0 : y - 1 },
+				{"left", () => x = x - 1 < 0 ? fighters[0].Length - 1 : x - 1 },
+				{"down", () => y = y + 1 >= fighters.Length ? fighters.Length - 1 : y + 1 },
+				{"right", () => x = x + 1 >= fighters[0].Length ? 0 : x + 1 }
+			};
 
+			var result = new List<string>();
+			moves.ToList().Aggregate(new List<string>(), (acc, move) =>
+			{
+				moveMap[move]();
 				result.Add(fighters[y][x]);
-			}
+				return result;
+			});
 
 			return result.ToArray();
+
+			// old iterative implementation
+			//foreach (string move in moves)
+			//{
+			//	switch (move)
+			//	{
+			//		case "up":
+			//			y = y - 1 < 0 ? 0 : y - 1;
+			//			break;
+			//		case "left":
+			//			x = x - 1 < 0 ? fighters[0].Length - 1 : x - 1;
+			//			break;
+			//		case "down":
+			//			y = y + 1 >= fighters.Length ? fighters.Length - 1 : y + 1;
+			//			break;
+			//		case "right":
+			//			x = x + 1 >= fighters[0].Length ? 0 : x + 1;
+			//			break;
+			//	}
+
+			//	result.Add(fighters[y][x]);
+			//}
+
+			//return result.ToArray();
 		}
 	}
 }
