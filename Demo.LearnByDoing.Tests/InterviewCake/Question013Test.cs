@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
 {
@@ -20,12 +15,15 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 			actual = sut.GetRotationIndex(new string[]{});
 			Assert.Equal(expected, actual);
+
+			actual = sut.GetRotationIndex(new[]{"first"});
+			Assert.Equal(expected, actual);
 		}
 
 		[Fact]
 		public void TestSample()
 		{
-			var words = new string[]
+			var words = new []
 			{
 				"ptolemaic",
 				"retrograde",
@@ -50,7 +48,20 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	{
 		public int GetRotationIndex(string[] words)
 		{
-			if (words == null || words.Length == 0) return 0;
+			if (words == null || words.Length <= 1) return 0;
+
+			// Get previous word.
+			var prev = words[0];
+
+			// Compare the current word with the previous word.
+			// If the current word comes before the previous word then that's the rotation point, so return that index.
+			for (int i = 1; i < words.Length; i++)
+			{
+				var curr = words[i];
+				if (string.CompareOrdinal(curr, prev) < 0) return i;
+
+				prev = curr;
+			}
 
 			return 0;
 		}
