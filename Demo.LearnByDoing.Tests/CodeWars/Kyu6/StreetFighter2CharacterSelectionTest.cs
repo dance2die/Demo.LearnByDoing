@@ -102,12 +102,11 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu6
 				{"right", () => x = x + 1 >= fighters[0].Length ? 0 : x + 1 }
 			};
 
-			var result = new List<string>();
-			moves.ToList().Aggregate(new List<string>(), (acc, move) =>
+			var result = moves.ToList().Aggregate(new List<string>(), (acc, move) =>
 			{
 				moveMap[move]();
-				result.Add(fighters[y][x]);
-				return result;
+				acc.Add(fighters[y][x]);
+				return acc;
 			});
 
 			return result.ToArray();
