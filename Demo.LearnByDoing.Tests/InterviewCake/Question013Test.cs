@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System;
+using System.Collections.Generic;
+using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
 {
@@ -20,25 +22,19 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			Assert.Equal(expected, actual);
 		}
 
-		[Fact]
-		public void TestSample()
+		public static IEnumerable<object[]> SampleCases()
 		{
-			var words = new []
-			{
-				"ptolemaic",
-				"retrograde",
-				"supplant",
-				"undulate",
-				"xenoepist",
-				"asymptote",  // <-- rotates here!
-				"babka",
-				"banoffee",
-				"engender",
-				"karpatka",
-				"othellolagkage",
-			};
+			yield return new object[] {5, new[] { "ptolemaic", "retrograde", "supplant", "undulate", "xenoepist", "asymptote", "babka", "banoffee", "engender", "karpatka", "othellolagkage" } };
+			yield return new object[] {0, new[] { "ab", "bc", "cd", "de", "ef", "fg", "gh", "hi", "ij" } };
+			yield return new object[] {8, new[] { "ij", "hi", "gh", "fg", "ef", "de", "cd", "bc", "ab" } };
+			yield return new object[] {8, new[] { "i", "h", "g", "f", "e", "d", "c", "b", "a" } };
+			yield return new object[] {2, new[] { "s", "x", "a", "b", "c", "d", "e" } };
+		}
 
-			const int expected = 5;
+		[Theory]
+		[MemberData(nameof(SampleCases))]
+		public void TestSample(int expected, string[] words)
+		{
 			int actual = new Question013().GetRotationIndex(words);
 			Assert.Equal(expected, actual);
 		}
@@ -47,6 +43,33 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	public class Question013
 	{
 		public int GetRotationIndex(string[] words)
+		{
+			if (words == null || words.Length <= 1) return 0;
+
+			int start = 0;
+			int end = words.Length - 1;
+			while (start <= end)
+			{
+				int mid = (start + end) / 2;
+				if (mid == 0 || mid == words.Length - 1) return mid;
+				var word = words[mid];
+
+				int left = string.Compare(word, words[mid - 1]);
+				int right = string.Compare(word, words[mid + 1]);
+
+				if (left == 1 && right == 1) return mid + 1;
+				if (left == -1 && right == -1) return mid;
+
+				// move left
+				if (left == 1 && right == -1) end = mid - 1;
+				// move right
+				if (left == -1 && right == 1) start = mid + 1;
+			}
+
+			throw new Exception("Not found!");
+		}
+
+		public int GetRotationIndex_Slow(string[] words)
 		{
 			if (words == null || words.Length <= 1) return 0;
 
