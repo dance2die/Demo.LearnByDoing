@@ -45,7 +45,23 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 	public class Question014
 	{
+		/// <summary>
+		/// Implementation using HashSet (from IC answer)
+		/// </summary>
 		public bool HasCombination(int[] a, int n)
+		{
+			var isSeen = new HashSet<int>();
+			foreach (var currentValue in a)
+			{
+				var compliment = n - currentValue;
+				if (isSeen.Contains(compliment)) return true;
+				isSeen.Add(currentValue);
+			}
+
+			return false;
+		}
+
+		public bool HasCombinationGood(int[] a, int n)
 		{
 			var map = a.GroupBy(x => x).ToDictionary(o => o.Key, o => o.Count());
 
