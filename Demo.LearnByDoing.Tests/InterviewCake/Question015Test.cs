@@ -19,6 +19,14 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			Assert.Equal(expected, actual);
 		}
 
+		[Theory]
+		[MemberData(nameof(GetSampleData))]
+		public void TestSampleDataUsingBitnetsFormula(int n, int expected)
+		{
+			int actual = _sut.GetNthFibUsingBinetsFormula(n);
+			Assert.Equal(expected, actual);
+		}
+
 		public static IEnumerable<object[]> GetSampleData()
 		{
 			yield return new object[]{0, 0};
@@ -36,6 +44,21 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 	internal class Question015
 	{
+		/// <summary>
+		/// https://artofproblemsolving.com/wiki/index.php?title=Binet%27s_Formula
+		/// </summary>
+		public int GetNthFibUsingBinetsFormula(int n)
+		{
+			double sqrt5 = Math.Sqrt(5);
+
+			return (int)((1 / sqrt5) *
+			             (
+				             Math.Pow((1 + sqrt5) / 2, n)
+				             -
+				             Math.Pow((1 - sqrt5) / 2, n)
+			             ));
+		}
+
 		public int GetNthFib(int n)
 		{
 			if (n < 2) return n;
