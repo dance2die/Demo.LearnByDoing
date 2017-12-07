@@ -165,6 +165,7 @@
     <Compile Include="CodeWars\Kyu5\SimpleFun166BestMatchTest.cs" />
     <Compile Include="CodeWars\Kyu5\SimplePigLatinTest.cs" />
     <Compile Include="CodeWars\Kyu5\TicTacToeCheckerTest.cs" />
+    <Compile Include="CodeWars\Kyu5\ValidParenthesesTest.cs" />
     <Compile Include="CodeWars\Kyu5\WeightForWeightTest.cs" />
     <Compile Include="CodeWars\Kyu5\WhatDoesntBelongToTheseTest.cs" />
     <Compile Include="CodeWars\Kyu5\WhereMyAnagramsAtTest.cs" />
