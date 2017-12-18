@@ -38,6 +38,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 			for (int rowIndex = 0; rowIndex < cakeTypes.Length; rowIndex++)
 			{
+				int maxCapacity = 0;
 				for (int currentCapacity = 1; currentCapacity <= capacity; currentCapacity++)
 				{
 					var cake = cakeTypes[rowIndex];
@@ -54,11 +55,12 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 					// currentMax = current value + Remaining space value.
 					var multiplier = currentCapacity / cake.Weight;
 					var currentValue = cake.Value * multiplier;
-					var remainingSpace = currentCapacity - (cake.Weight * multiplier);
-					var remainingSpaceValue = rowIndex == 0 ? 0 : duffleBag[rowIndex - 1, remainingSpace];
+					var remainingSpace = capacity - (cake.Weight * multiplier);
+					var remainingSpaceValue = rowIndex == 0 ? 0 : duffleBag[rowIndex, remainingSpace];
 					var currentMax = currentValue + remainingSpaceValue;
 
-					duffleBag[rowIndex, currentCapacity] = (int) Math.Max(previousMax, currentMax);
+					var newMax = (int) Math.Max(previousMax, currentMax);
+					duffleBag[rowIndex, currentCapacity] = newMax;
 				}
 			}
 
