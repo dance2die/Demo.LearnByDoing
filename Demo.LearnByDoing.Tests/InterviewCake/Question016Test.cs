@@ -21,6 +21,20 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 		public static IEnumerable<object[]> GetSampleCases()
 		{
+			yield return new object[]{0, new []
+			{
+				new CakeType(0, 0),
+				new CakeType(0, 0),
+				new CakeType(0, 0),
+			}, 0};
+
+			yield return new object[]{0, new []
+			{
+				new CakeType(2, 15),
+				new CakeType(7, 160),
+				new CakeType(3, 90),
+			}, 0};
+
 			yield return new object[]{555, new []
 			{
 				new CakeType(2, 15),
