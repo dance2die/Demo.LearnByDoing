@@ -40,7 +40,7 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Challenges
 
 		string[] SortByZ(string[] g, int z)
 		{
-			return g.OrderBy(word => word[z - 1]).ToArray();
+			return g.OrderBy(word => word.ToLower()[z - 1]).ToArray();
 		}
 
 	}
