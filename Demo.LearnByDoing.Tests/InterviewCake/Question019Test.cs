@@ -42,12 +42,16 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 		public void EnqeueRange(int[] input)
 		{
-			
+			foreach (var value in input)
+				InStack.Push(value);
+
+			while (InStack.Count > 0)
+				OutStack.Push(InStack.Pop());
 		}
 
 		public int[] DequeueAll()
 		{
-			return null;
+			return OutStack.ToArray();
 		}
 	}
 }
