@@ -12,6 +12,16 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	/// </summary>
 	public class Question019Test
 	{
+		public static IEnumerable<object[]> GetSampleCases()
+		{
+			yield return new object[] { Enumerable.Range(1, 10).ToArray() };
+			yield return new object[] { new [] { 3, 2, 1 } };
+			yield return new object[] { new [] { 1 } };
+			yield return new object[] { new [] { 2 } };
+			yield return new object[] { new [] { 3 } };
+			yield return new object[] { new [] { 3, 5, 7, 1, 2, 3 } };
+		}
+
 		[Theory]
 		[MemberData(nameof(GetSampleCases))]
 		public void TestSampleCases(int[] input)
@@ -24,14 +34,16 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			Assert.True(expected.SequenceEqual(actual));
 		}
 
-		public static IEnumerable<object[]> GetSampleCases()
+		[Fact]
+		public void TestOneOffCases()
 		{
-			yield return new object[] { Enumerable.Range(1, 10).ToArray() };
-			yield return new object[] { new [] { 3, 2, 1 } };
-			yield return new object[] { new [] { 1 } };
-			yield return new object[] { new [] { 2 } };
-			yield return new object[] { new [] { 3 } };
-			yield return new object[] { new [] { 3, 5, 7, 1, 2, 3 } };
+			var sut = new QueueWithTwoStacks();
+			sut.Enqueue(1);
+			Assert.Equal(1, sut.Dequeue());
+			sut.Enqueue(2);
+			sut.Enqueue(3);
+			Assert.Equal(2, sut.Dequeue());
+			Assert.Equal(3, sut.Dequeue());
 		}
 	}
 
@@ -39,6 +51,19 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	{
 		public Stack<int> InStack { get; set; } = new Stack<int>();
 		public Stack<int> OutStack { get; set; } = new Stack<int>();
+
+		public void Enqueue(int value)
+		{
+			InStack.Push(value);
+		}
+
+		public int Dequeue()
+		{
+			// 3, 2, 1? How to get them from the end?
+			while (InStack.Count > 0) OutStack.Push(InStack.Pop());
+
+			return OutStack.Pop();
+		}
 
 		public void EnqeueRange(int[] input)
 		{
