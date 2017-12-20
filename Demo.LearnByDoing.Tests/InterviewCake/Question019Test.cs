@@ -39,9 +39,10 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		{
 			var sut = new QueueWithTwoStacks();
 			sut.Enqueue(1);
-			Assert.Equal(1, sut.Dequeue());
 			sut.Enqueue(2);
+			Assert.Equal(1, sut.Dequeue());
 			sut.Enqueue(3);
+			sut.Enqueue(4);
 			Assert.Equal(2, sut.Dequeue());
 			Assert.Equal(3, sut.Dequeue());
 		}
@@ -59,8 +60,9 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 		public int Dequeue()
 		{
-			// 3, 2, 1? How to get them from the end?
-			while (InStack.Count > 0) OutStack.Push(InStack.Pop());
+			if (OutStack.Count == 0)
+				// 3, 2, 1? How to get them from the end?
+				while (InStack.Count > 0) OutStack.Push(InStack.Pop());
 
 			return OutStack.Pop();
 		}
