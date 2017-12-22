@@ -62,20 +62,36 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		private readonly Stack<int> _valueStack = new Stack<int>();
 		private readonly Stack<int> _maxStack = new Stack<int>();
 
-		public int Pop()
-		{
-			_maxStack.Pop();
-			return _valueStack.Pop();
-		}
-
 		public int Push(int value)
 		{
-			if (_maxStack.Count == 0) _maxStack.Push(value);
-			else _maxStack.Push(value > _maxStack.Peek() ? value : _maxStack.Peek());
-
 			_valueStack.Push(value);
+			if (_maxStack.Count == 0 || value >= _maxStack.Peek())
+				_maxStack.Push(value);
 			return value;
 		}
+
+		public int Pop()
+		{
+			int value = _valueStack.Pop();
+			if (value == _maxStack.Peek())
+				_maxStack.Pop();
+			return value;
+		}
+
+		//public int Pop()
+		//{
+		//	_maxStack.Pop();
+		//	return _valueStack.Pop();
+		//}
+
+		//public int Push(int value)
+		//{
+		//	if (_maxStack.Count == 0) _maxStack.Push(value);
+		//	else _maxStack.Push(value > _maxStack.Peek() ? value : _maxStack.Peek());
+
+		//	_valueStack.Push(value);
+		//	return value;
+		//}
 
 		public int GetMax()
 		{
