@@ -15,7 +15,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	/// </summary>
 	public class Question020Test
 	{
-		public static IEnumerable<object[]> GetSampleData()
+		public static IEnumerable<object[]> GetAllPushCases()
 		{
 			yield return new object[] {new [] {1, 3, 2, 10, 99, -1, 7, 8, 35}, 99};
 			yield return new object[] {new [] {9, 8, 7, 6, 5}, 9};
@@ -24,8 +24,8 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		}
 
 		[Theory]
-		[MemberData(nameof(GetSampleData))]
-		public void TestSampleCases(int[] input, int expected)
+		[MemberData(nameof(GetAllPushCases))]
+		public void TestAllPushes(int[] input, int expected)
 		{
 			var sut = new MaxStack();
 			foreach (int value in input)
@@ -36,25 +36,50 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			int actual = sut.GetMax();
 			Assert.Equal(expected, actual);
 		}
+
+		[Fact]
+		public void TestPushPop()
+		{
+			var sut = new MaxStack();
+			sut.Push(1);
+			sut.Push(2);
+			sut.Push(3);
+			Assert.Equal(3, sut.GetMax());
+			sut.Pop();
+			Assert.Equal(2, sut.GetMax());
+			sut.Push(99);
+			sut.Push(33);
+			Assert.Equal(99, sut.GetMax());
+			sut.Pop();
+			Assert.Equal(99, sut.GetMax());
+			sut.Pop();
+			Assert.Equal(2, sut.GetMax());
+		}
 	}
 
 	public class MaxStack
 	{
-		private int _max = int.MinValue;
-		private readonly Stack<int> _stack = new Stack<int>();
+		private readonly Stack<int> _valueStack = new Stack<int>();
+		private readonly Stack<int> _maxStack = new Stack<int>();
+
+		public int Pop()
+		{
+			_maxStack.Pop();
+			return _valueStack.Pop();
+		}
 
 		public int Push(int value)
 		{
-			if (value > _max)
-				_max = value;
-			_stack.Push(value);
+			if (_maxStack.Count == 0) _maxStack.Push(value);
+			else _maxStack.Push(value > _maxStack.Peek() ? value : _maxStack.Peek());
 
+			_valueStack.Push(value);
 			return value;
 		}
 
 		public int GetMax()
 		{
-			return _max;
+			return _maxStack.Peek();
 		}
 	}
 }
