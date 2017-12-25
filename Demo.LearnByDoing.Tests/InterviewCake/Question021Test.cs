@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
@@ -27,12 +28,61 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			Assert.Equal(expected, actual);
 		}
 
+		[Theory]
+		[MemberData(nameof(GetSampleData))]
+		public void TestSampleCasesUsingLinq(int expected, int[] deliveryIdConfirmations)
+		{
+			int actual = FindUniqueIntegerUsingLinq(deliveryIdConfirmations);
+			Assert.Equal(expected, actual);
+		}
+
+		[Theory]
+		[MemberData(nameof(GetSampleData))]
+		public void TestSampleCasesUsingHashtable(int expected, int[] deliveryIdConfirmations)
+		{
+			int actual = FindUniqueIntegerUsingHashtable(deliveryIdConfirmations);
+			Assert.Equal(expected, actual);
+		}
+
 		public static IEnumerable<object[]> GetSampleData()
 		{
 			yield return new object[] { 1, new[] { 1 } };
 			yield return new object[] { 1, new[] { 22, 22, 3, 3, 1, 4, 4 } };
 			yield return new object[] { 99, new[] { 99, 22, 22, 3, 3, 1, 1, 4, 4 } };
 			yield return new object[] { 44, new[] { 22, 22, 3, 3, 1, 1, 4, 4, 44 } };
+		}
+
+		private int FindUniqueIntegerUsingHashtable(int[] deliveryIdConfirmations)
+		{
+			if (deliveryIdConfirmations == null || deliveryIdConfirmations.Length == 0)
+				throw new ArgumentException("There should be at least 1 record", nameof(deliveryIdConfirmations));
+
+			Dictionary<int, int> countMap = new Dictionary<int, int>();
+			foreach (var id in deliveryIdConfirmations)
+			{
+				if (!countMap.ContainsKey(id))
+					countMap.Add(id, 0);
+				countMap[id]++;
+			}
+
+			foreach (KeyValuePair<int, int> pair in countMap)
+			{
+				if (pair.Value == 1)
+					return pair.Key;
+			}
+
+			throw new ArgumentException("Could not find a unique ID!");
+		}
+
+		private int FindUniqueIntegerUsingLinq(int[] deliveryIdConfirmations)
+		{
+			if (deliveryIdConfirmations == null || deliveryIdConfirmations.Length == 0)
+				throw new ArgumentException("There should be at least 1 record", nameof(deliveryIdConfirmations));
+
+			return deliveryIdConfirmations
+				.GroupBy(id => id)
+				.ToDictionary(g => g.Key, g => g.Count())
+				.Single(pair => pair.Value == 1).Key;
 		}
 
 		private int FindUniqueInteger(int[] deliveryIdConfirmations)
