@@ -18,6 +18,10 @@ namespace Demo.LearnByDoing.Tests.Algorithms.Sorting
 		/// Perform in-place insertion sort.
 		/// <see cref="https://www.youtube.com/watch?v=c4BRHC7kTaQ"/>
 		/// </summary>
+		/// <remarks>
+		/// Best: O(N) when the input is pre-sorted.
+		/// Worst: O(N^2) when the input is sorted backwards.
+		/// </remarks>
 		private int[] InsertionSort(int[] input)
 		{
 			for (int i = 0; i < input.Length; i++)
