@@ -31,8 +31,12 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			four.Next = five;
 
 			Assert.False(ContainsCycle(head));
+			Assert.False(ContainsCycleWithSet(head));
+			Assert.False(ContainsCycleUsingAnswer(head));
 			five.Next = three;
 			Assert.True(ContainsCycle(head));
+			Assert.True(ContainsCycleWithSet(head));
+			Assert.True(ContainsCycleUsingAnswer(head));
 		}
 
 		[Fact]
