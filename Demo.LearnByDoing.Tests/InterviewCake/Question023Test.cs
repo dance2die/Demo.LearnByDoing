@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
@@ -20,7 +16,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	public class Question023Test
 	{
 		[Fact]
-		public void TestForACycle()
+		public void TestForCycleInTheMiddle()
 		{
 			// Cycle starts @ value 3
 			// 1 -> 2 -> 3 -> 4 -> 5 -> 3 -> ...
@@ -36,6 +32,26 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 			Assert.False(ContainsCycle(head));
 			five.Next = three;
+			Assert.True(ContainsCycle(head));
+		}
+
+		[Fact]
+		public void TestForCycleInTheBeginning()
+		{
+			// Cycle starts @ value 3
+			// 1 -> 2 -> 3 -> 4 -> 5 -> 1 -> ...
+			LinkedListNode head = new LinkedListNode(1);
+			var two = new LinkedListNode(2);
+			var three = new LinkedListNode(3);
+			var four = new LinkedListNode(4);
+			var five = new LinkedListNode(5);
+			head.Next = two;
+			two.Next = three;
+			three.Next = four;
+			four.Next = five;
+
+			Assert.False(ContainsCycle(head));
+			five.Next = head;
 			Assert.True(ContainsCycle(head));
 		}
 
