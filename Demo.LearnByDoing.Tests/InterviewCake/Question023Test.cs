@@ -51,11 +51,32 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			four.Next = five;
 
 			Assert.False(ContainsCycle(head));
+			Assert.False(ContainsCycleWithSet(head));
 			five.Next = head;
 			Assert.True(ContainsCycle(head));
+			Assert.True(ContainsCycleWithSet(head));
 		}
 
 		public bool ContainsCycle(LinkedListNode head)
+		{
+			var root = head;
+			var ahead = head;
+
+			while (root != null)
+			{
+				root = root.Next;
+				if (root.Next == null) return false;
+
+				if (ahead.Next?.Next == null) return false;
+				ahead = ahead.Next.Next;
+
+				if (ahead.Next == root || ahead == root) return true;
+			}
+
+			return false;
+		}
+
+		public bool ContainsCycleWithSet(LinkedListNode head)
 		{
 			var root = head;
 			// if we had visited the node, add it to the list.
