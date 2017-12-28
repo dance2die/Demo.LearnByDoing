@@ -195,6 +195,7 @@
     <Compile Include="CodeWars\Kyu6\HighestScoringWordTest.cs" />
     <Compile Include="CodeWars\Kyu6\IntegerDepthTest.cs" />
     <Compile Include="CodeWars\Kyu6\IQTestTest.cs" />
+    <Compile Include="CodeWars\Kyu6\LinkedListsInsertNthNodeTest.cs" />
     <Compile Include="CodeWars\Kyu6\LongestPalindromeTest.cs" />
     <Compile Include="CodeWars\Kyu6\MakeTheDeadFishSwimTest.cs" />
     <Compile Include="CodeWars\Kyu6\MazeRunnerTest.cs" />
