@@ -44,8 +44,18 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			Assert.True(expected.Traverse().SequenceEqual(actual.Traverse()));
 		}
 
+		[Fact]
+		public void TestEdgeCases()
+		{
+			Assert.Null(ReverseLinkedList(null));
+			var expected = 1;
+			Assert.Equal(expected, ReverseLinkedList(new LinkedListNode(1)).Value);
+		}
+
 		private LinkedListNode ReverseLinkedList(LinkedListNode head)
 		{
+			if (head == null) return null;
+
 			LinkedListNode prev = null;
 			var current = head;
 			var next = head.Next;
