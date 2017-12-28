@@ -50,12 +50,21 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			var current = head;
 			var next = head.Next;
 
+			//while (true)
+			//{
+			//	current.Next = prev;
+			//	prev = current;
+			//	current = next;
+			//	if (next == null) return prev;
+			//	next = next.Next;
+			//}
 			while (true)
 			{
 				current.Next = prev;
 				prev = current;
+				if (next == null) return current;
 				current = next;
-				if (next == null) return prev;
+				//if (current == null) return prev;
 				next = next.Next;
 			}
 		}
