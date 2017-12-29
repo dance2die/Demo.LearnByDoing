@@ -32,7 +32,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	/// }
 	/// 
 	/// </summary>
-	public class Question024Test
+	public class Question025Test
 	{
 		[Fact]
 		public void TestReverse()
