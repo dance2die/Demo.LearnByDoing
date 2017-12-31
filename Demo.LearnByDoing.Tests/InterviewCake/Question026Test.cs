@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
@@ -35,7 +31,25 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		{
 			public string ReverseInPlace(string input)
 			{
-				return string.Empty;
+				var middleIndex = (input.Length - 1) / 2;
+				var leftIndex = middleIndex;
+				var rightIndex = leftIndex + (input.Length % 2 == 0 ? 1 : 0);
+				var a = input.ToCharArray();
+
+				for (; leftIndex >= 0; leftIndex--, rightIndex++)
+				{
+					if (leftIndex == rightIndex) continue;
+					Swap(a, leftIndex, rightIndex);
+				}
+
+				return string.Concat(a);
+			}
+
+			private void Swap(char[] a, int i, int j)
+			{
+				var temp = a[i];
+				a[i] = a[j];
+				a[j] = temp;
 			}
 		}
 	}
