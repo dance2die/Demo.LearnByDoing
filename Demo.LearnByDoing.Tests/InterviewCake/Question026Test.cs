@@ -19,6 +19,9 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			var sut = new StringReverser();
 			var actual = sut.ReverseInPlace(input);
 			Assert.Equal(expected, actual);
+
+			var actual2 = sut.ReverseInPlace2(input);
+			Assert.Equal(expected, actual2);
 		}
 
 		public static IEnumerable<object[]> GetSampleCases()
@@ -29,6 +32,26 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 		public class StringReverser
 		{
+			/// <summary>
+			/// Implementation using Answer on InterviewCake
+			/// </summary>
+			public string ReverseInPlace2(string input)
+			{
+				int startIndex = 0;
+				int endIndex = input.Length - 1;
+				var a = input.ToCharArray();
+
+				while (startIndex < endIndex)
+				{
+					Swap(a, startIndex, endIndex);
+
+					startIndex++;
+					endIndex--;
+				}
+
+				return new string(a);
+			}
+
 			public string ReverseInPlace(string input)
 			{
 				var middleIndex = (input.Length - 1) / 2;
