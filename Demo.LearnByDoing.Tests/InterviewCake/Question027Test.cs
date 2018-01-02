@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
@@ -49,6 +45,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 			yield return new object[] {"whatever you do", "do you whatever"};
 			yield return new object[] {"abc", "abc"};
+			yield return new object[] {"", ""};
 			yield return new object[] {"abc def", "def abc"};
 		}
 
@@ -56,7 +53,23 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		{
 			public string ReverseWords(string sentence)
 			{
-				return null;
+				string[] words = sentence.Split(' ');
+				if (words.Length <= 1) return sentence;
+
+				int startIndex = 0;
+				int endIndex = words.Length - 1;
+
+				while (startIndex < endIndex)
+				{
+					var tempWord = words[startIndex];
+					words[startIndex] = words[endIndex];
+					words[endIndex] = tempWord;
+
+					startIndex++;
+					endIndex--;
+				}
+
+				return string.Join(" ", words);
 			}
 		}
 	}
