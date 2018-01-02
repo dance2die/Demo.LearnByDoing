@@ -31,8 +31,10 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		{
 			var sut = new SentenceReverser();
 			var actual = sut.ReverseWords(sentence);
+			var actual2 = sut.ReverseWordsByChar(sentence);
 
 			Assert.Equal(expected, actual);
+			Assert.Equal(expected, actual2);
 		}
 
 		public static IEnumerable<object[]> GetSampleCases()
@@ -51,6 +53,43 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
 		class SentenceReverser
 		{
+			public string ReverseWordsByChar(string sentence)
+			{
+				char[] characters = sentence.ToCharArray();
+				ReverseCharacters(characters, 0, characters.Length - 1);
+
+				int wordStartIndex = 0;
+				for (int i = 0; i <= characters.Length; i++)
+				{
+					// if end of word or next character is a space, we are dealing with a word.
+					if (i == characters.Length || characters[i] == ' ')
+					{
+						ReverseCharacters(characters, wordStartIndex, i - 1);
+						wordStartIndex = i + 1;
+					}
+				}
+
+				return new string(characters);
+			}
+
+			private void ReverseCharacters(char[] a, int startIndex, int endIndex)
+			{
+				while (startIndex < endIndex)
+				{
+					Swap(a, startIndex, endIndex);
+
+					startIndex++;
+					endIndex--;
+				}
+			}
+
+			private void Swap(char[] a, int i, int j)
+			{
+				var temp = a[i];
+				a[i] = a[j];
+				a[j] = temp;
+			}
+
 			public string ReverseWords(string sentence)
 			{
 				string[] words = sentence.Split(' ');
