@@ -52,7 +52,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			// if you run into a closer, then pop the stack. If the closer does not match, return false else carry on.
 
 			var openMap = new Dictionary<char, char> { { '{', '}' }, { '(', ')' }, { '[', ']' } };
-			var closeMap = new Dictionary<char, char> { { '}', '{' }, { ')', '(' }, { ']', '[' } };
+			var closeMap = new HashSet<char>(openMap.Values);
 			var bracketStack = new Stack<char>();
 
 			foreach (var c in input)
@@ -61,7 +61,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 				{
 					bracketStack.Push(openMap[c]);
 				}
-				else if (closeMap.ContainsKey(c))
+				else if (closeMap.Contains(c))
 				{
 					var closingBracket = bracketStack.Pop();
 					if (c != closingBracket) return false;
