@@ -36,13 +36,26 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		public void TestSampleCases(bool expected, string word)
 		{
 			var sut = new Question30();
-			var actual = sut.IsPermutationPalindrome(word);
-			Assert.Equal(expected, actual);
+			Assert.Equal(expected, sut.IsPermutationPalindrome(word));
+			Assert.Equal(expected, sut.IsPermutationPalindrome2(word));
 		}
 	}
 
 	public class Question30
 	{
+		public bool IsPermutationPalindrome2(string word)
+		{
+			var oddSet = new HashSet<char>();
+			foreach (char c in word)
+			{
+				if (!oddSet.Contains(c))
+					oddSet.Add(c);
+				else oddSet.Remove(c);
+			}
+
+			return oddSet.Count <= 1;
+		}
+
 		public bool IsPermutationPalindrome(string word)
 		{
 			// if XOR'ed string length is 0 or 1, then it's a palindrome.
