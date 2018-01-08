@@ -48,9 +48,10 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			var oddSet = new HashSet<char>();
 			foreach (char c in word)
 			{
-				if (!oddSet.Contains(c))
+				if (oddSet.Contains(c))
+					oddSet.Remove(c);
+				else
 					oddSet.Add(c);
-				else oddSet.Remove(c);
 			}
 
 			return oddSet.Count <= 1;
