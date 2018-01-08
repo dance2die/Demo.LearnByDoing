@@ -298,6 +298,7 @@
     <Compile Include="InterviewCake\Question027Test.cs" />
     <Compile Include="InterviewCake\Question028Test.cs" />
     <Compile Include="InterviewCake\Question029Test.cs" />
+    <Compile Include="InterviewCake\Question30Test.cs" />
     <Compile Include="LeetCode\Medium\AddTwoNumbersTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\DoublyLinkedListTest.cs" />
     <Compile Include="MissionInterview\01-DataStructures\DoublySungLinkedList.cs" />
