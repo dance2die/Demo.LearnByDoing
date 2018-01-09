@@ -21,7 +21,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	/// 
 	/// If you had this thought, read the question again carefully. We're asking if any permutation of the string is a palindrome. Spend some extra time ensuring you fully understand the question before starting. Jumping in with a flawed understanding of the problem doesn't look good in an interview.
 	/// </summary>
-	public class Question30Test
+	public class Question030Test
 	{
 		public static IEnumerable<object[]> GetSampleCases()
 		{
@@ -35,13 +35,13 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		[MemberData(nameof(GetSampleCases))]
 		public void TestSampleCases(bool expected, string word)
 		{
-			var sut = new Question30();
+			var sut = new Question030();
 			Assert.Equal(expected, sut.IsPermutationPalindrome(word));
 			Assert.Equal(expected, sut.IsPermutationPalindrome2(word));
 		}
 	}
 
-	public class Question30
+	public class Question030
 	{
 		public bool IsPermutationPalindrome2(string word)
 		{
