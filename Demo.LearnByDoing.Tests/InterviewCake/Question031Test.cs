@@ -33,6 +33,23 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 				"acdb","cadb","badc","abdc",
 				"dbac","bdac","adbc","dabc"
 			}};
+			yield return new object[] { "abcde", new[]
+			{
+				"abcde","bacde","cabde","acbde","bcade","cbade","cbdae","bcdae","dcbae","cdbae","bdcae",
+				"dbcae","dacbe","adcbe","cdabe","dcabe","acdbe","cadbe","badce","abdce","dbace","bdace",
+				"adbce","dabce","eabcd","aebcd","beacd","ebacd","abecd","baecd","baced","abced","cbaed",
+				"bcaed","acbed","cabed","cebad","ecbad","bcead","cbead","ebcad","becad","aecbd","eacbd",
+				"caebd","acebd","ecabd","ceabd","deabc","edabc","adebc","daebc","eadbc","aedbc","aebdc",
+				"eabdc","baedc","abedc","ebadc","beadc","bdaec","dbaec","abdec",
+				"badec","dabec","adbec","edbac","debac","bedac","ebdac","dbeac",
+				"bdeac","cdeab","dceab","ecdab","cedab","decab","edcab","edacb",
+				"deacb","aedcb","eadcb","daecb","adecb","acedb","caedb","eacdb",
+				"aecdb","ceadb","ecadb","dcaeb","cdaeb","adceb","daceb","cadeb",
+				"acdeb","bcdea","cbdea","dbcea","bdcea","cdbea","dcbea","dceba",
+				"cdeba","edcba","decba","cedba","ecdba","ebdca","bedca","debca",
+				"edbca","bdeca","dbeca","cbeda","bceda","ecbda","cebda","becda",
+				"ebcda",
+			}};
 		}
 
 		[Theory]
