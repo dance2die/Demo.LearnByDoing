@@ -27,6 +27,15 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			yield return new object[] { "a", new[] { "a" } };
 			yield return new object[] { "ab", new[] { "ab", "ba" } };
 			yield return new object[] { "abc", new[] { "abc", "acb", "bac", "bca", "cab", "cba" } };
+			yield return new object[] { "abcd", new[]
+			{
+				"abcd","bacd","cabd","acbd",
+				"bcad","cbad","cbda","bcda",
+				"dcba","cdba","bdca","dbca",
+				"dacb","adcb","cdab","dcab",
+				"acdb","cadb","badc","abdc",
+				"dbac","bdac","adbc","dabc"
+			}};
 		}
 
 		[Theory]
