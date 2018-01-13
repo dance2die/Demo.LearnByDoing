@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
@@ -53,12 +50,12 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 	{
 		public string[] GetPermutations(string input)
 		{
-			return FillPermutations(input, 0).ToArray();
+			return FillPermutations(input).ToArray();
 		}
 
-		private IEnumerable<string> FillPermutations(string input, int startIndex)
+		private IEnumerable<string> FillPermutations(string input)
 		{
-			if (startIndex >= input.Length) yield return input;
+			if (input.Length == 1) yield return input;
 			else if (input.Length == 2)
 			{
 				yield return input;
@@ -69,12 +66,11 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 				for (int i = 0; i < input.Length; i++)
 				{
 					string prefix = input[i].ToString();
-					int endIndex = i - startIndex;
-					string left = input.Substring(startIndex, endIndex);
-					string right = input.Substring(endIndex + 1);
+					string left = input.Substring(0, i);
+					string right = input.Substring(i + 1);
 					string newInput = left + right;
 
-					foreach (var rest in FillPermutations(newInput, startIndex + 1))
+					foreach (var rest in FillPermutations(newInput))
 					{
 						yield return prefix + rest;
 					}
