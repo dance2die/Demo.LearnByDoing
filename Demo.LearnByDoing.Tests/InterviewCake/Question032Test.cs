@@ -39,10 +39,53 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			const int highestPossibleScore = 100;
 
 			// sortedScores: [91, 89, 65, 53, 41, 37]
-			int[] actual = SortScores(unsortedScores, highestPossibleScore);
+			int[] actual = SortScores2(unsortedScores, highestPossibleScore);
 			int[] expected = { 91, 89, 65, 53, 41, 37 };
 
 			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		[Fact]
+		public void TestDuplicateValueCase()
+		{
+			int[] unsortedScores = { 37, 89, 41, 65, 91, 53, 91, 89 };
+			const int highestPossibleScore = 100;
+
+			int[] actual = SortScores2(unsortedScores, highestPossibleScore);
+			int[] expected = { 91, 91, 89, 89, 65, 53, 41, 37 };
+
+			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		private int[] SortScores2(int[] unsortedScores, int highestPossibleScore)
+		{
+			// Create an array with length of "highestPossibleScore"
+			int[] scores = new int[highestPossibleScore + 1];
+
+			// Iterate "unsortedScores" and use score as the index and value as the count.
+			foreach (int score in unsortedScores)
+			{
+				if (scores[score] == default)
+					scores[score] = 0;
+				scores[score]++;
+			}
+
+			// Iterate "complements" backwards.
+			var result = new List<int>(unsortedScores.Length);
+			for (int i = highestPossibleScore; i >= 0 ; i--)
+			{
+				var score = i;
+				var count = scores[score];
+				if (count != default)
+				{
+					for (int j = 0; j < count; j++)
+					{
+						result.Add(score);
+					}
+				}
+			}
+
+			return result.ToArray();
 		}
 
 		private int[] SortScores(int[] unsortedScores, int highestPossibleScore)
