@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.InterviewCake
@@ -23,9 +24,28 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			Assert.Equal(expected, actual);
 		}
 
+		[Theory]
+		[MemberData(nameof(GetSampleCases))]
+		public void TestMathVersion(int expected, int[] input)
+		{
+			int actual = FindDupeUsingMath(input);
+			Assert.Equal(expected, actual);
+		}
+
 		public static IEnumerable<object[]> GetSampleCases()
 		{
-			yield return new object[] {3, new[] { 1, 2, 3, 4, 3, 5, 6, 7 } };
+			yield return new object[] {1, new[] { 1, 2, 3, 1, 4 } };
+			yield return new object[] {2, new[] { 1, 2, 3, 4, 2 } };
+			yield return new object[] {3, new[] { 4, 1, 2, 3, 3 } };
+		}
+
+		private int FindDupeUsingMath(int[] input)
+		{
+			int n = input.Length;
+			int expectedSum = Enumerable.Range(1, n).Sum();
+			int actualSum = input.Sum();
+
+			return n - expectedSum + actualSum;
 		}
 
 		private int FindDupeUsingHash(int[] input)
