@@ -19,10 +19,31 @@ namespace Demo.LearnByDoing.Tests.CodeFights.CommonTechniques
 			queries[1] = new[] { 2, 5 };
 			queries[2] = new[] { 0, 5 };
 
-			int actual = GetSumInRange(nums, queries);
+			int actual = GetSumInRange2(nums, queries);
 			const int expected = 10;
 
 			Assert.Equal(expected, actual);
+		}
+
+		private int GetSumInRange2(int[] nums, int[][] queries)
+		{
+			var cumulativeSums = new int[nums.Length];
+			cumulativeSums[0] = nums[0];
+			for (int i = 1; i < nums.Length; i++)
+			{
+				cumulativeSums[i] = cumulativeSums[i - 1] + nums[i];
+			}
+
+			int total = 0;
+			foreach (int[] query in queries)
+			{
+				int f = query[0];
+				int t = query[1];
+				total += cumulativeSums[t] - (f == 0 ? 0 : cumulativeSums[f - 1]);
+			}
+
+			var mod = 1000000007;
+			return (total % mod + mod) % mod;
 		}
 
 		private int GetSumInRange(int[] nums, int[][] queries)
