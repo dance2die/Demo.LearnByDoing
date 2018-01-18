@@ -42,7 +42,9 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		private int FindDupeUsingMath(int[] input)
 		{
 			int n = input.Length;
-			int expectedSum = Enumerable.Range(1, n).Sum();
+			//int expectedSum = Enumerable.Range(1, n).Sum();
+			// Using Triagnular series sum (n^2 + n) / 2
+			int expectedSum = (n * n + n) / 2;
 			int actualSum = input.Sum();
 
 			return n - expectedSum + actualSum;
