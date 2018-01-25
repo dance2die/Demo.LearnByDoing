@@ -34,7 +34,7 @@ namespace Demo.LearnByDoing.Tests.CodeFights.CommonTechniques
 				cumulativeSums[i] = cumulativeSums[i - 1] + nums[i];
 			}
 
-			int total = 0;
+			long total = 0;
 			foreach (int[] query in queries)
 			{
 				int f = query[0];
@@ -43,7 +43,7 @@ namespace Demo.LearnByDoing.Tests.CodeFights.CommonTechniques
 			}
 
 			var mod = 1000000007;
-			return (total % mod + mod) % mod;
+			return (int) ((total % mod + mod) % mod);
 		}
 
 		private int GetSumInRange(int[] nums, int[][] queries)
