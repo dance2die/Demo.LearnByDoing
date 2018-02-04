@@ -36,13 +36,26 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			Assert.Equal(expected, actual);
 		}
 
+		[Theory]
+		[MemberData(nameof(GetSampleCases))]
+		public void TestSampleCasesWithoutModifyingInput(int expected, int[] input)
+		{
+			int actual = GetDuplicateWithoutModifyingInput(input);
+			Assert.Equal(expected, actual);
+		}
+
 		public static IEnumerable<object[]> GetSampleCases()
 		{
 			//									   0  1  2  3  4
-			yield return new object[] { 2, new[] { 2, 3, 1, 2, 3 } };
+			yield return new object[] { 2, new[] { 2, 3, 1, 2, 1 } };
 			yield return new object[] { 1, new[] { 1, 2, 3, 1, 3 } };
 			yield return new object[] { 2, new[] { 1, 2, 3, 2, 2 } };
 			yield return new object[] { 3, new[] { 3, 1, 2, 3, 3 } };
+		}
+
+		private int GetDuplicateWithoutModifyingInput(int[] input)
+		{
+			return -1;
 		}
 
 		private int GetDuplicate(int[] a)
