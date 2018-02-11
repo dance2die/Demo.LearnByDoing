@@ -69,8 +69,9 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 		/// </summary>
 		private string[] GetShortedRouteBetween(Dictionary<string, string[]> network, string userFrom, string userTo)
 		{
-			var emptyResult = new string[0];
+			if (userFrom == userTo) return new[]{userFrom};
 
+			var emptyResult = new string[0];
 			if (string.IsNullOrWhiteSpace(userFrom) || string.IsNullOrWhiteSpace(userTo)) return emptyResult;
 			if (network == null) return emptyResult;
 
@@ -117,6 +118,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 			yield return new object[] { new string[] { }, "Lucas", "Sofia" };
 			yield return new object[] { new string[] { }, "Liam", "Nathan" };
 			yield return new object[] { new string[] { }, "Nathan", "Liam" };
+			yield return new object[] { new[] { "Nathan" }, "Nathan", "Nathan" };
 		}
 	}
 }
