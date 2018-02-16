@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -34,6 +35,63 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 			int[] actual = _sut.Sort(a);
 
 			Assert.Equal(expected, actual);
+		}
+
+		[Theory]
+		[ClassData(typeof(MergeSortBaseTestData))]
+		public void TestMergeSortReprise(int[] a, int[] expected)
+		{
+			int[] actual = MergeSortArray(a);
+			Assert.True(expected.SequenceEqual(actual));
+		}
+
+		private int[] MergeSortArray(int[] a)
+		{
+			if (a.Length <= 1) return a;
+
+			int mid = a.Length / 2;
+
+			int[] left = a.TakeWhile((n, i) => i < mid).ToArray();
+			int[] right = a.SkipWhile((n, i) => i < mid).ToArray();
+
+			left = MergeSortArray(left);
+			right = MergeSortArray(right);
+
+			return Merge(left, right).ToArray();
+		}
+
+		private IEnumerable<int> Merge(int[] left, int[] right)
+		{
+			int i = 0, j = 0;
+			while (true)
+			{
+				if (i == left.Length && j == right.Length) yield break;
+
+				if (i == left.Length)
+				{
+					yield return right[j];
+					j++;
+				}
+
+				else if (j == right.Length)
+				{
+					yield return left[i];
+					i++;
+				}
+				else
+				{
+					if (left[i] <= right[j])
+					{
+						yield return left[i];
+						i++;
+					}
+					else
+					{
+						yield return right[j];
+						j++;
+					}
+				}
+			}
 		}
 	}
 
