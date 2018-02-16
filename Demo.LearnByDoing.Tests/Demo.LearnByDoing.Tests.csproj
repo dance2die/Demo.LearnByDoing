@@ -134,6 +134,7 @@
     <Compile Include="CodeFights\Arrays\FirstDuplicateTest.cs" />
     <Compile Include="CodeFights\Arrays\FirstNotRepeatingCharacterTest.cs" />
     <Compile Include="CodeFights\Challenges\LastDigitDiffZeroTest.cs" />
+    <Compile Include="CodeFights\Challenges\N7MTest.cs" />
     <Compile Include="CodeFights\Challenges\PrefixSumsTest.cs" />
     <Compile Include="CodeFights\Challenges\SortByZTest.cs" />
     <Compile Include="CodeFights\CommonTechniques\SumInRangeTest.cs" />
