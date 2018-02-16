@@ -75,17 +75,17 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Challenges
 		private static string ShortenWord(string input)
 		{
 			var word = input.ToLower();
-			var punctuations = input.Where(c => !char.IsLetter(c)).ToList();
+			var punctuations = string.Concat(input.Where(c => !char.IsLetter(c)));
 			var secondLetter = word[1];
 			var vowels = new[] {'a', 'e', 'i', 'o', 'u'};
 			var isSecondLetterConsonant = !vowels.Contains(secondLetter);
 
 			const int firstLastWordCount = 2;
-			var lengthBetween = word.Length - firstLastWordCount - punctuations.Count - (isSecondLetterConsonant ? 1 : 0);
+			var lengthBetween = word.Length - firstLastWordCount - punctuations.Length - (isSecondLetterConsonant ? 1 : 0);
 			if (lengthBetween <= 1) return word;
 
 			var secondChar = isSecondLetterConsonant ? word[1].ToString() : "";
-			return $"{word[0]}{secondChar}{lengthBetween}{word[word.Length - 1]}";
+			return $"{word[0]}{secondChar}{lengthBetween}{word[word.Length - 1 - punctuations.Length]}{punctuations}";
 		}
 
 		public static IEnumerable<object[]> GetSampleWords()
@@ -95,8 +95,11 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Challenges
 			yield return new object[] { "Shorten", "sh4n" };
 			yield return new object[] { "this", "this" };
 			yield return new object[] { "text", "t2t" };
+			yield return new object[] { "text.", "t2t." };
 			yield return new object[] { "it", "it" };
 			yield return new object[] { "itt", "itt" };
+			yield return new object[] { "itt.", "itt." };
+			yield return new object[] { "ittt.", "ittt." };
 		}
 	}
 }
