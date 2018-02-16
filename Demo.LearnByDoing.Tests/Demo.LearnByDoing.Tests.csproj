@@ -140,6 +140,7 @@
     <Compile Include="CodeWars\Kyu4\NextSmallerNumberWithTheSameDigitsTest.cs" />
     <Compile Include="CodeWars\Kyu4\NonBouncyNumberCountTest.cs" />
     <Compile Include="CodeWars\Kyu4\PyramidSlideDownTest.cs" />
+    <Compile Include="CodeWars\Kyu4\RangeExtractionTest.cs" />
     <Compile Include="CodeWars\Kyu4\ReversePolishNotationCalculatorTest.cs" />
     <Compile Include="CodeWars\Kyu4\SumStringsAsNumbersTest.cs" />
     <Compile Include="CodeWars\Kyu5\BasicNicoVariationTest.cs" />
