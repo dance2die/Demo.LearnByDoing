@@ -58,18 +58,18 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Challenges
 			yield return new object[]{ "Shorten this text.", "sh4n this t2t." };
 		}
 
-		static string n7m(string sentence)
-		{
-			var words = sentence.ToLower().Split();
-			return "";
-		}
-
 		[Theory]
 		[MemberData(nameof(GetSampleWords))]
 		public static void TestWordShortening(string word, string expected)
 		{
 			var actual = ShortenWord(word);
 			Assert.Equal(expected, actual);
+		}
+
+		static string n7m(string sentence)
+		{
+			var words = sentence.ToLower().Split().Select(ShortenWord);
+			return string.Join(" ", words);
 		}
 
 		private static string ShortenWord(string input)
