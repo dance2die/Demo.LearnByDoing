@@ -281,6 +281,7 @@
     <Compile Include="DataStructure\Tree\BinaryTreeTraversalsTest.cs" />
     <Compile Include="DataStructure\TriestTest.cs" />
     <Compile Include="GeeksForGeeks\GraphDataStructureAndAlgorithms\IntroductionToDfsAndBfs\01_Graph and its representations.cs" />
+    <Compile Include="GeeksForGeeks\GraphDataStructureAndAlgorithms\IntroductionToDfsAndBfs\02_Breadth First Traversal or BFS for a Graph.cs" />
     <Compile Include="InterviewCake\Question025Test.cs" />
     <Compile Include="InterviewCake\Question001Test.cs" />
     <Compile Include="InterviewCake\Question002Test.cs" />
