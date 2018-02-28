@@ -19,6 +19,16 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicConcepts
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [MemberData(nameof(GetSampleCases))]
+        public void TestFibonacciTabulation(int upto, int expected)
+        {
+            var sut = new GfgFibonacci();
+            int actual = sut.GetFibonacciUptoUsingTabulation(upto);
+
+            Assert.Equal(expected, actual);
+        }
+
         public static IEnumerable<object[]> GetSampleCases()
         {
             yield return new object[] { 1, 1 };
@@ -35,6 +45,26 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicConcepts
         private List<int> _memoization;
         private const int NIL = -1;
 
+        /// <summary>
+        /// Build from bottom up.
+        /// </summary>
+        public int GetFibonacciUptoUsingTabulation(int upto)
+        {
+            int[] table = new int[upto + 1];
+            table[0] = 0;
+            table[1] = 1;
+
+            for (int i = 2; i <= upto; i++)
+            {
+                table[i] = table[i - 1] + table[i - 2];
+            }
+
+            return table[upto];
+        }
+
+        /// <summary>
+        /// Build from Top to bottom
+        /// </summary>
         public int GetFibonacciUptoUsingRecursiveMemoization(int upto)
         {
             if (_memoization == null)
