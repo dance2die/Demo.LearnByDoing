@@ -50,6 +50,8 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicConcepts
         public static IEnumerable<object[]> GetSamples()
         {
             yield return new object[] { 8, 6 };
+            yield return new object[] { 12, 7 };
+            yield return new object[] { 19, 8 };
         }
     }
 
