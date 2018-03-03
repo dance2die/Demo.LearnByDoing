@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicConcepts
@@ -52,6 +53,43 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicConcepts
             yield return new object[] { 8, 6 };
             yield return new object[] { 12, 7 };
             yield return new object[] { 19, 8 };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetBytelandianSamples))]
+        public void TestBytelandianGoldCoins(int expected, int n)
+        {
+            var sut = new BytelandianGoldCoins();
+            int actual = sut.GetNumberOfWays(n);
+
+            Assert.Equal(expected, actual);
+        }
+
+        public static IEnumerable<object[]> GetBytelandianSamples()
+        {
+            yield return new object[] { 2, 12 };
+            yield return new object[] { 2, 13 };
+        }
+
+    }
+
+    /// <summary>
+    /// http://www.spoj.com/problems/COINS/
+    /// </summary>
+    public class BytelandianGoldCoins
+    {
+        private int[] _ways;
+        public int GetNumberOfWays(int n)
+        {
+            if (_ways == null) _ways = new int[n + 1];
+            if (n <= 0) return 0;
+            if (n > 0) return 1;
+            if (_ways[n] != default) return _ways[n];
+
+            Func<int, int> getNextNumber = divisor => divisor > n ? -1 :
+                n % divisor == 0 ? n / divisor : -1;
+            _ways[n] = GetNumberOfWays(getNextNumber(4)) + GetNumberOfWays(getNextNumber(3)) + GetNumberOfWays(getNextNumber(2));
+            return _ways[n];
         }
     }
 
