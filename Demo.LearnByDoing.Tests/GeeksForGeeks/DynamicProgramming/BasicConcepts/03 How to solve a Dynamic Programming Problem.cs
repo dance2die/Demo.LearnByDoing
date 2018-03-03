@@ -67,8 +67,12 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicConcepts
 
         public static IEnumerable<object[]> GetBytelandianSamples()
         {
-            yield return new object[] { 2, 12 };
-            yield return new object[] { 2, 13 };
+            yield return new object[] { 2, 2 };
+            yield return new object[] { 13, 12 };
+            yield return new object[] { 13, 13 };
+            yield return new object[] { 41, 36 };
+            yield return new object[] { 49, 45 };
+            yield return new object[] { 144, 123 };
         }
 
     }
@@ -78,17 +82,34 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicConcepts
     /// </summary>
     public class BytelandianGoldCoins
     {
-        private int[] _ways;
         public int GetNumberOfWays(int n)
         {
+            // Initialize default values to build from.
+            int[] map = new int[n + 1];
+
+            for (int i = 1; i <= n ; i++)
+            {
+                int half = i / 2;
+                int third = i / 3;
+                int quarter = i / 4;
+
+                int lookupSum = Math.Max(half, map[half]) + Math.Max(third, map[third]) + Math.Max(quarter, map[quarter]);
+                map[i] = lookupSum >= i ? lookupSum : i;
+            }
+
+            return map[n];
+        }
+
+        private int[] _ways;
+        public int GetNumberOfWaysBad(int n)
+        {
             if (_ways == null) _ways = new int[n + 1];
-            if (n <= 0) return 0;
-            if (n > 0) return 1;
+            if (n < 0) return 0;
+            if (n == 0) return 1;
             if (_ways[n] != default) return _ways[n];
 
-            Func<int, int> getNextNumber = divisor => divisor > n ? -1 :
-                n % divisor == 0 ? n / divisor : -1;
-            _ways[n] = GetNumberOfWays(getNextNumber(4)) + GetNumberOfWays(getNextNumber(3)) + GetNumberOfWays(getNextNumber(2));
+            var result = GetNumberOfWays(n / 2) + GetNumberOfWays(n / 3) + GetNumberOfWays(n / 4);
+            if (result >= n) _ways[n] = result;
             return _ways[n];
         }
     }
