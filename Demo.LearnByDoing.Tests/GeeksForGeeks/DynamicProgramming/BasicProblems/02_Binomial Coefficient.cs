@@ -32,13 +32,23 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
 
     class BinomialCoefficient
     {
+        /// <summary>
+        /// Recursively compute Binomial Coefficient
+        /// <see cref="https://en.wikipedia.org/wiki/Binomial_coefficient#Recursive_formula"/>
+        /// </summary>
+        /// <remarks>
+        /// Not sure exactly WHY this is the case though...
+        /// GetValue(n, k) = GetValue(n - 1, k - 1) + GetValue(n - 1, k)
+        /// GetValue(n, 0) == GetValue(n, n) = 1
+        /// 
+        /// It's from https://en.wikipedia.org/wiki/Binomial_coefficient#Recursive_formula
+        /// </remarks>
+        /// <param name="n">Total items to choose from</param>
+        /// <param name="k">items to choose</param>
+        /// <returns>Total number of ways to choose k from n</returns>
         public int GetValue(int n, int k)
         {
-            // Not sure exactly WHY this is the case though...
-            // GetValue(n, k) = GetValue(n - 1, k - 1) + GetValue(n - 1, k)
-            // GetValue(n, 0) == GetValue(n, n) = 1
-
-            // Stop conditions
+            // Base cases
             if (k == n || k == 0) return 1;
 
             return GetValue(n - 1, k - 1) + GetValue(n - 1, k);
