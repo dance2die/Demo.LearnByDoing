@@ -30,7 +30,44 @@ namespace Demo.LearnByDoing.Tests.CodeWars.Kyu4
 
     public class RangeExtraction
     {
-        public static string Extract(int[] args)
+        public static string Extract(int[] a)
+        {
+            var buckets = new List<List<int>>();
+            var prev = a[0];
+            var bucket = new List<int> { prev };
+
+            // Fill buckets.
+            for (int i = 1; i < a.Length; i++)
+            {
+                var curr = a[i];
+                if (prev + 1 == curr) bucket.Add(curr);
+                else
+                {
+                    buckets.Add(bucket);
+                    bucket = new List<int> { curr };
+                }
+
+                prev = curr;
+            }
+
+            // Add the last bucket to buckets.
+            buckets.Add(bucket);
+
+            // Extract buckets to form ranges.
+            return string.Join(",", ExtractRanges(buckets));
+        }
+
+        private static IEnumerable<string> ExtractRanges(List<List<int>> buckets)
+        {
+            foreach (var bucket in buckets)
+            {
+                if (bucket.Count == 1) yield return bucket[0].ToString();
+                else if (bucket.Count == 2) yield return $"{bucket[0]},{bucket[1]}";
+                else yield return $"{bucket[0]}-{bucket.Last()}";
+            }
+        }
+
+        public static string Extract_bad(int[] args)
         {
             Console.WriteLine($"args = '{string.Join(",", args)}'");
 
