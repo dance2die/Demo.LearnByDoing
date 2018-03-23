@@ -131,6 +131,7 @@
     <Compile Include="Chapter07\Chapter7_2Test.cs" />
     <Compile Include="Chapter04\Chapter4_1Test.cs" />
     <Compile Include="Chapter10\Chapter10_1Main.cs" />
+    <Compile Include="CodeFights\Arcade\SmoothSailing\ReverseParenthesesTest.cs" />
     <Compile Include="CodeFights\Arrays\FirstDuplicateTest.cs" />
     <Compile Include="CodeFights\Arrays\FirstNotRepeatingCharacterTest.cs" />
     <Compile Include="CodeFights\Challenges\LastDigitDiffZeroTest.cs" />
