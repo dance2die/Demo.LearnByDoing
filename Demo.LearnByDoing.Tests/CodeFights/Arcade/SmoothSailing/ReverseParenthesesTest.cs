@@ -29,19 +29,14 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.SmoothSailing
         {
             if (s.IndexOf("(") < 0 || s.IndexOf(")") < 0)
                 return s;
-            return reverse(s);
+            return ReverseRecursively(s);
         }
 
-        string reverse(string s, int depth = 0)
+        string ReverseRecursively(string s, int depth = 0)
         {
-            _output.WriteLine($"s='{s}', depth={depth}");
             if (s.Length == 0) return "";
             if (s == "(" || s == ")") return "";
-            if (s.IndexOf("(") < 0 || s.IndexOf(")") < 0)
-            {
-                _output.WriteLine($"Returning ReverseConcat(s)={ReverseConcat(s)}, depth={depth}");
-                return ReverseConcat(s);
-            }
+            if (s.IndexOf("(") < 0 || s.IndexOf(")") < 0) return GetReversedString(s);
 
             var acc = "";
             for (int i = 0; i < s.Length; i++)
@@ -51,39 +46,20 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.SmoothSailing
                 {
                     var endIndex = GetEndIndex(s, i);
                     var length = endIndex - i - 1;
-                    var temp = "";
 
-                    //if (length < 0)
-                    //    Console.WriteLine($"i={i}, endIndex={endIndex}, length={length}");
-                    //else
-                    //    temp = reverse(s.Substring(i + 1, length), depth + 1);
-
-                    temp = reverse(s.Substring(i + 1, length), depth + 1);
+                    acc += ReverseRecursively(s.Substring(i + 1, length), depth + 1);
                     i += length + 1;
-
-                    _output.WriteLine($"BEFORE acc={acc}, temp={temp} i={i}, depth={depth}, s={s}");
-                    //temp = depth == 0 ? ReverseConcat(temp) : temp;
-                    //temp = s[i] == ')' && depth % 2 == 1 ? ReverseConcat(temp) : temp;
-                    acc += temp;
-                    _output.WriteLine($"AFTER acc={acc}, temp={temp} i={i}, depth={depth} s={s}");
                 }
                 else
                 {
-                    _output.WriteLine($"BEFORE acc+c acc={acc}, i={i}, depth={depth} s={s}");
                     acc += c;
-                    _output.WriteLine($"AFTER acc+c acc={acc}, i={i}, depth={depth} s={s}");
                 }
             }
 
-            if (depth != 0) acc = ReverseConcat(acc);
-
-            _output.WriteLine($"returning acc at end acc={acc}, depth={depth} s={s}");
-            return acc;
-
-
+            return depth == 0 ? acc : GetReversedString(acc);
         }
 
-        string ReverseConcat(string value)
+        string GetReversedString(string value)
         {
             return string.Concat(value.Reverse());
         }
@@ -93,20 +69,14 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.SmoothSailing
             var count = 0;
             for (var i = startIndex; i < s.Length; i++)
             {
-                if (s[i] == '(')
-                {
-                    count++;
-                }
+                if (s[i] == '(') count++;
                 if (s[i] == ')')
                 {
                     count--;
-                    if (count == 0)
-                    {
-                        return i;
-                    }
+                    if (count == 0) return i;
                 }
             }
-            return -1;
+            throw new Exception("Could not find end index");
         }
 
         public static IEnumerable<object[]> GetSampleCases()
