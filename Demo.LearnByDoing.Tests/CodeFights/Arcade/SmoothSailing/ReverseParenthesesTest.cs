@@ -116,8 +116,8 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.SmoothSailing
             yield return new object[] { "co(de(fight)s)", "cosfighted" };
             yield return new object[] { "Where are the parentheses?", "Where are the parentheses?" };
             yield return new object[] { "Code(Cha(lle)nge)", "CodeegnlleahC" };
-            //yield return new object[] { "abc(cba)ab(bac)c", "abcabcabcabc" };
-            //yield return new object[] { "The ((quick (brown) (fox) jumps over the lazy) dog)", "The god quick nworb xof jumps over the lazy" };
+            yield return new object[] { "abc(cba)ab(bac)c", "abcabcabcabc" };
+            yield return new object[] { "The ((quick (brown) (fox) jumps over the lazy) dog)", "The god quick nworb xof jumps over the lazy" };
         }
     }
 }
