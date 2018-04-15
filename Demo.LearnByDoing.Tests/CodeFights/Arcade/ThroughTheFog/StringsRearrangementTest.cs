@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Demo.LearnByDoing.Core;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.ThroughTheFog
 {
     /// <summary>
     /// https://codefights.com/arcade/intro/level-7/PTWhv2oWqd6p4AHB9
     /// </summary>
-    public class StringsRearrangementTest
+    public class StringsRearrangementTest : BaseTest
     {
         [Theory]
         [MemberData(nameof(GetSampleCases))]
@@ -32,30 +34,41 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.ThroughTheFog
 
         bool stringsRearrangement(string[] a)
         {
-            var result = new List<string>(a.Length);
-            for (int i = 0; i < a.Length; i++)
+            var result = new List<string>(a.Length) { a[0] };
+
+            for (int i = 1; i < a.Length; i++)
             {
                 var curr = a[i];
-                for (int j = i; j < a.Length; j++)
+                if (result.Any(t => IsDifferentByOne(curr, t)))
                 {
-                    if (i == j) continue;
-
-                    var next = a[j];
-                    if (IsDifferentByOne(curr, next))
-                    {
-                        Console.WriteLine($"Diff by one; curr={curr}, next={next}");
-                        result.Add(curr);
-                        result.Add(next);
-                        Console.WriteLine($"i={i}, j={j}   result={string.Join(",", result)}");
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    _output.WriteLine($"curr={curr}, DifferentByOne = {string.Join(",", result.Where(t => IsDifferentByOne(curr, t)))}");
+                    result.Add(curr);
                 }
             }
 
-            Console.WriteLine($"result={string.Join(",", result)}");
+            //for (int i = 0; i < a.Length; i++)
+            //{
+            //    var curr = a[i];
+            //    for (int j = i; j < a.Length; j++)
+            //    {
+            //        if (i == j) continue;
+
+            //        var next = a[j];
+            //        if (a.Any(t => IsDifferentByOne(curr, t)))
+            //        {
+            //            _output.WriteLine($"Diff by one; curr={curr}, next={next}");
+            //            result.Add(curr);
+            //            result.Add(next);
+            //            _output.WriteLine($"i={i}, j={j}   result={string.Join(",", result)}");
+            //        }
+            //        else
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //}
+
+            _output.WriteLine($"result={string.Join(",", result)}");
 
             return result.Distinct().Count() == a.Length;
         }
@@ -76,7 +89,8 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.ThroughTheFog
         }
 
 
-
-
+        public StringsRearrangementTest(ITestOutputHelper output) : base(output)
+        {
+        }
     }
 }
