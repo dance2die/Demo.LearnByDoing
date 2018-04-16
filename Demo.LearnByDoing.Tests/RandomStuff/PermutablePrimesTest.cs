@@ -9,11 +9,12 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
     /// </summary>
     public class PermutablePrimesTest
     {
+        private const int UPTO = 1000;
+
         [Fact]
         public void TestSieveOf()
         {
             var expected = new[]
-                //{2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, 97, 113, 131, 199, 311, 337, 373, 733, 919, 991};
                 {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61
                 , 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139
                 , 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229
@@ -25,9 +26,59 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
                 , 739, 743, 751, 757, 761, 769, 773, 787, 797, 809, 811, 821, 823, 827, 829, 839
                 , 853, 857, 859, 863, 877, 881, 883, 887, 907, 911, 919, 929, 937, 941, 947, 953
                 , 967, 971, 977, 983, 991, 997};
-            var actual = GetPrimeNumbers(1000).ToList();
+            var actual = GetPrimeNumbers(UPTO).ToList();
 
             Assert.True(expected.SequenceEqual(actual));
+        }
+
+        [Fact]
+        public void TestPermutablePrimes()
+        {
+            var expected = new[] {2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, 97, 113, 131, 199, 311, 337, 373, 733, 919, 991};
+            var actual = GetPermutablePrimes(UPTO).ToList();
+            Assert.True(expected.SequenceEqual(actual));
+        }
+
+        private IEnumerable<int> GetPermutablePrimes(int upto)
+        {
+            // For O(1) lookup
+            var primes = new HashSet<int>(GetPrimeNumbers(upto));
+
+            foreach (var prime in primes)
+            {
+                List<int> perms = GetPermutations(prime.ToString()).ToList();
+                if (perms.All(perm => primes.Contains(perm))) yield return prime;
+            }
+        }
+
+        private IEnumerable<int> GetPermutations(string input)
+        {
+            return FillPermutations(input).Select(int.Parse);
+        }
+
+        private IEnumerable<string> FillPermutations(string input)
+        {
+            if (input.Length == 1) yield return input;
+            else if (input.Length == 2)
+            {
+                yield return input;
+                yield return new string(new[] { input[1], input[0] });
+            }
+            else
+            {
+                for (int i = 0; i < input.Length; i++)
+                {
+                    string prefix = input[i].ToString();
+                    string left = input.Substring(0, i);
+                    string right = input.Substring(i + 1);
+                    string newInput = left + right;
+
+                    foreach (var rest in FillPermutations(newInput))
+                    {
+                        yield return prefix + rest;
+                    }
+                }
+            }
         }
 
         private IEnumerable<int> GetPrimeNumbers(int upto)
@@ -49,7 +100,10 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
             // Skip 0 & 1
             // Return indexes, which are prime numbers
             const int skipBy = 2;
-            return primes.Skip(skipBy).Select((_, i) => new { IsPrime = _, Value = i + skipBy }).Where(obj => obj.IsPrime)
+            return primes
+                .Skip(skipBy)
+                .Select((_, i) => new { IsPrime = _, Value = i + skipBy })
+                .Where(obj => obj.IsPrime)
                 .Select(obj => obj.Value);
         }
     }
