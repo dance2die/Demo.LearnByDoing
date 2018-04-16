@@ -338,6 +338,7 @@
     <Compile Include="RandomStuff\CountWayTest.cs" />
     <Compile Include="RandomStuff\FogCreekSupportEngineer1Test.cs" />
     <Compile Include="RandomStuff\PalindromeUsingXorTest.cs" />
+    <Compile Include="RandomStuff\PermutablePrimesTest.cs" />
     <Compile Include="RandomStuff\RecursionTest.cs" />
   </ItemGroup>
   <ItemGroup>
