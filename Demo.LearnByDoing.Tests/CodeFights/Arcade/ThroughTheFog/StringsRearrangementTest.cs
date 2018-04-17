@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Demo.LearnByDoing.Core;
 using Xunit;
@@ -35,39 +34,26 @@ namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.ThroughTheFog
         bool stringsRearrangement(string[] a)
         {
             var result = new List<string>(a.Length) { a[0] };
+            var input = new List<string>(a.Skip(1));
 
-            for (int i = 1; i < a.Length; i++)
+            for (int i = 1; i < input.Count; i++)
             {
                 var curr = a[i];
-                if (result.Any(t => IsDifferentByOne(curr, t)))
+
+
+                _output.WriteLine($"curr={curr}, DifferentByOne = {string.Join(",", result.Where(t => IsDifferentByOne(curr, t)))}");
+                //if (result.Any(t => IsDifferentByOne(curr, t)))
+                if (result.Any(t => input.Any(ti => IsDifferentByOne(t, ti))))
                 {
-                    _output.WriteLine($"curr={curr}, DifferentByOne = {string.Join(",", result.Where(t => IsDifferentByOne(curr, t)))}");
                     result.Add(curr);
+                    input.Remove(curr);
+                    i--;
+                }
+                else
+                {
+                    _output.WriteLine($"no different curr={curr}, DifferentByOne = {string.Join(",", result.Where(t => IsDifferentByOne(curr, t)))}");
                 }
             }
-
-            //for (int i = 0; i < a.Length; i++)
-            //{
-            //    var curr = a[i];
-            //    for (int j = i; j < a.Length; j++)
-            //    {
-            //        if (i == j) continue;
-
-            //        var next = a[j];
-            //        if (a.Any(t => IsDifferentByOne(curr, t)))
-            //        {
-            //            _output.WriteLine($"Diff by one; curr={curr}, next={next}");
-            //            result.Add(curr);
-            //            result.Add(next);
-            //            _output.WriteLine($"i={i}, j={j}   result={string.Join(",", result)}");
-            //        }
-            //        else
-            //        {
-            //            return false;
-            //        }
-            //    }
-            //}
-
             _output.WriteLine($"result={string.Join(",", result)}");
 
             return result.Distinct().Count() == a.Length;
