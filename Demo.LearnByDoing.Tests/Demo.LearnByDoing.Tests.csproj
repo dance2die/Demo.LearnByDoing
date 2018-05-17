@@ -343,6 +343,7 @@
     <Compile Include="RandomStuff\MergeSortTest.cs" />
     <Compile Include="RandomStuff\PalindromeUsingXorTest.cs" />
     <Compile Include="RandomStuff\PermutablePrimesTest.cs" />
+    <Compile Include="RandomStuff\QuickSortTest.cs" />
     <Compile Include="RandomStuff\RecursionTest.cs" />
   </ItemGroup>
   <ItemGroup>
