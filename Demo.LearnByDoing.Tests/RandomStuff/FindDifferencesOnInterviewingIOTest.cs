@@ -43,6 +43,40 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [MemberData(nameof(GetInput))]
+        public void TestUsingSorting(int expected, int[] a1, int[] a2)
+        {
+            var actual = GetDifferenceUsingSorting(a1, a2);
+            Assert.Equal(expected, actual);
+        }
+
+        /// <summary>
+        /// Space Complexity: O(1)
+        /// Time Complexity: O(n log n)
+        /// </summary>
+        private int GetDifferenceUsingSorting(int[] a1, int[] a2)
+        {
+            // Easy way out using LINQ
+            //return a1.Except(a2).First();
+
+            // Harder way - you might do this in an interview.
+
+            // In-place sorting: O(1) space complexity
+            Array.Sort(a1);
+            Array.Sort(a2);
+
+            int upto = Math.Max(a1.Length, a2.Length);
+            for (int i = 0; i < upto; i++)
+            {
+                var left = GetValueAt(a1, i);
+                var right = GetValueAt(a2, i);
+                if (left != right) return left;
+            }
+
+            throw new ArgumentException();
+        }
+
         /// <summary>
         /// Space Complexity: O(n)
         /// Time Complexity: O(n)
@@ -54,8 +88,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
             {
                 if (!set.Contains(n)) return n;
             }
-
-            return -1;
+            throw new ArgumentException();
         }
 
         /// <summary>
