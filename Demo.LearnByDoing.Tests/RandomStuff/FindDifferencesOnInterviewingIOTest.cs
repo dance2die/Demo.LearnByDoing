@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.RandomStuff
@@ -46,6 +48,34 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
         {
             var actual = GetDifferenceUsingSorting(a1, a2);
             Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetInput))]
+        public void TestUsingSum(int expected, int[] a1, int[] a2)
+        {
+            var actual = GetDifferenceUsingSum(a1, a2);
+            Assert.Equal(expected, actual);
+        }
+
+        /// <summary>
+        /// This was not recommended due to a possible integer overflow
+        /// so the recommendation was to use BigInteger, which might be slow
+        /// 
+        /// Space Complexity: O(1)
+        /// Time Complexity: O(n)
+        /// </summary>
+        private int GetDifferenceUsingSum(int[] a1, int[] a2)
+        {
+            var bigA1 = new List<BigInteger>(a1.Select(_ => (BigInteger)_));
+            var bigA2 = new List<BigInteger>(a2.Select(_ => (BigInteger)_));
+
+            // Sum both big integer arrays
+            var result = bigA1.Aggregate((acc, val) => acc + val) - bigA2.Aggregate((acc, val) => acc + val);
+
+            // Use BigInteger's explicit conversion
+            // https://msdn.microsoft.com/en-us/library/dd268292(v=vs.110).aspx
+            return (int) result;
         }
 
         /// <summary>
