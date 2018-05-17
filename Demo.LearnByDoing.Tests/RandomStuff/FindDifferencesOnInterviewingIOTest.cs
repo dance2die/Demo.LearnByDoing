@@ -33,6 +33,10 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
             Assert.Equal(expected, actual);
         }
 
+        /// <summary>
+        /// Space Complexity: O(1)
+        /// Time Complexity: O(n)
+        /// </summary>
         private int GetDifferenceUsingBitwiseOperation(int[] a1, int[] a2)
         {
             int result = 0;
@@ -55,7 +59,9 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
 
         public static IEnumerable<object[]> GetInput()
         {
-            yield return new object[] {3, new[] {3, 6, 8, 12, 4}, new[] {4, 6, 8, 12}};
+            yield return new object[] { 3, new[] { 3, 6, 8, 12, 4 }, new[] { 4, 6, 8, 12 } };
+            yield return new object[] { 1, new[] { 1, 2, 3, 4 }, new[] { 2, 3, 4 } };
+            yield return new object[] { 3, new[] { 1, 2, 3, 4 }, new[] { 1, 2, 4 } };
         }
     }
 }
