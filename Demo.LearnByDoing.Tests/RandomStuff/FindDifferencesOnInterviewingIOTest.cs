@@ -18,6 +18,8 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
     /// 
     /// Find an element that's not in both array
     /// Result => 3
+    /// 
+    /// Assumption: 2nd array is smaller
     /// </summary>
     public class FindDifferencesOnInterviewingIOTest
     {
@@ -31,6 +33,29 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
         {
             var actual = GetDifferenceUsingBitwiseOperation(a1, a2);
             Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [MemberData(nameof(GetInput))]
+        public void TestUsingLookup(int expected, int[] a1, int[] a2)
+        {
+            var actual = GetDifferenceUsingLookup(a1, a2);
+            Assert.Equal(expected, actual);
+        }
+
+        /// <summary>
+        /// Space Complexity: O(n)
+        /// Time Complexity: O(n)
+        /// </summary>
+        private int GetDifferenceUsingLookup(int[] a1, int[] a2)
+        {
+            var set = new HashSet<int>(a2);
+            foreach (var n in a1)
+            {
+                if (!set.Contains(n)) return n;
+            }
+
+            return -1;
         }
 
         /// <summary>
