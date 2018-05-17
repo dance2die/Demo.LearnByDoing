@@ -338,6 +338,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomStuff\BinaryPrintTest.cs" />
     <Compile Include="RandomStuff\CountWayTest.cs" />
+    <Compile Include="RandomStuff\FindDifferencesOnInterviewingIOTest.cs" />
     <Compile Include="RandomStuff\FogCreekSupportEngineer1Test.cs" />
     <Compile Include="RandomStuff\PalindromeUsingXorTest.cs" />
     <Compile Include="RandomStuff\PermutablePrimesTest.cs" />
