@@ -346,6 +346,7 @@
     <Compile Include="RandomStuff\PermutablePrimesTest.cs" />
     <Compile Include="RandomStuff\QuickSortTest.cs" />
     <Compile Include="RandomStuff\RecursionTest.cs" />
+    <Compile Include="RandomStuff\TreeNodeAncestorDecendentCheckTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Demo.LearnByDoing.Core\Demo.LearnByDoing.Core.csproj">
