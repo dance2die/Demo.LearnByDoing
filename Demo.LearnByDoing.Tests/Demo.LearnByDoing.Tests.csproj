@@ -340,6 +340,7 @@
     <Compile Include="RandomStuff\CountWayTest.cs" />
     <Compile Include="RandomStuff\FindDifferencesOnInterviewingIOTest.cs" />
     <Compile Include="RandomStuff\FogCreekSupportEngineer1Test.cs" />
+    <Compile Include="RandomStuff\Glassdoor\Zocdoc\PalindromeCheckTest.cs" />
     <Compile Include="RandomStuff\MergeSortTest.cs" />
     <Compile Include="RandomStuff\PalindromeUsingXorTest.cs" />
     <Compile Include="RandomStuff\PermutablePrimesTest.cs" />
