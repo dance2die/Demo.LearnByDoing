@@ -33,15 +33,34 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Zocdoc
         [MemberData(nameof(GetSampleInputs))]
         public static void TestSamples(int expected, int leftValue, int rightValue)
         {
+            _isLeftFound = false;
+            _isRightFound = false;
+
             //var node = FindLca(GetSampleBinaryTreeNode(), leftValue, rightValue);
             var node = FindLca2(GetSampleBinaryTreeNode(), leftValue, rightValue);
-            Assert.Equal(expected, node.Value);
+            var actual = _isLeftFound && _isRightFound ? node : null;
+
+            if (_isLeftFound && _isRightFound) Assert.Equal(expected, actual?.Value);
+            else Assert.Null(actual);
         }
 
+        private static bool _isLeftFound = false;
+        private static bool _isRightFound = false;
         private static BinaryTreeNode FindLca2(BinaryTreeNode node, int n1, int n2)
         {
             if (node == null) return null;
-            if (node.Value == n1 || node.Value == n2) return node;
+            //if (node.Value == n1 || node.Value == n2) return node;
+            if (node.Value == n1)
+            {
+                _isLeftFound = true;
+                return node;
+            }
+
+            if (node.Value == n2)
+            {
+                _isRightFound = true;
+                return node;
+            }
 
             var leftLca = FindLca2(node.Left, n1, n2);
             var rightLca = FindLca2(node.Right, n1, n2);
@@ -108,6 +127,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Zocdoc
             yield return new object[] { 1, 4, 3 };
             yield return new object[] { 1, 3, 5 };
             yield return new object[] { 1, 5, 3 };
+            yield return new object[] { 1, 5, 10 };
         }
     }
 
