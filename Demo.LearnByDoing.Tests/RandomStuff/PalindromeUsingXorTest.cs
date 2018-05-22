@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.RandomStuff
 {
+    /// <summary>
+    /// This doesn't work!!!
+    /// </summary>
 	public class PalindromeUsingXorTest : BaseTest
 	{
 		public PalindromeUsingXorTest(ITestOutputHelper output) : base(output)
