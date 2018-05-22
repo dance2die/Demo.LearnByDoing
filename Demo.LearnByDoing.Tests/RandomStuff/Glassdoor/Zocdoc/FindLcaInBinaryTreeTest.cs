@@ -33,8 +33,21 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Zocdoc
         [MemberData(nameof(GetSampleInputs))]
         public static void TestSamples(int expected, int leftValue, int rightValue)
         {
-            var node = FindLca(GetSampleBinaryTreeNode(), leftValue, rightValue);
+            //var node = FindLca(GetSampleBinaryTreeNode(), leftValue, rightValue);
+            var node = FindLca2(GetSampleBinaryTreeNode(), leftValue, rightValue);
             Assert.Equal(expected, node.Value);
+        }
+
+        private static BinaryTreeNode FindLca2(BinaryTreeNode node, int n1, int n2)
+        {
+            if (node == null) return null;
+            if (node.Value == n1 || node.Value == n2) return node;
+
+            var leftLca = FindLca2(node.Left, n1, n2);
+            var rightLca = FindLca2(node.Right, n1, n2);
+
+            if (leftLca != null && rightLca != null) return node;
+            return leftLca ?? rightLca;
         }
 
         /// <summary>
