@@ -72,6 +72,7 @@
     <Compile Include="Algorithms\MergeSortTest.cs" />
     <Compile Include="Algorithms\Sorting\SortingTest.cs" />
     <Compile Include="Algorithms\TopologicalGraphSortTest.cs" />
+    <Compile Include="Algorithms\ZAlgorithmTest.cs" />
     <Compile Include="Chapter01\Chapter1_1.cs" />
     <Compile Include="Chapter01\Chapter1_1Test.cs" />
     <Compile Include="Chapter01\Chapter1_2.cs" />
