@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\BellmanFordFromScratchTest.cs" />
     <Compile Include="Algorithms\BellmanFordRepriseTest.cs" />
     <Compile Include="Algorithms\DjikstraRepriseTest.cs" />
     <Compile Include="Algorithms\LevenshteinDistanceTest.cs" />
@@ -354,6 +355,10 @@
     <ProjectReference Include="..\Demo.LearnByDoing.Core\Demo.LearnByDoing.Core.csproj">
       <Project>{dca6be29-c6cc-41de-b6a2-366c0b3bc945}</Project>
       <Name>Demo.LearnByDoing.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Demo.LearnByDoing.General\Demo.LearnByDoing.General.csproj">
+      <Project>{33b2ca53-9e72-42e9-a5cb-a434fc0a14cc}</Project>
+      <Name>Demo.LearnByDoing.General</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
