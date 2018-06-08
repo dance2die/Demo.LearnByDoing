@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Demo.LearnByDoing.General.Algorithms.Graph;
 using Xunit;
@@ -23,6 +24,14 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             Assert.True(expected.Parents.SequenceEqual(actual.Parents));
         }
 
+        [Theory]
+        [MemberData(nameof(GetNegativeCycleSamples))]
+        void ThrowExceptionForGraphWithNegativeCycle(Graph<char> graph)
+        {
+            Assert.Throws<ArgumentException>(() =>
+                GetShortestPaths(graph, graph.Vertices.First(n => n.Key.Value == 'S').Key));
+        }
+
         private BellmanFordPaths GetShortestPaths(Graph<char> graph, Node<char> source)
         {
             // Initialize shortestPaths (to infinity)
@@ -41,7 +50,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                     {
                         var toNode = edge.Node;
                         if (shortestPaths[fromNode] == int.MaxValue) continue;
-                        
+
                         if (shortestPaths[fromNode] + edge.Weight < shortestPaths[toNode])
                         {
                             shortestPaths[toNode] = shortestPaths[fromNode] + edge.Weight;
@@ -52,8 +61,21 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 }
             }
 
-
             // Check for negative cycles
+            foreach (var vertex in graph.Vertices)
+            {
+                var fromNode = vertex.Key;
+                foreach (var edge in vertex.Value)
+                {
+                    var toNode = edge.Node;
+                    if (shortestPaths[fromNode] == int.MaxValue) continue;
+
+                    if (shortestPaths[fromNode] + edge.Weight < shortestPaths[toNode])
+                    {
+                        throw new ArgumentException("Negative Cycle Detected");
+                    }
+                }
+            }
 
             return new BellmanFordPaths { Parents = parents, ShortestPaths = shortestPaths };
         }
@@ -96,6 +118,23 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                     }
                 },g1
             };
+        }
+
+        public static IEnumerable<object[]> GetNegativeCycleSamples()
+        {
+            var s = new Node<char>('S');
+            var a = new Node<char>('A');
+            var b = new Node<char>('B');
+            var c = new Node<char>('C');
+
+            var g1 = new Graph<char>();
+            g1.AddVertex(s, new[] { new Edge<char>(1, a) });
+            g1.AddVertex(a, new[] { new Edge<char>(3, b) });
+            g1.AddVertex(b, new[] { new Edge<char>(1, c) });
+            g1.AddVertex(c, new[] { new Edge<char>(-6, a) });
+
+            // Empty object since we are checking for a negative cycle, which throws an exception.
+            yield return new object[] { g1 };
         }
     }
 }
