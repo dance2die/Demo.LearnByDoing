@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using Demo.LearnByDoing.Core.Graph;
 using Demo.LearnByDoing.General.Algorithms.Graph;
 using Xunit;
 
@@ -21,15 +17,45 @@ namespace Demo.LearnByDoing.Tests.Algorithms
         [MemberData(nameof(GetSamples))]
         void TestSamplesForShortestPath(BellmanFordPaths expected, Graph<char> graph)
         {
-            var actual = GetShortestPaths(graph);
+            var actual = GetShortestPaths(graph, graph.Vertices.First(n => n.Key.Value == 'S').Key);
 
             Assert.True(expected.ShortestPaths.SequenceEqual(actual.ShortestPaths));
             Assert.True(expected.Parents.SequenceEqual(actual.Parents));
         }
 
-        private BellmanFordPaths GetShortestPaths(Graph<char> graph)
+        private BellmanFordPaths GetShortestPaths(Graph<char> graph, Node<char> source)
         {
-            throw new NotImplementedException();
+            // Initialize shortestPaths (to infinity)
+            var shortestPaths = graph.Vertices.ToDictionary(vertex => vertex.Key, vertex => int.MaxValue);
+            shortestPaths[source] = 0;
+            // & parents (source to itself)
+            var parents = new Dictionary<Node<char>, Node<char>>();
+
+            // Relax paths and set parents (for |v| - 1 times)
+            for (int i = 1; i < graph.Vertices.Count; i++)
+            {
+                foreach (var vertex in graph.Vertices)
+                {
+                    var fromNode = vertex.Key;
+                    foreach (var edge in vertex.Value)
+                    {
+                        var toNode = edge.Node;
+                        if (shortestPaths[fromNode] == int.MaxValue) continue;
+                        
+                        if (shortestPaths[fromNode] + edge.Weight < shortestPaths[toNode])
+                        {
+                            shortestPaths[toNode] = shortestPaths[fromNode] + edge.Weight;
+                            if (!parents.ContainsKey(toNode)) parents.Add(toNode, fromNode);
+                            else parents[toNode] = fromNode;
+                        }
+                    }
+                }
+            }
+
+
+            // Check for negative cycles
+
+            return new BellmanFordPaths { Parents = parents, ShortestPaths = shortestPaths };
         }
 
         class BellmanFordPaths
@@ -66,7 +92,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                     },
                     Parents = new Dictionary<Node<char>, Node<char>>
                     {
-                        { d, a }, { c, b }, { a, c }, { e, d }, { s,e }
+                        { a, d }, { e, s }, { c, a }, { b, c }, { d, e }
                     }
                 },g1
             };

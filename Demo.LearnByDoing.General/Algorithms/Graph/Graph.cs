@@ -6,11 +6,11 @@ namespace Demo.LearnByDoing.General.Algorithms.Graph
 {
     public class Graph<T>
     {
-        public List<Node<T>> Nodes { get; set; }
+        //public List<Node<T>> Nodes { get; set; }
 
 	    public Dictionary<Node<T>, Edge<T>[]> Vertices { get; } = new Dictionary<Node<T>, Edge<T>[]>();
 
-	    public void AddVertex(Node<T> node, Edge<T>[] edges)
+        public void AddVertex(Node<T> node, Edge<T>[] edges)
         {
             if (!Vertices.ContainsKey(node))
                 Vertices.Add(node, edges);
