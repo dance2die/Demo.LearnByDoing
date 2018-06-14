@@ -35,17 +35,14 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             q.Enqueue(start);
 
             var discovered = new HashSet<Node<char>> { start };
-            var processed = new HashSet<Node<char>>();
 
             while (q.Count > 0)
             {
                 var vertex = q.Dequeue();
-                processed.Add(vertex);
 
                 Edge<char>[] edges = graph.Vertices[vertex];
                 foreach (var edge in edges)
                 {
-                    if (!processed.Contains(edge.Node)) processed.Add(edge.Node);
                     if (!discovered.Contains(edge.Node))
                     {
                         q.Enqueue(edge.Node);
