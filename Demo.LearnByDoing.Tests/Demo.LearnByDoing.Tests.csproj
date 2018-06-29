@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Algorithms\BellmanFordFromScratchTest.cs" />
     <Compile Include="Algorithms\BellmanFordRepriseTest.cs" />
+    <Compile Include="Algorithms\GraphDepthFirstSearchTest.cs" />
     <Compile Include="Algorithms\DjikstraRepriseTest.cs" />
     <Compile Include="Algorithms\GraphBreadthFirstSearchTest.cs" />
     <Compile Include="Algorithms\LevenshteinDistanceTest.cs" />
