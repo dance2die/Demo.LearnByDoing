@@ -288,6 +288,7 @@
     <Compile Include="DataStructure\LinkedList\ReverseSinglyLinkedListTest.cs" />
     <Compile Include="DataStructure\Tree\BinaryTreeTraversalsTest.cs" />
     <Compile Include="DataStructure\TriestTest.cs" />
+    <Compile Include="FEM\Algorithms\Recursion\ExerciseTest.cs" />
     <Compile Include="GeeksForGeeks\DynamicProgramming\BasicConcepts\01 Overlapping Subproblems Property.cs" />
     <Compile Include="GeeksForGeeks\DynamicProgramming\BasicConcepts\03 How to solve a Dynamic Programming Problem.cs" />
     <Compile Include="GeeksForGeeks\DynamicProgramming\BasicProblems\02_Binomial Coefficient.cs" />
