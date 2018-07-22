@@ -157,6 +157,9 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
             foreach (int n in Exercise6(a, num, i - 1)) yield return n;
         }
 
+        /// <summary>
+        /// https://github.com/kuychaco/algoClass/blob/master/recursion/factorial.js
+        /// </summary>
         [Fact]
         public void TestFactorial()
         {
@@ -170,6 +173,33 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
             if (n <= 1) return 1;
 
             return n * Factorial(n - 1);
+        }
+
+        /// <summary>
+        /// https://github.com/kuychaco/algoClass/blob/master/recursion/fibonacci.js
+        /// </summary>
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(1, 1)]
+        [InlineData(1, 2)]
+        [InlineData(2, 3)]
+        [InlineData(3, 4)]
+        [InlineData(5, 5)]
+        [InlineData(8, 6)]
+        [InlineData(13, 7)]
+        [InlineData(21, 8)]
+        [InlineData(34, 9)]
+        public void TestFib(int expected, int n)
+        {
+            var actual = Fib(n);
+            Assert.Equal(expected, actual);
+        }
+
+        private int Fib(int n)
+        {
+            if (n <= 1) return n;
+
+            return Fib(n - 1) + Fib(n - 2);
         }
     }
 }
