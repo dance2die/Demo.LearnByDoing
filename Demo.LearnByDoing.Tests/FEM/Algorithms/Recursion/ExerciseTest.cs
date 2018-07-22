@@ -93,21 +93,24 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
             return result;
         }
 
-        ///// <summary>
-        ///// 4. Write a function 'RecursiveExponent' that takes two arguments 
-        ///// base, and expo, recursively returns exponent value of the base.
-        ///// </summary>
-        //[Theory]
-        //[MemberData(nameof(GetSampleCaseFor3And4))]
-        //public void TestExercise4(int expected, int @base, int expo)
-        //{
+        /// <summary>
+        /// 4. Write a function 'RecursiveExponent' that takes two arguments 
+        /// base, and expo, recursively returns exponent value of the base.
+        /// </summary>
+        [Theory]
+        [MemberData(nameof(GetSampleCaseFor3And4))]
+        public void TestExercise4(int expected, int @base, int expo)
+        {
+            var actual = Exercise4(@base, expo);
+            Assert.Equal(expected, actual);
+        }
 
-        //}
+        private int Exercise4(int @base, int expo)
+        {
+            if (expo == 0) return 1;
 
-        //private int Exercise4(int @base, int expo)
-        //{
-        //    if (expo == 0) return 1;
-        //}
+            return @base * Exercise4(@base, expo - 1);
+        }
 
         ///// <summary>
         ///// 5. Write a function 'recursiveMultiplier' that takes two arguments, 
