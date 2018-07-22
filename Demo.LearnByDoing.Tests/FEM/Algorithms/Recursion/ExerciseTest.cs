@@ -56,6 +56,10 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
 
         public static IEnumerable<object[]> GetSampleCaseFor3And4()
         {
+            yield return new object[] { 1, 8, 0 };
+            yield return new object[] { 1, 1, 0 };
+            yield return new object[] { 1, 2, 0 };
+            yield return new object[] { 1, 3, 0 };
             yield return new object[] { 64, 8, 2 };
             yield return new object[] { 27, 3, 3 };
             yield return new object[] { 1, 1, 3 };
@@ -78,6 +82,8 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
 
         private int Exercise3(int @base, int expo)
         {
+            if (expo == 0) return 1;
+
             var result = @base;
             for (int i = 1; i < expo; i++)
             {
@@ -93,9 +99,14 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
         ///// </summary>
         //[Theory]
         //[MemberData(nameof(GetSampleCaseFor3And4))]
-        //public void TestExercise4(int[] expected, int n)
+        //public void TestExercise4(int expected, int @base, int expo)
         //{
 
+        //}
+
+        //private int Exercise4(int @base, int expo)
+        //{
+        //    if (expo == 0) return 1;
         //}
 
         ///// <summary>
