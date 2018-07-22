@@ -112,24 +112,38 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
             return @base * Exercise4(@base, expo - 1);
         }
 
-        ///// <summary>
-        ///// 5. Write a function 'recursiveMultiplier' that takes two arguments, 
-        ///// 'arr and num', and multiplies each arr value into by num and returns an array of the values.
-        ///// </summary>
-        //[Theory]
-        //[MemberData(nameof(GetSampleCaseFor1And2))]
-        //public void TestExercise5(int[] expected, int n)
-        //{
+        public static IEnumerable<object[]> GetSampleCaseFor5And6()
+        {
+            yield return new object[] { new[] { 2, 4, 6, 8 }, new[] { 1, 2, 3, 4 }, 2 };
+        }
 
-        //}
+        /// <summary>
+        /// 5. Write a function 'recursiveMultiplier' that takes two arguments, 
+        /// 'arr and num', and multiplies each arr value into by num and returns an array of the values.
+        /// </summary>
+        [Theory]
+        [MemberData(nameof(GetSampleCaseFor5And6))]
+        public void TestExercise5(int[] expected, int[] a, int num)
+        {
+            var actual = Exercise5(a, num);
+            Assert.True(expected.SequenceEqual(actual));
+        }
+
+        private IEnumerable<int> Exercise5(int[] a, int num)
+        {
+            foreach (var val in a)
+            {
+                yield return val * num;
+            }
+        }
 
         ///// <summary>
         ///// 6. Write a function 'recursiveReverse' that takes an array 
         ///// and uses recursion to return its contents in reverse
         ///// </summary>
         //[Theory]
-        //[MemberData(nameof(GetSampleCaseFor1And2))]
-        //public void TestExercise6(int[] expected, int n)
+        //[MemberData(nameof(GetSampleCaseFor5And6))]
+        //public void TestExercise6(int[] expected, int[] a, int num)
         //{
 
         //}
