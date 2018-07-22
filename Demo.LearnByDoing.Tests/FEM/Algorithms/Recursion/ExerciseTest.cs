@@ -156,5 +156,20 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
             yield return a[i] * num;
             foreach (int n in Exercise6(a, num, i - 1)) yield return n;
         }
+
+        [Fact]
+        public void TestFactorial()
+        {
+            const int expected = 120;
+            var actual = Factorial(5);
+            Assert.Equal(expected, actual);
+        }
+
+        private int Factorial(int n)
+        {
+            if (n <= 1) return 1;
+
+            return n * Factorial(n - 1);
+        }
     }
 }
