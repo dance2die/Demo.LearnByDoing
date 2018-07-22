@@ -137,15 +137,24 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
             }
         }
 
-        ///// <summary>
-        ///// 6. Write a function 'recursiveReverse' that takes an array 
-        ///// and uses recursion to return its contents in reverse
-        ///// </summary>
-        //[Theory]
-        //[MemberData(nameof(GetSampleCaseFor5And6))]
-        //public void TestExercise6(int[] expected, int[] a, int num)
-        //{
+        /// <summary>
+        /// 6. Write a function 'recursiveReverse' that takes an array 
+        /// and uses recursion to return its contents in reverse
+        /// </summary>
+        [Theory]
+        [MemberData(nameof(GetSampleCaseFor5And6))]
+        public void TestExercise6(int[] expected, int[] a, int num)
+        {
+            var actual = Exercise6(a, num, a.Length - 1);
+            Assert.True(expected.Reverse().SequenceEqual(actual));
+        }
 
-        //}
+        private IEnumerable<int> Exercise6(int[] a, int num, int i)
+        {
+            if (i < 0) yield break;
+
+            yield return a[i] * num;
+            foreach (int n in Exercise6(a, num, i - 1)) yield return n;
+        }
     }
 }
