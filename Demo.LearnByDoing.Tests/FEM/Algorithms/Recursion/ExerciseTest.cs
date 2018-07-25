@@ -226,5 +226,21 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
 
             return GetGreatestCommonDivisor(y, x % y);
         }
+
+        [Theory]
+        [InlineData(new []{4,3,2,1}, new [] {1,2,3,4})]
+        public void TestReverseSequence(int[] expected, int[] sequence)
+        {
+            var actual = ReverseSequence(sequence, sequence.Length - 1);
+            Assert.True(expected.SequenceEqual(actual));
+        }
+
+        private IEnumerable<int> ReverseSequence(int[] sequence, int index)
+        {
+            if (index < 0) yield break;
+
+            yield return sequence[index];
+            foreach (var n in ReverseSequence(sequence, index - 1)) yield return n;
+        }
     }
 }
