@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -200,6 +201,30 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
             if (n <= 1) return n;
 
             return Fib(n - 1) + Fib(n - 2);
+        }
+
+        [Theory]
+        [InlineData(5, 10, 5)]
+        [InlineData(2, 10, 2)]
+        [InlineData(3, 10, 1)]
+        [InlineData(6, 12, 6)]
+        [InlineData(4, 12, 4)]
+        [InlineData(8, 12, 4)]
+        public void TestGreatestCommonDivisor(int x, int y, int expected)
+        {
+            var actual = GetGreatestCommonDivisor(x, y);
+            Assert.Equal(expected, actual);
+        }
+
+        /// <summary>
+        /// Cheated using https://en.wikipedia.org/wiki/Greatest_common_divisor#Using_Euclid's_algorithm
+        /// </summary>
+        private int GetGreatestCommonDivisor(int x, int y)
+        {
+            if (y == 0) return x;
+            if (x == 0) return y;
+
+            return GetGreatestCommonDivisor(y, x % y);
         }
     }
 }
