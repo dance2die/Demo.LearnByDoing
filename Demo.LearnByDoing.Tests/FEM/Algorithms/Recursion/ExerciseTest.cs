@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Demo.LearnByDoing.Core;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
 {
     /// <summary>
     /// https://github.com/kuychaco/algoClass/blob/master/recursion/recursionIntro.js
     /// </summary>
-    public class ExerciseTest
+    public class ExerciseTest : BaseTest
     {
+        public ExerciseTest(ITestOutputHelper output) : base(output)
+        {
+        }
+
         public static IEnumerable<object[]> GetSampleCaseFor1And2()
         {
             yield return new object[] { new[] { 5, 4, 3, 2, 1, 0 }, 5 };
@@ -241,6 +247,41 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Recursion
 
             yield return sequence[index];
             foreach (var n in ReverseSequence(sequence, index - 1)) yield return n;
+        }
+
+        [Theory]
+        [InlineData(new []{"abc", "acb", "bac", "bca", "cab", "cba"}, "abc")]
+        public void TestNonDupePermuntations(string[] expected, string text)
+        {
+            var actual = GetNonDupePermutations(text).ToList();
+            Assert.True(expected.OrderBy(_=>_).SequenceEqual(actual.OrderBy(_=>_)));
+        }
+
+        private IEnumerable<string> GetNonDupePermutations(string text)
+        {
+            if (text.Length == 1)
+            {
+                yield return text;
+                yield break;
+            }
+
+            if (text.Length == 2)
+            {
+                yield return text;
+                yield return string.Concat(text[1], text[0]);
+                yield break;
+            }
+
+            for (var index = 0; index < text.Length; index++)
+            {
+                var prefix = text[index].ToString();
+                var rest = string.Concat(text.Take(index)) + string.Concat(text.Skip(index + 1));
+                foreach (var perm in GetNonDupePermutations(rest).ToList())
+                {
+                    _output.WriteLine($"prefix + perm = {prefix + perm}");
+                    yield return prefix + perm;
+                }
+            }
         }
     }
 }
