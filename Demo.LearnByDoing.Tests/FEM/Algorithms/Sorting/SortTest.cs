@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -11,6 +10,54 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Sorting
         {
             yield return new object[] { new[] { 1, 2, 3, 4, 5 }, new[] { 5, 2, 3, 4, 1 } };
             yield return new object[] { new[] { 11, 22, 33, 44, 55 }, new[] { 55, 44, 33, 22, 11 } };
+        }
+
+        /// <remarks>
+        /// Algorithm: 
+        /// 1. out-of-place
+        ///     Create a result array
+        ///     While the result array count is less than the input array,
+        ///         Select the smallest element from input array
+        ///         Add the smallest element to the result
+        /// 
+        ///     return the result array
+        /// 
+        /// 2. in-place
+        ///     while index is less than the input array length - 1,
+        ///         find the smallest element.
+        ///         if the smallest element index is larger than the current index, then swap
+        /// 
+        ///     return the input array.
+        /// </remarks>
+        [Theory]
+        [MemberData(nameof(GetTestData))]
+        public void TestSelectionSort(int[] expected, int[] input)
+        {
+            var actual = SelectionSort(input);
+            Assert.True(expected.SequenceEqual(actual));
+        }
+
+        private int[] SelectionSort(int[] input)
+        {
+            for (int i = 0; i < input.Length; i++)
+            {
+                int min = input[i];
+                int minIndex = i;
+
+                for (int j = i + 1; j < input.Length; j++)
+                {
+                    int curr = input[j];
+                    if (curr < min)
+                    {
+                        min = curr;
+                        minIndex = j;
+                    }
+                }
+
+                Swap(input, i, minIndex);
+            }
+
+            return input;
         }
 
         [Theory]
@@ -32,23 +79,22 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Sorting
         /// </remarks>
         private IEnumerable<int> BubbleSort(int[] input)
         {
-            Action<int[], int, int> swap = (a, i, j) =>
-            {
-                var temp = a[i];
-                a[i] = a[j];
-                a[j] = temp;
-            };
-
             for (int i = 0; i < input.Length - 1; i++)
             {
                 for (int j = i + 1; j <= input.Length - 1; j++)
                 {
                     if (input[i] > input[j])
-                        swap(input, i, j);
+                        Swap(input, i, j);
                 }
             }
 
             return input;
+        }
+        void Swap(int[] a, int i, int j)
+        {
+            var temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
         }
     }
 }
