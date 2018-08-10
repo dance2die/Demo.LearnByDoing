@@ -14,15 +14,37 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Sorting
 
         /// <remarks>
         /// Algorithm: 
-        /// 1. out-of-place
-        ///     Create a result array
-        ///     While the result array count is less than the input array,
-        ///         Select the smallest element from input array
-        ///         Add the smallest element to the result
-        /// 
-        ///     return the result array
-        /// 
-        /// 2. in-place
+        ///     while end is not reached,
+        ///         while current element is smaller than the previous, move it to the left.
+        /// </remarks>
+        [Theory]
+        [MemberData(nameof(GetTestData))]
+        public void TestInsertionSort(int[] expected, int[] input)
+        {
+            var actual = InsertionSort(input);
+            Assert.True(expected.SequenceEqual(actual));
+        }
+
+        private IEnumerable<int> InsertionSort(int[] input)
+        {
+            for (int i = 1; i < input.Length; i++)
+            {
+                int curr = input[i];
+                for (int j = 0; j < i; j++)
+                {
+                    int prev = input[j];
+                    if (curr < prev)
+                    {
+                        Swap(input, i, j);
+                    }
+                }
+            }
+
+            return input;
+        }
+
+        /// <remarks>
+        /// Algorithm: 
         ///     while index is less than the input array length - 1,
         ///         find the smallest element.
         ///         if the smallest element index is larger than the current index, then swap
