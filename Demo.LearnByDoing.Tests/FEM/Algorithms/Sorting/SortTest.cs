@@ -10,6 +10,8 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Sorting
         {
             yield return new object[] { new[] { 1, 2, 3, 4, 5 }, new[] { 5, 2, 3, 4, 1 } };
             yield return new object[] { new[] { 11, 22, 33, 44, 55 }, new[] { 55, 44, 33, 22, 11 } };
+            yield return new object[] { new[] { 1, 2, 3, 8, 9, 24, 33 }, new[] { 8, 33, 9, 1, 24, 3, 2 } };
+            yield return new object[] { new[] { 1, 2, 3, 8, 9, 24, 33, 99 }, new[] { 8, 33, 9, 1, 99, 24, 3, 2 } };
         }
 
         /// <remarks>
