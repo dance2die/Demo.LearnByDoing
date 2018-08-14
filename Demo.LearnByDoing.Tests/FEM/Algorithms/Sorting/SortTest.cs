@@ -15,6 +15,74 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Sorting
         }
 
         /// <remarks>
+        /// Algorithm:
+        /// 
+        ///     MergeSort(a)
+        ///         If a.length -lte 1 return a[0]
+        ///     
+        ///         leftSegment = a[0...mid]
+        ///         rightSegment = a[mid...end]
+        /// 
+        ///         left = MergeSort(leftSegment)
+        ///         right = MergeSort(rightSegement)
+        /// 
+        ///         return Merge(left, right)
+        /// 
+        ///     
+        ///     Merge(left, right)
+        ///         result = [], leftIndex = 0, rightIndex = 0
+        /// 
+        ///         while (result.length -lt leftIndex + rightIndex
+        ///             if (leftIndex == left.Length) copy right to result
+        ///             elseif (rightIndex == right.Length) copy left to result
+        ///             elseif (left[leftIndex] -lte right[rightIndex] then copy left[leftIndex] to result and increment leftIndex
+        ///             else copy right[rightIndex] to result and increment rightIndex
+        /// 
+        /// </remarks>>
+        [Theory]
+        [MemberData(nameof(GetTestData))]
+        public void TestMergeSort(int[] expected, int[] a)
+        {
+            var actual = MergeSort(a).ToList();
+            Assert.True(expected.SequenceEqual(actual));
+        }
+
+        private IEnumerable<int> MergeSort(int[] a)
+        {
+            if (a.Length <= 1)
+            {
+                yield return a[0];
+                yield break;
+            }
+
+            var mid = a.Length / 2;
+            var leftSegment = a.Take(mid).ToArray();
+            var rightSegment = a.Skip(mid).ToArray();
+
+            var left = MergeSort(leftSegment).ToList();
+            var right = MergeSort(rightSegment).ToList();
+
+            foreach (var _ in Merge(left, right).ToList()) yield return _;
+        }
+
+        private IEnumerable<int> Merge(List<int> left, List<int> right)
+        {
+            var result = new List<int>();
+            int leftIndex = 0;
+            int rightIndex = 0;
+
+            while (result.Count < left.Count + right.Count)
+            {
+                if (leftIndex == left.Count) result.AddRange(right.Skip(rightIndex));
+                else if (rightIndex == right.Count) result.AddRange(left.Skip(leftIndex));
+                else if (left[leftIndex] <= right[rightIndex]) result.Add(left[leftIndex++]);
+                else result.Add(right[rightIndex++]);
+            }
+            
+            return result;
+        }
+
+        /// <remarks>
         /// Algorithm: 
         ///     while end is not reached,
         ///         while current element is smaller than the previous, move it to the left.
