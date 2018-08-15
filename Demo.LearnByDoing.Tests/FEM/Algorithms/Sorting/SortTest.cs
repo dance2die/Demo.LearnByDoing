@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -12,6 +13,43 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Sorting
             yield return new object[] { new[] { 11, 22, 33, 44, 55 }, new[] { 55, 44, 33, 22, 11 } };
             yield return new object[] { new[] { 1, 2, 3, 8, 9, 24, 33 }, new[] { 8, 33, 9, 1, 24, 3, 2 } };
             yield return new object[] { new[] { 1, 2, 3, 8, 9, 24, 33, 99 }, new[] { 8, 33, 9, 1, 99, 24, 3, 2 } };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetTestData))]
+        public void TestQuickSort(int[] expected, int[] a)
+        {
+            QuickSort(a, 0, a.Length - 1);
+            Assert.True(expected.SequenceEqual(a));
+        }
+
+        private void QuickSort(int[] a, int start, int end)
+        {
+            if (start < end)
+            {
+                int partitionIndex = Partition(a, start, end);
+                QuickSort(a, start, partitionIndex - 1);
+                QuickSort(a, partitionIndex + 1, end);
+            }
+        }
+
+        private int Partition(int[] a, int start, int end)
+        {
+            int pivot = a[end];
+            int partitionIndex = start;
+
+            for (int i = start; i < end; i++)
+            {
+                if (a[i] <= pivot)
+                {
+                    Swap(a, i, partitionIndex);
+                    partitionIndex++;
+                }
+            }
+
+            Swap(a, partitionIndex, end);
+
+            return partitionIndex;
         }
 
         /// <remarks>
@@ -78,7 +116,7 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.Sorting
                 else if (left[leftIndex] <= right[rightIndex]) result.Add(left[leftIndex++]);
                 else result.Add(right[rightIndex++]);
             }
-            
+
             return result;
         }
 
