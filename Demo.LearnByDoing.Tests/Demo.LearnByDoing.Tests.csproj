@@ -290,6 +290,7 @@
     <Compile Include="DataStructure\TriestTest.cs" />
     <Compile Include="FEM\Algorithms\BinaryTrees\BstTest.cs" />
     <Compile Include="FEM\Algorithms\BinaryTrees\BstTraverseTest.cs" />
+    <Compile Include="FEM\Algorithms\DataStructures\HashtableTest.cs" />
     <Compile Include="FEM\Algorithms\Recursion\ExerciseTest.cs" />
     <Compile Include="FEM\Algorithms\Sorting\SortTest.cs" />
     <Compile Include="GeeksForGeeks\DynamicProgramming\BasicConcepts\01 Overlapping Subproblems Property.cs" />
