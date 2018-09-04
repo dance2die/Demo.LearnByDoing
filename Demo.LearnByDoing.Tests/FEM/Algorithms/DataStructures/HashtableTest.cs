@@ -27,11 +27,30 @@ namespace Demo.LearnByDoing.Tests.FEM.Algorithms.DataStructures
             Func<string, string> self = _ => _;
             Assert.True(expected.OrderBy(self).SequenceEqual(sut.Data.OrderBy(self)));
         }
+
+        [Fact]
+        public void TestGet()
+        {
+            var sut = new FemHashtable(3);
+            sut.Set("1", "first");
+            sut.Set("2", "second");
+            sut.Set("3", "third");
+
+            Assert.Equal("first", sut.Get("1"));
+            Assert.Equal("second", sut.Get("2"));
+            Assert.Equal("third", sut.Get("3"));
+        }
     }
 
     class FemHashtable
     {
         public string[] Data { get; }
+
+        public string Get(string key)
+        {
+            int hash = SimpleHash(key, Data.Length);
+            return Data[hash];
+        }
 
         public void Set(string key, string value)
         {
