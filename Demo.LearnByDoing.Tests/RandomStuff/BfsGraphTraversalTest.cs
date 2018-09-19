@@ -29,18 +29,16 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
             var visited = new HashSet<char>();
 
             q.Enqueue('a');
-            visited.Add('a');
 
             while (q.Count > 0)
             {
                 var v = q.Dequeue();
+                visited.Add(v);
+
                 foreach (var neighbor in graph[v])
                 {
-                    if (!visited.Contains(neighbor))
-                    {
-                        visited.Add(neighbor);
-                        q.Enqueue(neighbor);
-                    }
+                    if (visited.Contains(neighbor)) continue;
+                    q.Enqueue(neighbor);
                 }
             }
 
