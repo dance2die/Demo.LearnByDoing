@@ -20,7 +20,55 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
         [MemberData(nameof(GetBidrectionalBfsData))]
         public static void TesBidirectionaltBfs(Dictionary<int, List<int>> graph, int start, int end, bool expected)
         {
-            Assert.True(expected);
+            bool actual = TraverseBidirectionaltBfs(graph, start, end);
+            Assert.Equal(expected, actual);
+        }
+
+        /// <summary>
+        /// Blind implementation https://stackoverflow.com/a/39782065/4035
+        /// </summary>
+        private static bool TraverseBidirectionaltBfs(Dictionary<int, List<int>> graph, int start, int end)
+        {
+            var qA = new Queue<int>();
+            var qB = new Queue<int>();
+            var visitedA = new HashSet<int>();
+            var visitedB = new HashSet<int>();
+
+            qA.Enqueue(start);
+            qB.Enqueue(end);
+            visitedA.Add(start);
+            visitedB.Add(end);
+
+            while (qA.Count > 0 || qB.Count > 0)
+            {
+                if (PathExistsBetween(graph, qA, visitedA, visitedB)
+                    || PathExistsBetween(graph, qB, visitedB, visitedA))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private static bool PathExistsBetween(
+            Dictionary<int, List<int>> graph, Queue<int> q,
+            HashSet<int> visitedFrom, HashSet<int> visitedTo)
+        {
+            if (q.Count <= 0) return false;
+
+            var next = q.Dequeue();
+            foreach (var neighbor in graph[next])
+            {
+                if (visitedTo.Contains(neighbor))
+                    return true;
+
+                if (!visitedFrom.Contains(neighbor))
+                {
+                    visitedFrom.Add(neighbor);
+                    q.Enqueue(neighbor);
+                }
+            }
+
+            return false;
         }
 
         public static IEnumerable<object[]> GetBidrectionalBfsData()
