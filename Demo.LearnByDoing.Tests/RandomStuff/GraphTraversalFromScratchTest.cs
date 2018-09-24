@@ -12,6 +12,45 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
         {
         }
 
+        /// <summary>
+        /// Implementing using GeeksForGeeks algorithm
+        /// https://www.geeksforgeeks.org/bidirectional-search/
+        /// </summary>
+        [Theory]
+        [MemberData(nameof(GetBidrectionalBfsData))]
+        public static void TesBidirectionaltBfs(Dictionary<int, List<int>> graph, int start, int end, bool expected)
+        {
+            Assert.True(expected);
+        }
+
+        public static IEnumerable<object[]> GetBidrectionalBfsData()
+        {
+            yield return new object[] { GetBidrectionalBfsGraph(), 0, 14, true };
+        }
+
+        private static Dictionary<int, List<int>> GetBidrectionalBfsGraph()
+        {
+            return new Dictionary<int, List<int>>
+            {
+                {0, new List<int> {4}},
+                {1, new List<int> {4}},
+                {2, new List<int> {5}},
+                {3, new List<int> {5}},
+                {4, new List<int> {0, 1}},
+                {5, new List<int> {2, 3}},
+                {6, new List<int> {4, 5}},
+                {7, new List<int> {6, 8}},
+                {8, new List<int> {9, 10}},
+                {9, new List<int> {11, 12}},
+                {10, new List<int> {13, 14}},
+                {11, new List<int> {9}},
+                {12, new List<int> {9}},
+                {13, new List<int> {10}},
+                {14, new List<int> {10}},
+            };
+        }
+
+
         [Theory]
         [MemberData(nameof(GetBfsData))]
         public static void TestBfs(Dictionary<char, List<char>> graph, char[] expected)
