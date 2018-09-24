@@ -41,8 +41,9 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
 
             while (qA.Count > 0 || qB.Count > 0)
             {
-                if (PathExistsBetween(graph, qA, visitedA, visitedB)
-                    || PathExistsBetween(graph, qB, visitedB, visitedA))
+                if (PathExistsBetween(graph, qA, visitedA, visitedB))
+                    return true;
+                if (PathExistsBetween(graph, qB, visitedB, visitedA))
                     return true;
             }
 
@@ -84,13 +85,13 @@ namespace Demo.LearnByDoing.Tests.RandomStuff
                 {1, new List<int> {4}},
                 {2, new List<int> {5}},
                 {3, new List<int> {5}},
-                {4, new List<int> {0, 1}},
-                {5, new List<int> {2, 3}},
-                {6, new List<int> {4, 5}},
+                {4, new List<int> {0, 1, 6}},
+                {5, new List<int> {2, 3, 6}},
+                {6, new List<int> {4, 5, 7}},
                 {7, new List<int> {6, 8}},
-                {8, new List<int> {9, 10}},
-                {9, new List<int> {11, 12}},
-                {10, new List<int> {13, 14}},
+                {8, new List<int> {7, 9, 10}},
+                {9, new List<int> {8, 11, 12}},
+                {10, new List<int> {8, 13, 14}},
                 {11, new List<int> {9}},
                 {12, new List<int> {9}},
                 {13, new List<int> {10}},
