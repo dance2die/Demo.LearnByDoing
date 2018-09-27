@@ -68,7 +68,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
 
                 if (!vFrom.Contains(nb))
                 {
-                    p[n] = nb;
+                    p[nb] = n;
                     q.Enqueue(nb);
                     vFrom.Add(nb);
                 }
@@ -82,9 +82,9 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
             var result = new Stack<string>();
             var current = foundNode;
 
-            while (p[current] != null)
+            while (p.ContainsKey(current) && p[current] != null)
             {
-                result.Push(current);
+                result.Push(p[current]);
                 current = p[current];
             }
 
@@ -96,7 +96,7 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
             var result = new Queue<string>();
             var current = foundNode;
 
-            while (p[current] != null)
+            while (p.ContainsKey(current) && p[current] != null)
             {
                 result.Enqueue(current);
                 current = p[current];
@@ -105,6 +105,32 @@ namespace Demo.LearnByDoing.Tests.InterviewCake
             return result.ToList();
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Tests
+
+        [Fact]
+        public void ThreeHopPathTest()
+        {
+            var expected = new[] { "d", "a", "c", "e" };
+            var actual = GetPath(GetNetwork(), "d", "e");
+            Assert.NotNull(actual);
+            Assert.Equal(expected, actual);
+        }
 
         [Fact]
         public void TwoHopPath1Test()
