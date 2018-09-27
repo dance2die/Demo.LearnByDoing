@@ -299,6 +299,7 @@
     <Compile Include="GeeksForGeeks\DynamicProgramming\BasicProblems\03 Longest Common Subsequence Test.cs" />
     <Compile Include="GeeksForGeeks\GraphDataStructureAndAlgorithms\IntroductionToDfsAndBfs\01_Graph and its representations.cs" />
     <Compile Include="GeeksForGeeks\GraphDataStructureAndAlgorithms\IntroductionToDfsAndBfs\02_Breadth First Traversal or BFS for a Graph.cs" />
+    <Compile Include="InterviewCake\MeshMessageTest.cs" />
     <Compile Include="InterviewCake\Question025Test.cs" />
     <Compile Include="InterviewCake\Question001Test.cs" />
     <Compile Include="InterviewCake\Question002Test.cs" />
