@@ -27,27 +27,28 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
                 }
             };
 
-            //yield return new object[] {0, 0, new int[0][]};
-            //yield return new object[] {1, 1, new[] {new[] {1}}};
-            //yield return new object[]
-            //{
-            //    7, 3,
-            //    new[]
-            //    {
-            //        new[] {1, 1, 1, 1, 1, 1, 1}, new[] {1, 1, 1, 1, 1, 2}, new[] {1, 1, 1, 1, 2, 1},
-            //        new[] {1, 1, 1, 1, 3},
-            //        new[] {1, 1, 1, 2, 1, 1}, new[] {1, 1, 1, 2, 2}, new[] {1, 1, 1, 3, 1}, new[] {1, 1, 2, 1, 1, 1},
-            //        new[] {1, 1, 2, 1, 2}, new[] {1, 1, 2, 2, 1}, new[] {1, 1, 2, 3}, new[] {1, 1, 3, 1, 1},
-            //        new[] {1, 1, 3, 2}, new[] {1, 2, 1, 1, 1, 1}, new[] {1, 2, 1, 1, 2}, new[] {1, 2, 1, 2, 1},
-            //        new[] {1, 2, 1, 3}, new[] {1, 2, 2, 1, 1}, new[] {1, 2, 2, 2}, new[] {1, 2, 3, 1},
-            //        new[] {1, 3, 1, 1, 1}, new[] {1, 3, 1, 2}, new[] {1, 3, 2, 1}, new[] {1, 3, 3},
-            //        new[] {2, 1, 1, 1, 1, 1}, new[] {2, 1, 1, 1, 2}, new[] {2, 1, 1, 2, 1}, new[] {2, 1, 1, 3},
-            //        new[] {2, 1, 2, 1, 1}, new[] {2, 1, 2, 2}, new[] {2, 1, 3, 1}, new[] {2, 2, 1, 1, 1},
-            //        new[] {2, 2, 1, 2}, new[] {2, 2, 2, 1}, new[] {2, 2, 3}, new[] {2, 3, 1, 1},
-            //        new[] {2, 3, 2}, new[] {3, 1, 1, 1, 1}, new[] {3, 1, 1, 2}, new[] {3, 1, 2, 1},
-            //        new[] {3, 1, 3}, new[] {3, 2, 1, 1}, new[] {3, 2, 2}, new[] {3, 3, 1}
-            //    }
-            //};
+            yield return new object[] { 0, 0, new int[0][] };
+            yield return new object[] { 1, 1, new[] { new[] { 1 } } };
+            yield return new object[]
+            {
+                7, 3,
+                new[]
+                {
+                    new[] {1, 1, 1, 1, 1, 1, 1}, new[] {1, 1, 1, 1, 1, 2}, new[] {1, 1, 1, 1, 2, 1},
+                    new[] {1, 1, 1, 1, 3},
+                    new[] {1, 1, 1, 2, 1, 1}, new[] {1, 1, 1, 2, 2}, new[] {1, 1, 1, 3, 1}, new[] {1, 1, 2, 1, 1, 1},
+                    new[] {1, 1, 2, 1, 2}, new[] {1, 1, 2, 2, 1}, new[] {1, 1, 2, 3}, new[] {1, 1, 3, 1, 1},
+                    new[] {1, 1, 3, 2}, new[] {1, 2, 1, 1, 1, 1}, new[] {1, 2, 1, 1, 2}, new[] {1, 2, 1, 2, 1},
+                    new[] {1, 2, 1, 3}, new[] {1, 2, 2, 1, 1}, new[] {1, 2, 2, 2}, new[] {1, 2, 3, 1},
+                    new[] {1, 3, 1, 1, 1}, new[] {1, 3, 1, 2}, new[] {1, 3, 2, 1}, new[] {1, 3, 3},
+                    new[] {2, 1, 1, 1, 1, 1}, new[] {2, 1, 1, 1, 2}, new[] {2, 1, 1, 2, 1}, new[] {2, 1, 1, 3},
+                    new[] {2, 1, 2, 1, 1}, new[] {2, 1, 2, 2}, new[] {2, 1, 3, 1}, new[] {2, 2, 1, 1, 1},
+                    new[] {2, 2, 1, 2}, new[] {2, 2, 2, 1}, new[] {2, 2, 3}, new[] {2, 3, 1, 1},
+                    new[] {2, 3, 2}, new[] {3, 1, 1, 1, 1}, new[] {3, 1, 1, 2}, new[] {3, 1, 2, 1},
+                    new[] {3, 1, 3}, new[] {3, 2, 1, 1}, new[] {3, 2, 2}, new[] {3, 3, 1}
+                }
+            };
+
             yield return new object[]
             {
                 5, 2,
@@ -71,8 +72,6 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
 
         int[][] climbingStaircase(int n, int k)
         {
-            //var acc = new List<int[]>();
-            //BackTrack(n, k, acc).ToList();
             var acc = BackTrack(n, n, k);
             return acc.ToArray();
         }
@@ -81,8 +80,13 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
         IEnumerable<int[]> BackTrack(int upto, int n, int k)
         {
             Console.WriteLine($"BEGIN n={n}, k={k}");
+            if (n < 0)
+            {
+                yield return new int[0];
+                yield break;
+            }
 
-            if (n <= 1)
+            if (n == 1)
             {
                 yield return new[] { 1 };
                 yield break;
