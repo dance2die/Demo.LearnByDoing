@@ -15,17 +15,17 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
 
         public static IEnumerable<object[]> GetData()
         {
-            //yield return new object[]
-            //{
-            //    4, 2, new[]
-            //    {
-            //        new[] {1, 1, 1, 1},
-            //        new[] {1, 1, 2},
-            //        new[] {1, 2, 1},
-            //        new[] {2, 1, 1},
-            //        new[] {2, 2}
-            //    }
-            //};
+            yield return new object[]
+            {
+                4, 2, new[]
+                {
+                    new[] {1, 1, 1, 1},
+                    new[] {1, 1, 2},
+                    new[] {1, 2, 1},
+                    new[] {2, 1, 1},
+                    new[] {2, 2}
+                }
+            };
 
             //yield return new object[] {0, 0, new int[0][]};
             //yield return new object[] {1, 1, new[] {new[] {1}}};
@@ -51,10 +51,10 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
             yield return new object[]
             {
                 5, 2,
-                new[] 
+                new[]
                 {
                     new[] {1, 1, 1, 1, 1}, new[] {1, 1, 1, 2}, new[] {1, 1, 2, 1},
-                    new[] {1, 2, 1, 1}, new[] {2, 1, 1, 1}, new[] {1, 2, 2},
+                    new[] {1, 2, 1, 1}, new[] {1, 2, 2}, new[] {2, 1, 1, 1},
                     new[] {2, 1, 2}, new[] {2, 2, 1}
                 }
             };
@@ -71,53 +71,59 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
 
         int[][] climbingStaircase(int n, int k)
         {
-            var acc = new List<int[]>();
-            BackTrack(n, k, acc).ToList();
+            //var acc = new List<int[]>();
+            //BackTrack(n, k, acc).ToList();
+            var acc = BackTrack(n, n, k);
             return acc.ToArray();
         }
 
-        IEnumerable<int[]> BackTrack(int n, int k, List<int[]> acc)
+        //IEnumerable<int[]> BackTrack(int n, int k, List<int[]> acc)
+        IEnumerable<int[]> BackTrack(int upto, int n, int k)
         {
-            Console.WriteLine($"BEGIN n={n}, k={k}, acc={string.Join(",", acc)}");
+            Console.WriteLine($"BEGIN n={n}, k={k}");
 
             if (n <= 1)
             {
-                yield return new [] { 1 };
-                yield break;
-            }
-            if (n == 2)
-            {
-                yield return new [] { 1, 1 };
-                yield return new [] { 2 };
-                yield break;
-            }
-            if (n == 3)
-            {
-                yield return new [] { 1, 1, 1 };
-                yield return new [] { 1, 2 };
-                yield return new [] { 2, 1 };
+                yield return new[] { 1 };
                 yield break;
             }
 
+            if (n == 2)
+            {
+                yield return new[] { 1, 1 };
+                yield return new[] { 2 };
+                yield break;
+            }
+
+            if (n == 3)
+            {
+                yield return new[] { 1, 1, 1 };
+                yield return new[] { 1, 2 };
+                yield return new[] { 2, 1 };
+                yield break;
+            }
+
+            var outter = new List<int[]>();
             for (int i = 1; i <= k; i++)
             {
-                var outter = new List<int[]>();
-                foreach (var a in BackTrack(n - i, k, acc).ToList())
+                foreach (var a in BackTrack(upto, n - i, k).ToList())
                 {
                     var inner = new List<int>();
                     Console.WriteLine($"i={i}, a={string.Join(",", a)}");
 
-                    inner.Add(i);
+                    inner.Add(n - (n - i));
                     inner.AddRange(a);
 
-                    yield return inner.ToArray();
-                    outter.Add(inner.ToArray());
+                    if (n == upto) outter.Add(inner.ToArray());
+                    else yield return inner.ToArray();
                 }
-                // acc.AddRange(outter.ToArray());
-                Console.WriteLine();
-                if (i == k)
+            }
+
+            if (upto == n)
+            {
+                foreach (var result in outter.ToArray())
                 {
-                    acc.AddRange(outter);
+                    yield return result;
                 }
             }
         }
