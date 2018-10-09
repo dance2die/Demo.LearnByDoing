@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace Demo.LearnByDoing.Tests.CodeFights.CommonTechniques
+namespace Demo.LearnByDoing.Tests.CodeSignal.CommonTechniques
 {
 	/// <summary>
 	/// https://codefights.com/interview-practice/task/4MoqQLaw22nrzXbgs/description

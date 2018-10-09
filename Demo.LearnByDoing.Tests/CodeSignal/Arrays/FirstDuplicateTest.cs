@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Demo.LearnByDoing.Tests.CodeFights.Arrays
+namespace Demo.LearnByDoing.Tests.CodeSignal.Arrays
 {
 	/// <summary>
 	/// https://codefights.com/interview-practice/task/pMvymcahZ8dY4g75q

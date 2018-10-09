@@ -4,7 +4,7 @@ using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.ThroughTheFog
+namespace Demo.LearnByDoing.Tests.CodeSignal.Arcade.ThroughTheFog
 {
     /// <summary>
     /// https://codefights.com/arcade/intro/level-7/PTWhv2oWqd6p4AHB9

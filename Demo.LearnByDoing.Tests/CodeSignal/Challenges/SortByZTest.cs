@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace Demo.LearnByDoing.Tests.CodeFights.Challenges
+namespace Demo.LearnByDoing.Tests.CodeSignal.Challenges
 {
 	/// <summary>
 	/// https://codefights.com/challenge/Z2ZgyaQtu96WDH6Pn/

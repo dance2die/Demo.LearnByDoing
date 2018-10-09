@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Demo.LearnByDoing.Tests.CodeFights.Arcade.SmoothSailing
+namespace Demo.LearnByDoing.Tests.CodeSignal.Arcade.SmoothSailing
 {
     /// <summary>
     /// https://codefights.com/arcade/intro/level-3/3o6QFqgYSontKsyk4/description

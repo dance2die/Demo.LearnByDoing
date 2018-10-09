@@ -2,7 +2,7 @@
 using System.Linq;
 using Xunit;
 
-namespace Demo.LearnByDoing.Tests.CodeFights.Challenges
+namespace Demo.LearnByDoing.Tests.CodeSignal.Challenges
 {
 	/// <summary>
 	/// https://codefights.com/challenge/5Afg8xaWHX9cQ2Q6f
