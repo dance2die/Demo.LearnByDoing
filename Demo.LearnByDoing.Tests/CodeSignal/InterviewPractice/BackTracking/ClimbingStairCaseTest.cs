@@ -15,20 +15,31 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
 
         public static IEnumerable<object[]> GetData()
         {
-            yield return new object[]
-            {
-                4, 2, new[]
-                {
-                    new[] {1, 1, 1, 1},
-                    new[] {1, 1, 2},
-                    new[] {1, 2, 1},
-                    new[] {2, 1, 1},
-                    new[] {2, 2}
-                }
-            };
+            //yield return new object[] { 0, 0, new int[0][] };
+            //yield return new object[] { 1, 1, new[] { new[] { 1 } } };
+            //yield return new object[]
+            //{
+            //    4, 2, new[]
+            //    {
+            //        new[] {1, 1, 1, 1},
+            //        new[] {1, 1, 2},
+            //        new[] {1, 2, 1},
+            //        new[] {2, 1, 1},
+            //        new[] {2, 2}
+            //    }
+            //};
 
-            yield return new object[] { 0, 0, new int[0][] };
-            yield return new object[] { 1, 1, new[] { new[] { 1 } } };
+            //yield return new object[]
+            //{
+            //    5, 2,
+            //    new[]
+            //    {
+            //        new[] {1, 1, 1, 1, 1}, new[] {1, 1, 1, 2}, new[] {1, 1, 2, 1},
+            //        new[] {1, 2, 1, 1}, new[] {1, 2, 2}, new[] {2, 1, 1, 1},
+            //        new[] {2, 1, 2}, new[] {2, 2, 1}
+            //    }
+            //};
+
             yield return new object[]
             {
                 7, 3,
@@ -46,17 +57,6 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
                     new[] {2, 2, 1, 2}, new[] {2, 2, 2, 1}, new[] {2, 2, 3}, new[] {2, 3, 1, 1},
                     new[] {2, 3, 2}, new[] {3, 1, 1, 1, 1}, new[] {3, 1, 1, 2}, new[] {3, 1, 2, 1},
                     new[] {3, 1, 3}, new[] {3, 2, 1, 1}, new[] {3, 2, 2}, new[] {3, 3, 1}
-                }
-            };
-
-            yield return new object[]
-            {
-                5, 2,
-                new[]
-                {
-                    new[] {1, 1, 1, 1, 1}, new[] {1, 1, 1, 2}, new[] {1, 1, 2, 1},
-                    new[] {1, 2, 1, 1}, new[] {1, 2, 2}, new[] {2, 1, 1, 1},
-                    new[] {2, 1, 2}, new[] {2, 2, 1}
                 }
             };
         }
@@ -79,7 +79,7 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
         //IEnumerable<int[]> BackTrack(int n, int k, List<int[]> acc)
         IEnumerable<int[]> BackTrack(int upto, int n, int k)
         {
-            Console.WriteLine($"BEGIN n={n}, k={k}");
+            //Console.WriteLine($"BEGIN n={n}, k={k}");
             if (n < 0)
             {
                 yield return new int[0];
@@ -112,10 +112,10 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
             {
                 foreach (var a in BackTrack(upto, n - i, k).ToList())
                 {
-                    var inner = new List<int>();
-                    Console.WriteLine($"i={i}, a={string.Join(",", a)}");
+                    //Console.WriteLine($"i={i}, a={string.Join(",", a)}");
+                    var diff = n - (n - i);
+                    var inner = new List<int> {diff};
 
-                    inner.Add(n - (n - i));
                     inner.AddRange(a);
 
                     if (n == upto) outter.Add(inner.ToArray());
