@@ -7,6 +7,10 @@ using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
 {
+    /// <summary>
+    /// CodeSignal - Backtracking -> climbingStaircase
+    /// https://app.codesignal.com/interview-practice/task/cAXEnPyzknC5zgd7x/description
+    /// </summary>
     public class ClimbingStairCaseTest : BaseTest
     {
         public ClimbingStairCaseTest(ITestOutputHelper output) : base(output)
@@ -15,33 +19,33 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
 
         public static IEnumerable<object[]> GetData()
         {
-            //var empty = new int[1][];
-            //empty[0] = new int[0];
+            var empty = new int[1][];
+            empty[0] = new int[0];
 
-            //yield return new object[] { 0, 0, empty };
-            //yield return new object[] { 1, 1, new[] { new[] { 1 } } };
-            //yield return new object[]
-            //{
-            //    4, 2, new[]
-            //    {
-            //        new[] {1, 1, 1, 1},
-            //        new[] {1, 1, 2},
-            //        new[] {1, 2, 1},
-            //        new[] {2, 1, 1},
-            //        new[] {2, 2}
-            //    }
-            //};
+            yield return new object[] { 0, 0, empty };
+            yield return new object[] { 1, 1, new[] { new[] { 1 } } };
+            yield return new object[]
+            {
+                4, 2, new[]
+                {
+                    new[] {1, 1, 1, 1},
+                    new[] {1, 1, 2},
+                    new[] {1, 2, 1},
+                    new[] {2, 1, 1},
+                    new[] {2, 2}
+                }
+            };
 
-            //yield return new object[]
-            //{
-            //    5, 2,
-            //    new[]
-            //    {
-            //        new[] {1, 1, 1, 1, 1}, new[] {1, 1, 1, 2}, new[] {1, 1, 2, 1},
-            //        new[] {1, 2, 1, 1}, new[] {1, 2, 2}, new[] {2, 1, 1, 1},
-            //        new[] {2, 1, 2}, new[] {2, 2, 1}
-            //    }
-            //};
+            yield return new object[]
+            {
+                5, 2,
+                new[]
+                {
+                    new[] {1, 1, 1, 1, 1}, new[] {1, 1, 1, 2}, new[] {1, 1, 2, 1},
+                    new[] {1, 2, 1, 1}, new[] {1, 2, 2}, new[] {2, 1, 1, 1},
+                    new[] {2, 1, 2}, new[] {2, 2, 1}
+                }
+            };
 
             yield return new object[]
             {
@@ -83,7 +87,9 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
         {
             _output.WriteLine($"n={n}, k={k}");
 
-            if (n <= 0)
+            if (n < 0) yield break;
+
+            if (n == 0)
             {
                 yield return new int[0];
                 yield break;
