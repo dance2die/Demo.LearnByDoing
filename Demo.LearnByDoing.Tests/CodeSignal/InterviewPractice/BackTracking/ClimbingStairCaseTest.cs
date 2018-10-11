@@ -72,14 +72,15 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
 
         int[][] climbingStaircase(int n, int k)
         {
-            //var acc = BackTrack(n, n, k);
             var acc = BackTrack2(n, k);
             return acc.ToArray();
         }
 
         IEnumerable<int[]> BackTrack2(int n, int k)
         {
-            if (n < 0)
+            _output.WriteLine($"n={n}, k={k}");
+
+            if (n <= 0)
             {
                 yield return new int[0];
                 yield break;
@@ -95,14 +96,19 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.BackTracking
 
             for (int i = 1; i <= k; i++)
             {
-                var inner = new List<int>();
-                foreach (int[] a in BackTrack2(n - i, k).ToList())
+                var outter = new List<int[]>();
+                var next = n - i;
+
+                foreach (int[] a in BackTrack2(next, k).ToList())
                 {
+                    var inner = new List<int>();
                     inner.Add(i);
                     inner.AddRange(a);
+
+                    outter.Add(inner.ToArray());
                 }
 
-                result.Add(inner.ToArray());
+                result.AddRange(outter);
             }
 
             foreach (var r in result) yield return r;
