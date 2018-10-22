@@ -9,7 +9,7 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.DfsBfs
     public class LongestPathTest
     {
     }
-					
+
     public class Program
     {
         public static void Main()
@@ -26,10 +26,8 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.DfsBfs
 
         public static Tree BuildTree(Tree parent, List<string> rest, int depth)
         {
-            if (rest.Count == 0) return null;
+            if (rest.Count == 0) return parent;
 
-            // var current = rest[0];
-            // var currentDepth = current.ToArray().Count(c => c == '\t');
             for (int i = 0; i < rest.Count; i++)
             {
                 var current = rest[i];
@@ -46,10 +44,10 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.DfsBfs
                 {
                     rest.RemoveAt(i);
                     i--;
-                    var children = BuildTree(currentTree, rest.ToList(), currentDepth + 1);
+                    var children = BuildTree(currentTree, rest, currentDepth + 1);
                     parent.Children.Add(children);
                 }
-                else
+                else if (currentDepth < depth)
                 {
                     return parent;
                 }
