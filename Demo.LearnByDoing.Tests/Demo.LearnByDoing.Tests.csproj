@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Demo.LearnByDoing.Tests.Chapter07.Chapter7_2Main</StartupObject>
+    <StartupObject>Demo.LearnByDoing.Tests.CodeSignal.InterviewPractice.DfsBfs.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -146,6 +146,7 @@
     <Compile Include="CodeSignal\Challenges\SortByZTest.cs" />
     <Compile Include="CodeSignal\CommonTechniques\SumInRangeTest.cs" />
     <Compile Include="CodeSignal\InterviewPractice\BackTracking\ClimbingStairCaseTest.cs" />
+    <Compile Include="CodeSignal\InterviewPractice\DfsBfs\LongestPathTest.cs" />
     <Compile Include="CodeWars\Beta\ComGovOrgFirstTest.cs" />
     <Compile Include="CodeWars\Beta\TheABProblemTest.cs" />
     <Compile Include="CodeWars\Kyu4\AddingBigNumbersTest.cs" />
