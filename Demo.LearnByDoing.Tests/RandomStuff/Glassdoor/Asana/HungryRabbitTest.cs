@@ -106,37 +106,37 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
         public static IEnumerable<object[]> GetTestData()
         {
-            //yield return new object[]
-            //{
-            //    7,
-            //    new[,]
-            //    {
-            //        {5, 7, 8, 6, 3},
-            //        {0, 0, 7, 0, 4},
-            //        {4, 7, 3, 4, 9},
-            //        {3, 1, 0, 5, 8},
-            //    }
-            //};
-            //yield return new object[]
-            //{
-            //    7,
-            //    new[,]
-            //    {
-            //        {5, 7, 8, 6},
-            //        {0, 0, 7, 0},
-            //        {4, 6, 3, 4},
-            //        {3, 1, 0, 5}
-            //    }
-            //};
-            //yield return new object[]
-            //{
-            //    7,
-            //    new[,]
-            //    {
-            //        {5, 7, 8},
-            //        {0, 0, 7},
-            //    }
-            //};
+            yield return new object[]
+            {
+                27,
+                new[,]
+                {
+                    {5, 7, 8, 6, 3},
+                    {0, 0, 7, 0, 4},
+                    {4, 7, 3, 4, 9},
+                    {3, 1, 0, 5, 8},
+                }
+            };
+            yield return new object[]
+            {
+                27,
+                new[,]
+                {
+                    {5, 7, 8, 6},
+                    {0, 0, 7, 0},
+                    {4, 6, 3, 4},
+                    {3, 1, 0, 5}
+                }
+            };
+            yield return new object[]
+            {
+                22,
+                new[,]
+                {
+                    {5, 7, 8},
+                    {0, 0, 7},
+                }
+            };
             yield return new object[]
             {
                 20,
