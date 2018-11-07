@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 {
-    class BinarySearchTreeCheckTest
+    public class BinarySearchTreeCheckTest
     {
         public static IEnumerable<object[]> GetTestCases()
         {
@@ -70,7 +66,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
         [Theory]
         [MemberData(nameof(GetTestCases))]
-        public void TestSearchTree(bool expected, BinarySearchTreeNode root)
+        public void TestBinarySearchTree(bool expected, BinarySearchTreeNode root)
         {
             var actual = IsBinarySearchTree(root);
             Assert.Equal(expected, actual);
@@ -78,11 +74,25 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
         private bool IsBinarySearchTree(BinarySearchTreeNode node)
         {
-            throw new NotImplementedException();
+            return CheckBinarySearchTree(node, int.MinValue, int.MaxValue);
+        }
+
+        private bool IsLeaf(BinarySearchTreeNode node) =>
+            node != null && node.Left == null && node.Right == null;
+
+        private bool IsWithinBoundary(BinarySearchTreeNode node, int leftBoundary, int rightBoundary) =>
+            leftBoundary <= node.Value && node.Value <= rightBoundary;
+
+        private bool CheckBinarySearchTree(BinarySearchTreeNode node, int leftBoundary, int rightBoundary)
+        {
+            if (IsLeaf(node)) return IsWithinBoundary(node, leftBoundary, rightBoundary);
+
+            return CheckBinarySearchTree(node.Left, leftBoundary, node.Value)
+                   && CheckBinarySearchTree(node.Right, node.Value, rightBoundary);
         }
     }
 
-    class BinarySearchTreeNode
+    public class BinarySearchTreeNode
     {
         public int Value { get; }
         public BinarySearchTreeNode Left { get; set; }
