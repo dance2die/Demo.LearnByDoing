@@ -354,6 +354,7 @@
     <Compile Include="RandomStuff\Glassdoor\Asana\BinarySearchTreeCheckTest.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\HungryRabbitTest.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\MaxNumbersInSquaresToTravelTest.cs" />
+    <Compile Include="RandomStuff\Glassdoor\Asana\TopologicalSortTest.cs" />
     <Compile Include="RandomStuff\GraphTraversalFromScratchTest.cs" />
     <Compile Include="RandomStuff\BinaryPrintTest.cs" />
     <Compile Include="RandomStuff\CountWayTest.cs" />
