@@ -22,8 +22,8 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
             for (int i = 0; i < expected.Length; i++)
             {
-                //Assert.Equal(expected[i], sut.Poll());
-                Console.WriteLine(sut.Poll());
+                Assert.Equal(expected[i], sut.Poll());
+                //Console.WriteLine(sut.Poll());
             }
         }
     }
@@ -104,7 +104,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             foreach (var item in items) Add(item);
         }
 
-        private void HeapifyDown()
+        private void HeapifyUp()
         {
             var index = Size - 1;
             while (HashParent(index) && Parent(index) > Items[index])
@@ -114,7 +114,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             }
         }
 
-        private void HeapifyUp()
+        private void HeapifyDown()
         {
             int index = 0;
             while (HasLeftChild(index))
