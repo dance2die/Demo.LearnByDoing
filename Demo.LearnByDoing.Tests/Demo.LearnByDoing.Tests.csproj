@@ -353,6 +353,7 @@
     <Compile Include="RandomStuff\Glassdoor\Asana\BalancedTreeCheckerTest.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\BinarySearchTreeCheckTest.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\HungryRabbitTest.cs" />
+    <Compile Include="RandomStuff\Glassdoor\Asana\KClosePointsToOriginTest.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\MaxHeapTest.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\MaxNumbersInSquaresToTravelTest.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\MinHeapTest.cs" />
