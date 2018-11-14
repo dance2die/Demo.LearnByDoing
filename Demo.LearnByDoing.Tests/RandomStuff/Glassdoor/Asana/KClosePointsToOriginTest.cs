@@ -56,12 +56,14 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             }
         }
 
-        private Dictionary<(int, int), int> BuildPointToDistanceMap((int X, int Y)[] points)
+        private Dictionary<(int, int), double> BuildPointToDistanceMap((int x, int y)[] points)
         {
-            throw new NotImplementedException();
+            return points.ToDictionary(point => point, CalculateDistance);
         }
 
-        private GenericMaxHeap<(int X, int Y, double Distance)> BuildMaxHeapMap(int k, Dictionary<(int X, int Y), int> pointToDistanceMap)
+        private double CalculateDistance((int X, int Y) point) => Math.Sqrt(point.X * point.X + point.Y * point.Y);
+
+        private GenericMaxHeap<(int X, int Y, double Distance)> BuildMaxHeapMap(int k, Dictionary<(int X, int Y), double> pointToDistanceMap)
         {
             throw new NotImplementedException();
         }
