@@ -78,9 +78,19 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
     class GenericMaxHeap<T>
     {
+        private T[] _items;
+        private int _size = 10;
+
+        public GenericMaxHeap()
+        {
+            _items = new T[_size];
+        }
+
         public T Peek()
         {
-            throw new NotImplementedException();
+            if (_size == 0) throw new ArgumentOutOfRangeException();
+
+            return _items[0];
         }
 
         public T Poll()
