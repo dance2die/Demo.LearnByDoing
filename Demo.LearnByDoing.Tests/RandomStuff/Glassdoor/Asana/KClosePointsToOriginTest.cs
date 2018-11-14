@@ -25,9 +25,9 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             };
             var expected = new[]
             {
-                (X: -2, Y: -3), 
-                (X: 0, Y: -2), 
-                (X: -1, Y: 0), 
+                (X: -2, Y: -3),
+                (X: 0, Y: -2),
+                (X: -1, Y: 0),
             };
             const int k = 3;
             var actual = GetKClosestPointsToOrigin(k, points);
@@ -38,7 +38,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         private IEnumerable<(int, int)> GetKClosestPointsToOrigin(int k, (int X, int Y)[] points)
         {
             var pointToDistanceMap = BuildPointToDistanceMap(points);
-            var maxHeap = BuildMaxHeapMap(k, pointToDistanceMap);
+            var maxHeap = BuildMaxHeapMap(k, points);
             for (int i = k; i < points.Length; i++)
             {
                 // Replace the biggest with the current smallest
@@ -63,9 +63,16 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
         private double CalculateDistance((int X, int Y) point) => Math.Sqrt(point.X * point.X + point.Y * point.Y);
 
-        private GenericMaxHeap<(int X, int Y, double Distance)> BuildMaxHeapMap(int k, Dictionary<(int X, int Y), double> pointToDistanceMap)
+        private GenericMaxHeap<(int X, int Y, double Distance)> BuildMaxHeapMap(int k, (int X, int Y)[] points)
         {
-            throw new NotImplementedException();
+            return points
+                .Take(k)
+                .Aggregate(new GenericMaxHeap<(int X, int Y, double Distance)>(),
+                    (heap, point) =>
+                    {
+                        heap.Add((point.X, point.Y, CalculateDistance(point)));
+                        return heap;
+                    });
         }
     }
 
