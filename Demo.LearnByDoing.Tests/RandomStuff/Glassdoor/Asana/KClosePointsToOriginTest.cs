@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
@@ -40,19 +38,22 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         private IEnumerable<(int, int)> GetKClosestPointsToOrigin(int k, (int X, int Y)[] points)
         {
             var pointToDistanceMap = BuildPointToDistanceMap(points);
-            var maxHeap = BuildMaxHeap(k, pointToDistanceMap);
+            var maxHeap = BuildMaxHeapMap(k, pointToDistanceMap);
             for (int i = k; i < points.Length; i++)
             {
                 // Replace the biggest with the current smallest
-                if (points[i] < maxHeap.Peek())
+                if (pointToDistanceMap[points[i]] < maxHeap.Peek().Distance)
                 {
                     maxHeap.Poll();
-                    maxHeap.Add(points[i]);
+                    maxHeap.Add((points[i].X, points[i].Y, pointToDistanceMap[points[i]]));
                 }
             }
 
-            foreach (var point in maxHeap)
-                yield return point;
+            while (maxHeap.HasItem())
+            {
+                var (x, y, _) = maxHeap.Poll();
+                yield return (x, y);
+            }
         }
 
         private Dictionary<(int, int), int> BuildPointToDistanceMap((int X, int Y)[] points)
@@ -60,7 +61,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             throw new NotImplementedException();
         }
 
-        private GenericMaxHeap<(int X, int Y)> BuildMaxHeap(int k, Dictionary<(int X, int Y), int> pointToDistanceMap)
+        private GenericMaxHeap<(int X, int Y, double Distance)> BuildMaxHeapMap(int k, Dictionary<(int X, int Y), int> pointToDistanceMap)
         {
             throw new NotImplementedException();
         }
@@ -68,6 +69,24 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
     class GenericMaxHeap<T>
     {
+        public T Peek()
+        {
+            throw new NotImplementedException();
+        }
 
+        public T Poll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasItem()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
