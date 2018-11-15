@@ -116,11 +116,28 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             HeapifyUp();
         }
 
+        /// <summary>
+        /// Move the last item to as high as it can move up
+        /// </summary>
+        /// <remarks>
+        /// While there is a parent, which is less than the current item,
+        ///     replace the parent with the current item by moving it up.
+        ///     set the current index to that of the parent.
+        /// </remarks>
         private void HeapifyUp()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Move the first item to as low as it can in the tree
+        /// </summary>
+        /// <remarks>
+        /// while the child exists (check left child only)
+        ///     Get the larger child's index between Left & Right child
+        ///     if the current item is bigger than the larger child's value, then break out of the loop
+        ///     else swap the larger child with the current item
+        /// </remarks>
         private void HeapifyDown()
         {
             throw new NotImplementedException();
