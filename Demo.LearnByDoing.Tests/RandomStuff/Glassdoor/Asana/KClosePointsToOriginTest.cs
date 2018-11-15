@@ -26,11 +26,11 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             var expected = new[]
             {
                 (X: -2, Y: -3),
-                (X: 0, Y: -2),
                 (X: -1, Y: 0),
+                (X: 0, Y: -2),
             };
             const int k = 3;
-            var actual = GetKClosestPointsToOrigin(k, points);
+            var actual = GetKClosestPointsToOrigin(k, points).ToList();
 
             Assert.True(expected.SequenceEqual(actual));
         }
@@ -67,7 +67,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         {
             return points
                 .Take(k)
-                .Aggregate(new GenericMaxHeap<(int X, int Y, double Distance)>(),
+                .Aggregate(new GenericMaxHeap<(int X, int Y, double Distance)>(new GenericMaxHeapComparer()),
                     (heap, point) =>
                     {
                         heap.Add((point.X, point.Y, CalculateDistance(point)));
@@ -76,14 +76,25 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         }
     }
 
+    class GenericMaxHeapComparer: IComparer<(int X, int Y, double Distance)>
+    {
+        public int Compare((int X, int Y, double Distance) x, (int X, int Y, double Distance) y)
+        {
+            return (int) (x.Distance - y.Distance);
+        }
+    }
+
     class GenericMaxHeap<T>
     {
         private T[] _items;
-        private int _size = 10;
+        private int _capacity = 10;
+        private int _size;
+        private readonly IComparer<T> _comparer;
 
-        public GenericMaxHeap()
+        public GenericMaxHeap(IComparer<T> comparer)
         {
-            _items = new T[_size];
+            _comparer = comparer;
+            _items = new T[_capacity];
         }
 
         public T Peek()
@@ -110,10 +121,21 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
         public void Add(T item)
         {
+            EnsuareCapacity();
             // Add it to the end and heapify up!
             _items[_size] = item;
             _size++;
             HeapifyUp();
+        }
+
+        private void EnsuareCapacity()
+        {
+            if (_size < _capacity) return;
+
+            _capacity *= 2;
+            var items = new T[_capacity];
+            Array.Copy(_items, items, items.Length);
+            _items = items;
         }
 
         /// <summary>
@@ -126,7 +148,12 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         /// </remarks>
         private void HeapifyUp()
         {
-            throw new NotImplementedException();
+            var index = _size - 1;
+            while (HasParent(index) && _comparer.Compare(GetParentValue(index), _items[index]) < 0)
+            {
+                Swap(index, GetParentIndex(index));
+                index = GetParentIndex(index);
+            }
         }
 
         /// <summary>
@@ -140,7 +167,34 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         /// </remarks>
         private void HeapifyDown()
         {
-            throw new NotImplementedException();
+            var index = 0;
+            // Heap always starts from "left" child so no need to check for right child.
+            while (HasLeftChild(index))
+            {
+                int largestChildIndex = GetLeftChildIndex(index);
+                if (HasRightChild(index) && _comparer.Compare(GetRightChildValue(index), GetLeftChildValue(index)) < 0)
+                    largestChildIndex = GetRightChildIndex(index);
+
+                if (_comparer.Compare(_items[index], _items[largestChildIndex]) < 0) break;
+
+                Swap(index, largestChildIndex);
+                index = largestChildIndex;
+            }
         }
+
+        private bool HasParent(int childIndex) => GetParentIndex(childIndex) >= 0;
+        private bool HasLeftChild(int index) => GetLeftChildIndex(index) < _size;
+        private bool HasRightChild(int index) => GetRightChildIndex(index) < _size;
+
+        private int GetParentIndex(int childIndex) => (childIndex - 1) / 2;
+        private int GetLeftChildIndex(int index) => index * 2 + 1;
+        private int GetRightChildIndex(int index) => index * 2 + 2;
+
+        private T GetParentValue(int childIndex) => _items[GetParentIndex(childIndex)];
+        private T GetLeftChildValue(int index) => _items[GetLeftChildIndex(index)];
+        private T GetRightChildValue(int index) => _items[GetRightChildIndex(index)];
+
+        private void Swap(int index1, int index2) =>
+            (_items[index1], _items[index2]) = (_items[index2], _items[index1]);
     }
 }
