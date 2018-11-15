@@ -95,15 +95,33 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
         public T Poll()
         {
-            throw new NotImplementedException();
+            if (_size == 0) throw new ArgumentOutOfRangeException();
+
+            // move last item to the front and heapify down
+            var item = _items[0];
+            _items[0] = _items[_size - 1];
+            _size--;
+            HeapifyDown();
+
+            return item;
         }
 
+        public bool HasItem() => _size > 0;
+
         public void Add(T item)
+        {
+            // Add it to the end and heapify up!
+            _items[_size] = item;
+            _size++;
+            HeapifyUp();
+        }
+
+        private void HeapifyUp()
         {
             throw new NotImplementedException();
         }
 
-        public bool HasItem()
+        private void HeapifyDown()
         {
             throw new NotImplementedException();
         }
