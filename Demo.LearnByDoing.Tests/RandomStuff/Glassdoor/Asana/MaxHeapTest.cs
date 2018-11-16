@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
@@ -25,6 +26,29 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
                 Assert.Equal(expected[i], sut.Poll());
                 //Console.WriteLine(sut.Poll());
             }
+        }
+
+        public static IEnumerable<object[]> GetSortData()
+        {
+            yield return new object[] { new[] { 4, 10, 3, 5, 1 }, new[] { 1, 3, 4, 5, 10 } };
+            yield return new object[] { new[] { 4, 10, 3, 5, 1, 0 }, new[] { 0, 1, 3, 4, 5, 10 } };
+            yield return new object[] { new[] { 1, 2 }, new[] { 1, 2 } };
+            yield return new object[] { new[] { 2, 1 }, new[] { 1, 2 } };
+            yield return new object[] { new[] { 99 }, new[] { 99 } };
+            yield return new object[] { new int[] { }, new int[] { } };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetSortData))]
+        public void TestSort(int[] expected, int[] input)
+        {
+            var actual = Sort(input);
+            Assert.True(expected.SequenceEqual(actual));
+        }
+
+        private IEnumerable<int> Sort(int[] a)
+        {
+            throw new NotImplementedException();
         }
     }
 
