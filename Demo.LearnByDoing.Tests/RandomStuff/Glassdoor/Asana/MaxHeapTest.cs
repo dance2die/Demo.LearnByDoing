@@ -40,16 +40,50 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
         [Theory]
         [MemberData(nameof(GetSortData))]
-        public void TestSort(int[] expected, int[] input)
+        public void TestSort(int[] input, int[] expected)
         {
             var actual = Sort(input);
             Assert.True(expected.SequenceEqual(actual));
         }
 
-        private IEnumerable<int> Sort(int[] a)
+        private IEnumerable<int> Sort(int[] input)
         {
-            throw new NotImplementedException();
+            var a = new List<int>(input).ToArray();
+
+            for (int i = a.Length / 2 - 1; i >= 0; i--)
+            {
+                Heapify(a, a.Length, i);
+            }
+
+            for (int i = a.Length - 1; i >= 0; i--)
+            {
+                Swap(a, i, 0);
+                Heapify(a, i, 0);
+            }
+
+            return a;
         }
+
+        private void Heapify(int[] a, int size, int rootIndex)
+        {
+            // Get largest child
+            // if the largest child value is greater than the root, 
+            //  then swap && heapify the largest
+
+            var largestIndex = rootIndex;
+            var leftIndex = rootIndex * 2 + 1;
+            var rightIndex = rootIndex * 2 + 2;
+
+            if (leftIndex < size && a[leftIndex] > a[largestIndex]) largestIndex = leftIndex;
+            if (rightIndex < size && a[rightIndex] > a[largestIndex]) largestIndex = rightIndex;
+
+            if (largestIndex == rootIndex) return;
+
+            Swap(a, rootIndex, largestIndex);
+            Heapify(a, size, largestIndex);
+        }
+
+        private void Swap(int[] a, int i1, int i2) => (a[i1], a[i2]) = (a[i2], a[i1]);
     }
 
     class MaxHeap
