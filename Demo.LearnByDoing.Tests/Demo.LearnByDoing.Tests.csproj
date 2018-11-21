@@ -299,6 +299,7 @@
     <Compile Include="GeeksForGeeks\DynamicProgramming\BasicConcepts\03 How to solve a Dynamic Programming Problem.cs" />
     <Compile Include="GeeksForGeeks\DynamicProgramming\BasicProblems\02_Binomial Coefficient.cs" />
     <Compile Include="GeeksForGeeks\DynamicProgramming\BasicProblems\03 Longest Common Subsequence Test.cs" />
+    <Compile Include="GeeksForGeeks\DynamicProgramming\BasicProblems\LongestCommonSubsequenceTest.cs" />
     <Compile Include="GeeksForGeeks\GraphDataStructureAndAlgorithms\IntroductionToDfsAndBfs\01_Graph and its representations.cs" />
     <Compile Include="GeeksForGeeks\GraphDataStructureAndAlgorithms\IntroductionToDfsAndBfs\02_Breadth First Traversal or BFS for a Graph.cs" />
     <Compile Include="InterviewCake\MeshMessageTest.cs" />
