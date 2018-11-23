@@ -9,14 +9,15 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
     {
         public static IEnumerable<object[]> GetTestCases()
         {
+            yield return new object[] { new[] { 'b' }, "aba", "dbcc" };
+            yield return new object[] { new char[] { }, "aaa", "bbb" };
+
             yield return new object[] { new[] { 'a', 'b', 'c', 'f' }, "acbcf", "abcdaf" };
-            //yield return new object[] { new[] { 'a', 'a' }, "aaa", "aab" };
-            //yield return new object[] { new[] { 'b' }, "aba", "dbcc" };
-            //yield return new object[] { new char[] { }, "aaa", "bbb" };
-            //yield return new object[] { new char[] { }, "", "" };
-            //yield return new object[] { new char[] { }, "", null };
-            //yield return new object[] { new char[] { }, null, "" };
-            //yield return new object[] { new char[] { }, null, null };
+            yield return new object[] { new[] { 'a', 'a' }, "aaa", "aab" };
+            yield return new object[] { new char[] { }, "", "" };
+            yield return new object[] { new char[] { }, "", null };
+            yield return new object[] { new char[] { }, null, "" };
+            yield return new object[] { new char[] { }, null, null };
         }
 
         [Theory]
@@ -74,6 +75,8 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
                         r--;
                         c--;
                     }
+
+                    if (r < 1) break;
                 }
             }
 
