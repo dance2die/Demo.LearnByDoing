@@ -36,25 +36,53 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
             var matrix = BuildMatrix(text1, text2);
 
             // Build the path from matrix
-            return BuildPath(matrix);
+            var path = BuildPath(matrix, text1, text2);
+
+            return path;
         }
 
-        private void PrintMatrix(int[,] matrix)
+        private IEnumerable<char> BuildPath(int[,] m, string t1, string t2)
         {
-            for (var i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (var j = 0; j < matrix.GetLength(1); j++)
-                {
-                    Console.Write(matrix[i, j]);
-                }
+            // last point location to backtrack from
+            var x = m.GetLength(0) - 1;
+            var y = m.GetLength(1) - 1;
 
-                Console.WriteLine();
+            // characters to return
+            var stack = new Stack<char>();
+
+            for (int r = m.GetLength(0) - 1; r >= 1;)
+            {
+                for (int c = m.GetLength(1) - 1; c >= 1;)
+                {
+                    // if the value is the max of left or top cell, the we skip
+                    // else we add it to the stack to return
+                    var topValue = m[r - 1, c];
+                    var leftValue = m[r, c - 1];
+                    var curr = m[r, c];
+
+                    if (curr == topValue)
+                    {
+                        r--;
+                    }
+                    else if (curr == leftValue)
+                    {
+                        c--;
+                    }
+                    else
+                    {
+                        stack.Push(t1[r - 1]);
+                        r--;
+                        c--;
+                    }
+                }
             }
+
+            return stack.ToArray();
         }
 
         private int[,] BuildMatrix(string text1, string text2)
         {
-            var m = new int[text1.Length + 1, text2.Length + 1];
+            var matrix = new int[text1.Length + 1, text2.Length + 1];
             // array is initialized with 0s so this is unncessary
             //// Initialize first indexes in column & row
             //for (int i = 0; i < text1.Length; i++) m[i, 0] = 0;
@@ -68,21 +96,29 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
                     var colCharacter = text2[c - 1];
 
                     // Get the max between top or left cell value
-                    var cellValue = Math.Max(m[r - 1, c], m[r, c - 1]);
+                    var cellValue = Math.Max(matrix[r - 1, c], matrix[r, c - 1]);
                     // Set the current cell value to that of top left cell value + 1
                     if (rowCharacter == colCharacter)
-                        cellValue = m[r - 1, c - 1] + 1;
+                        cellValue = matrix[r - 1, c - 1] + 1;
 
-                    m[r, c] = cellValue;
+                    matrix[r, c] = cellValue;
                 }
             }
 
-            return m;
+            return matrix;
         }
 
-        private IEnumerable<char> BuildPath(int[,] matrix)
+        private void PrintMatrix(int[,] matrix)
         {
-            throw new NotImplementedException();
+            for (var i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (var j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write(matrix[i, j]);
+                }
+
+                Console.WriteLine();
+            }
         }
     }
 }
