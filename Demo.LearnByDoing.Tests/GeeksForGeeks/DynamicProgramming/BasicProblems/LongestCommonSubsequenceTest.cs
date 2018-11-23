@@ -44,10 +44,6 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
 
         private IEnumerable<char> BuildPath(int[,] m, string t1, string t2)
         {
-            // last point location to backtrack from
-            var x = m.GetLength(0) - 1;
-            var y = m.GetLength(1) - 1;
-
             // characters to return
             var stack = new Stack<char>();
 
@@ -62,13 +58,9 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
                     var curr = m[r, c];
 
                     if (curr == topValue)
-                    {
                         r--;
-                    }
                     else if (curr == leftValue)
-                    {
                         c--;
-                    }
                     else
                     {
                         stack.Push(t1[r - 1]);
@@ -86,10 +78,6 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
         private int[,] BuildMatrix(string text1, string text2)
         {
             var matrix = new int[text1.Length + 1, text2.Length + 1];
-            // array is initialized with 0s so this is unncessary
-            //// Initialize first indexes in column & row
-            //for (int i = 0; i < text1.Length; i++) m[i, 0] = 0;
-            //for (int i = 0; i < text2.Length; i++) m[0, i] = 0;
 
             for (int r = 1; r <= text1.Length; r++)
             {
@@ -109,19 +97,6 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
             }
 
             return matrix;
-        }
-
-        private void PrintMatrix(int[,] matrix)
-        {
-            for (var i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (var j = 0; j < matrix.GetLength(1); j++)
-                {
-                    Console.Write(matrix[i, j]);
-                }
-
-                Console.WriteLine();
-            }
         }
     }
 }
