@@ -27,16 +27,27 @@ namespace Demo.LearnByDoing.Tests.GeeksForGeeks.DynamicProgramming.BasicProblems
             Assert.True(expected.SequenceEqual(actual));
         }
 
-        private char[] GetLongestCommonSubsequence(string input1, string input2)
+        private IEnumerable<char> GetLongestCommonSubsequence(string input1, string input2)
         {
             // Guard against edge cases
             if (new[] { input1, input2 }.Any(string.IsNullOrWhiteSpace)) return new char[] { };
 
-            var m = new int[input1.Length + 1, input2.Length + 1];
-            var result = new List<char>();
+            // Generate the matrix
+            //var m = new int[input1.Length + 1, input2.Length + 1];
+            var matrix = BuildMatrix(input1, input2);
 
+            // Build the path from matrix
+            return BuildPath(matrix);
+        }
 
-            return result.ToArray();
+        private int[,] BuildMatrix(string input1, string input2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerable<char> BuildPath(int[,] matrix)
+        {
+            throw new NotImplementedException();
         }
     }
 }
