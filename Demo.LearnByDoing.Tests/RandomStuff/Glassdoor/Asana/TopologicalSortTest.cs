@@ -65,12 +65,6 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         public void TestIterativeTopologicalSort(char[] expected, Dictionary<char, List<char>> graph)
         {
             var actual = GetTopologicallySortedIteratively(graph).ToList();
-
-            foreach (char c in actual)
-            {
-                _output.WriteLine(c.ToString());
-            }
-
             Assert.True(expected.SequenceEqual(actual));
         }
 
@@ -101,7 +95,6 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             {
                 var currentNode = stack.Pop();
                 visited.Add(currentNode);
-                if (!g.ContainsKey(currentNode)) continue;
 
                 foreach (var neighbor in g[node])
                 {
