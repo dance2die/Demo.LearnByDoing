@@ -10,30 +10,30 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
     /// </summary>
     public class TopologicalSortTest
     {
-        [Fact]
-        public void TestHappyPath()
+        public static IEnumerable<object[]> GetGraphs()
         {
-            var graph = new Dictionary<char, List<char>>
+            yield return new object[]
             {
-                //{'a', new List<char> {'c'}},
-                //{'b', new List<char> {'d', 'e'}},
-                //{'c', new List<char> {'d'}},
-                //{'d', new List<char> {'f'}},
-                //{'e', new List<char> {'f'}},
-                //{'f', new List<char> {'g'}},
-                {'a', new List<char> {'c'}},
-                {'b', new List<char> {'d', 'c'}},
-                {'c', new List<char> {'e'}},
-                {'d', new List<char> {'f'}},
-                {'e', new List<char> {'h', 'f'}},
-                {'f', new List<char> {'g'}},
-                {'g', new List<char>()},
-                {'h', new List<char>()},
+                new[] {'b', 'd', 'a', 'c', 'e', 'f', 'g', 'h'},
+                new Dictionary<char, List<char>>
+                {
+                    {'a', new List<char> {'c'}},
+                    {'b', new List<char> {'d', 'c'}},
+                    {'c', new List<char> {'e'}},
+                    {'d', new List<char> {'f'}},
+                    {'e', new List<char> {'h', 'f'}},
+                    {'f', new List<char> {'g'}},
+                    {'g', new List<char>()},
+                    {'h', new List<char>()},
+                }
             };
+        }
 
+        [Theory]
+        [MemberData(nameof(GetGraphs))]
+        public void TestRecursiveTopologicalSort(char[] expected, Dictionary<char, List<char>> graph)
+        {
             var actual = GetTopologicallySorted(graph);
-            //var expected = new [] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' };
-            var expected = new [] { 'b', 'd', 'a', 'c', 'e', 'f', 'g', 'h' };
             Assert.True(expected.SequenceEqual(actual));
         }
 
