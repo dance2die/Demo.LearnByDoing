@@ -73,6 +73,7 @@
     <Compile Include="Algorithms\LevenshteinDistanceTest.cs" />
     <Compile Include="Algorithms\MakePalindromeTest.cs" />
     <Compile Include="Algorithms\MergeSortTest.cs" />
+    <Compile Include="Algorithms\PrimsAlgorithmTest.cs" />
     <Compile Include="Algorithms\Sorting\SortingTest.cs" />
     <Compile Include="Algorithms\Sorting\TopologicalSortingTest.cs" />
     <Compile Include="Algorithms\TopologicalGraphSortTest.cs" />
