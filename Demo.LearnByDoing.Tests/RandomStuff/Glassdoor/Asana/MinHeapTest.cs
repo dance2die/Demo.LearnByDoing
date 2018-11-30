@@ -26,6 +26,54 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
                 //Console.WriteLine(sut.Poll());
             }
         }
+
+        [Fact]
+        public void TestHeapWithWeight()
+        {
+            var sut = new MinHeapWithWeight<char>();
+            sut.Add(('a', 5));
+            sut.Add(('b', 8));
+            sut.Add(('c', 12));
+            sut.Add(('d', 22));
+            sut.Add(('e', 33));
+            sut.Add(('f', 13));
+            sut.Add(('g', 20));
+
+            sut.HeapifyUp(('e', 0));
+
+            var expected = new[] {'e', 'a', 'c', 'd', 'b', 'f', 'g'};
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.Equal(expected[i], sut.Get());
+            }
+        }
+    }
+
+    public class MinHeapWithWeight<T>
+    {
+        private int _size = 0;
+        private int _capacity = 10;
+        private Tuple<T, int>[] _items;
+
+        public MinHeapWithWeight()
+        {
+            _items = new Tuple<T, int>[_capacity];
+        }
+
+        public void Add((T id, int weight) p0)
+        {
+            
+        }
+
+        public void HeapifyUp((T id, int weight) item)
+        {
+            
+        }
+
+        public T Get()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     class MinHeap
