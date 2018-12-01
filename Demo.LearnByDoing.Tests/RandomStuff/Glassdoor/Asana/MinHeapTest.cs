@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Demo.LearnByDoing.Core;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 {
@@ -10,13 +13,13 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
     /// K closest point to the origin - https://www.youtube.com/watch?v=eaYX0Ee0Kcg
     /// Min Heap - https://www.youtube.com/watch?v=t0Cq6tVNRBA
     /// </summary>
-    public class MinHeapTest
+    public class MinHeapTest : BaseTest
     {
         [Fact]
         public void TestHeapness()
         {
-            var items = new [] {10, 15, 20, 17};
-            var expected = new[] {10, 15, 17, 20};
+            var items = new[] { 10, 15, 20, 17 };
+            var expected = new[] { 10, 15, 17, 20 };
             var sut = new MinHeap();
             sut.AddRange(items);
 
@@ -34,17 +37,16 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             Assert.Throws<ArgumentOutOfRangeException>(() => sut.ExtractMinimum());
         }
 
-        [Fact]
-        public void TestBinaryMinHeap()
+        public static IEnumerable<object[]> GetSampleBinaryHeap()
         {
             var sut = new BinaryMinHeap<char>();
-            var a = new BinaryMinHeap<char>.Node{Id = 'a', Weight = 5 };
-            var b = new BinaryMinHeap<char>.Node{Id = 'b', Weight = 8 };
-            var c = new BinaryMinHeap<char>.Node{Id = 'c', Weight = 12};
-            var d = new BinaryMinHeap<char>.Node{Id = 'd', Weight = 22};
-            var e = new BinaryMinHeap<char>.Node{Id = 'e', Weight = 33};
-            var f = new BinaryMinHeap<char>.Node{Id = 'f', Weight = 13};
-            var g = new BinaryMinHeap<char>.Node { Id = 'g', Weight = 20 };
+            var a = new BinaryMinHeap<char>.Node { Id = 'a', Weight = -1 };
+            var b = new BinaryMinHeap<char>.Node { Id = 'b', Weight = 2 };
+            var c = new BinaryMinHeap<char>.Node { Id = 'c', Weight = 6 };
+            var d = new BinaryMinHeap<char>.Node { Id = 'd', Weight = 4 };
+            var e = new BinaryMinHeap<char>.Node { Id = 'e', Weight = 5 };
+            var f = new BinaryMinHeap<char>.Node { Id = 'f', Weight = 7 };
+            var g = new BinaryMinHeap<char>.Node { Id = 'g', Weight = 8 };
 
             sut.Add(a);
             sut.Add(b);
@@ -54,14 +56,44 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             sut.Add(f);
             sut.Add(g);
 
-            e.Weight = 0;
-            sut.Decrease(e);
+            yield return new object[] { sut };
+        }
 
-            var expected = new[] {'e', 'a', 'c', 'd', 'b', 'f', 'g'};
-            for (int i = 0; i < expected.Length; i++)
-            {
-                Assert.Equal(expected[i], sut.ExtractMinimum().Id);
-            }
+        [Theory]
+        [MemberData(nameof(GetSampleBinaryHeap))]
+        public void TestBinaryMinHeap(BinaryMinHeap<char> sut)
+        {
+            var expected = new[] { 'a', 'b', 'd', 'e', 'c', 'f', 'g' };
+            var actual = expected.Select(_ => sut.ExtractMinimum());
+            ////for (int i = 0; i < expected.Length; i++)
+            ////{
+            ////    var minimumNode = sut.ExtractMinimum();
+            ////    //Assert.Equal(expected1[i], minimumNode.Id);
+            ////    _output.WriteLine($"Minimum Node", minimumNode);
+            ////}
+            //foreach (BinaryMinHeap<char>.Node node in actual)
+            //{
+            //    _output.WriteLine(node.ToString());
+            //}
+
+            Assert.True(expected.SequenceEqual(actual.Select(_ => _.Id)));
+        }
+
+        //[Theory]
+        //[MemberData(nameof(GetSampleBinaryHeap))]
+        //public void TestBinaryMinHeapDecrease(BinaryMinHeap<char> sut)
+        //{
+        //    f.Weight = -2;
+        //    sut.Decrease(f);
+
+        //    var expected2 = new[] { 'f', 'b', 'a', 'd', 'e', 'c', 'g' };
+        //    for (int i = 0; i < expected2.Length; i++)
+        //    {
+        //        Assert.Equal(expected2[i], sut.ExtractMinimum().Id);
+        //    }
+        //}
+        public MinHeapTest(ITestOutputHelper output) : base(output)
+        {
         }
     }
 
@@ -71,6 +103,8 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         {
             public T Id { get; set; }
             public int Weight { get; set; }
+
+            public override string ToString() => $"{Id}:{Weight}";
         }
 
         private int _size = 0;
@@ -117,26 +151,60 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             return node;
         }
 
-        private void HeapifyDown()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Add(Node node)
         {
             EnsureExtraCapacity();
             _map[node.Id] = _size;
             _items[_size] = node;
+            HeapifyUp(_size);
             _size++;
-            HeapifyUp();
         }
+
+        /// <summary>
+        /// Move the item as low in the heap tree
+        /// </summary>
+        private void HeapifyDown(int startingIndex = 0)
+        {
+            var index = startingIndex;
+            var node = _items[index];
+
+            // Swap while the biggest child is smaller than the current node
+
+            // Heap is populated from left child to right.
+            // If there is no left child, then there is no right child
+            // so check only for the presence of left child.
+            while (HasLeft(index))
+            {
+                var smallerIndex = GetLeftIndex(index);
+                if (HasRight(index) && GetRight(index).Weight < GetLeft(index).Weight)
+                    smallerIndex = GetRightIndex(index);
+
+                if (node.Weight < _items[smallerIndex].Weight) break;
+
+                Swap(index, smallerIndex);
+                index = smallerIndex;
+            }
+        }
+
+        private bool HasParent(int childIndex) => GetParentIndex(childIndex) >= 0;
+        private Node GetParent(int childIndex) => _items[GetParentIndex(childIndex)];
+        private int GetParentIndex(int childIndex) => (childIndex - 1) / 2;
+
+        private bool HasLeft(int index) => GetLeftIndex(index) < _size;
+        private Node GetLeft(int index) => _items[GetLeftIndex(index)];
+        private int GetLeftIndex(int index) => 2 * index + 1;
+
+        private bool HasRight(int index) => GetRightIndex(index) < _size;
+        private Node GetRight(int index) => _items[GetRightIndex(index)];
+        private int GetRightIndex(int index) => 2 * index + 2;
+
 
         /// <summary>
         /// Move the last item as high as possible in the heap
         /// </summary>
-        private void HeapifyUp()
+        private void HeapifyUp(int startingIndex)
         {
-            var index = _size;
+            var index = startingIndex;
             var node = _items[index];
 
             // Swap with parents while the parent is bigger
@@ -146,10 +214,6 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
                 index = GetParentIndex(index);
             }
         }
-
-        private bool HasParent(int childIndex) => GetParentIndex(childIndex) >= 0;
-        private Node GetParent(int childIndex) => _items[GetParentIndex(childIndex)];
-        private int GetParentIndex(int childIndex) => (childIndex - 1) / 2;
 
         /// <summary>
         /// Increase items capacity if needed 
