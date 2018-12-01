@@ -84,17 +84,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         {
             var expected = new[] { 'a', 'b', 'd', 'e', 'c', 'f', 'g' };
             var actual = expected.Select(_ => sut.ExtractMinimum());
-            ////for (int i = 0; i < expected.Length; i++)
-            ////{
-            ////    var minimumNode = sut.ExtractMinimum();
-            ////    //Assert.Equal(expected1[i], minimumNode.Id);
-            ////    _output.WriteLine($"Minimum Node", minimumNode);
-            ////}
-            //foreach (BinaryMinHeap<char>.Node node in actual)
-            //{
-            //    _output.WriteLine(node.ToString());
-            //}
-
+            
             Assert.True(expected.SequenceEqual(actual.Select(_ => _.Id)));
         }
 
@@ -121,7 +111,10 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             f.Weight = -2;
             sut.Decrease(f);
 
-            var expected = new[] { 'f', 'a', 'b', 'd', 'e', 'c', 'g' };
+            g.Weight = -3;
+            sut.Decrease(g);
+
+            var expected = new[] { 'g', 'f', 'a', 'b', 'd', 'e', 'c' };
 
             var actual = expected.Select(_ => sut.ExtractMinimum());
             //foreach (BinaryMinHeap<char>.Node node in actual)
