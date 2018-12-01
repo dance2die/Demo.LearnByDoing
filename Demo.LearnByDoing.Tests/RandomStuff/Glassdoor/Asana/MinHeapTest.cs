@@ -61,6 +61,25 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
         [Theory]
         [MemberData(nameof(GetSampleBinaryHeap))]
+        public void TestBinaryMinHeapContains(BinaryMinHeap<char> sut)
+        {
+            Assert.True(sut.Contains('a'));
+            Assert.True(sut.Contains('b'));
+            Assert.True(sut.Contains('c'));
+            Assert.True(sut.Contains('d'));
+            Assert.True(sut.Contains('e'));
+            Assert.True(sut.Contains('f'));
+            Assert.True(sut.Contains('g'));
+
+            Assert.False(sut.Contains('1'));
+            Assert.False(sut.Contains('x'));
+            Assert.False(sut.Contains('3'));
+            Assert.False(sut.Contains('y'));
+            Assert.False(sut.Contains('z'));
+        }
+
+        [Theory]
+        [MemberData(nameof(GetSampleBinaryHeap))]
         public void TestBinaryMinHeap(BinaryMinHeap<char> sut)
         {
             var expected = new[] { 'a', 'b', 'd', 'e', 'c', 'f', 'g' };
@@ -254,6 +273,8 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             Array.Copy(_items, items, _items.Length);
             _items = items;
         }
+
+        public bool Contains(T id) => _map.ContainsKey(id);
     }
 
     class MinHeap
