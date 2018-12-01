@@ -28,49 +28,85 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         }
 
         [Fact]
-        public void TestHeapWithWeight()
+        public void TestBinaryMinHeap()
         {
-            var sut = new MinHeapWithWeight<char>();
-            sut.Add(('a', 5));
-            sut.Add(('b', 8));
-            sut.Add(('c', 12));
-            sut.Add(('d', 22));
-            sut.Add(('e', 33));
-            sut.Add(('f', 13));
-            sut.Add(('g', 20));
+            var sut = new BinaryMinHeap<char>();
+            var a = new BinaryMinHeap<char>.Node{Id = 'a', Weight = 5 };
+            var b = new BinaryMinHeap<char>.Node{Id = 'b', Weight = 8 };
+            var c = new BinaryMinHeap<char>.Node{Id = 'c', Weight = 12};
+            var d = new BinaryMinHeap<char>.Node{Id = 'd', Weight = 22};
+            var e = new BinaryMinHeap<char>.Node{Id = 'e', Weight = 33};
+            var f = new BinaryMinHeap<char>.Node{Id = 'f', Weight = 13};
+            var g = new BinaryMinHeap<char>.Node { Id = 'g', Weight = 20 };
 
-            sut.HeapifyUp(('e', 0));
+            sut.Add(a);
+            sut.Add(b);
+            sut.Add(c);
+            sut.Add(d);
+            sut.Add(e);
+            sut.Add(f);
+            sut.Add(g);
+
+            e.Weight = 0;
+            sut.Decrease(e);
 
             var expected = new[] {'e', 'a', 'c', 'd', 'b', 'f', 'g'};
             for (int i = 0; i < expected.Length; i++)
             {
-                Assert.Equal(expected[i], sut.Get());
+                Assert.Equal(expected[i], sut.ExtractMinimum().Id);
             }
         }
     }
 
-    public class MinHeapWithWeight<T>
+    public class BinaryMinHeap<T>
     {
+        public class Node
+        {
+            public T Id { get; set; }
+            public int Weight { get; set; }
+        }
+
         private int _size = 0;
         private int _capacity = 10;
-        private Tuple<T, int>[] _items;
+        private Node[] _items;
+        /// <summary>
+        /// Contains a mapping of ID to the position in the array of _items
+        /// </summary>
+        /// <typeparam name="T">Node.Id</typeparam>
+        /// <param name="int">_items index stored for Node.Id</param>
+        private Dictionary<T, int> _map;
 
-        public MinHeapWithWeight()
+        public BinaryMinHeap()
         {
-            _items = new Tuple<T, int>[_capacity];
+            _items = new Node[_capacity];
+            _map = new Dictionary<T, int>();
         }
 
-        public void Add((T id, int weight) p0)
+        public void Add(Node node)
         {
-            
+            EnsureExtraCapacity();
+            _map[node.Id] = _size;
+            _items[_size] = node;
+            _size++;
+            HeapifyUp();
         }
 
-        public void HeapifyUp((T id, int weight) item)
+        public void Decrease(Node node)
         {
-            
+
         }
 
-        public T Get()
+        public Node ExtractMinimum()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void HeapifyUp()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void EnsureExtraCapacity()
         {
             throw new NotImplementedException();
         }
