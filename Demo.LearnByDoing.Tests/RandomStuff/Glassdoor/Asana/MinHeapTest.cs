@@ -91,17 +91,40 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             HeapifyUp();
         }
 
-        public void Decrease(Node node)
+        /// <summary>
+        /// Move the last item as high as possible in the heap
+        /// </summary>
+        private void HeapifyUp()
         {
+            var index = _size;
+            var node = _items[index];
 
+            // Swap with parents while the parent is bigger
+            while (HasParent(index) && GetParent(index).Weight > node.Weight)
+            {
+                Swap(index, GetParentIndex(index));
+                index = GetParentIndex(index);
+            }
         }
 
-        public Node ExtractMinimum()
+        private bool HasParent(int childIndex) => GetParentIndex(childIndex) >= 0;
+        private Node GetParent(int childIndex) => _items[GetParentIndex(childIndex)];
+        private int GetParentIndex(int childIndex) => (childIndex - 1) / 2;
+
+        private void Swap(int index1, int index2)
+        {
+            var id1 = _items[index1].Id;
+            var id2 = _items[index2].Id;
+            (_map[id1], _map[id2]) = (_map[id2], _map[id1]);
+            (_items[index1], _items[index2]) = (_items[index2], _items[index1]);
+        }
+
+        public void Decrease(Node node)
         {
             throw new NotImplementedException();
         }
 
-        private void HeapifyUp()
+        public Node ExtractMinimum()
         {
             throw new NotImplementedException();
         }
