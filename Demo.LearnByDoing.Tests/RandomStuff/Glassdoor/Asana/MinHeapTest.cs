@@ -79,19 +79,39 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             Assert.True(expected.SequenceEqual(actual.Select(_ => _.Id)));
         }
 
-        //[Theory]
-        //[MemberData(nameof(GetSampleBinaryHeap))]
-        //public void TestBinaryMinHeapDecrease(BinaryMinHeap<char> sut)
-        //{
-        //    f.Weight = -2;
-        //    sut.Decrease(f);
+        [Fact]
+        public void TestBinaryMinHeapDecrease()
+        {
+            var sut = new BinaryMinHeap<char>();
+            var a = new BinaryMinHeap<char>.Node { Id = 'a', Weight = -1 };
+            var b = new BinaryMinHeap<char>.Node { Id = 'b', Weight = 2 };
+            var c = new BinaryMinHeap<char>.Node { Id = 'c', Weight = 6 };
+            var d = new BinaryMinHeap<char>.Node { Id = 'd', Weight = 4 };
+            var e = new BinaryMinHeap<char>.Node { Id = 'e', Weight = 5 };
+            var f = new BinaryMinHeap<char>.Node { Id = 'f', Weight = 7 };
+            var g = new BinaryMinHeap<char>.Node { Id = 'g', Weight = 8 };
 
-        //    var expected2 = new[] { 'f', 'b', 'a', 'd', 'e', 'c', 'g' };
-        //    for (int i = 0; i < expected2.Length; i++)
-        //    {
-        //        Assert.Equal(expected2[i], sut.ExtractMinimum().Id);
-        //    }
-        //}
+            sut.Add(a);
+            sut.Add(b);
+            sut.Add(c);
+            sut.Add(d);
+            sut.Add(e);
+            sut.Add(f);
+            sut.Add(g);
+
+            f.Weight = -2;
+            sut.Decrease(f);
+
+            var expected = new[] { 'f', 'a', 'b', 'd', 'e', 'c', 'g' };
+
+            var actual = expected.Select(_ => sut.ExtractMinimum());
+            //foreach (BinaryMinHeap<char>.Node node in actual)
+            //{
+            //    _output.WriteLine(node.ToString());
+            //}
+            Assert.True(expected.SequenceEqual(actual.Select(_ => _.Id)));
+        }
+
         public MinHeapTest(ITestOutputHelper output) : base(output)
         {
         }
@@ -115,7 +135,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         /// </summary>
         /// <typeparam name="T">Node.Id</typeparam>
         /// <param name="int">_items index stored for Node.Id</param>
-        private Dictionary<T, int> _map;
+        private readonly Dictionary<T, int> _map;
 
         public BinaryMinHeap()
         {
@@ -133,7 +153,11 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
         public void Decrease(Node node)
         {
-            throw new NotImplementedException();
+            if (!_map.ContainsKey(node.Id)) Add(node);
+
+            var index = _map[node.Id];
+            if (HasParent(index) && GetParent(index).Weight > node.Weight) HeapifyUp(index);
+            else HeapifyDown(index);
         }
 
         public Node ExtractMinimum()
