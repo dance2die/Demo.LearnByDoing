@@ -106,9 +106,20 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Increase items capacity if needed 
+        /// </summary>
+        /// <remarks>
+        /// Doubling the size of items for now.
+        /// </remarks>
         private void EnsureExtraCapacity()
         {
-            throw new NotImplementedException();
+            if (_size < _capacity) return;
+
+            _capacity *= 2;
+            var items = new Node[_capacity];
+            Array.Copy(_items, items, _items.Length);
+            _items = items;
         }
     }
 
