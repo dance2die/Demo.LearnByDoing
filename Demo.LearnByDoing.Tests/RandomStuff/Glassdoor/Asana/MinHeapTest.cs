@@ -28,6 +28,13 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         }
 
         [Fact]
+        public void ThrowExceptionWhenExtractingAnEmptyBinaryMinHeap()
+        {
+            var sut = new BinaryMinHeap<char>();
+            Assert.Throws<ArgumentOutOfRangeException>(() => sut.ExtractMinimum());
+        }
+
+        [Fact]
         public void TestBinaryMinHeap()
         {
             var sut = new BinaryMinHeap<char>();
@@ -82,6 +89,39 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
             _map = new Dictionary<T, int>();
         }
 
+        private void Swap(int index1, int index2)
+        {
+            var id1 = _items[index1].Id;
+            var id2 = _items[index2].Id;
+            (_map[id1], _map[id2]) = (_map[id2], _map[id1]);
+            (_items[index1], _items[index2]) = (_items[index2], _items[index1]);
+        }
+
+        public void Decrease(Node node)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Node ExtractMinimum()
+        {
+            if (_size == 0) throw new ArgumentOutOfRangeException("Heap is empty so no minimum to extract");
+
+            // This is a MinHeap, thus the first item is always the node with minimum weight.
+            var node = _items[0];
+
+            // Replace the first item with the last item, and heapify down...
+            _items[0] = _items[_size - 1];
+            _size--;
+            HeapifyDown();
+
+            return node;
+        }
+
+        private void HeapifyDown()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Add(Node node)
         {
             EnsureExtraCapacity();
@@ -110,24 +150,6 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
         private bool HasParent(int childIndex) => GetParentIndex(childIndex) >= 0;
         private Node GetParent(int childIndex) => _items[GetParentIndex(childIndex)];
         private int GetParentIndex(int childIndex) => (childIndex - 1) / 2;
-
-        private void Swap(int index1, int index2)
-        {
-            var id1 = _items[index1].Id;
-            var id2 = _items[index2].Id;
-            (_map[id1], _map[id2]) = (_map[id2], _map[id1]);
-            (_items[index1], _items[index2]) = (_items[index2], _items[index1]);
-        }
-
-        public void Decrease(Node node)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Node ExtractMinimum()
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Increase items capacity if needed 
