@@ -178,6 +178,7 @@ namespace Demo.LearnByDoing.Tests.RandomStuff.Glassdoor.Asana
 
             // This is a MinHeap, thus the first item is always the node with minimum weight.
             var node = _items[0];
+            _map.Remove(node.Id);
 
             // Replace the first item with the last item, and heapify down...
             _items[0] = _items[_size - 1];
