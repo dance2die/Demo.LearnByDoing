@@ -353,6 +353,7 @@
     <Compile Include="PalinedromeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\BalancedTreeCheckerTest.cs" />
+    <Compile Include="DataStructure\Tree\BinaryMinHeap.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\BinarySearchTreeCheckTest.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\HungryRabbitTest.cs" />
     <Compile Include="RandomStuff\Glassdoor\Asana\KClosePointsToOriginTest.cs" />
