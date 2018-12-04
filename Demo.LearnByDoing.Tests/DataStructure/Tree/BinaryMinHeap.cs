@@ -142,6 +142,8 @@ namespace Demo.LearnByDoing.Tests.DataStructure.Tree
             _items = items;
         }
 
+        public Node GetNode(T id) => _items[_map[id]];
         public bool Contains(T id) => _map.ContainsKey(id);
+        public bool HasItem() => _size > 0;
     }
 }
