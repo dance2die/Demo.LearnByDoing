@@ -140,7 +140,7 @@
         <e p="Algorithms" t="Include">
           <e p="BellmanFordFromScratchTest.cs" t="Include" />
           <e p="BellmanFordRepriseTest.cs" t="Include" />
-          <e p="DjikstraRepriseTest.cs" t="Include" />
+          <e p="DijkstraRepriseTest.cs" t="Include" />
           <e p="GraphBreadthFirstSearchTest.cs" t="Include" />
           <e p="GraphDepthFirstSearchTest.cs" t="Include" />
           <e p="LevenshteinDistanceTest.cs" t="Include" />

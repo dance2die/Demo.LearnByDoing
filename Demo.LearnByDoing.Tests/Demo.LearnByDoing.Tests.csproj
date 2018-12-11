@@ -68,7 +68,7 @@
     <Compile Include="Algorithms\BellmanFordFromScratchTest.cs" />
     <Compile Include="Algorithms\BellmanFordRepriseTest.cs" />
     <Compile Include="Algorithms\GraphDepthFirstSearchTest.cs" />
-    <Compile Include="Algorithms\DjikstraRepriseTest.cs" />
+    <Compile Include="Algorithms\DijkstraRepriseTest.cs" />
     <Compile Include="Algorithms\GraphBreadthFirstSearchTest.cs" />
     <Compile Include="Algorithms\LevenshteinDistanceTest.cs" />
     <Compile Include="Algorithms\MakePalindromeTest.cs" />
