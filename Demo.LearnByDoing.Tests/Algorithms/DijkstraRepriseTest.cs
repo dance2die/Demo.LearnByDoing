@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
@@ -23,48 +25,45 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 {
                     'a', new List<DijkstraEdge>
                     {
-                        new DijkstraEdge('a', 'd', 1),
-                        new DijkstraEdge('a', 'b', 3),
+                        new DijkstraEdge('a', 'b', 5),
+                        new DijkstraEdge('a', 'd', 9),
+                        new DijkstraEdge('a', 'e', 2),
                     }
                 },
                 {
                     'b', new List<DijkstraEdge>
                     {
-                        new DijkstraEdge('b', 'c', 1),
-                        new DijkstraEdge('b', 'd', 3),
+                        new DijkstraEdge('b', 'a', 5),
+                        new DijkstraEdge('b', 'c', 2),
                     }
                 },
                 {
                     'c', new List<DijkstraEdge>
                     {
-                        new DijkstraEdge('c', 'b', 1),
-                        new DijkstraEdge('c', 'd', 1),
-                        new DijkstraEdge('c', 'f', 4),
-                        new DijkstraEdge('c', 'e', 5),
+                        new DijkstraEdge('c', 'b', 2),
+                        new DijkstraEdge('c', 'd', 3),
                     }
                 },
                 {
                     'd', new List<DijkstraEdge>
                     {
-                        new DijkstraEdge('d', 'a', 3),
-                        new DijkstraEdge('d', 'b', 3),
-                        new DijkstraEdge('d', 'c', 1),
-                        new DijkstraEdge('d', 'e', 6),
+                        new DijkstraEdge('d', 'a', 9),
+                        new DijkstraEdge('d', 'c', 3),
+                        new DijkstraEdge('d', 'f', 2),
                     }
                 },
                 {
                     'e', new List<DijkstraEdge>
                     {
-                        new DijkstraEdge('e', 'd', 6),
-                        new DijkstraEdge('e', 'c', 5),
-                        new DijkstraEdge('e', 'f', 2),
+                        new DijkstraEdge('e', 'a', 2),
+                        new DijkstraEdge('e', 'f', 3),
                     }
                 },
                 {
                     'f', new List<DijkstraEdge>
                     {
-                        new DijkstraEdge('f', 'c', 4),
-                        new DijkstraEdge('f', 'e', 2),
+                        new DijkstraEdge('f', 'e', 3),
+                        new DijkstraEdge('f', 'd', 2),
                     }
                 },
             };
@@ -81,6 +80,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 },
                 new Dictionary<char, int>()
                 {
+                    {'a', 0},
                     {'b', 5},
                     {'c', 7},
                     {'d', 7},
@@ -115,14 +115,93 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
         private DijkstraResult GetShortestPaths(Dictionary<char, List<DijkstraEdge>> g)
         {
-            return null;
+            var parents = new Dictionary<char, char?>();
+            // Binary MinHeap is not yet implemented, it was buggy so...
+            // for now use a simple HashSet for slow `min` check.
+            var distances = FillMinHeap(g.Keys);
+            var processed = FillMinHeap(g.Keys);
+            var sourceVertex = PeekMinimumVertex(distances);
+            // Starting point doesn't have a parent
+            parents.Add(sourceVertex.Key, null);
+
+            // Find shortest paths
+            while (processed.Count > 0)
+            {
+                var vertex = ExtractMinimumVertex(processed);
+//                var vertex = PeekMinimumVertex(distances);
+                distances[vertex.Key] = vertex.Weight;
+                var edges = g[vertex.Key];
+
+                foreach (DijkstraEdge edge in edges)
+                {
+                    // We already processed it.
+                    var adjacentVertex = edge.V2;
+                    if (!processed.ContainsKey(adjacentVertex)) continue;
+
+                    var newWeight = vertex.Weight + edge.Weight;
+                    if (newWeight < distances[adjacentVertex])
+                    {
+                        processed[adjacentVertex] = newWeight;
+                        distances[adjacentVertex] = newWeight;
+                        if (parents.ContainsKey(adjacentVertex))
+                            parents[adjacentVertex] = vertex.Key;
+                        else parents.Add(adjacentVertex, vertex.Key);
+                    }
+                }
+
+                processed.Remove(vertex.Key);
+            }
+
+            return new DijkstraResult(parents, distances);
+        }
+
+        /// <summary>
+        /// If this had been a Binary MinHeap, it will be O(log n) but this one's O(n)...
+        /// </summary>
+        private (char Key, int Weight) PeekMinimumVertex(Dictionary<char, int> minHeap)
+        {
+            var min = minHeap.Values.Min();
+            var minVertex = minHeap.First(item => item.Value == min);
+            return (minVertex.Key, minVertex.Value);
+        }
+
+        /// <summary>
+        /// If this had been a Binary MinHeap, it will be O(log n) but this one's O(n)...
+        /// </summary>
+        private (char Key, int Weight) ExtractMinimumVertex(Dictionary<char, int> minHeap)
+        {
+            var min = minHeap.Values.Min();
+            var minVertex = minHeap.First(item => item.Value == min);
+            minHeap.Remove(minVertex.Key);
+            return (minVertex.Key, minVertex.Value);
+        }
+
+        private Dictionary<char, int> FillMinHeap(IEnumerable<char> keys)
+        {
+            var minHeap = new Dictionary<char, int>();
+            bool isFirst = true;
+
+            foreach (var key in keys)
+            {
+                if (isFirst)
+                {
+                    minHeap.Add(key, 0);
+                    isFirst = false;
+                }
+                else
+                {
+                    minHeap.Add(key, int.MaxValue);
+                }
+            }
+
+            return minHeap;
         }
     }
 
     internal class DijkstraResult
     {
-        public Dictionary<char, char?> Parents { get; }
-        public Dictionary<char, int> Distances { get; }
+        public Dictionary<char, char?> Parents { get; } = new Dictionary<char, char?>();
+        public Dictionary<char, int> Distances { get; } = new Dictionary<char, int>();
 
         public DijkstraResult(Dictionary<char, char?> parents, Dictionary<char, int> distances)
         {
