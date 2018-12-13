@@ -28,6 +28,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 } },
                 {'b', new List<Edge>
                 {
+                    new Edge('b', 'a', 3),
                     new Edge('b', 'c', 1),
                     new Edge('b', 'd', 3),
                 } },
@@ -35,8 +36,8 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 {
                     new Edge('c', 'b', 1),
                     new Edge('c', 'd', 1),
-                    new Edge('c', 'f', 4),
                     new Edge('c', 'e', 5),
+                    new Edge('c', 'f', 4),
                 } },
                 {'d', new List<Edge>
                 {
@@ -118,6 +119,11 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             V1 = v1;
             V2 = v2;
             Weight = weight;
+        }
+
+        public override string ToString()
+        {
+            return $"{V1}:{Weight}:{V2}";
         }
     }
 
