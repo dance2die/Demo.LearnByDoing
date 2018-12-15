@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -68,32 +69,100 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 },
             };
 
-            var expected = new DijkstraResult(
-                new Dictionary<char, char?>
-                {
-                    {'a', null},
-                    {'b', 'a'},
-                    {'c', 'b'},
-                    {'d', 'f'},
-                    {'e', 'a'},
-                    {'f', 'e'},
-                },
-                new Dictionary<char, int>()
-                {
-                    {'a', 0},
-                    {'b', 5},
-                    {'c', 7},
-                    {'d', 7},
-                    {'e', 2},
-                    {'f', 5},
-                }
-            );
+            var parents = new Dictionary<char, char?>
+            {
+                {'a', null},
+                {'b', 'a'},
+                {'c', 'b'},
+                {'d', 'f'},
+                {'e', 'a'},
+                {'f', 'e'},
+            };
+            var distances = new Dictionary<char, int>()
+            {
+                {'a', 0},
+                {'b', 5},
+                {'c', 7},
+                {'d', 7},
+                {'e', 2},
+                {'f', 5},
+            };
+            var expected = new DijkstraResult(parents, distances);
 
             var actual = GetShortestPaths(g);
-            Console.WriteLine(actual);
-
+            var actual2 = GetShortestPaths2ndTime(g);
             Assert.True(AreSameResult(expected, actual));
+
+            Assert.True(AreSameResult(expected.Parents, expected.Distances, actual2.Parents, actual2.Distances));
         }
+
+        private (Dictionary<char, char?> Parents, Dictionary<char, int> Distances)
+            GetShortestPaths2ndTime(Dictionary<char, List<DijkstraEdge>> g)
+        {
+            var parents = new Dictionary<char, char?>();
+            var distances = new Dictionary<char, int>();
+            var toProcess = new Dictionary<char, int>();
+            
+            // Fill distances & processed
+            var isFirst = true;
+            char? sourceVertexKey = null;
+            foreach (char key in g.Keys)
+            {
+                if (isFirst)
+                {
+                    sourceVertexKey = key;
+                    distances.Add(key, 0);
+                    toProcess.Add(key, 0);
+                    isFirst = false;
+                }
+                else
+                {
+                    distances.Add(key, int.MaxValue);
+                    toProcess.Add(key, int.MaxValue);
+                }
+            }
+            
+            // Greedily find the shortest paths from the source vertex to the rest.
+            if (!sourceVertexKey.HasValue) throw new ArgumentNullException();
+            var sourceVetex = sourceVertexKey.Value;
+            parents.Add(sourceVetex, null);
+
+            while (toProcess.Count > 0)
+            {
+                var v = PeekMinimumVertex(toProcess);
+                distances[v.Key] = v.Weight;
+                if (!toProcess.ContainsKey(v.Key)) continue;
+
+                foreach (var adjV in g[v.Key])
+                {
+                    var newW = v.Weight + adjV.Weight;
+                    if (newW < distances[adjV.V2])
+                    {
+                        distances[adjV.V2] = newW;
+                        toProcess[adjV.V2] = newW;
+                        if (!parents.ContainsKey(adjV.V2)) parents.Add(adjV.V2, v.Key);
+                        else parents[adjV.V2] = v.Key;
+                    }
+                }
+
+                toProcess.Remove(v.Key);
+            }
+
+            return (parents, distances);
+        }
+
+        private bool AreSameResult(
+            Dictionary<char, char?> expectedParents,
+            Dictionary<char, int> expectedDistances,
+            Dictionary<char, char?> actualParents,
+            Dictionary<char, int> actualDistances)
+        {
+            return AreSameResult(
+                expected: new DijkstraResult(expectedParents, expectedDistances),
+                actual: new DijkstraResult(actualParents, actualDistances)
+            );
+        }
+
 
         private bool AreSameResult(DijkstraResult expected, DijkstraResult actual)
         {
