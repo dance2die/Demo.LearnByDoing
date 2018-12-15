@@ -14,10 +14,6 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 {
     public class DijkstraRepriseTest : BaseTest
     {
-        public DijkstraRepriseTest(ITestOutputHelper output) : base(output)
-        {
-        }
-
         [Fact]
         public void TestDijkstraHappyPath()
         {
@@ -90,10 +86,72 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             var expected = new DijkstraResult(parents, distances);
 
             var actual = GetShortestPaths(g);
-            var actual2 = GetShortestPaths2ndTime(g);
             Assert.True(AreSameResult(expected, actual));
 
+            var actual2 = GetShortestPaths2ndTime(g);
             Assert.True(AreSameResult(expected.Parents, expected.Distances, actual2.Parents, actual2.Distances));
+
+            var actual3 = GetShortestPaths3rdTime(g);
+            Assert.True(AreSameResult(expected.Parents, expected.Distances, actual3.Parents, actual3.Distances));
+        }
+
+        private (Dictionary<char, char?> Parents, Dictionary<char, int> Distances) GetShortestPaths3rdTime(
+            Dictionary<char, List<DijkstraEdge>> g)
+        {
+            var parents = new Dictionary<char, char?>();
+            var distances = new Dictionary<char, int>();
+            var visited = new HashSet<char>();
+
+            // Fill distances
+            var sourceVertex = g.First().Key;
+            foreach (var v in g.Keys)
+            {
+                distances.Add(v, int.MaxValue);
+            }
+            // We need a starting point
+            distances[sourceVertex] = 0;
+            parents.Add(sourceVertex, null);
+
+            while (distances.Count > visited.Count)
+            {
+                var node = GetMinimumNode(distances, visited);
+                distances[node.Key] = node.Weight;
+                if (visited.Contains(node.Key)) continue;
+                var neighbors = g[node.Key];
+
+                foreach (DijkstraEdge neighbor in neighbors)
+                {
+                    var newWeight = neighbor.Weight + node.Weight;
+                    if (newWeight < distances[neighbor.V2])
+                    {
+                        distances[neighbor.V2] = newWeight;
+                        if (parents.ContainsKey(neighbor.V2)) parents[neighbor.V2] = node.Key;
+                        else parents.Add(neighbor.V2, node.Key);
+                    }
+                }
+
+                visited.Add(node.Key);
+            }
+
+            return (parents, distances);
+        }
+
+        private (char Key, int Weight) GetMinimumNode(Dictionary<char,int> distances, HashSet<char> visited)
+        {
+            char minKey = ' ';
+            int minWeight = int.MaxValue;
+            
+            foreach (KeyValuePair<char,int> node in distances)
+            {
+                if (visited.Contains(node.Key)) continue;
+                if (node.Value < minWeight) (minKey, minWeight) = (node.Key, node.Value);
+            }
+
+            return (minKey, minWeight);
+        }
+
+        public DijkstraRepriseTest(ITestOutputHelper output) : base(output)
+        {
         }
 
         private (Dictionary<char, char?> Parents, Dictionary<char, int> Distances)
@@ -102,7 +160,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             var parents = new Dictionary<char, char?>();
             var distances = new Dictionary<char, int>();
             var toProcess = new Dictionary<char, int>();
-            
+
             // Fill distances & processed
             var isFirst = true;
             char? sourceVertexKey = null;
@@ -121,7 +179,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                     toProcess.Add(key, int.MaxValue);
                 }
             }
-            
+
             // Greedily find the shortest paths from the source vertex to the rest.
             if (!sourceVertexKey.HasValue) throw new ArgumentNullException();
             var sourceVetex = sourceVertexKey.Value;
