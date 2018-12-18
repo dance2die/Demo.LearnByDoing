@@ -1,11 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.LearnByDoing.Core;
 using Xunit;
 using Xunit.Abstractions;
@@ -93,6 +88,60 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
             var actual3 = GetShortestPaths3rdTime(g);
             Assert.True(AreSameResult(expected.Parents, expected.Distances, actual3.Parents, actual3.Distances));
+
+            var actual4 = GetShortestPaths4thTime(g);
+            Assert.True(AreSameResult(expected.Parents, expected.Distances, actual4.Parents, actual4.Distances));
+        }
+
+        private (Dictionary<char, char?> Parents, Dictionary<char, int> Distances) GetShortestPaths4thTime(
+            Dictionary<char, List<DijkstraEdge>> g)
+        {
+            // Declare visited, parents & source vertex
+            var visited = new HashSet<char>();
+            var parents = new Dictionary<char, char?>();
+
+            // initialize distances
+            var distances = g.Keys.Aggregate(new Dictionary<char, int>(), (acc, v) =>
+            {
+                acc.Add(v, int.MaxValue);
+                return acc;
+            });
+
+            // Set the first vertex distance to 0
+            var sourceVertex = g.Keys.First();
+            distances[sourceVertex] = 0;
+            parents.Add(sourceVertex, null);
+
+            // While not all vertices are visited,
+            //     greedily update the distances
+
+            while (distances.Count > visited.Count)
+            {
+                var (fromVertex, currentWeight) = GetMinimumNode(distances, visited);
+                distances[fromVertex] = currentWeight;
+                if (visited.Contains(fromVertex)) continue;
+                if (!g.ContainsKey(fromVertex)) continue;
+
+                var edges = g[fromVertex];
+                foreach (var edge in edges)
+                {
+                    var toVertex = edge.V2;
+                    var newWeight = currentWeight + edge.Weight;
+
+                    // We found the shorter path, so update the distance to the shorter newWeight
+                    if (newWeight < distances[toVertex])
+                    {
+                        distances[toVertex] = newWeight;
+                        // Update parents
+                        if (parents.ContainsKey(toVertex)) parents[toVertex] = fromVertex;
+                        else parents.Add(toVertex, fromVertex);
+                    }
+                }
+
+                visited.Add(fromVertex);
+            }
+
+            return (parents, distances);
         }
 
         private (Dictionary<char, char?> Parents, Dictionary<char, int> Distances) GetShortestPaths3rdTime(
@@ -108,6 +157,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             {
                 distances.Add(v, int.MaxValue);
             }
+
             // We need a starting point
             distances[sourceVertex] = 0;
             parents.Add(sourceVertex, null);
@@ -136,12 +186,12 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             return (parents, distances);
         }
 
-        private (char Key, int Weight) GetMinimumNode(Dictionary<char,int> distances, HashSet<char> visited)
+        private (char Key, int Weight) GetMinimumNode(Dictionary<char, int> distances, HashSet<char> visited)
         {
             char minKey = ' ';
             int minWeight = int.MaxValue;
-            
-            foreach (KeyValuePair<char,int> node in distances)
+
+            foreach (KeyValuePair<char, int> node in distances)
             {
                 if (visited.Contains(node.Key)) continue;
                 if (node.Value < minWeight) (minKey, minWeight) = (node.Key, node.Value);
