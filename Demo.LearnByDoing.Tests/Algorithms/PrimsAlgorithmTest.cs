@@ -71,10 +71,9 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 },
             };
 
-            var actual = GetMinimumSpanningTreeEdgesBad(g);
-            Console.WriteLine(actual);
+//            var actual = GetMinimumSpanningTreeEdgesBad(g);
+//            Console.WriteLine(actual);
 
-            var actual2 = GetMinimumSpanningTreeEdges2(g);
             var expected = new[]
             {
                 new Edge('a', 'd', 1),
@@ -83,7 +82,78 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 new Edge('f', 'e', 2),
                 new Edge('c', 'f', 4),
             };
+
+            var actual2 = GetMinimumSpanningTreeEdges2(g);
             Assert.True(expected.SequenceEqual(actual2));
+
+            var actual3 = GetMinimumSpanningTreeEdges3(g);
+            Assert.True(expected.SequenceEqual(actual3));
+        }
+
+        private IEnumerable<Edge> GetMinimumSpanningTreeEdges3(Dictionary<char,List<Edge>> g)
+        {
+            var vertexToEdge = new Dictionary<char, Edge>();
+            var minHeap = new Dictionary<char, int>();
+            var sourceVertex = g.First().Key;
+            
+            // Populate minHeap
+            foreach (var vertex in g.Keys)
+            {
+                minHeap.Add(vertex, int.MaxValue);
+            }
+
+            minHeap[sourceVertex] = 0;
+            
+            // While the heap has value,
+            //    Get the minimum vertex
+            //    Get adjacent edges
+            //    for each edge
+            //        if the edge weight is less than what's in the heap,
+            //            replace the heap weight to the new weight
+            //            add/replace the edge's vertex parents to the edge
+
+            while (minHeap.Count > 0)
+            {
+                var fromVertex = ExtractMinimumVertex2(minHeap);
+                var edges = g[fromVertex];
+                
+                foreach (Edge edge in edges)
+                {
+                    var toVertex = edge.V2;
+                    if (!minHeap.ContainsKey(toVertex)) continue;
+                    
+                    if (edge.Weight < minHeap[toVertex])
+                    {
+                        minHeap[toVertex] = edge.Weight;
+                        if (vertexToEdge.ContainsKey(toVertex)) vertexToEdge[toVertex] = edge;
+                        else vertexToEdge.Add(toVertex, edge);
+                    }
+                }
+
+                minHeap.Remove(fromVertex);
+            }
+            
+
+            return vertexToEdge.Values;
+        }
+
+        private char ExtractMinimumVertex2(Dictionary<char,int> minHeap)
+        {
+            if (minHeap == null || minHeap.Count <= 0) throw new ArgumentOutOfRangeException();
+            
+            int minWeight = minHeap.First().Value;
+            char vertex = minHeap.First().Key;
+
+            foreach (KeyValuePair<char,int> pair in minHeap.Skip(1))
+            {
+                if (pair.Value < minWeight)
+                {
+                    minWeight = pair.Value;
+                    vertex = pair.Key;
+                }
+            }
+
+            return vertex;
         }
 
         private IEnumerable<Edge> GetMinimumSpanningTreeEdges2(Dictionary<char, List<Edge>> g)
@@ -94,7 +164,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
             while (hm.Count > 0)
             {
-                var (fromVertex, _) = ExtractMinimumNode(hm);
+                var fromVertex = ExtractMinimumVertex(hm);
                 var edges = g[fromVertex];
 
                 foreach (Edge edge in edges)
@@ -117,11 +187,11 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             return ve.Values;
         }
 
-        private (char Key, int Weight) ExtractMinimumNode(Dictionary<char, int> minHeapMap)
+        private char ExtractMinimumVertex(Dictionary<char, int> minHeapMap)
         {
             var minValue = minHeapMap.Min(_ => _.Value);
             var minimumNode = minHeapMap.First(_ => _.Value == minValue);
-            return (minimumNode.Key, minimumNode.Value);
+            return minimumNode.Key;
         }
 
         private Dictionary<char, int> BuildBinaryMinHeap(Dictionary<char, List<Edge>> g)
