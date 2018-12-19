@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
-
 using Demo.LearnByDoing.Tests.DataStructure.Tree;
 
 namespace Demo.LearnByDoing.Tests.Algorithms
@@ -21,49 +21,122 @@ namespace Demo.LearnByDoing.Tests.Algorithms
         {
             var g = new Dictionary<char, List<Edge>>
             {
-                {'a', new List<Edge>
                 {
-                    new Edge('a', 'd', 1),
-                    new Edge('a', 'b', 3),
-                } },
-                {'b', new List<Edge>
+                    'a', new List<Edge>
+                    {
+                        new Edge('a', 'd', 1),
+                        new Edge('a', 'b', 3),
+                    }
+                },
                 {
-                    new Edge('b', 'a', 3),
-                    new Edge('b', 'c', 1),
-                    new Edge('b', 'd', 3),
-                } },
-                {'c', new List<Edge>
+                    'b', new List<Edge>
+                    {
+                        new Edge('b', 'a', 3),
+                        new Edge('b', 'c', 1),
+                        new Edge('b', 'd', 3),
+                    }
+                },
                 {
-                    new Edge('c', 'b', 1),
-                    new Edge('c', 'd', 1),
-                    new Edge('c', 'e', 5),
-                    new Edge('c', 'f', 4),
-                } },
-                {'d', new List<Edge>
+                    'c', new List<Edge>
+                    {
+                        new Edge('c', 'b', 1),
+                        new Edge('c', 'd', 1),
+                        new Edge('c', 'e', 5),
+                        new Edge('c', 'f', 4),
+                    }
+                },
                 {
-                    new Edge('d', 'a', 3),
-                    new Edge('d', 'b', 3),
-                    new Edge('d', 'c', 1),
-                    new Edge('d', 'e', 6),
-                } },
-                {'e', new List<Edge>
+                    'd', new List<Edge>
+                    {
+                        new Edge('d', 'a', 3),
+                        new Edge('d', 'b', 3),
+                        new Edge('d', 'c', 1),
+                        new Edge('d', 'e', 6),
+                    }
+                },
                 {
-                    new Edge('e', 'd', 6),
-                    new Edge('e', 'c', 5),
-                    new Edge('e', 'f', 2),
-                } },
-                {'f', new List<Edge>
+                    'e', new List<Edge>
+                    {
+                        new Edge('e', 'd', 6),
+                        new Edge('e', 'c', 5),
+                        new Edge('e', 'f', 2),
+                    }
+                },
                 {
-                    new Edge('f', 'c', 4),
-                    new Edge('f', 'e', 2),
-                } },
+                    'f', new List<Edge>
+                    {
+                        new Edge('f', 'c', 4),
+                        new Edge('f', 'e', 2),
+                    }
+                },
             };
 
-            var actual = GetMinimumSpanningTreeEdges(g);
+            var actual = GetMinimumSpanningTreeEdgesBad(g);
             Console.WriteLine(actual);
+
+            var actual2 = GetMinimumSpanningTreeEdges2(g);
+            var expected = new[]
+            {
+                new Edge('a', 'd', 1),
+                new Edge('c', 'b', 1),
+                new Edge('d', 'c', 1),
+                new Edge('f', 'e', 2),
+                new Edge('c', 'f', 4),
+            };
+            Assert.True(expected.SequenceEqual(actual2));
         }
 
-        private IEnumerable<Edge> GetMinimumSpanningTreeEdges(Dictionary<char, List<Edge>> g)
+        private IEnumerable<Edge> GetMinimumSpanningTreeEdges2(Dictionary<char, List<Edge>> g)
+        {
+            // emulate Binary MinHeap
+            var ve = new Dictionary<char, Edge>();
+            var hm = BuildBinaryMinHeap(g);
+
+            while (hm.Count > 0)
+            {
+                var (fromVertex, _) = ExtractMinimumNode(hm);
+                var edges = g[fromVertex];
+
+                foreach (Edge edge in edges)
+                {
+                    var toVertex = edge.V2;
+                    if (!hm.ContainsKey(toVertex)) continue;
+
+                    var newWeight = edge.Weight;
+                    if (newWeight < hm[toVertex])
+                    {
+                        hm[toVertex] = newWeight;
+                        if (ve.ContainsKey(toVertex)) ve[toVertex] = edge;
+                        else ve.Add(toVertex, edge);
+                    }
+                }
+
+                hm.Remove(fromVertex);
+            }
+
+            return ve.Values;
+        }
+
+        private (char Key, int Weight) ExtractMinimumNode(Dictionary<char, int> minHeapMap)
+        {
+            var minValue = minHeapMap.Min(_ => _.Value);
+            var minimumNode = minHeapMap.First(_ => _.Value == minValue);
+            return (minimumNode.Key, minimumNode.Value);
+        }
+
+        private Dictionary<char, int> BuildBinaryMinHeap(Dictionary<char, List<Edge>> g)
+        {
+            var sourceVertex = g.First().Key;
+            var result = g.Keys.Aggregate(new Dictionary<char, int>(), (acc, key) =>
+            {
+                acc.Add(key, int.MaxValue);
+                return acc;
+            });
+            result[sourceVertex] = 0;
+            return result;
+        }
+
+        private IEnumerable<Edge> GetMinimumSpanningTreeEdgesBad(Dictionary<char, List<Edge>> g)
         {
             var h = new BinaryMinHeap<char>();
             var vte = new Dictionary<char, Edge>();
@@ -73,10 +146,10 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             {
                 if (isFirst)
                 {
-                    h.Add(new BinaryMinHeap<char>.Node { Id = key, Weight = 0 });
+                    h.Add(new BinaryMinHeap<char>.Node {Id = key, Weight = 0});
                     isFirst = false;
                 }
-                else h.Add(new BinaryMinHeap<char>.Node { Id = key, Weight = int.MaxValue });
+                else h.Add(new BinaryMinHeap<char>.Node {Id = key, Weight = int.MaxValue});
             }
 
             var result = new List<Edge>();
@@ -125,6 +198,11 @@ namespace Demo.LearnByDoing.Tests.Algorithms
         {
             return $"{V1}:{Weight}:{V2}";
         }
-    }
 
+        public override bool Equals(object obj)
+        {
+            var toEdge = obj as Edge;
+            return this.V1 == toEdge.V1 && this.V2 == toEdge.V2 && this.Weight == toEdge.Weight;
+        }
+    }
 }
