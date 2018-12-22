@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using Demo.LearnByDoing.General.Algorithms.Graph;
+using NUnit.Framework.Constraints;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.Algorithms
@@ -14,6 +16,113 @@ namespace Demo.LearnByDoing.Tests.Algorithms
     /// </summary>
     public class BellmanFordFromScratchTest
     {
+        [Fact]
+        public void TestBellmanFordFromMemory()
+        {
+            var g = new Dictionary<char, List<(char ToVertex, int Weight)>>
+            {
+                {
+                    '0', new List<(char ToVertex, int Weight)>
+                    {
+                        ('1', 4),
+                        ('2', 5),
+                        ('3', 8),
+                    }
+                },
+                {
+                    '1', new List<(char ToVertex, int Weight)>
+                    {
+                        ('2', -3),
+                    }
+                },
+                {
+                    '2', new List<(char ToVertex, int Weight)>
+                    {
+                        ('4', 4),
+                    }
+                },
+                {
+                    '3', new List<(char ToVertex, int Weight)>
+                    {
+                        ('4', 2),
+                    }
+                },
+                {
+                    '4', new List<(char ToVertex, int Weight)>
+                    {
+                        ('3', 1),
+                    }
+                },
+            };
+
+            var expected = new Dictionary<char, (int Distance, char? Parent)>
+            {
+                {'0', (Distance: 0, Parent: (char?) null)},
+                {'1', (Distance: 4, Parent: '0')},
+                {'2', (Distance: 1, Parent: '1')},
+                {'3', (Distance: 6, Parent: '4')},
+                {'4', (Distance: 5, Parent: '2')},
+            };
+
+            var actual = GetShortestPaths2(g, g.First().Key);
+            Assert.True(AreTuplesSame(expected, actual));
+        }
+
+        private bool AreTuplesSame(Dictionary<char, (int Distance, char? Parent)> expected,
+            Dictionary<char, (int Distance, char? Parent)> actual)
+        {
+            if (expected.Count != actual.Count) return false;
+
+            foreach (KeyValuePair<char, (int Distance, char? Parent)> expectedNode in expected)
+            {
+                (int Distance, int? Parent) actualValue = actual[expectedNode.Key];
+                (int Distance, int? Parent) expectedValue = expectedNode.Value;
+                if (actualValue.Distance != expectedValue.Distance) return false;
+                if (actualValue.Parent != expectedValue.Parent) return false;
+            }
+
+            return true;
+        }
+
+        private Dictionary<char, (int Distance, char? Parent)> GetShortestPaths2(
+            Dictionary<char, List<(char ToVertex, int Weight)>> g, char sourceVertex)
+        {
+            var parents = new Dictionary<char, char?> {[sourceVertex] = null};
+            var distances = g.Aggregate(new Dictionary<char, int>(), (acc, node) =>
+            {
+                acc.Add(node.Key, int.MaxValue);
+                return acc;
+            });
+            distances[sourceVertex] = 0;
+
+            // We need to iterate at most V-1 times
+            for (int i = 0; i < g.Keys.Count - 1; i++)
+            {
+                foreach (KeyValuePair<char, List<(char ToVertex, int Weight)>> node in g)
+                {
+                    var fromVertex = node.Key;
+                    var edges = node.Value;
+                    foreach ((char ToVertex, int Weight) edge in edges)
+                    {
+                        var newWeight = distances[fromVertex] + edge.Weight;
+                        var currentWeight = distances[edge.ToVertex];
+                        if (newWeight < currentWeight)
+                        {
+                            distances[edge.ToVertex] = newWeight;
+                            parents[edge.ToVertex] = fromVertex;
+                        }
+                    }
+                }
+            }
+
+            return distances.Aggregate(new Dictionary<char, (int Distance, char? Parent)>(),
+                (acc, node) =>
+                {
+                    acc.Add(node.Key, (node.Value, parents[node.Key]));
+                    return acc;
+                });
+        }
+
         [Theory]
         [MemberData(nameof(GetSamples))]
         void TestSamplesForShortestPath(BellmanFordPaths expected, Graph<char> graph)
@@ -77,7 +186,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 }
             }
 
-            return new BellmanFordPaths { Parents = parents, ShortestPaths = shortestPaths };
+            return new BellmanFordPaths {Parents = parents, ShortestPaths = shortestPaths};
         }
 
         class BellmanFordPaths
@@ -96,12 +205,12 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             var e = new Node<char>('E');
 
             var g1 = new Graph<char>();
-            g1.AddVertex(s, new[] { new Edge<char>(10, a), new Edge<char>(8, e) });
-            g1.AddVertex(a, new[] { new Edge<char>(2, c) });
-            g1.AddVertex(b, new[] { new Edge<char>(1, a) });
-            g1.AddVertex(c, new[] { new Edge<char>(-2, b) });
-            g1.AddVertex(d, new[] { new Edge<char>(-1, c), new Edge<char>(-4, a) });
-            g1.AddVertex(e, new[] { new Edge<char>(1, d) });
+            g1.AddVertex(s, new[] {new Edge<char>(10, a), new Edge<char>(8, e)});
+            g1.AddVertex(a, new[] {new Edge<char>(2, c)});
+            g1.AddVertex(b, new[] {new Edge<char>(1, a)});
+            g1.AddVertex(c, new[] {new Edge<char>(-2, b)});
+            g1.AddVertex(d, new[] {new Edge<char>(-1, c), new Edge<char>(-4, a)});
+            g1.AddVertex(e, new[] {new Edge<char>(1, d)});
 
             yield return new object[]
             {
@@ -109,14 +218,15 @@ namespace Demo.LearnByDoing.Tests.Algorithms
                 {
                     ShortestPaths = new Dictionary<Node<char>, int>
                     {
-                        {new Node<char>('S'), 0},{new Node<char>('A'), 5},{new Node<char>('B'), 5},
-                        {new Node<char>('C'), 7},{new Node<char>('D'), 9},{new Node<char>('E'), 8},
+                        {new Node<char>('S'), 0}, {new Node<char>('A'), 5}, {new Node<char>('B'), 5},
+                        {new Node<char>('C'), 7}, {new Node<char>('D'), 9}, {new Node<char>('E'), 8},
                     },
                     Parents = new Dictionary<Node<char>, Node<char>>
                     {
-                        { a, d }, { e, s }, { c, a }, { b, c }, { d, e }
+                        {a, d}, {e, s}, {c, a}, {b, c}, {d, e}
                     }
-                },g1
+                },
+                g1
             };
         }
 
@@ -128,13 +238,13 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             var c = new Node<char>('C');
 
             var g1 = new Graph<char>();
-            g1.AddVertex(s, new[] { new Edge<char>(1, a) });
-            g1.AddVertex(a, new[] { new Edge<char>(3, b) });
-            g1.AddVertex(b, new[] { new Edge<char>(1, c) });
-            g1.AddVertex(c, new[] { new Edge<char>(-6, a) });
+            g1.AddVertex(s, new[] {new Edge<char>(1, a)});
+            g1.AddVertex(a, new[] {new Edge<char>(3, b)});
+            g1.AddVertex(b, new[] {new Edge<char>(1, c)});
+            g1.AddVertex(c, new[] {new Edge<char>(-6, a)});
 
             // Empty object since we are checking for a negative cycle, which throws an exception.
-            yield return new object[] { g1 };
+            yield return new object[] {g1};
         }
     }
 }
