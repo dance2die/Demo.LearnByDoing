@@ -66,6 +66,51 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
             var actual = GetShortestPaths2(g, g.First().Key);
             Assert.True(AreTuplesSame(expected, actual));
+
+            var actual2 = GetShortestPaths3(g, g.First().Key);
+            Assert.True(AreTuplesSame(expected, actual2));
+        }
+
+        private Dictionary<char, (int Distance, char? Parent)> GetShortestPaths3(
+            Dictionary<char, List<(char ToVertex, int Weight)>> g, char sourceVertex)
+        {
+            var distances = new Dictionary<char, int>();
+            var parents = new Dictionary<char, char?>();
+
+            foreach (var v in g.Keys)
+            {
+                distances.Add(v, int.MaxValue);
+            }
+
+            distances[sourceVertex] = 0;
+            parents.Add(sourceVertex, null);
+
+            for (int i = 0; i < g.Keys.Count - 1; i++)
+            {
+                foreach (char fromVertex in g.Keys)
+                {
+                    var edges = g[fromVertex];
+                    foreach ((char ToVertex, int Weight) edge in edges)
+                    {
+                        var currentWeight = distances[edge.ToVertex];
+                        var newWeight = distances[fromVertex] + edge.Weight;
+                        if (newWeight < currentWeight)
+                        {
+                            distances[edge.ToVertex] = newWeight;
+                            if (parents.ContainsKey(edge.ToVertex)) parents[edge.ToVertex] = fromVertex;
+                            else parents.Add(edge.ToVertex, fromVertex);
+                        }
+                    }
+                }
+            }
+
+            var result = new Dictionary<char, (int Distance, char? Parent)>();
+            foreach (KeyValuePair<char,int> distance in distances)
+            {
+                result.Add(distance.Key, (distance.Value, parents[distance.Key]));
+            }
+
+            return result;
         }
 
         private bool AreTuplesSame(Dictionary<char, (int Distance, char? Parent)> expected,
