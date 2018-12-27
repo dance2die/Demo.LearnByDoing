@@ -69,6 +69,46 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
             var actual2 = GetShortestPaths3(g, g.First().Key);
             Assert.True(AreTuplesSame(expected, actual2));
+
+            var actual3 = GetShortestPaths4(g, g.First().Key);
+            Assert.True(AreTuplesSame(expected, actual3));
+        }
+
+        private Dictionary<char, (int Distance, char? Parent)> GetShortestPaths4(
+            Dictionary<char, List<(char ToVertex, int Weight)>> g, char sourceVertex)
+        {
+            var distances = g.Keys.Aggregate(new Dictionary<char, int>(), (acc, v) =>
+            {
+                acc.Add(v, int.MaxValue);
+                return acc;
+            });
+            distances[sourceVertex] = 0;
+            var parents = new Dictionary<char, char?> {{sourceVertex, null}};
+
+            for (int i = 0; i < g.Keys.Count - 1; i++)
+            {
+                foreach (var fromVertex in g.Keys)
+                {
+                    var edges = g[fromVertex];
+                    foreach ((char ToVertex, int Weight) edge in edges)
+                    {
+                        var currentWeight = distances[edge.ToVertex];
+                        var newWeight = distances[fromVertex] + edge.Weight;
+                        if (newWeight < currentWeight)
+                        {
+                            distances[edge.ToVertex] = newWeight;
+                            if (parents.ContainsKey(edge.ToVertex)) parents[edge.ToVertex] = fromVertex;
+                            else parents.Add(edge.ToVertex, fromVertex);
+                        }
+                    }
+                }
+            }
+
+            return distances.Aggregate(new Dictionary<char, (int Distance, char? Parent)>(), (acc, distance) =>
+            {
+                acc.Add(distance.Key, (distance.Value, parents[distance.Key]));
+                return acc;
+            });
         }
 
         private Dictionary<char, (int Distance, char? Parent)> GetShortestPaths3(
@@ -105,7 +145,7 @@ namespace Demo.LearnByDoing.Tests.Algorithms
             }
 
             var result = new Dictionary<char, (int Distance, char? Parent)>();
-            foreach (KeyValuePair<char,int> distance in distances)
+            foreach (KeyValuePair<char, int> distance in distances)
             {
                 result.Add(distance.Key, (distance.Value, parents[distance.Key]));
             }
