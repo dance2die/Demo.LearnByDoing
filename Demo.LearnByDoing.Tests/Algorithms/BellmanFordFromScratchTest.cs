@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
 using Demo.LearnByDoing.General.Algorithms.Graph;
-using NUnit.Framework.Constraints;
 using Xunit;
 
 namespace Demo.LearnByDoing.Tests.Algorithms
@@ -72,6 +70,53 @@ namespace Demo.LearnByDoing.Tests.Algorithms
 
             var actual3 = GetShortestPaths4(g, g.First().Key);
             Assert.True(AreTuplesSame(expected, actual3));
+
+            var actual4 = GetShortestPaths5(g, g.First().Key);
+            Assert.True(AreTuplesSame(expected, actual4));
+        }
+
+        private Dictionary<char, (int Distance, char? Parent)> GetShortestPaths5(
+            Dictionary<char, List<(char ToVertex, int Weight)>> g, char sourceVertex)
+        {
+            var parents = new Dictionary<char, char?>{{sourceVertex, null}};
+            var distances = new Dictionary<char, int>();
+            
+            // fill distances
+            foreach (char vertex in g.Keys)
+            {
+                distances.Add(vertex, int.MaxValue);
+            }
+
+            distances[sourceVertex] = 0;
+
+            // relax distances
+            for (int i = 0; i < g.Keys.Count - 1; i++)
+            {
+                foreach (var startVertex in g.Keys)
+                {
+                    var edges = g[startVertex];
+                    foreach ((char ToVertex, int Weight) edge in edges)
+                    {
+                        var endVertex = edge.ToVertex;
+                        var currentWeight = distances[endVertex];
+                        var newWeight = distances[startVertex] + edge.Weight;
+                        if (newWeight < currentWeight)
+                        {
+                            distances[endVertex] = newWeight;
+                            if (parents.ContainsKey(endVertex)) parents[endVertex] = startVertex;
+                            else parents.Add(endVertex, startVertex);
+                        }
+                    }
+                }
+            }
+
+            // return built result
+            var result = new Dictionary<char, (int Distance, char? Parent)>();
+            foreach (var vertex in g.Keys)
+            {
+                result.Add(vertex, (distances[vertex], parents[vertex]));
+            }
+            return result;
         }
 
         private Dictionary<char, (int Distance, char? Parent)> GetShortestPaths4(
