@@ -146,6 +146,7 @@
     <Compile Include="CodeSignal\Challenges\PrefixSumsTest.cs" />
     <Compile Include="CodeSignal\Challenges\SortByZTest.cs" />
     <Compile Include="CodeSignal\CommonTechniques\SumInRangeTest.cs" />
+    <Compile Include="CodeSignal\Hashtable\PossibleSumsTest.cs" />
     <Compile Include="CodeSignal\InterviewPractice\BackTracking\ClimbingStairCaseTest.cs" />
     <Compile Include="CodeSignal\InterviewPractice\DfsBfs\LongestPathTest.cs" />
     <Compile Include="CodeWars\Beta\ComGovOrgFirstTest.cs" />
@@ -371,6 +372,7 @@
     <Compile Include="RandomStuff\MergeSortTest.cs" />
     <Compile Include="RandomStuff\PalindromeUsingXorTest.cs" />
     <Compile Include="RandomStuff\PermutablePrimesTest.cs" />
+    <Compile Include="RandomStuff\PermutateTest.cs" />
     <Compile Include="RandomStuff\QuickSortTest.cs" />
     <Compile Include="RandomStuff\RecursionTest.cs" />
     <Compile Include="RandomStuff\TreeNodeAncestorDecendentCheckTest.cs" />

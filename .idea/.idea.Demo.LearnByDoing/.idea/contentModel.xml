@@ -247,6 +247,9 @@
           <e p="CommonTechniques" t="Include">
             <e p="SumInRangeTest.cs" t="Include" />
           </e>
+          <e p="Hashtable" t="Include">
+            <e p="PossibleSumsTest.cs" t="Include" />
+          </e>
           <e p="InterviewPractice" t="Include">
             <e p="BackTracking" t="Include">
               <e p="ClimbingStairCaseTest.cs" t="Include" />
@@ -546,6 +549,7 @@
           <e p="MergeSortTest.cs" t="Include" />
           <e p="PalindromeUsingXorTest.cs" t="Include" />
           <e p="PermutablePrimesTest.cs" t="Include" />
+          <e p="PermutateTest.cs" t="Include" />
           <e p="QuickSortTest.cs" t="Include" />
           <e p="RecursionTest.cs" t="Include" />
           <e p="TreeNodeAncestorDecendentCheckTest.cs" t="Include" />
