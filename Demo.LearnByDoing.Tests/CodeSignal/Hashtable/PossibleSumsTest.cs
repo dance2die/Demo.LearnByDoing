@@ -20,7 +20,7 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.Hashtable
         {
             yield return new object[]
             {
-                new[] {50, 60, 150, 160, 100, 110, 200, 210, 10, 100, 110}, 
+                new[] {10, 50, 60, 100, 110, 150, 160, 200, 210},
                 new[] {10, 50, 100}, new[] {1, 2, 1}
             };
         }
@@ -30,37 +30,40 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.Hashtable
         public void TestHappyPaths(int[] expected, int[] coins, int[] quantity)
         {
             var actual = GetSums(coins, quantity);
-            Assert.True(expected.OrderBy(_=>_).SequenceEqual(actual));
+            Assert.True(expected.OrderBy(_ => _).SequenceEqual(actual));
         }
 
         private IEnumerable<int> GetSums(int[] coins, int[] quantity)
         {
             var sums = new HashSet<int>();
-            GetSums(coins, quantity, 0, sums);
+            GetSums(coins, quantity, 0, sums, 0);
             return sums.OrderBy(_ => _);
         }
 
-        private int? GetSums(int[] coins, int[] quantity, int startIndex, HashSet<int> sums)
+        private int? GetSums(int[] coins, int[] quantity, int startIndex, HashSet<int> sums, int acc)
         {
             if (startIndex >= coins.Length) return null;
 
+            int? sum = null;
             for (int s = startIndex; s < coins.Length; s++)
             {
-                for (int q = 1; q <= quantity.Length; q++)
+                for (int q = 1; q <= quantity[startIndex]; q++)
                 {
                     for (int e = s; e < coins.Length; e++)
                     {
-                        var current = q * coins[s];
-                        if (!sums.Contains(current)) sums.Add(current);
+                        var currentValue = q * coins[s];
+                        if (!sums.Contains(currentValue)) sums.Add(currentValue);
+                        if (!sums.Contains(currentValue + acc)) sums.Add(currentValue + acc);
 
-                        int sum = 0;
-                        sum += current + GetSums(coins, quantity, s + 1, sums) ?? 0;
-                        if (!sums.Contains(sum)) sums.Add(sum);
+                        var nextValue = (GetSums(coins, quantity, s + 1, sums, currentValue + acc) ?? 0);
+                        sum = currentValue + nextValue;
+                        if (!sums.Contains(sum.Value)) sums.Add(sum.Value);
+                        if (!sums.Contains(sum.Value + acc)) sums.Add(sum.Value + acc);
                     }
                 }
             }
 
-            return null;
+            return sum;
         }
     }
 }
