@@ -25,6 +25,26 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.Hashtable
             };
         }
 
+        public static IEnumerable<object[]> GetCodeSignalTestData()
+        {
+            yield return new object[] {9, new[] {10, 50, 100}, new[] {1, 2, 1}};
+            yield return new object[] {50004, new[] {1, 2}, new[] {50000, 2}};
+            yield return new object[] {122, new[] {10, 50, 100, 500}, new[] {5, 3, 2, 2}};
+            yield return new object[] {5, new[] {1}, new[] {5}};
+            yield return new object[] {5, new[] {1, 1}, new[] {2, 3}};
+            yield return new object[] {30008, new[] {1, 2, 3}, new[] {2, 3, 10000}};
+            yield return new object[] {521, new[] {3, 1, 1}, new[] {111, 84, 104}};
+            yield return new object[] {77, new[] {1, 1, 1, 1, 1}, new[] {9, 19, 18, 12, 19}};
+        }
+
+        [Theory]
+        [MemberData(nameof(GetCodeSignalTestData))]
+        public void TestCodeSignalTestCases(int expected, int[] coins, int[] quantity)
+        {
+            var actual = GetSums(coins, quantity).Count();
+            Assert.Equal(expected, actual);
+        }
+
         [Theory]
         [MemberData(nameof(GetSamples))]
         public void TestHappyPaths(int[] expected, int[] coins, int[] quantity)
