@@ -71,6 +71,7 @@
     <Compile Include="Algorithms\DijkstraRepriseTest.cs" />
     <Compile Include="Algorithms\GraphBreadthFirstSearchTest.cs" />
     <Compile Include="Algorithms\LevenshteinDistanceTest.cs" />
+    <Compile Include="Algorithms\LinkedList\ReverseLinkedListTest.cs" />
     <Compile Include="Algorithms\MakePalindromeTest.cs" />
     <Compile Include="Algorithms\MergeSortTest.cs" />
     <Compile Include="Algorithms\PrimsAlgorithmTest.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="CodeSignal\Challenges\PrefixSumsTest.cs" />
     <Compile Include="CodeSignal\Challenges\SortByZTest.cs" />
     <Compile Include="CodeSignal\CommonTechniques\SumInRangeTest.cs" />
+    <Compile Include="CodeSignal\Hashtable\FindLongestSubArrayBySumTest.cs" />
     <Compile Include="CodeSignal\Hashtable\PossibleSumsTest.cs" />
     <Compile Include="CodeSignal\InterviewPractice\BackTracking\ClimbingStairCaseTest.cs" />
     <Compile Include="CodeSignal\InterviewPractice\DfsBfs\LongestPathTest.cs" />
