@@ -253,6 +253,7 @@
           <e p="Hashtable" t="Include">
             <e p="FindLongestSubArrayBySumTest.cs" t="Include" />
             <e p="PossibleSumsTest.cs" t="Include" />
+            <e p="ProductExceptSelfTest.cs" t="Include" />
           </e>
           <e p="InterviewPractice" t="Include">
             <e p="BackTracking" t="Include">

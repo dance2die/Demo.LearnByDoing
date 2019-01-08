@@ -149,6 +149,7 @@
     <Compile Include="CodeSignal\CommonTechniques\SumInRangeTest.cs" />
     <Compile Include="CodeSignal\Hashtable\FindLongestSubArrayBySumTest.cs" />
     <Compile Include="CodeSignal\Hashtable\PossibleSumsTest.cs" />
+    <Compile Include="CodeSignal\Hashtable\ProductExceptSelfTest.cs" />
     <Compile Include="CodeSignal\InterviewPractice\BackTracking\ClimbingStairCaseTest.cs" />
     <Compile Include="CodeSignal\InterviewPractice\DfsBfs\LongestPathTest.cs" />
     <Compile Include="CodeWars\Beta\ComGovOrgFirstTest.cs" />
