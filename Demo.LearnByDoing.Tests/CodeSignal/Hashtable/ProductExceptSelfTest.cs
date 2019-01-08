@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -32,16 +33,17 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.Hashtable
 
         private int productExceptSelf(int[] nums, int m)
         {
-            var products = GetProducts(nums).ToArray();
-            var moduloSum = GetModuloSum(products, m);
-
-            return (int) (moduloSum % m);
+            var products = GetProducts(nums, m).ToArray();
+            return products.Sum() % m;
+//            var moduloSum = GetModuloSum(products, m);
+//
+//            return (int) (moduloSum % m);
         }
 
-        private IEnumerable<BigInteger> GetProducts(int[] nums)
+        private IEnumerable<int> GetProducts(int[] nums, int m)
         {
-            var forward = new BigInteger[nums.Length];
-            var backward = new BigInteger[nums.Length];
+            var forward = new double[nums.Length];
+            var backward = new double[nums.Length];
 
             for (int i = 0; i < nums.Length; i++)
             {
@@ -52,36 +54,19 @@ namespace Demo.LearnByDoing.Tests.CodeSignal.Hashtable
             // forward 
             for (int i = 0; i < nums.Length - 1; i++)
             {
-                forward[i + 1] = nums[i] * forward[i];
+                forward[i + 1] = (nums[i] * forward[i]) % m;
             }
             
             // backward
             for (int i = nums.Length - 1; i > 0; i--)
             {
-                backward[i - 1] = nums[i] * backward[i];
+                backward[i - 1] = (nums[i] * backward[i]) % m;
             }
 
             for (int i = 0; i < nums.Length; i++)
             {
-                yield return forward[i] * backward[i];
+                yield return (int)(forward[i] * backward[i]);
             }
-        }
-
-        private BigInteger GetModuloSum(BigInteger[] products, int m)
-        {
-            var a = new BigInteger[products.Length];
-            for (int i = 0; i < products.Length; i++)
-            {
-                a[i] = products[i] % m;
-            }
-
-            BigInteger sum = BigInteger.Zero;
-            for (int i = 0; i < products.Length; i++)
-            {
-                sum += a[i];
-            }
-
-            return sum;
         }
 
         public ProductExceptSelfTest(ITestOutputHelper output) : base(output)
